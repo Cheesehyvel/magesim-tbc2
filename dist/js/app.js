@@ -453,13 +453,13 @@ __webpack_require__.r(__webpack_exports__);
         cooldowns_at: 10,
         talents: "2500250300030150330125000000000000000000000000535000310030010000000",
         stats: {
-          intellect: 0,
-          spirit: 0,
-          crit: 0,
+          intellect: 465,
+          spirit: 285,
+          crit: 20,
           hit: 0,
           haste: 0,
-          spell_power: 0,
-          spell_power_arcane: 0,
+          spell_power: 1000,
+          spell_power_arcane: 50,
           spell_power_frost: 0,
           spell_power_fire: 0
         }
