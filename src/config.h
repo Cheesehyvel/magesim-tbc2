@@ -1,9 +1,6 @@
-#pragma once
-
-class Settings
+struct Config
 {
 
-public:
     int duration = 200;
     int vampiric_touch_regen = 50;
 
@@ -13,7 +10,7 @@ public:
     bool judgement_of_wisdom = true;
     bool vampiric_touch = true;
 
-    bool totem_of_wrath = true;
+    bool totem_of_wrath = false;
     bool wrath_of_air = true;
     bool mana_spring = true;
     bool arcane_intellect = true;

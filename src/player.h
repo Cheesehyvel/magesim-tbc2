@@ -1,7 +1,8 @@
-#pragma once
-
 #include <string>
 #include <math.h>
+#include <memory>
+
+using namespace std;
 
 class Player
 {
@@ -9,100 +10,96 @@ class Player
 public:
     const double base_mana = 1961;
 
-    Stats baseStats;
     Stats stats;
     Talents talents;
-    Settings *settings;
+    shared_ptr<Config> config;
     Race race = RACE_UNDEAD;
     Spec spec = SPEC_ARCANE;
 
-    Player(Settings *_settings)
+    Player(shared_ptr<Config> _config)
     {
-        settings = _settings;
+        config = _config;
 
-        setDefault();
+        setBaseStats();
     }
 
     // Stats without gear or talents
-    void setBase()
+    void setBaseStats()
     {
         // Undead default
-        baseStats.intellect = 149;
-        baseStats.spirit = 150;
-        baseStats.crit = 0.91;
-        baseStats.hit = 0;
-        baseStats.haste = 0;
-        baseStats.spell_power = 0;
-        baseStats.spell_power_arcane = 0;
-        baseStats.spell_power_frost = 0;
+        stats.intellect = 149;
+        stats.spirit = 150;
+        stats.crit = 0.91;
+        stats.hit = 0;
+        stats.haste = 0;
+        stats.spell_power = 0;
+        stats.spell_power_arcane = 0;
+        stats.spell_power_frost = 0;
 
         if (race == RACE_TROLL) {
-            baseStats.intellect = 147;
-            baseStats.spirit = 146;
+            stats.intellect = 147;
+            stats.spirit = 146;
         }
         if (race == RACE_BLOOD_ELF) {
-            baseStats.intellect = 155;
-            baseStats.spirit = 144;
+            stats.intellect = 155;
+            stats.spirit = 144;
         }
         if (race == RACE_DRAENEI) {
-            baseStats.intellect = 152;
-            baseStats.spirit = 147;
+            stats.intellect = 152;
+            stats.spirit = 147;
         }
         if (race == RACE_GNOME) {
-            baseStats.intellect = 155;
-            baseStats.spirit = 145;
+            stats.intellect = 155;
+            stats.spirit = 145;
         }
         if (race == RACE_HUMAN) {
-            baseStats.intellect = 151;
-            baseStats.spirit = 145;
+            stats.intellect = 151;
+            stats.spirit = 145;
         }
     }
 
     // Stats with gear but without talents
-    void setDefault()
+    void setDefaultStats()
     {
-        baseStats.intellect = 465;
-        baseStats.spirit = 285;
-        baseStats.crit = 20;
-        baseStats.hit = 6;
-        baseStats.haste = 0;
-        baseStats.spell_power = 1000;
-        baseStats.spell_power_arcane = 50;
-        baseStats.spell_power_frost = 0;
+        stats.intellect = 465;
+        stats.spirit = 285;
+        stats.crit = 20;
+        stats.hit = 6;
+        stats.haste = 0;
+        stats.spell_power = 1000;
+        stats.spell_power_arcane = 50;
+        stats.spell_power_frost = 0;
+    }
+
+    void quickReady()
+    {
+        setDefaultTalents();
+        setDefaultStats();
+        setConfigStats();
     }
 
     void ready()
     {
-        setTalents();
-        setStats();
+        setConfigStats();
     }
 
-    void copyBaseStats()
+    void setStats(Stats _stats)
     {
-        stats.intellect = baseStats.intellect;
-        stats.spirit = baseStats.spirit;
-        stats.crit = baseStats.crit;
-        stats.hit = baseStats.hit;
-        stats.haste = baseStats.haste;
-        stats.spell_power = baseStats.spell_power;
-        stats.spell_power_arcane = baseStats.spell_power_arcane;
-        stats.spell_power_frost = baseStats.spell_power_frost;
+        stats = _stats;
     }
 
-    void setStats()
+    void setConfigStats()
     {
-        copyBaseStats();
-
         // Attribute additions
-        if (settings->arcane_intellect)
+        if (config->arcane_intellect)
             stats.intellect+= 40;
-        if (settings->divine_spirit)
+        if (config->divine_spirit)
             stats.spirit+= 40;
-        if (settings->elixir_of_draenic_wisdom) {
+        if (config->elixir_of_draenic_wisdom) {
             stats.intellect+= 30;
             stats.spirit+= 30;
         }
-        if (settings->mark_of_the_wild) {
+        if (config->mark_of_the_wild) {
             stats.intellect+= 18;
             stats.spirit+= 18;
         }
@@ -114,7 +111,7 @@ public:
             stats.intellect*= 1.05;
         if (race == RACE_HUMAN)
             stats.spirit*= 1.1;
-        if (settings->blessing_of_kings) {
+        if (config->blessing_of_kings) {
             stats.intellect*= 1.1;
             stats.spirit*= 1.1;
         }
@@ -125,39 +122,39 @@ public:
         double int_multi = 0;
         if (talents.mind_mastery)
             int_multi+= talents.mind_mastery*0.05;
-        if (settings->spellfire_set)
+        if (config->spellfire_set)
             int_multi+= 0.07;
         if (int_multi > 0)
             stats.spell_power+= round(stats.intellect * int_multi);
 
-        if (settings->improved_divine_spirit)
+        if (config->improved_divine_spirit)
             stats.spell_power+= stats.spirit*0.1;
-        if (settings->wrath_of_air)
+        if (config->wrath_of_air)
             stats.spell_power+= 102;
-        if (settings->brilliant_wizard_oil)
+        if (config->brilliant_wizard_oil)
             stats.spell_power+= 36;
-        if (settings->spell_dmg_food)
+        if (config->spell_dmg_food)
             stats.spell_power+= 23;
-        if (settings->flask_of_supreme_power)
+        if (config->flask_of_supreme_power)
             stats.spell_power+= 70;
-        if (settings->flask_of_blinding_light)
+        if (config->flask_of_blinding_light)
             stats.spell_power_arcane+= 80;
-        if (settings->adepts_elixir)
+        if (config->adepts_elixir)
             stats.spell_power+= 24;
 
         // Spell crit
         double critrating = 0;
-        if (settings->judgement_of_the_crusader)
+        if (config->judgement_of_the_crusader)
             stats.crit+= 3;
-        if (settings->moonkin_aura)
+        if (config->moonkin_aura)
             stats.crit+= 5;
-        if (settings->totem_of_wrath)
+        if (config->totem_of_wrath)
             stats.crit+= 3;
-        if (settings->molten_armor)
+        if (config->molten_armor)
             stats.crit+= 3;
-        if (settings->adepts_elixir)
+        if (config->adepts_elixir)
             critrating+= 24;
-        if (settings->brilliant_wizard_oil)
+        if (config->brilliant_wizard_oil)
             critrating+= 14;
         if (critrating > 0)
             stats.crit+= critRatingToChance(critrating);
@@ -166,11 +163,11 @@ public:
         // stats.crit+= stats.intellect/80.0;
 
         // Spell hit
-        if (settings->totem_of_wrath)
+        if (config->totem_of_wrath)
             stats.hit+= 3;
     }
 
-    void setTalents()
+    void setDefaultTalents()
     {
         if (spec == SPEC_ARCANE) {
             talents.arcane_focus = 5;
@@ -194,6 +191,52 @@ public:
         }
     }
 
+    void loadTalentsFromString(std::string str)
+    {
+        int size = 67;
+        int points[size];
+        int fire = 23, frost = 45;
+
+        for (int i=0; i<size; i++)
+            points[i] = 0;
+
+        int t = 0, p = 0;
+        for (int i=0; i<str.length(); i++) {
+            if (str[i] == '-') {
+                if (t < fire)
+                    t = fire;
+                else if (t < frost)
+                    t = frost;
+                else
+                    break;
+            }
+            else {
+                p = str[i] - '0';
+
+                if (t == 1) talents.arcane_focus = p;
+                else if (t == 5) talents.clearcast = p;
+                else if (t == 7) talents.arcane_impact = p;
+                else if (t == 11) talents.arcane_meditation = p;
+                else if (t == 13) talents.presence_of_mind = p;
+                else if (t == 14) talents.arcane_mind = p;
+                else if (t == 16) talents.arcane_instability = p;
+                else if (t == 17) talents.arcane_potency = p;
+                else if (t == 19) talents.arcane_power = p;
+                else if (t == 20) talents.spell_power = p;
+                else if (t == 21) talents.mind_mastery = p;
+                else if (t == 46) talents.imp_frostbolt = p;
+                else if (t == 47) talents.elemental_precision = p;
+                else if (t == 48) talents.ice_shards = p;
+                else if (t == 52) talents.piercing_ice = p;
+                else if (t == 53) talents.icy_veins = p;
+                else if (t == 56) talents.frost_channeling = p;
+                else if (t == 59) talents.cold_snap = p;
+
+                t++;
+            }
+        }
+    }
+
     double spiritManaPerSecond()
     {
         return 0.001 + stats.spirit*0.009327 * sqrt(stats.intellect);
@@ -203,9 +246,9 @@ public:
     {
         double mps = 0;
 
-        if (settings->blessing_of_wisdom)
+        if (config->blessing_of_wisdom)
             mps+= 49/5;
-        if (settings->mana_spring)
+        if (config->mana_spring)
             mps+= 50/5;
 
         return mps;

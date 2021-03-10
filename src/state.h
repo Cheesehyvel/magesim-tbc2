@@ -1,7 +1,8 @@
-#pragma once
-
 #include <map>
 #include <vector>
+#include <memory>
+
+using namespace std;
 
 class State
 {
@@ -15,15 +16,14 @@ public:
     int mana_emerald;
     int mana_ruby;
 
-    std::map<cooldown::ID, bool> cooldowns;
-    std::map<buff::ID, buff::Buff*> buffs;
-    std::vector<std::string> log;
+    map<cooldown::ID, bool> cooldowns;
+    map<buff::ID, shared_ptr<buff::Buff>> buffs;
 
-    Settings *settings;
+    shared_ptr<Config> config;
 
-    State(Settings *_settings)
+    State(shared_ptr<Config> _config)
     {
-        settings = _settings;
+        config = _config;
         reset();
     }
 
@@ -33,13 +33,12 @@ public:
         mana = 0;
         dmg = 0;
         regen_cycle = 0;
-        innervates = settings->innervate;
+        innervates = config->innervate;
         mana_emerald = 3;
         mana_ruby = 1;
 
         cooldowns.clear();
-        buffs.clear();
-        log.clear();
+        clearBuffs();
     }
 
     double dps()
@@ -77,7 +76,7 @@ public:
         return buffs.find(id) != buffs.end();
     }
 
-    int addBuff(buff::Buff *buff)
+    int addBuff(shared_ptr<buff::Buff> buff)
     {
         if (hasBuff(buff->id))
             return buffs[buff->id]->addStack();
@@ -90,6 +89,11 @@ public:
     void removeBuff(buff::ID id)
     {
         buffs.erase(id);
+    }
+
+    void clearBuffs()
+    {
+        buffs.clear();
     }
 
 };

@@ -1,0 +1,125 @@
+body {
+    background: #222;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+label {
+    display: block;
+}
+
+.btn {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #08f;
+    cursor: pointer;
+    user-select: none;
+    font-weight: bold;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &.block {
+        display: block;
+    }
+
+    &.danger {
+        background: #f00;
+    }
+
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}
+
+.form-item {
+    &:nth-child(n+2) {
+        margin-top: 5px;
+    }
+}
+
+table {
+    border-collapse: collapse;
+
+    th {
+        text-align: left;
+    }
+
+    th, td {
+        padding: 3px 8px;
+    }
+}
+
+#app {
+    .main {
+        padding: $spacer*0.5;
+
+        .log {
+            .log-wrapper {
+                max-height: 70vh;
+                max-width: 700px;
+                overflow: auto;
+            }
+
+            thead {
+                position: sticky;
+                top: 0;
+                background: #222;
+            }
+
+            .arcane {
+                color: #0ff;
+            }
+
+            .frost {
+                color: #06f;
+            }
+
+            .crit {
+                font-weight: bold;
+            }
+
+            .error {
+                color: #d00;
+            }
+        }
+    }
+
+    .config {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+        padding: $spacer*0.5;
+        background: #111;
+        z-index: 100;
+
+        .fieldsets {
+            display: grid;
+            grid-gap: 20px;
+
+            fieldset {
+                grid-row: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30px;
+            line-height: 30px;
+            cursor: pointer;
+            text-align: center;
+        }
+    }
+}

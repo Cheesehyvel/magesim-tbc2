@@ -1,0 +1,480 @@
+/**
+ * Margins
+ */
+.m-auto, .mb-auto, .my-auto {
+  margin-bottom: auto;
+}
+
+.m-n, .mb-n, .my-n {
+  margin-bottom: 5px;
+}
+
+.m-0, .mb-0, .my-0 {
+  margin-bottom: 0;
+}
+
+.m-1, .mb-1, .my-1 {
+  margin-bottom: 15px;
+}
+
+.m-2, .mb-2, .my-2 {
+  margin-bottom: 30px;
+}
+
+.m-3, .mb-3, .my-3 {
+  margin-bottom: 45px;
+}
+
+.m-4, .mb-4, .my-4 {
+  margin-bottom: 60px;
+}
+
+.m-5, .mb-5, .my-5 {
+  margin-bottom: 75px;
+}
+
+.m-6, .mb-6, .my-6 {
+  margin-bottom: 90px;
+}
+
+.m-8, .mb-8, .my-8 {
+  margin-bottom: 120px;
+}
+
+.m-10, .mb-10, .my-10 {
+  margin-bottom: 150px;
+}
+
+.m-12, .mb-12, .my-12 {
+  margin-bottom: 180px;
+}
+
+.m-auto, .mt-auto, .my-auto {
+  margin-top: auto;
+}
+
+.m-n, .mt-n, .my-n {
+  margin-top: 5px;
+}
+
+.m-0, .mt-0, .my-0 {
+  margin-top: 0;
+}
+
+.m-1, .mt-1, .my-1 {
+  margin-top: 15px;
+}
+
+.m-2, .mt-2, .my-2 {
+  margin-top: 30px;
+}
+
+.m-3, .mt-3, .my-3 {
+  margin-top: 45px;
+}
+
+.m-4, .mt-4, .my-4 {
+  margin-top: 60px;
+}
+
+.m-5, .mt-5, .my-5 {
+  margin-top: 75px;
+}
+
+.m-6, .mt-6, .my-6 {
+  margin-top: 90px;
+}
+
+.m-8, .mt-8, .my-8 {
+  margin-top: 120px;
+}
+
+.m-10, .mt-10, .my-10 {
+  margin-top: 150px;
+}
+
+.m-12, .mt-12, .my-12 {
+  margin-top: 180px;
+}
+
+.m-auto, .ml-auto, .mx-auto {
+  margin-left: auto;
+}
+
+.m-n, .ml-n, .mx-n {
+  margin-left: 5px;
+}
+
+.m-0, .ml-0, .mx-0 {
+  margin-left: 0;
+}
+
+.m-1, .ml-1, .mx-1 {
+  margin-left: 15px;
+}
+
+.m-2, .ml-2, .mx-2 {
+  margin-left: 30px;
+}
+
+.m-3, .ml-3, .mx-3 {
+  margin-left: 45px;
+}
+
+.m-4, .ml-4, .mx-4 {
+  margin-left: 60px;
+}
+
+.m-5, .ml-5, .mx-5 {
+  margin-left: 75px;
+}
+
+.m-6, .ml-6, .mx-6 {
+  margin-left: 90px;
+}
+
+.m-8, .ml-8, .mx-8 {
+  margin-left: 120px;
+}
+
+.m-10, .ml-10, .mx-10 {
+  margin-left: 150px;
+}
+
+.m-12, .ml-12, .mx-12 {
+  margin-left: 180px;
+}
+
+.m-auto, .mr-auto, .mx-auto {
+  margin-right: auto;
+}
+
+.m-n, .mr-n, .mx-n {
+  margin-right: 5px;
+}
+
+.m-0, .mr-0, .mx-0 {
+  margin-right: 0;
+}
+
+.m-1, .mr-1, .mx-1 {
+  margin-right: 15px;
+}
+
+.m-2, .mr-2, .mx-2 {
+  margin-right: 30px;
+}
+
+.m-3, .mr-3, .mx-3 {
+  margin-right: 45px;
+}
+
+.m-4, .mr-4, .mx-4 {
+  margin-right: 60px;
+}
+
+.m-5, .mr-5, .mx-5 {
+  margin-right: 75px;
+}
+
+.m-6, .mr-6, .mx-6 {
+  margin-right: 90px;
+}
+
+.m-8, .mr-8, .mx-8 {
+  margin-right: 120px;
+}
+
+.m-10, .mr-10, .mx-10 {
+  margin-right: 150px;
+}
+
+.m-12, .mr-12, .mx-12 {
+  margin-right: 180px;
+}
+
+/**
+ * Paddings
+ */
+.p-0, .pb-0, .py-0 {
+  padding-bottom: 0;
+}
+
+.p-n, .pb-n, .py-n {
+  padding-bottom: 5px;
+}
+
+.p-1, .pb-1, .py-1 {
+  padding-bottom: 15px;
+}
+
+.p-2, .pb-2, .py-2 {
+  padding-bottom: 30px;
+}
+
+.p-3, .pb-3, .py-3 {
+  padding-bottom: 45px;
+}
+
+.p-4, .pb-4, .py-4 {
+  padding-bottom: 60px;
+}
+
+.p-5, .pb-5, .py-5 {
+  padding-bottom: 75px;
+}
+
+.p-6, .pb-6, .py-6 {
+  padding-bottom: 90px;
+}
+
+.p-8, .pb-8, .py-8 {
+  padding-bottom: 120px;
+}
+
+.p-10, .pb-10, .py-10 {
+  padding-bottom: 150px;
+}
+
+.p-12, .pb-12, .py-12 {
+  padding-bottom: 180px;
+}
+
+.p-0, .pt-0, .py-0 {
+  padding-top: 0;
+}
+
+.p-n, .pt-n, .py-n {
+  padding-top: 5px;
+}
+
+.p-1, .pt-1, .py-1 {
+  padding-top: 15px;
+}
+
+.p-2, .pt-2, .py-2 {
+  padding-top: 30px;
+}
+
+.p-3, .pt-3, .py-3 {
+  padding-top: 45px;
+}
+
+.p-4, .pt-4, .py-4 {
+  padding-top: 60px;
+}
+
+.p-5, .pt-5, .py-5 {
+  padding-top: 75px;
+}
+
+.p-6, .pt-6, .py-6 {
+  padding-top: 90px;
+}
+
+.p-8, .pt-8, .py-8 {
+  padding-top: 120px;
+}
+
+.p-10, .pt-10, .py-10 {
+  padding-top: 150px;
+}
+
+.p-12, .pt-12, .py-12 {
+  padding-top: 180px;
+}
+
+.p-0, .pl-0, .px-0 {
+  padding-left: 0;
+}
+
+.p-n, .pl-n, .px-n {
+  padding-left: 5px;
+}
+
+.p-1, .pl-1, .px-1 {
+  padding-left: 15px;
+}
+
+.p-2, .pl-2, .px-2 {
+  padding-left: 30px;
+}
+
+.p-3, .pl-3, .px-3 {
+  padding-left: 45px;
+}
+
+.p-4, .pl-4, .px-4 {
+  padding-left: 60px;
+}
+
+.p-5, .pl-5, .px-5 {
+  padding-left: 75px;
+}
+
+.p-6, .pl-6, .px-6 {
+  padding-left: 90px;
+}
+
+.p-8, .pl-8, .px-8 {
+  padding-left: 120px;
+}
+
+.p-10, .pl-10, .px-10 {
+  padding-left: 150px;
+}
+
+.p-12, .pl-12, .px-12 {
+  padding-left: 180px;
+}
+
+.p-0, .pr-0, .px-0 {
+  padding-right: 0;
+}
+
+.p-n, .pr-n, .px-n {
+  padding-right: 5px;
+}
+
+.p-1, .pr-1, .px-1 {
+  padding-right: 15px;
+}
+
+.p-2, .pr-2, .px-2 {
+  padding-right: 30px;
+}
+
+.p-3, .pr-3, .px-3 {
+  padding-right: 45px;
+}
+
+.p-4, .pr-4, .px-4 {
+  padding-right: 60px;
+}
+
+.p-5, .pr-5, .px-5 {
+  padding-right: 75px;
+}
+
+.p-6, .pr-6, .px-6 {
+  padding-right: 90px;
+}
+
+.p-8, .pr-8, .px-8 {
+  padding-right: 120px;
+}
+
+.p-10, .pr-10, .px-10 {
+  padding-right: 150px;
+}
+
+.p-12, .pr-12, .px-12 {
+  padding-right: 180px;
+}
+
+body {
+  background: #222;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+}
+
+.btn {
+  display: inline-block;
+  padding: 5px 12px;
+  background: #08f;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-weight: bold;
+  transition: opacity 0.2s ease;
+}
+.btn:hover {
+  opacity: 0.8;
+}
+.btn.block {
+  display: block;
+}
+.btn.danger {
+  background: #f00;
+}
+.btn.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.form-item:nth-child(n+2) {
+  margin-top: 5px;
+}
+
+table {
+  border-collapse: collapse;
+}
+table th {
+  text-align: left;
+}
+table th, table td {
+  padding: 3px 8px;
+}
+
+#app .main {
+  padding: 30px;
+}
+#app .main .log .log-wrapper {
+  max-height: 70vh;
+  max-width: 700px;
+  overflow: auto;
+}
+#app .main .log thead {
+  position: sticky;
+  top: 0;
+  background: #222;
+}
+#app .main .log .arcane {
+  color: #0ff;
+}
+#app .main .log .frost {
+  color: #06f;
+}
+#app .main .log .crit {
+  font-weight: bold;
+}
+#app .main .log .error {
+  color: #d00;
+}
+#app .config {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  padding: 30px;
+  background: #111;
+  z-index: 100;
+}
+#app .config .fieldsets {
+  display: grid;
+  grid-gap: 20px;
+}
+#app .config .fieldsets fieldset {
+  grid-row: 1;
+}
+#app .config .close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  text-align: center;
+}

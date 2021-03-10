@@ -1,5 +1,3 @@
-#pragma once
-
 #include <string>
 #include <random>
 
@@ -12,7 +10,7 @@ enum RegenRotation : int
 enum Race : int
 {
     RACE_BLOOD_ELF,
-    RACE_RACE_DRAENEI,
+    RACE_DRAENEI,
     RACE_GNOME,
     RACE_HUMAN,
     RACE_TROLL,
@@ -51,6 +49,19 @@ enum LogType : int
     LOG_MANA,
     LOG_BUFF,
     LOG_DEBUG
+};
+
+struct SimulationResult
+{
+    int dmg;
+    double t;
+    double dps;
+};
+
+struct SimulationsResult
+{
+    double min_dps, avg_dps, max_dps;
+    int iterations;
 };
 
 class LogEntry

@@ -1,55 +1,62 @@
 #include <cstdio>
 #include <cstdlib>
 #include <chrono>
+#include <memory>
+
+#include "common.h"
+#include "config.h"
+#include "stats.h"
+#include "talents.h"
+#include "buff.h"
+#include "cooldown.h"
+#include "spell.h"
+#include "state.h"
+#include "player.h"
+#include "simulation.h"
 #include "bindings.h"
+
+#ifndef __EMSCRIPTEN__
+
+using namespace std;
 
 int main(int argc, char **argv)
 {
     int runs = 1;
     bool log_mana = false;
-    Simulation *sim = new Simulation();
+
+    shared_ptr<Config> config(new Config());
+    shared_ptr<Player> player(new Player(config));
+    player->quickReady();
+    shared_ptr<Simulation> sim(new Simulation(config, player));
 
     if (argc > 1)
         runs = atoi(argv[1]);
     if (argc > 2)
-        sim->settings->duration = atoi(argv[2]);
+        sim->config->duration = atoi(argv[2]);
 
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
 
     if (runs < 2) {
         sim->logging = true;
         SimulationResult result = sim->run();
-
-        for (auto itr = sim->log.begin(); itr != sim->log.end(); itr++) {
-            if ((*itr)->type == LOG_MANA && !log_mana)
-                continue;
-            printf("%.2f %s\n", (*itr)->t, (*itr)->text.c_str());
-        }
+        sim->printLog();
 
         printf("Damage: %d\n", result.dmg);
         printf("DPS: %.2f\n", result.dps);
     }
     else {
-        double min_dps = 0, avg_dps = 0, max_dps = 0;
         sim->logging = false;
-
-        for (int i=0; i<runs; i++) {
-            SimulationResult result = sim->run();
-
-            if (i == 0 || result.dps < min_dps)
-                min_dps = result.dps;
-            if (result.dps > max_dps)
-                max_dps = result.dps;
-            avg_dps+= ((result.dps - avg_dps) / (i+1));
-        }
+        SimulationsResult result = sim->runMultiple(runs);
 
         printf("Sims: %d\n", runs);
-        printf("DPS: %.2f (%.2f - %.2f)\n", avg_dps, min_dps, max_dps);
+        printf("DPS: %.2f (%.2f - %.2f)\n", result.avg_dps, result.min_dps, result.max_dps);
     }
 
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    auto stop = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::milliseconds>(stop - start);
     printf("Exec time: %ldms\n", duration.count());
 
     return 0;
 }
+
+#endif

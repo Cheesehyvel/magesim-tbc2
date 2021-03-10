@@ -1,17 +1,11 @@
-#pragma once
-
 #include <list>
 #include <math.h>
 #include <random>
 #include <sstream>
 #include <iomanip>
+#include <memory>
 
-struct SimulationResult
-{
-    int dmg;
-    double t;
-    double dps;
-};
+using namespace std;
 
 class Event
 {
@@ -19,10 +13,10 @@ class Event
 public:
     double t;
     double mana;
-    std::string source;
+    string source;
     EventType type;
-    spell::Spell *spell;
-    buff::Buff *buff;
+    shared_ptr<spell::Spell> spell;
+    shared_ptr<buff::Buff> buff;
     cooldown::ID cooldown_id;
 
 };
@@ -32,24 +26,45 @@ class Simulation
 
 public:
     bool logging = true;
-    std::list<Event*> queue;
-    std::list<LogEntry*> log;
-    State *state;
-    Player *player;
-    Settings *settings;
+    list<shared_ptr<Event>> queue;
+    list<shared_ptr<LogEntry>> log;
+    shared_ptr<State> state;
+    shared_ptr<Player> player;
+    shared_ptr<Config> config;
 
-    Simulation()
+    Simulation(shared_ptr<Config> _config, shared_ptr<Player> _player)
     {
-        settings = new Settings();
-        state = new State(settings);
-        player = new Player(settings);
+        config = _config;
+        player = _player;
+        state = make_shared<State>(config);
     }
 
     void reset()
     {
-        player->ready();
+        clearLog();
         state->reset();
         state->mana = player->maxMana();
+    }
+
+    SimulationsResult runMultiple(int iterations)
+    {
+        SimulationResult r;
+        SimulationsResult result;
+
+        logging = false;
+
+        for (int i=0; i<iterations; i++) {
+            r = run();
+            if (i == 0 || r.dps < result.min_dps)
+                result.min_dps = r.dps;
+            if (i == 0 || r.dps > result.max_dps)
+                result.max_dps = r.dps;
+            result.avg_dps+= ((r.dps - result.avg_dps) / (i+1));
+        }
+
+        result.iterations = iterations;
+
+        return result;
     }
 
     SimulationResult run()
@@ -58,12 +73,12 @@ public:
 
         pushManaRegen();
 
-        if (settings->vampiric_touch)
-            pushVampiricTouch(settings->vampiric_touch_regen);
-        if (settings->bloodlust)
-            pushBuffGain(new buff::Bloodlust(), settings->bloodlust_at);
-        if (settings->mana_tide)
-            pushBuffGain(new buff::ManaTide(), settings->mana_tide_at);
+        if (config->vampiric_touch)
+            pushVampiricTouch(config->vampiric_touch_regen);
+        if (config->bloodlust)
+            pushBuffGain(make_shared<buff::Bloodlust>(), config->bloodlust_at);
+        if (config->mana_tide)
+            pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
 
         cast(defaultSpell());
 
@@ -79,14 +94,14 @@ public:
 
     void work()
     {
-        Event *event;
+        shared_ptr<Event> event;
 
         while (true) {
             event = queue.front();
             queue.pop_front();
 
-            if (event->t >= settings->duration) {
-                state->t = settings->duration;
+            if (event->t >= config->duration) {
+                state->t = config->duration;
                 break;
             }
 
@@ -96,7 +111,7 @@ public:
         queue.clear();
     }
 
-    void tick(Event *event)
+    void tick(shared_ptr<Event> event)
     {
         state->t = event->t;
 
@@ -118,7 +133,7 @@ public:
             onWait();
     }
 
-    void push(Event *event)
+    void push(shared_ptr<Event> event)
     {
         event->t+= state->t;
 
@@ -132,9 +147,9 @@ public:
         queue.push_back(event);
     }
 
-    void pushSpell(spell::Spell *spell, double t)
+    void pushSpell(shared_ptr<spell::Spell> spell, double t)
     {
-        Event *event = new Event();
+        shared_ptr<Event> event(new Event());
         event->type = EVENT_SPELL;
         event->spell = spell;
         event->t = t;
@@ -144,7 +159,7 @@ public:
 
     void pushManaRegen()
     {
-        Event *event = new Event();
+        shared_ptr<Event> event(new Event());
         event->type = EVENT_MANA_REGEN;
         event->t = 2;
         push(event);
@@ -152,7 +167,7 @@ public:
 
     void pushVampiricTouch(double mana)
     {
-        Event *event = new Event();
+        shared_ptr<Event> event(new Event());
         event->type = EVENT_VAMPIRIC_TOUCH;
         event->t = 1;
         event->mana = mana;
@@ -160,9 +175,9 @@ public:
         push(event);
     }
 
-    void pushManaGain(double t, double mana, std::string source = "")
+    void pushManaGain(double t, double mana, string source = "")
     {
-        Event *event = new Event();
+        shared_ptr<Event> event(new Event());
         event->type = EVENT_MANA_GAIN;
         event->t = t;
         event->mana = mana;
@@ -171,9 +186,9 @@ public:
         push(event);
     }
 
-    void pushBuffGain(buff::Buff *buff, double t)
+    void pushBuffGain(shared_ptr<buff::Buff> buff, double t)
     {
-        Event *event = new Event();
+        shared_ptr<Event> event(new Event());
         event->type = EVENT_BUFF_GAIN;
         event->t = t;
         event->buff = buff;
@@ -181,9 +196,9 @@ public:
         push(event);
     }
 
-    void pushBuffExpire(buff::Buff *buff)
+    void pushBuffExpire(shared_ptr<buff::Buff> buff)
     {
-        Event *event = new Event();
+        shared_ptr<Event> event(new Event());
         event->type = EVENT_BUFF_EXPIRE;
         event->t = buff->duration;
         event->buff = buff;
@@ -193,7 +208,7 @@ public:
 
     void pushCooldownExpire(cooldown::ID id, double t)
     {
-        Event *event = new Event();
+        shared_ptr<Event> event(new Event());
         event->type = EVENT_CD_EXPIRE;
         event->t = t;
         event->cooldown_id = id;
@@ -203,14 +218,14 @@ public:
 
     void pushWait(double t)
     {
-        Event *event = new Event();
+        shared_ptr<Event> event(new Event());
         event->type = EVENT_WAIT;
         event->t = t;
 
         push(event);
     }
 
-    void cast(spell::Spell *spell)
+    void cast(shared_ptr<spell::Spell> spell)
     {
         if (canCast(spell)) {
             if (spell->channeling)
@@ -223,9 +238,9 @@ public:
         }
     }
 
-    void onCast(spell::Spell *spell)
+    void onCast(shared_ptr<spell::Spell> spell)
     {
-        spell::Spell *next = NULL;
+        shared_ptr<spell::Spell> next = NULL;
 
         if (spell->tick || canCast(spell)) {
             if (spell->channeling && !spell->tick) {
@@ -253,19 +268,19 @@ public:
             cast(next);
     }
 
-    double onCastSuccess(spell::Spell *spell)
+    double onCastSuccess(shared_ptr<spell::Spell> spell)
     {
         spell->actual_cost = manaCost(spell);
         state->mana-= spell->actual_cost;
 
         if (state->hasBuff(buff::CLEARCAST))
-            onBuffExpire(new buff::Clearcast());
+            onBuffExpire(make_shared<buff::Clearcast>());
         clearcast();
 
         return spell->actual_cost;
     }
 
-    void onCastDmg(spell::Spell *spell)
+    void onCastDmg(shared_ptr<spell::Spell> spell)
     {
         spell->done = true;
         spell->result = spellRoll(spell);
@@ -285,7 +300,7 @@ public:
         if (!spell->channeling)
             onCastSuccess(spell);
 
-        if (settings->judgement_of_wisdom && random<int>(0, 1) == 1)
+        if (config->judgement_of_wisdom && random<int>(0, 1) == 1)
             onManaGain(74, "Judgement of Wisdom");
 
         if (spell->channeling) {
@@ -294,17 +309,17 @@ public:
         }
     }
 
-    spell::Spell* onCastComplete(spell::Spell *spell)
+    shared_ptr<spell::Spell> onCastComplete(shared_ptr<spell::Spell> spell)
     {
-        spell::Spell *next = NULL;
+        shared_ptr<spell::Spell> next = NULL;
 
         if (spell->id == spell::ARCANE_BLAST) {
-            onBuffGain(new buff::ArcaneBlast());
-            if (settings->t5_4set && spell->result == spell::CRIT)
-                onBuffGain(new buff::ArcaneMadness());
+            onBuffGain(make_shared<buff::ArcaneBlast>());
+            if (config->t5_4set && spell->result == spell::CRIT)
+                onBuffGain(make_shared<buff::ArcaneMadness>());
         }
 
-        if (!state->hasCooldown(cooldown::PERSONAL) && settings->cooldowns_at <= state->t)
+        if (!state->hasCooldown(cooldown::PERSONAL) && config->cooldowns_at <= state->t)
             useCooldowns();
         else if (state->hasCooldown(cooldown::PERSONAL) && !state->hasCooldown(cooldown::COLD_SNAP) && player->talents.cold_snap && !state->hasBuff(buff::ICY_VEINS))
             useColdSnap();
@@ -323,22 +338,22 @@ public:
             innervate();
         }
         else if (player->spec == SPEC_ARCANE) {
-            double regen_at = settings->regen_mana_at;
+            double regen_at = config->regen_mana_at;
             if (state->hasBuff(buff::BLOODLUST))
-                regen_at = std::min(regen_at, 10.0);
+                regen_at = min(regen_at, 10.0);
 
             int end = 3;
-            if (settings->regen_rotation == ROTATION_AMFB)
+            if (config->regen_rotation == ROTATION_AMFB)
                 end = 2;
 
             if (state->regen_cycle == end) {
                 state->regen_cycle = 0;
             }
             else if (state->regen_cycle || manaPercent() <= regen_at && state->buffStacks(buff::ARCANE_BLAST) == 3) {
-                if (settings->regen_rotation == ROTATION_AMFB && state->regen_cycle == 0)
-                    next = new spell::ArcaneMissiles();
+                if (config->regen_rotation == ROTATION_AMFB && state->regen_cycle == 0)
+                    next = make_shared<spell::ArcaneMissiles>();
                 else
-                    next = new spell::Frostbolt();
+                    next = make_shared<spell::Frostbolt>();
                 state->regen_cycle++;
             }
         }
@@ -355,9 +370,9 @@ public:
         pushManaRegen();
     }
 
-    void onManaGain(double mana, std::string source = "")
+    void onManaGain(double mana, string source = "")
     {
-        state->mana = std::min(player->maxMana(), state->mana + mana);
+        state->mana = min(player->maxMana(), state->mana + mana);
         logManaGain(mana, source);
     }
 
@@ -372,7 +387,7 @@ public:
         cast(defaultSpell());
     }
 
-    void onBuffGain(buff::Buff *buff)
+    void onBuffGain(shared_ptr<buff::Buff> buff)
     {
         int stacks = state->addBuff(buff);
         removeBuffExpiration(buff);
@@ -387,11 +402,10 @@ public:
             logBuffGain(buff, stacks);
     }
 
-    void onBuffExpire(buff::Buff *buff)
+    void onBuffExpire(shared_ptr<buff::Buff> buff)
     {
-        state->removeBuff(buff->id);
-
         logBuffExpire(buff);
+        state->removeBuff(buff->id);
     }
 
     void onCooldownExpire(cooldown::ID id)
@@ -421,15 +435,15 @@ public:
             state->mana_ruby--;
         }
 
-        if (settings->serpent_coil)
+        if (config->serpent_coil)
             mana*= 1.25;
 
         state->addCooldown(cooldown::MANA_GEM);
         onManaGain(mana, "Mana Gem");
         pushCooldownExpire(cooldown::MANA_GEM, 120);
 
-        if (settings->serpent_coil)
-            onBuffGain(new buff::SerpentCoil());
+        if (config->serpent_coil)
+            onBuffGain(make_shared<buff::SerpentCoil>());
     }
 
     double manaPercent()
@@ -444,7 +458,7 @@ public:
         double while_casting = 0;
         if (player->talents.arcane_meditation)
             while_casting+= player->talents.arcane_meditation*0.1;
-        if (settings->mage_armor)
+        if (config->mage_armor)
             while_casting+= 0.3;
         if (state->hasBuff(buff::INNERVATE))
             while_casting = 4;
@@ -458,10 +472,10 @@ public:
         return totalManaPerSecond() * 2;
     }
 
-    spell::Spell* defaultSpell()
+    shared_ptr<spell::Spell> defaultSpell()
     {
         if (player->spec == SPEC_ARCANE)
-            return new spell::ArcaneBlast();
+            return make_shared<spell::ArcaneBlast>();
 
         return NULL;
     }
@@ -471,21 +485,21 @@ public:
         state->cooldowns[cooldown::PERSONAL] = true;
 
         if (player->talents.arcane_power)
-            onBuffGain(new buff::ArcanePower());
+            onBuffGain(make_shared<buff::ArcanePower>());
         if (player->talents.icy_veins)
-            onBuffGain(new buff::IcyVeins());
-        if (settings->silver_crescent)
-            onBuffGain(new buff::SilverCrescent());
+            onBuffGain(make_shared<buff::IcyVeins>());
+        if (config->silver_crescent)
+            onBuffGain(make_shared<buff::SilverCrescent>());
     }
 
     void useColdSnap()
     {
         state->cooldowns[cooldown::COLD_SNAP] = true;
         if (player->talents.icy_veins)
-            onBuffGain(new buff::IcyVeins());
+            onBuffGain(make_shared<buff::IcyVeins>());
     }
 
-    void removeBuffExpiration(buff::Buff *buff)
+    void removeBuffExpiration(shared_ptr<buff::Buff> buff)
     {
         for (auto itr = queue.begin(); itr != queue.end(); itr++) {
             if ((*itr)->type == EVENT_BUFF_EXPIRE && (*itr)->buff->id == buff->id) {
@@ -495,12 +509,12 @@ public:
         }
     }
 
-    bool canCast(spell::Spell *spell)
+    bool canCast(shared_ptr<spell::Spell> spell)
     {
         return state->mana >= manaCost(spell);
     }
 
-    double manaCost(spell::Spell *spell)
+    double manaCost(shared_ptr<spell::Spell> spell)
     {
         if (state->hasBuff(buff::CLEARCAST))
             return 0;
@@ -509,7 +523,7 @@ public:
 
         if (spell->id == spell::ARCANE_BLAST) {
             multi+= 0.75 * state->buffStacks(buff::ARCANE_BLAST);
-            if (settings->t5_2set)
+            if (config->t5_2set)
                 multi+= 0.2;
         }
 
@@ -519,7 +533,7 @@ public:
         return round(spell->cost * multi);
     }
 
-    double castTime(spell::Spell *spell)
+    double castTime(shared_ptr<spell::Spell> spell)
     {
         double t = spell->cast_time;
 
@@ -547,7 +561,7 @@ public:
         return haste;
     }
 
-    double hitChance(spell::Spell *spell)
+    double hitChance(shared_ptr<spell::Spell> spell)
     {
         double hit = 83.0 + player->stats.hit;
 
@@ -559,7 +573,7 @@ public:
         return hit;
     }
 
-    double critChance(spell::Spell *spell)
+    double critChance(shared_ptr<spell::Spell> spell)
     {
         double crit = player->stats.crit;
 
@@ -569,22 +583,22 @@ public:
         if (state->hasBuff(buff::CLEARCAST) && player->talents.arcane_potency)
             crit+= player->talents.arcane_potency*10.0;
 
-        if (settings->judgement_of_the_crusader)
+        if (config->judgement_of_the_crusader)
             crit+= 3;
-        if (settings->moonkin_aura)
+        if (config->moonkin_aura)
             crit+= 5;
 
         return crit;
     }
 
-    double critMultiplier(spell::Spell *spell)
+    double critMultiplier(shared_ptr<spell::Spell> spell)
     {
         double multi = 1.5;
 
         if (player->talents.spell_power)
             multi+= player->talents.spell_power*0.125;
 
-        if (settings->chaotic_skyfire)
+        if (config->chaotic_skyfire)
             multi+= 0.03;
 
         if (spell->school == SCHOOL_FROST && player->talents.ice_shards)
@@ -593,28 +607,30 @@ public:
         return multi;
     }
 
-    double dmgMultiplier(spell::Spell *spell)
+    double dmgMultiplier(shared_ptr<spell::Spell> spell)
     {
         double multi = spell->coeff;
 
-        if (settings->misery)
+        if (config->misery)
             multi*= 1.05;
-        if (settings->curse_of_elements)
+        if (config->curse_of_elements)
             multi*= 1.1;
 
         if (player->talents.arcane_instability)
             multi*= 1 + (player->talents.arcane_instability * 0.01);
+        if (player->talents.piercing_ice && spell->school == SCHOOL_FROST)
+            multi*= 1 + (player->talents.piercing_ice * 0.02);
 
         if (state->hasBuff(buff::ARCANE_POWER))
             multi*= 1.3;
 
-        if (spell->id == spell::ARCANE_BLAST && settings->t5_2set)
+        if (spell->id == spell::ARCANE_BLAST && config->t5_2set)
             multi*= 1.2;
 
         return multi;
     }
 
-    double spellDmg(spell::Spell *spell)
+    double spellDmg(shared_ptr<spell::Spell> spell)
     {
         double dmg = random<double>(spell->min_dmg, spell->max_dmg);
         dmg+= player->stats.spell_power;
@@ -634,7 +650,7 @@ public:
         return dmg * dmgMultiplier(spell);
     }
 
-    spell::Result spellRoll(spell::Spell *spell)
+    spell::Result spellRoll(shared_ptr<spell::Spell> spell)
     {
         if (random<double>(0, 100) > hitChance(spell))
             return spell::MISS;
@@ -648,7 +664,7 @@ public:
     void innervate()
     {
         state->innervates--;
-        onBuffGain(new buff::Innervate());
+        onBuffGain(make_shared<buff::Innervate>());
     }
 
     void evocate()
@@ -661,7 +677,7 @@ public:
         for (double i=1; i<=4; i++)
             pushManaGain(i * haste * 2.0, player->maxMana()*0.15, "Evocation");
 
-        Event *event = new Event();
+        shared_ptr<Event> event(new Event());
         event->type = EVENT_CAST;
         event->t = 8.0 * haste;
         event->spell = defaultSpell();
@@ -672,7 +688,7 @@ public:
     {
         double chance = player->talents.clearcast * 2;
         if (random<double>(0, 100) <= chance)
-            onBuffGain(new buff::Clearcast());
+            onBuffGain(make_shared<buff::Clearcast>());
     }
 
     bool shouldInnervate()
@@ -716,7 +732,7 @@ public:
         else
             return false;
 
-        if (settings->serpent_coil)
+        if (config->serpent_coil)
             max*= 1.25;
 
         if (state->hasBuff(buff::MANA_TIDE))
@@ -738,12 +754,12 @@ public:
         return player->maxMana() - state->mana >= max;
     }
 
-    void logSpellDmg(spell::Spell *spell)
+    void logSpellDmg(shared_ptr<spell::Spell> spell)
     {
         if (!logging)
             return;
 
-        std::ostringstream s;
+        ostringstream s;
 
         s << spell->name;
         if (spell->result == spell::MISS)
@@ -756,12 +772,12 @@ public:
         addLog(LOG_SPELL, s.str());
     }
 
-    void logBuffGain(buff::Buff *buff, int stacks = 1)
+    void logBuffGain(shared_ptr<buff::Buff> buff, int stacks = 1)
     {
         if (!logging)
             return;
 
-        std::ostringstream s;
+        ostringstream s;
 
         s << "Gained " << buff->name;
         if (stacks > 1)
@@ -770,37 +786,37 @@ public:
         addLog(LOG_BUFF, s.str());
     }
 
-    void logBuffExpire(buff::Buff *buff)
+    void logBuffExpire(shared_ptr<buff::Buff> buff)
     {
         if (!logging)
             return;
 
-        std::ostringstream s;
+        ostringstream s;
 
         s << "Lost " << buff->name;
 
         addLog(LOG_BUFF, s.str());
     }
 
-    void logManaGain(double mana, std::string source)
+    void logManaGain(double mana, string source)
     {
         if (!logging)
             return;
 
-        std::ostringstream s;
+        ostringstream s;
 
-        s << std::fixed << std::setprecision(0);
+        s << fixed << setprecision(0);
         s << "Gained " << mana << " mana from " << source;
 
         addLog(LOG_MANA, s.str());
     }
 
-    void addLog(LogType type, std::string text)
+    void addLog(LogType type, string text)
     {
         if (!logging)
             return;
 
-        LogEntry *entry = new LogEntry();
+        shared_ptr<LogEntry> entry(new LogEntry());
         entry->type = type;
         entry->text = text;
         entry->t = state->t;
@@ -809,6 +825,20 @@ public:
         entry->mana_percent = manaPercent();
 
         log.push_back(entry);
+    }
+
+    void printLog(bool show_mana = false)
+    {
+        for (auto itr = log.begin(); itr != log.end(); itr++) {
+            if ((*itr)->type == LOG_MANA && show_mana)
+                continue;
+            printf("%.2f %s\n", (*itr)->t, (*itr)->text.c_str());
+        }
+    }
+
+    void clearLog()
+    {
+        log.clear();
     }
 
 };
