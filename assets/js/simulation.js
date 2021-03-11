@@ -9,7 +9,6 @@ class SimulationWorker {
 
         this.worker.onmessage = (event) => {
             var data = event.data;
-            console.log(data);
             if (data.type == "error")
                 onError(data);
             if (data.type == "success")

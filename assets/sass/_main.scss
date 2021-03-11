@@ -104,6 +104,18 @@ table {
 }
 
 #app {
+    .github {
+        display: block;
+        width: 64px;
+        height: 86px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 10;
+        background: url("/dist/img/GitHub-Mark-Light-64px.png") no-repeat center center;
+        background-size: 32px auto;
+    }
+
     .wrapper {
         display: grid;
         grid-template-columns: 250px auto;

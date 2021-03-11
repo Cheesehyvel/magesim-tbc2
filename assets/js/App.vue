@@ -1,5 +1,7 @@
 <template>
     <div id="app">
+        <a class="github" href="https://github.com/Cheesehyvel/magesim-tbc2" target="_blank"></a>
+
         <div class="wrapper">
             <div class="sidebar">
                 <div class="actions">
@@ -422,14 +424,10 @@
 
         methods: {
             runMultiple() {
-                var start = new Date;
-
                 var self = this;
                 var sim = new SimulationWorkers(this.config.iterations, (result) => {
                     self.is_running = false;
                     self.result = result;
-                    var stop = new Date;
-                    console.log("Completed after "+(stop.getTime() - start.getTime())+"ms");
                 }, (error) => {
                     self.is_running = false;
                     console.error(error);

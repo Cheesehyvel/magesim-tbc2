@@ -358,7 +358,6 @@ var SimulationWorker = /*#__PURE__*/function () {
 
     this.worker.onmessage = function (event) {
       var data = event.data;
-      console.log(data);
       if (data.type == "error") onError(data);
       if (data.type == "success") onSuccess(data.result);
 
@@ -439,6 +438,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _simulation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./simulation */ "./assets/js/simulation.js");
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./items */ "./assets/js/items.js");
+//
+//
 //
 //
 //
@@ -838,13 +839,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     runMultiple: function runMultiple() {
-      var start = new Date();
       var self = this;
       var sim = new _simulation__WEBPACK_IMPORTED_MODULE_0__.SimulationWorkers(this.config.iterations, function (result) {
         self.is_running = false;
         self.result = result;
-        var stop = new Date();
-        console.log("Completed after " + (stop.getTime() - start.getTime()) + "ms");
       }, function (error) {
         self.is_running = false;
         console.error(error);
@@ -18429,6 +18427,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
+    _c("a", {
+      staticClass: "github",
+      attrs: {
+        href: "https://github.com/Cheesehyvel/magesim-tbc2",
+        target: "_blank"
+      }
+    }),
+    _vm._v(" "),
     _c("div", { staticClass: "wrapper" }, [
       _c("div", { staticClass: "sidebar" }, [
         _c("div", { staticClass: "actions" }, [
