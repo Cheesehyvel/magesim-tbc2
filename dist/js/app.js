@@ -18900,7 +18900,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _vm.config.spec == "arcane"
+                  _vm.config.spec == "SPEC_ARCANE"
                     ? _c("div", { staticClass: "form-item" }, [
                         _c("label", [_vm._v("Regen rotation")]),
                         _vm._v(" "),
@@ -19393,7 +19393,7 @@ var render = function() {
                         },
                         on: {
                           input: function($event) {
-                            return _vm.dontStack($event, "buffs.molten_armor")
+                            return _vm.dontStack($event, "molten_armor")
                           },
                           change: function($event) {
                             var $$a = _vm.config.mage_armor,
@@ -19447,7 +19447,7 @@ var render = function() {
                         },
                         on: {
                           input: function($event) {
-                            return _vm.dontStack($event, "buffs.mage_armor")
+                            return _vm.dontStack($event, "mage_armor")
                           },
                           change: function($event) {
                             var $$a = _vm.config.molten_armor,
@@ -20224,10 +20224,7 @@ var render = function() {
                         },
                         on: {
                           input: function($event) {
-                            return _vm.dontStack(
-                              $event,
-                              "consumes.spell_crit_food"
-                            )
+                            return _vm.dontStack($event, "spell_crit_food")
                           },
                           change: function($event) {
                             var $$a = _vm.config.spell_dmg_food,
@@ -20281,10 +20278,7 @@ var render = function() {
                         },
                         on: {
                           input: function($event) {
-                            return _vm.dontStack(
-                              $event,
-                              "consumes.spell_dmg_food"
-                            )
+                            return _vm.dontStack($event, "spell_dmg_food")
                           },
                           change: function($event) {
                             var $$a = _vm.config.spell_crit_food,
@@ -20395,9 +20389,9 @@ var render = function() {
                         on: {
                           input: function($event) {
                             return _vm.dontStack($event, [
-                              "consumes.flask_of_blinding_light",
-                              "consumes.adepts_elixir",
-                              "consumes.elixir_of_draenic_wisdom"
+                              "flask_of_blinding_light",
+                              "adepts_elixir",
+                              "elixir_of_draenic_wisdom"
                             ])
                           },
                           change: function($event) {
@@ -20460,9 +20454,9 @@ var render = function() {
                         on: {
                           input: function($event) {
                             return _vm.dontStack($event, [
-                              "consumes.flask_of_supreme_power",
-                              "consumes.adepts_elixir",
-                              "consumes.elixir_of_draenic_wisdom"
+                              "flask_of_supreme_power",
+                              "adepts_elixir",
+                              "elixir_of_draenic_wisdom"
                             ])
                           },
                           change: function($event) {
@@ -20522,8 +20516,8 @@ var render = function() {
                         on: {
                           input: function($event) {
                             return _vm.dontStack($event, [
-                              "consumes.flask_of_supreme_power",
-                              "consumes.flask_of_blinding_light"
+                              "flask_of_supreme_power",
+                              "flask_of_blinding_light"
                             ])
                           },
                           change: function($event) {
@@ -20584,8 +20578,8 @@ var render = function() {
                         on: {
                           input: function($event) {
                             return _vm.dontStack($event, [
-                              "consumes.flask_of_supreme_power",
-                              "consumes.flask_of_blinding_light"
+                              "flask_of_supreme_power",
+                              "flask_of_blinding_light"
                             ])
                           },
                           change: function($event) {

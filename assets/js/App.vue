@@ -146,7 +146,7 @@
                                 <label>Talents (<a :href="talentsLink" target="_blank">link</a>)</label>
                                 <input type="text" v-model="config.talents">
                             </div>
-                            <div class="form-item" v-if="config.spec == 'arcane'">
+                            <div class="form-item" v-if="config.spec == 'SPEC_ARCANE'">
                                 <label>Regen rotation</label>
                                 <select v-model="config.regen_rotation">
                                     <option value="ROTATION_FB">3AB, 3FrB</option>
@@ -190,10 +190,10 @@
                                 <label><input type="checkbox" v-model="config.arcane_intellect"> <span>Arcane Intellect</span></label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.mage_armor" @input="dontStack($event, 'buffs.molten_armor')"> <span>Mage Armor</span></label>
+                                <label><input type="checkbox" v-model="config.mage_armor" @input="dontStack($event, 'molten_armor')"> <span>Mage Armor</span></label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.molten_armor" @input="dontStack($event, 'buffs.mage_armor')"> <span>Molten Armor</span></label>
+                                <label><input type="checkbox" v-model="config.molten_armor" @input="dontStack($event, 'mage_armor')"> <span>Molten Armor</span></label>
                             </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.divine_spirit"> <span>Divine Spirit</span></label>
@@ -245,25 +245,25 @@
                         <fieldset>
                             <legend>Consumes</legend>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.spell_dmg_food" @input="dontStack($event, 'consumes.spell_crit_food')"> <span>Spell damage food</span></label>
+                                <label><input type="checkbox" v-model="config.spell_dmg_food" @input="dontStack($event, 'spell_crit_food')"> <span>Spell damage food</span></label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.spell_crit_food" @input="dontStack($event, 'consumes.spell_dmg_food')"> <span>Spell crit food</span></label>
+                                <label><input type="checkbox" v-model="config.spell_crit_food" @input="dontStack($event, 'spell_dmg_food')"> <span>Spell crit food</span></label>
                             </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.brilliant_wizard_oil"> <span>Brilliant Wizard Oil</span></label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.flask_of_supreme_power" @input="dontStack($event, ['consumes.flask_of_blinding_light', 'consumes.adepts_elixir', 'consumes.elixir_of_draenic_wisdom'])"> <span>Flask of Supreme Power</span></label>
+                                <label><input type="checkbox" v-model="config.flask_of_supreme_power" @input="dontStack($event, ['flask_of_blinding_light', 'adepts_elixir', 'elixir_of_draenic_wisdom'])"> <span>Flask of Supreme Power</span></label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.flask_of_blinding_light" @input="dontStack($event, ['consumes.flask_of_supreme_power', 'consumes.adepts_elixir', 'consumes.elixir_of_draenic_wisdom'])"> <span>Flask of Blinding Light</span></label>
+                                <label><input type="checkbox" v-model="config.flask_of_blinding_light" @input="dontStack($event, ['flask_of_supreme_power', 'adepts_elixir', 'elixir_of_draenic_wisdom'])"> <span>Flask of Blinding Light</span></label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.adepts_elixir" @input="dontStack($event, ['consumes.flask_of_supreme_power', 'consumes.flask_of_blinding_light'])"> <span>Adept's Elixir</span></label>
+                                <label><input type="checkbox" v-model="config.adepts_elixir" @input="dontStack($event, ['flask_of_supreme_power', 'flask_of_blinding_light'])"> <span>Adept's Elixir</span></label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.elixir_of_draenic_wisdom" @input="dontStack($event, ['consumes.flask_of_supreme_power', 'consumes.flask_of_blinding_light'])"> <span>Elixir of Draenic Wisdom</span></label>
+                                <label><input type="checkbox" v-model="config.elixir_of_draenic_wisdom" @input="dontStack($event, ['flask_of_supreme_power', 'flask_of_blinding_light'])"> <span>Elixir of Draenic Wisdom</span></label>
                             </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.drums"> <span>Drums (WIP)</span></label>
