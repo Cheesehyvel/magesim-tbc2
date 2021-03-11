@@ -16,7 +16,9 @@ onmessage = function onmessage(event) {
   };
 
   if (data.type == "start") {
-    var wasm = fetch('./magesim.wasm').then(function (r) {
+    var wasm = fetch("./magesim.wasm", {
+      cache: "no-store"
+    }).then(function (r) {
       return r.arrayBuffer();
     }).then(function (binary) {
       return MageSim({
@@ -46,8 +48,7 @@ onmessage = function onmessage(event) {
       }
 
       if (data.iterations && data.iterations > 1) var result = m.runSimulations(config, player, data.iterations);else var result = m.runSimulation(config, player);
-      m.freePlayer(player);
-      m.freeConfig(config);
+      if (result.log) result.log = JSON.parse(result.log);
       postMessage({
         type: "success",
         result: result

@@ -377,8 +377,9 @@ body {
   color: #fff;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Source Sans Pro", Arial, sans-serif;
   font-size: 14px;
+  font-weight: 400;
   line-height: 1.5;
 }
 
@@ -395,8 +396,9 @@ label {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  font-weight: bold;
+  font-weight: 700;
   transition: opacity 0.2s ease;
+  text-align: center;
 }
 .btn:hover {
   opacity: 0.8;
@@ -412,59 +414,133 @@ label {
   opacity: 0.5;
 }
 
+input[type=text],
+textarea,
+select {
+  border: 0;
+  font-family: inherit;
+  font-size: inherit;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 8px;
+  display: block;
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+option {
+  color: #000;
+}
+
+fieldset {
+  padding: 5px 20px 20px;
+  border: 0;
+  background: #161620;
+}
+fieldset legend {
+  font-weight: 700;
+  color: #08f;
+}
+
 .form-item:nth-child(n+2) {
-  margin-top: 5px;
+  margin-top: 10px;
+}
+.form-item input + span {
+  color: #aaa;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.form-item input:checked + span {
+  color: #fff;
 }
 
 table {
+  width: 100%;
   border-collapse: collapse;
 }
-table th {
+table th, table td {
+  padding: 4px 12px;
   text-align: left;
 }
-table th, table td {
-  padding: 3px 8px;
+table tbody tr {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+table tbody tr.active {
+  background: rgba(152, 192, 255, 0.2);
 }
 
-#app .main {
+#app .wrapper {
+  display: grid;
+  grid-template-columns: 250px auto;
+  height: 100vh;
+}
+#app .wrapper .sidebar {
+  position: relative;
+  background: #111;
   padding: 30px;
 }
-#app .main .log .log-wrapper {
-  max-height: 70vh;
-  max-width: 700px;
-  overflow: auto;
+#app .wrapper .sidebar .result {
+  margin-top: 60px;
+  text-align: center;
 }
-#app .main .log thead {
-  position: sticky;
-  top: 0;
-  background: #222;
+#app .wrapper .sidebar .result div:nth-child(1) {
+  font-weight: 700;
 }
-#app .main .log .arcane {
-  color: #0ff;
+#app .wrapper .sidebar .result div:nth-child(2) {
+  font-weight: 700;
+  font-size: 32px;
 }
-#app .main .log .frost {
-  color: #06f;
+#app .wrapper .sidebar .result div:nth-child(3) {
+  color: #aaa;
 }
-#app .main .log .crit {
-  font-weight: bold;
+#app .wrapper .main {
+  position: relative;
+  background: #1f1f28;
 }
-#app .main .log .error {
-  color: #d00;
+#app .wrapper .main .gear .slots {
+  background: #121220;
+  padding: 30px;
+}
+#app .wrapper .main .gear .slots .slot {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 16px;
+  margin-right: 30px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+#app .wrapper .main .gear .slots .slot:hover {
+  color: #fff;
+}
+#app .wrapper .main .gear .slots .slot.active {
+  color: #fff;
+  border-color: #fff;
+}
+#app .wrapper .main .gear .items {
+  padding: 30px;
+}
+#app .wrapper .main .gear .items table th:nth-child(n+2), #app .wrapper .main .gear .items table td:nth-child(n+2) {
+  width: 10%;
 }
 #app .config {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
   overflow: auto;
   padding: 30px;
-  background: #111;
+  background: #1f1f28;
   z-index: 100;
 }
 #app .config .fieldsets {
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 10px;
 }
 #app .config .fieldsets fieldset {
   grid-row: 1;
@@ -477,4 +553,48 @@ table th, table td {
   line-height: 30px;
   cursor: pointer;
   text-align: center;
+}
+#app .log {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: #1f1f28;
+  z-index: 102;
+}
+#app .log .log-wrapper {
+  padding: 30px;
+}
+#app .log .log-wrapper .filter {
+  margin-bottom: 30px;
+}
+#app .log .log-wrapper .filter:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+#app .log .log-wrapper .filter .form-item {
+  float: left;
+  margin: 0 30px 0 0;
+}
+#app .log table th:nth-child(-n+3), #app .log table td:nth-child(-n+3) {
+  width: 1px;
+  white-space: nowrap;
+}
+#app .log table td:nth-child(1) {
+  color: #ccc;
+}
+#app .log table td:nth-child(2) {
+  color: #08f;
+}
+#app .log table tr.type-2 td:nth-child(4) {
+  color: #807fa2;
+}
+#app .log table tr.type-3 td:nth-child(4) {
+  color: #bbe8ba;
+}
+#app .log table tr.type-5 td:nth-child(4) {
+  color: #b88;
 }

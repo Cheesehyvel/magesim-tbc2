@@ -10,25 +10,16 @@ std::shared_ptr<Config> allocConfig()
     return std::make_shared<Config>();
 }
 
-void freeConfig(std::shared_ptr<Config> config)
-{
-    //
-}
-
 std::shared_ptr<Player> allocPlayer(std::shared_ptr<Config> config)
 {
     return std::make_shared<Player>(config);
-}
-
-void freePlayer(std::shared_ptr<Player> player)
-{
-    //
 }
 
 SimulationResult runSimulation(std::shared_ptr<Config> config, std::shared_ptr<Player> player)
 {
     std::shared_ptr<Simulation> sim(new Simulation(config, player));
     player->ready();
+    sim->logging = true;
 
     return sim->run();
 }
@@ -57,6 +48,13 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("RACE_HUMAN", RACE_HUMAN)
         .value("RACE_TROLL", RACE_TROLL)
         .value("RACE_UNDEAD", RACE_UNDEAD);
+
+    emscripten::enum_<LogType>("LogType")
+        .value("LOG_NONE", LOG_NONE)
+        .value("LOG_SPELL", LOG_SPELL)
+        .value("LOG_MANA", LOG_MANA)
+        .value("LOG_BUFF", LOG_BUFF)
+        .value("LOG_DEBUG", LOG_DEBUG);
 
     emscripten::class_<Config>("Config")
         .smart_ptr<std::shared_ptr<Config>>("Config")
@@ -109,7 +107,6 @@ EMSCRIPTEN_BINDINGS(my_module) {
         ;
 
     emscripten::function("allocConfig", &allocConfig);
-    emscripten::function("freeConfig", &freeConfig);
 
     emscripten::value_object<Stats>("Stats")
         .field("intellect", &Stats::intellect)
@@ -132,13 +129,13 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .function("loadTalentsFromString", &Player::loadTalentsFromString);
 
     emscripten::function("allocPlayer", &allocPlayer);
-    emscripten::function("freePlayer", &freePlayer);
-        ;
 
     emscripten::value_object<SimulationResult>("SimulationResult")
         .field("dmg", &SimulationResult::dmg)
         .field("t", &SimulationResult::t)
-        .field("dps", &SimulationResult::dps);
+        .field("dps", &SimulationResult::dps)
+        .field("log", &SimulationResult::log)
+        ;
 
     emscripten::value_object<SimulationsResult>("SimulationsResult")
         .field("min_dps", &SimulationsResult::min_dps)

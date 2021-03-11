@@ -14,14 +14,312 @@ __webpack_require__.r(__webpack_exports__);
 // Lodash
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"); // Vue
 
- // const components = require.context("./components/", true, /\.vue$/i);
+
+
+__webpack_require__(/*! ./helpers.js */ "./assets/js/helpers.js"); // const components = require.context("./components/", true, /\.vue$/i);
 // components.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], components(key).default));
+
 
 
 var AppConstructor = vue__WEBPACK_IMPORTED_MODULE_1__.default.extend(_App_vue__WEBPACK_IMPORTED_MODULE_0__.default); // Init app
 
 window.app = new AppConstructor({
   el: "#app"
+});
+
+/***/ }),
+
+/***/ "./assets/js/helpers.js":
+/*!******************************!*\
+  !*** ./assets/js/helpers.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+vue__WEBPACK_IMPORTED_MODULE_0__.default.prototype.$get = _.get;
+vue__WEBPACK_IMPORTED_MODULE_0__.default.prototype.$set = _.set;
+vue__WEBPACK_IMPORTED_MODULE_0__.default.prototype.$round = _.round;
+
+/***/ }),
+
+/***/ "./assets/js/items.js":
+/*!****************************!*\
+  !*** ./assets/js/items.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var ids = {
+  TIRISFAL_SET: 649,
+  SPELLFIRE_SET: 552,
+  SERPENT_COIL: 30720,
+  SILVER_CRESCENT: 29370,
+  CHAOTIC_SKYFIRE: 34220
+};
+var equip = {
+  main_hand: [{
+    id: 30095,
+    title: "Fang of the Leviathan",
+    "int": 20,
+    sp: 221,
+    crit: 21
+  }],
+  off_hand: [{
+    id: 30049,
+    title: "Fathomstone",
+    "int": 12,
+    sp: 36,
+    crit: 23
+  }],
+  two_hand: [//
+  ],
+  ranged: [{
+    id: 29982,
+    title: "Wand of the Forgotten Star",
+    sp: 23,
+    crit: 14,
+    hit: 11
+  }],
+  head: [{
+    id: 30206,
+    itemset: ids.TIRISFAL_SET,
+    title: "Cowl of Tirisfal",
+    "int": 36,
+    spi: 24,
+    sp: 55,
+    crit: 24,
+    sockets: ["m", "y"],
+    bonus: {
+      hit: 4
+    }
+  }],
+  neck: [{
+    id: 30015,
+    title: "The Sun King's Talisman",
+    "int": 16,
+    sp: 41,
+    crit: 24
+  }],
+  shoulder: [{
+    id: 30210,
+    itemset: ids.TIRISFAL_SET,
+    title: "Mantle of Tirisfal",
+    "int": 24,
+    spi: 24,
+    sp: 40,
+    crit: 17,
+    sockets: ["y", "b"],
+    bonus: {
+      sp: 4
+    }
+  }],
+  back: [{
+    id: 29992,
+    title: "Royal Cloak of the Sunstriders",
+    "int": 22,
+    sp: 44
+  }],
+  chest: [{
+    id: 30196,
+    itemset: ids.TIRISFAL_SET,
+    title: "Robes of Tirisfal",
+    "int": 35,
+    spi: 20,
+    sp: 55,
+    crit: 19,
+    sockets: ["y", "y", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 21848,
+    itemset: ids.SPELLFIRE_SET,
+    title: "Spellfire Robe",
+    "int": 17,
+    sp_arcane: 72,
+    sp_fire: 72,
+    crit: 28,
+    sockets: ["y", "b"]
+  }],
+  wrist: [{
+    id: 29918,
+    title: "Mindstorm Wristbands",
+    "int": 13,
+    sp: 36,
+    crit: 23
+  }],
+  hands: [{
+    id: 29987,
+    title: "Gauntlets of the Sun King",
+    "int": 29,
+    spi: 20,
+    sp: 42,
+    crit: 28
+  }, {
+    id: 30205,
+    itemset: ids.TIRISFAL_SET,
+    title: "Gloves of Tirisfal",
+    "int": 27,
+    spi: 18,
+    sp: 41,
+    crit: 27
+  }, {
+    id: 21846,
+    itemset: ids.SPELLFIRE_SET,
+    title: "Spellfire Gloves",
+    "int": 10,
+    sp_arcane: 50,
+    sp_fire: 50,
+    crit: 23,
+    sockets: ["y", "b"]
+  }],
+  waist: [{
+    id: 30038,
+    title: "Belt of Blasting",
+    sp: 50,
+    crit: 30,
+    hit: 23,
+    sockets: ["b", "y"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 21847,
+    itemset: ids.SPELLFIRE_SET,
+    title: "Spellfire Belt",
+    "int": 18,
+    sp_arcane: 50,
+    sp_fire: 50,
+    crit: 18,
+    sockets: ["y", "b"]
+  }],
+  legs: [{
+    id: 30207,
+    itemset: ids.TIRISFAL_SET,
+    title: "Leggings of Tirisfal",
+    "int": 36,
+    spi: 26,
+    sp: 54,
+    crit: 17,
+    hit: 26,
+    sockets: ["y"],
+    bonus: {
+      hit: 2
+    }
+  }],
+  feet: [{
+    id: 30067,
+    title: "Velvet Boots of the Guardian",
+    "int": 21,
+    sp: 49,
+    crit: 24
+  }],
+  finger: [{
+    id: 29287,
+    title: "Violet Signet of the Archmage",
+    "int": 23,
+    sp: 29,
+    crit: 17
+  }, {
+    id: 28753,
+    title: "Ring of Recurrence",
+    "int": 19,
+    sp: 32,
+    crit: 19
+  }],
+  trinket: [{
+    id: ids.SERPENT_COIL,
+    title: "Serpent-Coil Braid",
+    crit: 30,
+    hit: 12
+  }, {
+    id: ids.SILVER_CRESCENT,
+    title: "Icon of the Silver Crescent",
+    sp: 43
+  }]
+};
+var gems = [{
+  id: ids.CHAOTIC_SKYFIRE,
+  title: "Chaotic Skyfire Diamond",
+  slot: "m",
+  crit: 12
+}, {
+  id: 30551,
+  title: "Infused Fire Opal",
+  slot: "o",
+  "int": 4,
+  sp: 6
+}, {
+  id: 33133,
+  title: "Don Julio's Heart",
+  slot: "r",
+  sp: 14,
+  unique: true
+}, {
+  id: 28118,
+  title: "Runed Living Ruby",
+  slot: "r",
+  sp: 12,
+  unique: true
+}, {
+  id: 24030,
+  title: "Runed Ornate Ruby",
+  slot: "r",
+  sp: 9
+}];
+var enchants = {
+  head: [{
+    id: 29191,
+    title: "Glyph of Power",
+    sp: 22,
+    hit: 14
+  }],
+  shoulder: [{
+    id: 28886,
+    title: "Greater Inscription of Discipline (Aldor)",
+    sp: 18,
+    crit: 10
+  }],
+  chest: [{
+    id: 27960,
+    title: "Exceptional Stats",
+    "int": 6,
+    spi: 6
+  }],
+  wrist: [{
+    id: 27917,
+    title: "Spellpower",
+    sp: 15
+  }],
+  weapon: [{
+    id: 27891,
+    title: "Sunfire",
+    sp_arcane: 50,
+    sp_fire: 50
+  }],
+  hands: [{
+    id: 33997,
+    title: "Major spellpower",
+    sp: 20
+  }],
+  legs: [{
+    id: 24274,
+    title: "Runic Spellthread",
+    sp: 35
+  }]
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  ids: ids,
+  equip: equip,
+  gems: gems,
+  enchants: enchants
 });
 
 /***/ }),
@@ -50,7 +348,7 @@ var SimulationWorker = /*#__PURE__*/function () {
 
     _classCallCheck(this, SimulationWorker);
 
-    this.worker = new Worker("./dist/js/sim_worker.js");
+    this.worker = new Worker("./dist/js/sim_worker.js?" + Math.random());
 
     this.worker.onerror = function () {
       onError.apply(void 0, arguments);
@@ -60,6 +358,7 @@ var SimulationWorker = /*#__PURE__*/function () {
 
     this.worker.onmessage = function (event) {
       var data = event.data;
+      console.log(data);
       if (data.type == "error") onError(data);
       if (data.type == "success") onSuccess(data.result);
 
@@ -139,6 +438,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _simulation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./simulation */ "./assets/js/simulation.js");
+/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./items */ "./assets/js/items.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -394,23 +717,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     this.loadConfig();
+    this.loadGear();
   },
   data: function data() {
-    return {
+    var data = {
+      items: _items__WEBPACK_IMPORTED_MODULE_1__.default,
+      equipped: {},
+      enchants: {},
+      gems: {},
+      active_slot: "main_hand",
       result: null,
       is_running: false,
       config_open: false,
+      log_open: false,
       log_filter: {
-        mana_ticks: false
+        "0": true,
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true
       },
       config: {
-        iterations: 200,
+        iterations: 10000,
         race: "RACE_UNDEAD",
         spec: "SPEC_ARCANE",
-        duration: 200,
+        duration: 180,
         vampiric_touch_regen: 50,
         misery: true,
         curse_of_elements: true,
@@ -465,12 +801,39 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     };
+    var slots = ["main_hand", "off_hand", "ranged", "head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "finger1", "finger2", "trinket1", "trinket2"];
+
+    for (var _i = 0, _slots = slots; _i < _slots.length; _i++) {
+      var slot = _slots[_i];
+      var islot = slot;
+      var i = 0;
+
+      if (slot.indexOf("finger") === 0 || slot.indexOf("trinket") === 0) {
+        islot = slot.substr(0, slot.length - 1);
+        i = parseInt(slot.substr(slot.length - 1)) - 1;
+      }
+
+      data.equipped[slot] = _.get(data.items.equip, islot + "." + i + ".id", null);
+      data.enchants[slot] = _.get(data.items.enchants, islot + "." + i + ".id", null);
+      data.gems[slot] = null;
+    }
+
+    return data;
   },
   computed: {
     talentsLink: function talentsLink() {
       if (this.config.talents.match(/^[0-9]+$/)) return "https://tbcdb.com/talents/index.html?en&mage&" + this.config.talents;
       if (this.config.talents.match(/tbcdb\.com.*mage\&([0-9]+)/i)) return this.config.talents;
       return null;
+    },
+    activeItems: function activeItems() {
+      var slot = this.equipSlotToItemSlot(this.active_slot);
+      return this.items.equip[slot];
+    },
+    activeEnchants: function activeEnchants() {
+      var slot = this.equipSlotToItemSlot(this.active_slot);
+      if (!this.items.enchants.hasOwnProperty(slot)) return [];
+      return this.items.enchants[slot];
     }
   },
   methods: {
@@ -486,6 +849,7 @@ __webpack_require__.r(__webpack_exports__);
         self.is_running = false;
         console.error(error);
       });
+      this.prepare();
       this.is_running = true;
       sim.start(this.config);
     },
@@ -498,8 +862,18 @@ __webpack_require__.r(__webpack_exports__);
         self.is_running = false;
         console.error(error);
       });
+      this.prepare();
       this.is_running = true;
       sim.start(this.config);
+    },
+    prepare: function prepare() {
+      this.itemStats();
+      this.itemConfig();
+    },
+    equipSlotToItemSlot: function equipSlotToItemSlot(slot) {
+      if (slot.indexOf("finger") === 0) slot = "finger";
+      if (slot.indexOf("trinket") === 0) slot = "trinket";
+      return slot;
     },
     dontStack: function dontStack(input, config) {
       if (!Array.isArray(config)) config = [config];
@@ -514,11 +888,173 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     },
-    showLog: function showLog(log) {
-      if (!log.filter) return true;
-      return this.log_filter[log.filter];
+    baseStats: function baseStats() {
+      // Undead default
+      var stats = {
+        intellect: 149,
+        spirit: 150,
+        crit: 0.91,
+        hit: 0,
+        haste: 0,
+        spell_power: 0,
+        spell_power_arcane: 0,
+        spell_power_frost: 0
+      };
+
+      if (this.config.race == "RACE_TROLL") {
+        stats.intellect = 147;
+        stats.spirit = 146;
+      }
+
+      if (this.config.race == "RACE_BLOOD_ELF") {
+        stats.intellect = 155;
+        stats.spirit = 144;
+      }
+
+      if (this.config.race == "RACE_DRAENEI") {
+        stats.intellect = 152;
+        stats.spirit = 147;
+      }
+
+      if (this.config.race == "RACE_GNOME") {
+        stats.intellect = 155;
+        stats.spirit = 145;
+      }
+
+      if (this.config.race == "RACE_HUMAN") {
+        stats.intellect = 151;
+        stats.spirit = 145;
+      }
+
+      return stats;
     },
-    timeFormat: function timeFormat(s) {
+    itemStats: function itemStats() {
+      var stats = this.baseStats();
+      var item_stats = {
+        "int": 0,
+        spi: 0,
+        crit: 0,
+        hit: 0,
+        sp: 0,
+        haste: 0,
+        sp_arcane: 0,
+        sp_frost: 0,
+        sp_fire: 0
+      };
+
+      for (var key in this.equipped) {
+        var slot = this.equipSlotToItemSlot(key);
+
+        var item = _.find(this.items.equip[slot], {
+          id: this.equipped[key]
+        });
+
+        if (item) {
+          for (var stat in item) {
+            if (item_stats.hasOwnProperty(stat)) item_stats[stat] += item[stat];
+          }
+        }
+      }
+
+      for (var key in this.enchants) {
+        var slot = this.equipSlotToItemSlot(key);
+
+        var item = _.find(this.items.enchants[slot], {
+          id: this.enchants[key]
+        });
+
+        if (item) {
+          for (var stat in item) {
+            if (item_stats.hasOwnProperty(stat)) item_stats[stat] += item[stat];
+          }
+        }
+      }
+
+      stats.intellect += item_stats["int"];
+      stats.spirit += item_stats.spi;
+      stats.spell_power += item_stats.sp;
+      stats.spell_power_arcane += item_stats.sp_arcane;
+      stats.spell_power_frost += item_stats.sp_frost;
+      stats.crit += this.critRatingToChance(item_stats.crit);
+      stats.hit += this.hitRatingToChance(item_stats.hit);
+      stats.haste += this.hasteRatingToHaste(item_stats.haste);
+      stats.crit += stats.intellect / 80;
+      stats.crit = _.round(stats.crit, 2);
+      stats.hit = _.round(stats.hit, 2);
+      stats.haste = _.round(stats.haste, 2);
+      this.config.stats = stats;
+    },
+    itemConfig: function itemConfig() {
+      var num = this.numEquippedSet(this.items.ids.TIRISFAL_SET);
+      this.config.t5_2set = num > 1;
+      this.config.t5_4set = num > 3;
+      this.config.spellfire_set = this.numEquippedSet(this.items.ids.SPELLFIRE_SET) > 2;
+      this.config.serpent_coil = this.isEquipped("trinket", this.items.ids.SERPENT_COIL);
+      this.config.silver_crescent = this.isEquipped("trinket", this.items.ids.SILVER_CRESCENT);
+    },
+    critRatingToChance: function critRatingToChance(rating) {
+      return rating / 22.08;
+    },
+    hitRatingToChance: function hitRatingToChance(rating) {
+      return rating / 12.62;
+    },
+    hasteRatingToHaste: function hasteRatingToHaste(rating) {
+      return rating / 15.75;
+    },
+    equip: function equip(slot, item) {
+      if (slot == "two_hand") {
+        this.equipped.off_hand = null;
+        slot = "main_hand";
+      }
+
+      if (this.equipped[slot] == item.id) this.equipped[slot] = null;else this.equipped[slot] = item.id;
+      this.saveGear();
+    },
+    isEquipped: function isEquipped(slot, id) {
+      if (slot == "trinket" || slot == "finger") return this.isEquipped(slot + "1", id) || this.isEquipped(slot + "2", id);
+      return _.get(this.equipped, slot) == id;
+    },
+    numEquippedSet: function numEquippedSet(id) {
+      var num = 0;
+
+      for (var key in this.equipped) {
+        var slot = this.equipSlotToItemSlot(key);
+
+        var item = _.find(this.items.equip[slot], {
+          id: this.equipped[key]
+        });
+
+        if (item && _.get(item, "itemset") == id) num++;
+      }
+
+      return num;
+    },
+    enchant: function enchant(slot, item) {
+      if (slot == "two_hand") {
+        this.enchants.off_hand = null;
+        slot = "main_hand";
+      }
+
+      if (this.enchants[slot] == item.id) this.enchants[slot] = null;else this.enchants[slot] = item.id;
+      this.saveGear();
+    },
+    isEnchanted: function isEnchanted(slot, id) {
+      if (slot == "trinket" || slot == "finger") return this.isEnchanted(slot + "1") || this.isEnchanted(slot + "2");
+      return _.get(this.enchants, slot) == id;
+    },
+    formatKey: function formatKey(str) {
+      return _.startCase(str);
+    },
+    formatSP: function formatSP(item) {
+      var str = item.sp ? item.sp : 0;
+      var extra = [];
+      if (item.sp_arcane) extra.push("+" + item.sp_arcane + " arc");
+      if (item.sp_frost) extra.push("+" + item.sp_frost + " frost");
+      if (item.sp_fire) extra.push("+" + item.sp_fire + " fire");
+      if (extra.length) str += " / " + extra.join(" / ");
+      return str;
+    },
+    formatTime: function formatTime(s) {
       var dec = Math.round(s % 1 * 100);
       var sec = Math.floor(s);
 
@@ -532,9 +1068,36 @@ __webpack_require__.r(__webpack_exports__);
     round: function round(num) {
       return Math.round(num);
     },
+    showLog: function showLog(log) {
+      return this.log_filter[log.type];
+    },
     configToggle: function configToggle() {
+      this.log_open = false;
       this.config_open = !this.config_open;
       if (!this.config_open) this.saveConfig();
+    },
+    logToggle: function logToggle() {
+      this.config_open = false;
+      this.log_open = !this.log_open;
+    },
+    saveGear: function saveGear() {
+      window.localStorage.setItem("magesim_tbc_equipped", JSON.stringify(this.equipped));
+      window.localStorage.setItem("magesim_tbc_enchants", JSON.stringify(this.enchants));
+    },
+    loadGear: function loadGear() {
+      var str = window.localStorage.getItem("magesim_tbc_equipped");
+
+      if (str) {
+        var equipped = JSON.parse(str);
+        if (equipped) _.merge(this.equipped, equipped);
+      }
+
+      var str = window.localStorage.getItem("magesim_tbc_enchants");
+
+      if (str) {
+        var enchants = JSON.parse(str);
+        if (enchants) _.merge(this.enchants, enchants);
+      }
     },
     saveConfig: function saveConfig() {
       window.localStorage.setItem("magesim_tbc_config", JSON.stringify(this.config));
@@ -17866,15 +18429,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
-    _c(
-      "div",
-      { staticClass: "main" },
-      [
+    _c("div", { staticClass: "wrapper" }, [
+      _c("div", { staticClass: "sidebar" }, [
         _c("div", { staticClass: "actions" }, [
           _c(
             "div",
             {
-              staticClass: "btn",
+              staticClass: "btn block",
               class: [_vm.is_running ? "disabled" : ""],
               on: { click: _vm.configToggle }
             },
@@ -17884,7 +18445,7 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "btn",
+              staticClass: "btn block mt-n",
               class: [_vm.is_running ? "disabled" : ""],
               on: { click: _vm.runSingle }
             },
@@ -17894,7 +18455,7 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "btn",
+              staticClass: "btn block mt-n",
               class: [_vm.is_running ? "disabled" : ""],
               on: { click: _vm.runMultiple }
             },
@@ -17902,278 +18463,302 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm.result && _vm.result.iterations
-          ? [
-              _c("div", { staticClass: "stats mt-2" }, [
-                _c("div", [
-                  _vm._v(
-                    "DPS: " +
-                      _vm._s(_vm.round(_vm.result.avg_dps)) +
-                      " (" +
-                      _vm._s(_vm.round(_vm.result.min_dps)) +
-                      " - " +
-                      _vm._s(_vm.round(_vm.result.max_dps)) +
-                      ")"
+        _vm.result
+          ? _c(
+              "div",
+              { staticClass: "result" },
+              [
+                _vm.result.iterations
+                  ? [
+                      _c("div", [_vm._v("DPS")]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _vm._v(_vm._s(_vm.$round(_vm.result.avg_dps, 2)))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _vm._v(
+                          _vm._s(_vm.$round(_vm.result.min_dps, 2)) +
+                            " - " +
+                            _vm._s(_vm.$round(_vm.result.max_dps, 2))
+                        )
+                      ])
+                    ]
+                  : [
+                      _c("div", [_vm._v("DPS")]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _vm._v(_vm._s(_vm.$round(_vm.result.dps, 2)))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [_vm._v("Damage: " + _vm._s(_vm.result.dmg))]),
+                      _vm._v(" "),
+                      _vm.result.log
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "btn mt-1",
+                              on: { click: _vm.logToggle }
+                            },
+                            [_vm._v("Combat log")]
+                          )
+                        : _vm._e()
+                    ]
+              ],
+              2
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "main" }, [
+        _c("div", { staticClass: "gear" }, [
+          _c(
+            "div",
+            { staticClass: "slots" },
+            _vm._l(_vm.equipped, function(i, slot) {
+              return _c(
+                "div",
+                {
+                  staticClass: "slot",
+                  class: [_vm.active_slot == slot ? "active" : ""],
+                  on: {
+                    click: function($event) {
+                      _vm.active_slot = slot
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.formatKey(slot)))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "items" }, [
+            _c("table", [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.activeItems, function(item) {
+                  return _c(
+                    "tr",
+                    {
+                      staticClass: "item",
+                      class: [
+                        _vm.isEquipped(_vm.active_slot, item.id) ? "active" : ""
+                      ],
+                      on: {
+                        click: function($event) {
+                          return _vm.equip(_vm.active_slot, item)
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v(_vm._s(item.title))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "crit", 0)))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", 0)))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", 0)))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "spirit", 0)))])
+                    ]
+                  )
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _vm.activeEnchants.length
+              ? _c("table", { staticClass: "mt-4" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.activeEnchants, function(item) {
+                      return _c(
+                        "tr",
+                        {
+                          staticClass: "item",
+                          class: [
+                            _vm.isEnchanted(_vm.active_slot, item.id)
+                              ? "active"
+                              : ""
+                          ],
+                          on: {
+                            click: function($event) {
+                              return _vm.enchant(_vm.active_slot, item)
+                            }
+                          }
+                        },
+                        [
+                          _c("td", [_vm._v(_vm._s(item.title))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "crit", 0)))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", 0)))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", 0)))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm.$get(item, "spirit", 0)))
+                          ])
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _vm.log_open
+          ? _c("div", { staticClass: "log" }, [
+              _c("div", { staticClass: "log-wrapper" }, [
+                _c("div", { staticClass: "filter" }, [
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.log_filter[2],
+                            expression: "log_filter[2]"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.log_filter[2])
+                            ? _vm._i(_vm.log_filter[2], null) > -1
+                            : _vm.log_filter[2]
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.log_filter[2],
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(_vm.log_filter, 2, $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.log_filter,
+                                    2,
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.log_filter, 2, $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Show mana gain")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.log_filter[3],
+                            expression: "log_filter[3]"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.log_filter[3])
+                            ? _vm._i(_vm.log_filter[3], null) > -1
+                            : _vm.log_filter[3]
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.log_filter[3],
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(_vm.log_filter, 3, $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.log_filter,
+                                    3,
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.log_filter, 3, $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Show buffs")])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("table", [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.result.log, function(log) {
+                      return _vm.showLog(log)
+                        ? _c("tr", { class: ["type-" + log.type] }, [
+                            _c("td", [_vm._v(_vm._s(_vm.formatTime(log.t)))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.round(log.mana)) +
+                                  " (" +
+                                  _vm._s(_vm.round(log.mana_percent)) +
+                                  "%)"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.round(log.dmg / log.t)))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(log.text))])
+                          ])
+                        : _vm._e()
+                    }),
+                    0
                   )
                 ])
               ])
-            ]
-          : _vm.result && _vm.result.t
-          ? [
-              _vm.result.t
-                ? _c("div", { staticClass: "stats mt-2" }, [
-                    _c("div", [_vm._v("Damage: " + _vm._s(_vm.result.dmg))]),
-                    _vm._v(" "),
-                    _c("div", [_vm._v("DPS: " + _vm._s(_vm.result.dps))])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.result.log
-                ? _c("div", { staticClass: "log mt-1" }, [
-                    _c("div", { staticClass: "form-item" }, [
-                      _c("label", [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.log_filter.mana_ticks,
-                              expression: "log_filter.mana_ticks"
-                            }
-                          ],
-                          attrs: { type: "checkbox" },
-                          domProps: {
-                            checked: Array.isArray(_vm.log_filter.mana_ticks)
-                              ? _vm._i(_vm.log_filter.mana_ticks, null) > -1
-                              : _vm.log_filter.mana_ticks
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.log_filter.mana_ticks,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = null,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.log_filter,
-                                      "mana_ticks",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.log_filter,
-                                      "mana_ticks",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(_vm.log_filter, "mana_ticks", $$c)
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(" Show mana ticks")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "log-wrapper" }, [
-                      _c("table", [
-                        _vm._m(0),
-                        _vm._v(" "),
-                        _c(
-                          "tbody",
-                          _vm._l(_vm.result.log, function(log) {
-                            return _vm.showLog(log)
-                              ? _c("tr", [
-                                  _c("td", [
-                                    _vm._v(_vm._s(_vm.timeFormat(log.t)))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      _vm._s(_vm.round(log.mana)) +
-                                        " (" +
-                                        _vm._s(_vm.round(log.mana_percent)) +
-                                        "%)"
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(_vm.round(log.dmg / log.t)))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { class: [log.class ? log.class : ""] },
-                                    [_vm._v(_vm._s(log.text))]
-                                  )
-                                ])
-                              : _vm._e()
-                          }),
-                          0
-                        )
-                      ])
-                    ])
-                  ])
-                : _vm._e()
-            ]
-          : _vm._e()
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _vm.config_open
-      ? _c("div", { staticClass: "config" }, [
-          _c("div", { staticClass: "fieldsets" }, [
-            _c("fieldset", [
-              _c("legend", [_vm._v("Basics")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Race")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.race,
-                        expression: "config.race"
-                      }
-                    ],
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.config,
-                          "race",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "RACE_BLOOD_ELF" } }, [
-                      _vm._v("Blood elf")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "RACE_DRAENEI" } }, [
-                      _vm._v("Draenei")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "RACE_GNOME" } }, [
-                      _vm._v("Gnome")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "RACE_HUMAN" } }, [
-                      _vm._v("Human")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "RACE_TROLL" } }, [
-                      _vm._v("Troll")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "RACE_UNDEAD" } }, [
-                      _vm._v("Undead")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Spec")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.spec,
-                        expression: "config.spec"
-                      }
-                    ],
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.config,
-                          "spec",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "SPEC_ARCANE" } }, [
-                      _vm._v("Arcane")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _vm._v("Talents ("),
-                  _c(
-                    "a",
-                    { attrs: { href: _vm.talentsLink, target: "_blank" } },
-                    [_vm._v("link")]
-                  ),
-                  _vm._v(")")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.config.talents,
-                      expression: "config.talents"
-                    }
-                  ],
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.config.talents },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.config, "talents", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm.config.spec == "arcane"
-                ? _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Regen rotation")]),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.config_open
+          ? _c("div", { staticClass: "config" }, [
+              _c("div", { staticClass: "fieldsets" }, [
+                _c("fieldset", [
+                  _c("legend", [_vm._v("Basics")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Race")]),
                     _vm._v(" "),
                     _c(
                       "select",
@@ -18182,8 +18767,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.config.regen_rotation,
-                            expression: "config.regen_rotation"
+                            value: _vm.config.race,
+                            expression: "config.race"
                           }
                         ],
                         on: {
@@ -18198,7 +18783,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.config,
-                              "regen_rotation",
+                              "race",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -18207,621 +18792,173 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { value: "ROTATION_FB" } }, [
-                          _vm._v("3AB, 3FrB")
+                        _c("option", { attrs: { value: "RACE_BLOOD_ELF" } }, [
+                          _vm._v("Blood elf")
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "ROTATION_AMFB" } }, [
-                          _vm._v("3AB, AM, FrB")
+                        _c("option", { attrs: { value: "RACE_DRAENEI" } }, [
+                          _vm._v("Draenei")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "RACE_GNOME" } }, [
+                          _vm._v("Gnome")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "RACE_HUMAN" } }, [
+                          _vm._v("Human")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "RACE_TROLL" } }, [
+                          _vm._v("Troll")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "RACE_UNDEAD" } }, [
+                          _vm._v("Undead")
                         ])
                       ]
                     )
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Fight duration (sec)")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.duration,
-                      expression: "config.duration",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.duration },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config,
-                        "duration",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Number of sims")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.iterations,
-                      expression: "config.iterations",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.iterations },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config,
-                        "iterations",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("fieldset", [
-              _c("legend", [_vm._v("Stats without talents")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Intellect")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.stats.intellect,
-                      expression: "config.stats.intellect",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.stats.intellect },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config.stats,
-                        "intellect",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Spirit")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.stats.spirit,
-                      expression: "config.stats.spirit",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.stats.spirit },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config.stats,
-                        "spirit",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Critical Strike %")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.stats.crit,
-                      expression: "config.stats.crit",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.stats.crit },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config.stats,
-                        "crit",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Hit %")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.stats.hit,
-                      expression: "config.stats.hit",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.stats.hit },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config.stats,
-                        "hit",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Haste %")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.stats.haste,
-                      expression: "config.stats.haste",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.stats.haste },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config.stats,
-                        "haste",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Spell Power")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.stats.spell_power,
-                      expression: "config.stats.spell_power",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.stats.spell_power },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config.stats,
-                        "spell_power",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Extra Arcane Spell Power")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.stats.spell_power_arcane,
-                      expression: "config.stats.spell_power_arcane",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.stats.spell_power_arcane },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config.stats,
-                        "spell_power_arcane",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Extra Frost Spell Power")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.stats.spell_power_frost,
-                      expression: "config.stats.spell_power_frost",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.stats.spell_power_frost },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config.stats,
-                        "spell_power_frost",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("fieldset", [
-              _c("legend", [_vm._v("Debuffs")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Spec")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.misery,
-                        expression: "config.misery"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.misery)
-                        ? _vm._i(_vm.config.misery, null) > -1
-                        : _vm.config.misery
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.misery,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(_vm.config, "misery", $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "misery",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.spec,
+                            expression: "config.spec"
                           }
-                        } else {
-                          _vm.$set(_vm.config, "misery", $$c)
+                        ],
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.config,
+                              "spec",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "SPEC_ARCANE" } }, [
+                          _vm._v("Arcane")
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _vm._v("Talents ("),
+                      _c(
+                        "a",
+                        { attrs: { href: _vm.talentsLink, target: "_blank" } },
+                        [_vm._v("link")]
+                      ),
+                      _vm._v(")")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.config.talents,
+                          expression: "config.talents"
+                        }
+                      ],
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.config.talents },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.config, "talents", $event.target.value)
                         }
                       }
-                    }
-                  }),
-                  _vm._v(" Misery")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.curse_of_elements,
-                        expression: "config.curse_of_elements"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.curse_of_elements)
-                        ? _vm._i(_vm.config.curse_of_elements, null) > -1
-                        : _vm.config.curse_of_elements
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.curse_of_elements,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "curse_of_elements",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "curse_of_elements",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "curse_of_elements", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Curse of Elements")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.judgement_of_the_crusader,
-                        expression: "config.judgement_of_the_crusader"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(
-                        _vm.config.judgement_of_the_crusader
-                      )
-                        ? _vm._i(_vm.config.judgement_of_the_crusader, null) >
-                          -1
-                        : _vm.config.judgement_of_the_crusader
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.judgement_of_the_crusader,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "judgement_of_the_crusader",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "judgement_of_the_crusader",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "judgement_of_the_crusader", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Imp. Judgement of the Crusader")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.judgement_of_wisdom,
-                        expression: "config.judgement_of_wisdom"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.judgement_of_wisdom)
-                        ? _vm._i(_vm.config.judgement_of_wisdom, null) > -1
-                        : _vm.config.judgement_of_wisdom
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.judgement_of_wisdom,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "judgement_of_wisdom",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "judgement_of_wisdom",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "judgement_of_wisdom", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Judgement of Wisdom")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.vampiric_touch,
-                        expression: "config.vampiric_touch"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.vampiric_touch)
-                        ? _vm._i(_vm.config.vampiric_touch, null) > -1
-                        : _vm.config.vampiric_touch
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.vampiric_touch,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "vampiric_touch",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "vampiric_touch",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "vampiric_touch", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Vampiric Touch")
-                ])
-              ]),
-              _vm._v(" "),
-              _vm.config.vampiric_touch
-                ? _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Vampiric Touch mana/sec")]),
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm.config.spec == "arcane"
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Regen rotation")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.regen_rotation,
+                                expression: "config.regen_rotation"
+                              }
+                            ],
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.config,
+                                  "regen_rotation",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "ROTATION_FB" } }, [
+                              _vm._v("3AB, 3FrB")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "ROTATION_AMFB" } },
+                              [_vm._v("3AB, AM, FrB")]
+                            )
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Fight duration (sec)")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model.number",
-                          value: _vm.config.vampiric_touch_regen,
-                          expression: "config.vampiric_touch_regen",
+                          value: _vm.config.duration,
+                          expression: "config.duration",
                           modifiers: { number: true }
                         }
                       ],
-                      attrs: { type: "input" },
-                      domProps: { value: _vm.config.vampiric_touch_regen },
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.config.duration },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -18829,7 +18966,40 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.config,
-                            "vampiric_touch_regen",
+                            "duration",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Number of sims")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.config.iterations,
+                          expression: "config.iterations",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.config.iterations },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.config,
+                            "iterations",
                             _vm._n($event.target.value)
                           )
                         },
@@ -18839,242 +19009,31 @@ var render = function() {
                       }
                     })
                   ])
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("fieldset", [
-              _c("legend", [_vm._v("Buffs")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.arcane_intellect,
-                        expression: "config.arcane_intellect"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.arcane_intellect)
-                        ? _vm._i(_vm.config.arcane_intellect, null) > -1
-                        : _vm.config.arcane_intellect
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.arcane_intellect,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "arcane_intellect",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "arcane_intellect",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "arcane_intellect", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Arcane Intellect")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.mage_armor,
-                        expression: "config.mage_armor"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.mage_armor)
-                        ? _vm._i(_vm.config.mage_armor, null) > -1
-                        : _vm.config.mage_armor
-                    },
-                    on: {
-                      input: function($event) {
-                        return _vm.dontStack($event, "buffs.molten_armor")
-                      },
-                      change: function($event) {
-                        var $$a = _vm.config.mage_armor,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "mage_armor",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "mage_armor",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "mage_armor", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Mage Armor")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.molten_armor,
-                        expression: "config.molten_armor"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.molten_armor)
-                        ? _vm._i(_vm.config.molten_armor, null) > -1
-                        : _vm.config.molten_armor
-                    },
-                    on: {
-                      input: function($event) {
-                        return _vm.dontStack($event, "buffs.mage_armor")
-                      },
-                      change: function($event) {
-                        var $$a = _vm.config.molten_armor,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "molten_armor",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "molten_armor",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "molten_armor", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Molten Armor")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.divine_spirit,
-                        expression: "config.divine_spirit"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.divine_spirit)
-                        ? _vm._i(_vm.config.divine_spirit, null) > -1
-                        : _vm.config.divine_spirit
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.divine_spirit,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "divine_spirit",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "divine_spirit",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "divine_spirit", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Divine Spirit")
-                ])
-              ]),
-              _vm._v(" "),
-              _vm.config.divine_spirit
-                ? _c("div", { staticClass: "form-item" }, [
+                ]),
+                _vm._v(" "),
+                _c("fieldset", [
+                  _c("legend", [_vm._v("Debuffs")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
                     _c("label", [
                       _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.config.improved_divine_spirit,
-                            expression: "config.improved_divine_spirit"
+                            value: _vm.config.misery,
+                            expression: "config.misery"
                           }
                         ],
                         attrs: { type: "checkbox" },
                         domProps: {
-                          checked: Array.isArray(
-                            _vm.config.improved_divine_spirit
-                          )
-                            ? _vm._i(_vm.config.improved_divine_spirit, null) >
-                              -1
-                            : _vm.config.improved_divine_spirit
+                          checked: Array.isArray(_vm.config.misery)
+                            ? _vm._i(_vm.config.misery, null) > -1
+                            : _vm.config.misery
                         },
                         on: {
                           change: function($event) {
-                            var $$a = _vm.config.improved_divine_spirit,
+                            var $$a = _vm.config.misery,
                               $$el = $event.target,
                               $$c = $$el.checked ? true : false
                             if (Array.isArray($$a)) {
@@ -19084,486 +19043,929 @@ var render = function() {
                                 $$i < 0 &&
                                   _vm.$set(
                                     _vm.config,
-                                    "improved_divine_spirit",
+                                    "misery",
                                     $$a.concat([$$v])
                                   )
                               } else {
                                 $$i > -1 &&
                                   _vm.$set(
                                     _vm.config,
-                                    "improved_divine_spirit",
+                                    "misery",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "misery", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Misery")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.curse_of_elements,
+                            expression: "config.curse_of_elements"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.curse_of_elements)
+                            ? _vm._i(_vm.config.curse_of_elements, null) > -1
+                            : _vm.config.curse_of_elements
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.curse_of_elements,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "curse_of_elements",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "curse_of_elements",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "curse_of_elements", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Curse of Elements")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.judgement_of_the_crusader,
+                            expression: "config.judgement_of_the_crusader"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(
+                            _vm.config.judgement_of_the_crusader
+                          )
+                            ? _vm._i(
+                                _vm.config.judgement_of_the_crusader,
+                                null
+                              ) > -1
+                            : _vm.config.judgement_of_the_crusader
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.judgement_of_the_crusader,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "judgement_of_the_crusader",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "judgement_of_the_crusader",
                                     $$a.slice(0, $$i).concat($$a.slice($$i + 1))
                                   )
                               }
                             } else {
                               _vm.$set(
                                 _vm.config,
-                                "improved_divine_spirit",
+                                "judgement_of_the_crusader",
                                 $$c
                               )
                             }
                           }
                         }
                       }),
-                      _vm._v(" Imp. Divine Spirit")
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Imp. Judgement of the Crusader")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.judgement_of_wisdom,
+                            expression: "config.judgement_of_wisdom"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.judgement_of_wisdom)
+                            ? _vm._i(_vm.config.judgement_of_wisdom, null) > -1
+                            : _vm.config.judgement_of_wisdom
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.judgement_of_wisdom,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "judgement_of_wisdom",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "judgement_of_wisdom",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "judgement_of_wisdom", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Judgement of Wisdom")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.vampiric_touch,
+                            expression: "config.vampiric_touch"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.vampiric_touch)
+                            ? _vm._i(_vm.config.vampiric_touch, null) > -1
+                            : _vm.config.vampiric_touch
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.vampiric_touch,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "vampiric_touch",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "vampiric_touch",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "vampiric_touch", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Vampiric Touch")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.config.vampiric_touch
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Vampiric Touch mana/sec")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.vampiric_touch_regen,
+                              expression: "config.vampiric_touch_regen",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.vampiric_touch_regen },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "vampiric_touch_regen",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("fieldset", [
+                  _c("legend", [_vm._v("Buffs")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.arcane_intellect,
+                            expression: "config.arcane_intellect"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.arcane_intellect)
+                            ? _vm._i(_vm.config.arcane_intellect, null) > -1
+                            : _vm.config.arcane_intellect
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.arcane_intellect,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "arcane_intellect",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "arcane_intellect",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "arcane_intellect", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Arcane Intellect")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.mage_armor,
+                            expression: "config.mage_armor"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.mage_armor)
+                            ? _vm._i(_vm.config.mage_armor, null) > -1
+                            : _vm.config.mage_armor
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.dontStack($event, "buffs.molten_armor")
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.mage_armor,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "mage_armor",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "mage_armor",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "mage_armor", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Mage Armor")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.molten_armor,
+                            expression: "config.molten_armor"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.molten_armor)
+                            ? _vm._i(_vm.config.molten_armor, null) > -1
+                            : _vm.config.molten_armor
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.dontStack($event, "buffs.mage_armor")
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.molten_armor,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "molten_armor",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "molten_armor",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "molten_armor", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Molten Armor")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.divine_spirit,
+                            expression: "config.divine_spirit"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.divine_spirit)
+                            ? _vm._i(_vm.config.divine_spirit, null) > -1
+                            : _vm.config.divine_spirit
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.divine_spirit,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "divine_spirit",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "divine_spirit",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "divine_spirit", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Divine Spirit")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.config.divine_spirit
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.improved_divine_spirit,
+                                expression: "config.improved_divine_spirit"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.config.improved_divine_spirit
+                              )
+                                ? _vm._i(
+                                    _vm.config.improved_divine_spirit,
+                                    null
+                                  ) > -1
+                                : _vm.config.improved_divine_spirit
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.config.improved_divine_spirit,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "improved_divine_spirit",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "improved_divine_spirit",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.config,
+                                    "improved_divine_spirit",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" Imp. Divine Spirit")
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.mark_of_the_wild,
+                            expression: "config.mark_of_the_wild"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.mark_of_the_wild)
+                            ? _vm._i(_vm.config.mark_of_the_wild, null) > -1
+                            : _vm.config.mark_of_the_wild
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.mark_of_the_wild,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "mark_of_the_wild",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "mark_of_the_wild",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "mark_of_the_wild", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Mark of the Wild")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.totem_of_wrath,
+                            expression: "config.totem_of_wrath"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.totem_of_wrath)
+                            ? _vm._i(_vm.config.totem_of_wrath, null) > -1
+                            : _vm.config.totem_of_wrath
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.totem_of_wrath,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "totem_of_wrath",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "totem_of_wrath",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "totem_of_wrath", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Totem of Wrath")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.wrath_of_air,
+                            expression: "config.wrath_of_air"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.wrath_of_air)
+                            ? _vm._i(_vm.config.wrath_of_air, null) > -1
+                            : _vm.config.wrath_of_air
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.wrath_of_air,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "wrath_of_air",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "wrath_of_air",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "wrath_of_air", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Wrath of Air Totem")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.mana_spring,
+                            expression: "config.mana_spring"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.mana_spring)
+                            ? _vm._i(_vm.config.mana_spring, null) > -1
+                            : _vm.config.mana_spring
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.mana_spring,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "mana_spring",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "mana_spring",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "mana_spring", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Mana Spring Totem")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.blessing_of_kings,
+                            expression: "config.blessing_of_kings"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.blessing_of_kings)
+                            ? _vm._i(_vm.config.blessing_of_kings, null) > -1
+                            : _vm.config.blessing_of_kings
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.blessing_of_kings,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "blessing_of_kings",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "blessing_of_kings",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "blessing_of_kings", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Blessing of Kings")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.blessing_of_wisdom,
+                            expression: "config.blessing_of_wisdom"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.blessing_of_wisdom)
+                            ? _vm._i(_vm.config.blessing_of_wisdom, null) > -1
+                            : _vm.config.blessing_of_wisdom
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.blessing_of_wisdom,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "blessing_of_wisdom",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "blessing_of_wisdom",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "blessing_of_wisdom", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Blessing of Wisdom")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.moonkin_aura,
+                            expression: "config.moonkin_aura"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.moonkin_aura)
+                            ? _vm._i(_vm.config.moonkin_aura, null) > -1
+                            : _vm.config.moonkin_aura
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.moonkin_aura,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "moonkin_aura",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "moonkin_aura",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "moonkin_aura", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Moonkin Aura")])
                     ])
                   ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.mark_of_the_wild,
-                        expression: "config.mark_of_the_wild"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.mark_of_the_wild)
-                        ? _vm._i(_vm.config.mark_of_the_wild, null) > -1
-                        : _vm.config.mark_of_the_wild
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.mark_of_the_wild,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "mark_of_the_wild",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "mark_of_the_wild",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "mark_of_the_wild", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Mark of the Wild")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.totem_of_wrath,
-                        expression: "config.totem_of_wrath"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.totem_of_wrath)
-                        ? _vm._i(_vm.config.totem_of_wrath, null) > -1
-                        : _vm.config.totem_of_wrath
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.totem_of_wrath,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "totem_of_wrath",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "totem_of_wrath",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "totem_of_wrath", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Totem of Wrath")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.wrath_of_air,
-                        expression: "config.wrath_of_air"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.wrath_of_air)
-                        ? _vm._i(_vm.config.wrath_of_air, null) > -1
-                        : _vm.config.wrath_of_air
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.wrath_of_air,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "wrath_of_air",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "wrath_of_air",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "wrath_of_air", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Wrath of Air Totem")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.mana_spring,
-                        expression: "config.mana_spring"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.mana_spring)
-                        ? _vm._i(_vm.config.mana_spring, null) > -1
-                        : _vm.config.mana_spring
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.mana_spring,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "mana_spring",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "mana_spring",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "mana_spring", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Mana Spring Totem")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.blessing_of_kings,
-                        expression: "config.blessing_of_kings"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.blessing_of_kings)
-                        ? _vm._i(_vm.config.blessing_of_kings, null) > -1
-                        : _vm.config.blessing_of_kings
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.blessing_of_kings,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "blessing_of_kings",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "blessing_of_kings",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "blessing_of_kings", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Blessing of Kings")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.blessing_of_wisdom,
-                        expression: "config.blessing_of_wisdom"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.blessing_of_wisdom)
-                        ? _vm._i(_vm.config.blessing_of_wisdom, null) > -1
-                        : _vm.config.blessing_of_wisdom
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.blessing_of_wisdom,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "blessing_of_wisdom",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "blessing_of_wisdom",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "blessing_of_wisdom", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Blessing of Wisdom")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.moonkin_aura,
-                        expression: "config.moonkin_aura"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.moonkin_aura)
-                        ? _vm._i(_vm.config.moonkin_aura, null) > -1
-                        : _vm.config.moonkin_aura
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.moonkin_aura,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "moonkin_aura",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "moonkin_aura",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "moonkin_aura", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Moonkin Aura")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("fieldset", [
-              _c("legend", [_vm._v("Cooldowns")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Personal CDs at")]),
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.cooldowns_at,
-                      expression: "config.cooldowns_at",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.cooldowns_at },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config,
-                        "cooldowns_at",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c(
-                  "label",
-                  [
+                _c("fieldset", [
+                  _c("legend", [_vm._v("Cooldowns")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Personal CDs at")]),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
                           name: "model",
-                          rawName: "v-model",
-                          value: _vm.config.bloodlust,
-                          expression: "config.bloodlust"
-                        }
-                      ],
-                      attrs: { type: "checkbox" },
-                      domProps: {
-                        checked: Array.isArray(_vm.config.bloodlust)
-                          ? _vm._i(_vm.config.bloodlust, null) > -1
-                          : _vm.config.bloodlust
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.config.bloodlust,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                _vm.$set(
-                                  _vm.config,
-                                  "bloodlust",
-                                  $$a.concat([$$v])
-                                )
-                            } else {
-                              $$i > -1 &&
-                                _vm.$set(
-                                  _vm.config,
-                                  "bloodlust",
-                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                )
-                            }
-                          } else {
-                            _vm.$set(_vm.config, "bloodlust", $$c)
-                          }
-                        }
-                      }
-                    }),
-                    _vm._v(" Bloodlust "),
-                    _vm.config.bloodlust ? [_vm._v("at")] : _vm._e()
-                  ],
-                  2
-                ),
-                _vm._v(" "),
-                _vm.config.bloodlust
-                  ? _c("input", {
-                      directives: [
-                        {
-                          name: "model",
                           rawName: "v-model.number",
-                          value: _vm.config.bloodlust_at,
-                          expression: "config.bloodlust_at",
+                          value: _vm.config.cooldowns_at,
+                          expression: "config.cooldowns_at",
                           modifiers: { number: true }
                         }
                       ],
-                      attrs: { type: "input" },
-                      domProps: { value: _vm.config.bloodlust_at },
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.config.cooldowns_at },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -19571,7 +19973,7 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.config,
-                            "bloodlust_at",
+                            "cooldowns_at",
                             _vm._n($event.target.value)
                           )
                         },
@@ -19580,76 +19982,201 @@ var render = function() {
                         }
                       }
                     })
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c(
-                  "label",
-                  [
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.bloodlust,
+                            expression: "config.bloodlust"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.bloodlust)
+                            ? _vm._i(_vm.config.bloodlust, null) > -1
+                            : _vm.config.bloodlust
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.bloodlust,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "bloodlust",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "bloodlust",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "bloodlust", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        [
+                          _vm._v("Bloodlust "),
+                          _vm.config.bloodlust ? [_vm._v("at")] : _vm._e()
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.config.bloodlust
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.bloodlust_at,
+                              expression: "config.bloodlust_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.bloodlust_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "bloodlust_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.mana_tide,
+                            expression: "config.mana_tide"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.mana_tide)
+                            ? _vm._i(_vm.config.mana_tide, null) > -1
+                            : _vm.config.mana_tide
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.mana_tide,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "mana_tide",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "mana_tide",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "mana_tide", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        [
+                          _vm._v("Mana Tide "),
+                          _vm.config.mana_tide ? [_vm._v("at")] : _vm._e()
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.config.mana_tide
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.mana_tide_at,
+                              expression: "config.mana_tide_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.mana_tide_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "mana_tide_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Innervates")]),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
                           name: "model",
-                          rawName: "v-model",
-                          value: _vm.config.mana_tide,
-                          expression: "config.mana_tide"
-                        }
-                      ],
-                      attrs: { type: "checkbox" },
-                      domProps: {
-                        checked: Array.isArray(_vm.config.mana_tide)
-                          ? _vm._i(_vm.config.mana_tide, null) > -1
-                          : _vm.config.mana_tide
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.config.mana_tide,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                _vm.$set(
-                                  _vm.config,
-                                  "mana_tide",
-                                  $$a.concat([$$v])
-                                )
-                            } else {
-                              $$i > -1 &&
-                                _vm.$set(
-                                  _vm.config,
-                                  "mana_tide",
-                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                )
-                            }
-                          } else {
-                            _vm.$set(_vm.config, "mana_tide", $$c)
-                          }
-                        }
-                      }
-                    }),
-                    _vm._v(" Mana Tide "),
-                    _vm.config.mana_tide ? [_vm._v("at")] : _vm._e()
-                  ],
-                  2
-                ),
-                _vm._v(" "),
-                _vm.config.mana_tide
-                  ? _c("input", {
-                      directives: [
-                        {
-                          name: "model",
                           rawName: "v-model.number",
-                          value: _vm.config.mana_tide_at,
-                          expression: "config.mana_tide_at",
+                          value: _vm.config.innervate,
+                          expression: "config.innervate",
                           modifiers: { number: true }
                         }
                       ],
-                      attrs: { type: "input" },
-                      domProps: { value: _vm.config.mana_tide_at },
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.config.innervate },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -19657,7 +20184,7 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.config,
-                            "mana_tide_at",
+                            "innervate",
                             _vm._n($event.target.value)
                           )
                         },
@@ -19666,779 +20193,494 @@ var render = function() {
                         }
                       }
                     })
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [_vm._v("Innervates")]),
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.config.innervate,
-                      expression: "config.innervate",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  attrs: { type: "input" },
-                  domProps: { value: _vm.config.innervate },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.config,
-                        "innervate",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("fieldset", [
-              _c("legend", [_vm._v("Consumes")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.spell_dmg_food,
-                        expression: "config.spell_dmg_food"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.spell_dmg_food)
-                        ? _vm._i(_vm.config.spell_dmg_food, null) > -1
-                        : _vm.config.spell_dmg_food
-                    },
-                    on: {
-                      input: function($event) {
-                        return _vm.dontStack($event, "consumes.spell_crit_food")
-                      },
-                      change: function($event) {
-                        var $$a = _vm.config.spell_dmg_food,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "spell_dmg_food",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "spell_dmg_food",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                _c("fieldset", [
+                  _c("legend", [_vm._v("Consumes")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.spell_dmg_food,
+                            expression: "config.spell_dmg_food"
                           }
-                        } else {
-                          _vm.$set(_vm.config, "spell_dmg_food", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Spell damage food")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.spell_crit_food,
-                        expression: "config.spell_crit_food"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.spell_crit_food)
-                        ? _vm._i(_vm.config.spell_crit_food, null) > -1
-                        : _vm.config.spell_crit_food
-                    },
-                    on: {
-                      input: function($event) {
-                        return _vm.dontStack($event, "consumes.spell_dmg_food")
-                      },
-                      change: function($event) {
-                        var $$a = _vm.config.spell_crit_food,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "spell_crit_food",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "spell_crit_food",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.spell_dmg_food)
+                            ? _vm._i(_vm.config.spell_dmg_food, null) > -1
+                            : _vm.config.spell_dmg_food
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.dontStack(
+                              $event,
+                              "consumes.spell_crit_food"
+                            )
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.spell_dmg_food,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "spell_dmg_food",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "spell_dmg_food",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "spell_dmg_food", $$c)
+                            }
                           }
-                        } else {
-                          _vm.$set(_vm.config, "spell_crit_food", $$c)
                         }
-                      }
-                    }
-                  }),
-                  _vm._v(" Spell crit food")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.brilliant_wizard_oil,
-                        expression: "config.brilliant_wizard_oil"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.brilliant_wizard_oil)
-                        ? _vm._i(_vm.config.brilliant_wizard_oil, null) > -1
-                        : _vm.config.brilliant_wizard_oil
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.brilliant_wizard_oil,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "brilliant_wizard_oil",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "brilliant_wizard_oil",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Spell damage food")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.spell_crit_food,
+                            expression: "config.spell_crit_food"
                           }
-                        } else {
-                          _vm.$set(_vm.config, "brilliant_wizard_oil", $$c)
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.spell_crit_food)
+                            ? _vm._i(_vm.config.spell_crit_food, null) > -1
+                            : _vm.config.spell_crit_food
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.dontStack(
+                              $event,
+                              "consumes.spell_dmg_food"
+                            )
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.spell_crit_food,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "spell_crit_food",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "spell_crit_food",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "spell_crit_food", $$c)
+                            }
+                          }
                         }
-                      }
-                    }
-                  }),
-                  _vm._v(" Brilliant Wizard Oil")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.flask_of_supreme_power,
-                        expression: "config.flask_of_supreme_power"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.flask_of_supreme_power)
-                        ? _vm._i(_vm.config.flask_of_supreme_power, null) > -1
-                        : _vm.config.flask_of_supreme_power
-                    },
-                    on: {
-                      input: function($event) {
-                        return _vm.dontStack($event, [
-                          "consumes.flask_of_blinding_light",
-                          "consumes.adepts_elixir",
-                          "consumes.elixir_of_draenic_wisdom"
-                        ])
-                      },
-                      change: function($event) {
-                        var $$a = _vm.config.flask_of_supreme_power,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Spell crit food")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.brilliant_wizard_oil,
+                            expression: "config.brilliant_wizard_oil"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(
+                            _vm.config.brilliant_wizard_oil
+                          )
+                            ? _vm._i(_vm.config.brilliant_wizard_oil, null) > -1
+                            : _vm.config.brilliant_wizard_oil
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.brilliant_wizard_oil,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "brilliant_wizard_oil",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "brilliant_wizard_oil",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "brilliant_wizard_oil", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Brilliant Wizard Oil")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.flask_of_supreme_power,
+                            expression: "config.flask_of_supreme_power"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(
+                            _vm.config.flask_of_supreme_power
+                          )
+                            ? _vm._i(_vm.config.flask_of_supreme_power, null) >
+                              -1
+                            : _vm.config.flask_of_supreme_power
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.dontStack($event, [
+                              "consumes.flask_of_blinding_light",
+                              "consumes.adepts_elixir",
+                              "consumes.elixir_of_draenic_wisdom"
+                            ])
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.flask_of_supreme_power,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "flask_of_supreme_power",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "flask_of_supreme_power",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
                               _vm.$set(
                                 _vm.config,
                                 "flask_of_supreme_power",
-                                $$a.concat([$$v])
+                                $$c
                               )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "flask_of_supreme_power",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                            }
                           }
-                        } else {
-                          _vm.$set(_vm.config, "flask_of_supreme_power", $$c)
                         }
-                      }
-                    }
-                  }),
-                  _vm._v(" Flask of Supreme Power")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.flask_of_blinding_light,
-                        expression: "config.flask_of_blinding_light"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.flask_of_blinding_light)
-                        ? _vm._i(_vm.config.flask_of_blinding_light, null) > -1
-                        : _vm.config.flask_of_blinding_light
-                    },
-                    on: {
-                      input: function($event) {
-                        return _vm.dontStack($event, [
-                          "consumes.flask_of_supreme_power",
-                          "consumes.adepts_elixir",
-                          "consumes.elixir_of_draenic_wisdom"
-                        ])
-                      },
-                      change: function($event) {
-                        var $$a = _vm.config.flask_of_blinding_light,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Flask of Supreme Power")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.flask_of_blinding_light,
+                            expression: "config.flask_of_blinding_light"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(
+                            _vm.config.flask_of_blinding_light
+                          )
+                            ? _vm._i(_vm.config.flask_of_blinding_light, null) >
+                              -1
+                            : _vm.config.flask_of_blinding_light
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.dontStack($event, [
+                              "consumes.flask_of_supreme_power",
+                              "consumes.adepts_elixir",
+                              "consumes.elixir_of_draenic_wisdom"
+                            ])
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.flask_of_blinding_light,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "flask_of_blinding_light",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "flask_of_blinding_light",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
                               _vm.$set(
                                 _vm.config,
                                 "flask_of_blinding_light",
-                                $$a.concat([$$v])
+                                $$c
                               )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "flask_of_blinding_light",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                            }
                           }
-                        } else {
-                          _vm.$set(_vm.config, "flask_of_blinding_light", $$c)
                         }
-                      }
-                    }
-                  }),
-                  _vm._v(" Flask of Blinding Light")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.adepts_elixir,
-                        expression: "config.adepts_elixir"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.adepts_elixir)
-                        ? _vm._i(_vm.config.adepts_elixir, null) > -1
-                        : _vm.config.adepts_elixir
-                    },
-                    on: {
-                      input: function($event) {
-                        return _vm.dontStack($event, [
-                          "consumes.flask_of_supreme_power",
-                          "consumes.flask_of_blinding_light"
-                        ])
-                      },
-                      change: function($event) {
-                        var $$a = _vm.config.adepts_elixir,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "adepts_elixir",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "adepts_elixir",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Flask of Blinding Light")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.adepts_elixir,
+                            expression: "config.adepts_elixir"
                           }
-                        } else {
-                          _vm.$set(_vm.config, "adepts_elixir", $$c)
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.adepts_elixir)
+                            ? _vm._i(_vm.config.adepts_elixir, null) > -1
+                            : _vm.config.adepts_elixir
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.dontStack($event, [
+                              "consumes.flask_of_supreme_power",
+                              "consumes.flask_of_blinding_light"
+                            ])
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.adepts_elixir,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "adepts_elixir",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "adepts_elixir",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "adepts_elixir", $$c)
+                            }
+                          }
                         }
-                      }
-                    }
-                  }),
-                  _vm._v(" Adept's Elixir")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.elixir_of_draenic_wisdom,
-                        expression: "config.elixir_of_draenic_wisdom"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(
-                        _vm.config.elixir_of_draenic_wisdom
-                      )
-                        ? _vm._i(_vm.config.elixir_of_draenic_wisdom, null) > -1
-                        : _vm.config.elixir_of_draenic_wisdom
-                    },
-                    on: {
-                      input: function($event) {
-                        return _vm.dontStack($event, [
-                          "consumes.flask_of_supreme_power",
-                          "consumes.flask_of_blinding_light"
-                        ])
-                      },
-                      change: function($event) {
-                        var $$a = _vm.config.elixir_of_draenic_wisdom,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Adept's Elixir")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.elixir_of_draenic_wisdom,
+                            expression: "config.elixir_of_draenic_wisdom"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(
+                            _vm.config.elixir_of_draenic_wisdom
+                          )
+                            ? _vm._i(
+                                _vm.config.elixir_of_draenic_wisdom,
+                                null
+                              ) > -1
+                            : _vm.config.elixir_of_draenic_wisdom
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.dontStack($event, [
+                              "consumes.flask_of_supreme_power",
+                              "consumes.flask_of_blinding_light"
+                            ])
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.elixir_of_draenic_wisdom,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "elixir_of_draenic_wisdom",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "elixir_of_draenic_wisdom",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
                               _vm.$set(
                                 _vm.config,
                                 "elixir_of_draenic_wisdom",
-                                $$a.concat([$$v])
+                                $$c
                               )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "elixir_of_draenic_wisdom",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                            }
                           }
-                        } else {
-                          _vm.$set(_vm.config, "elixir_of_draenic_wisdom", $$c)
                         }
-                      }
-                    }
-                  }),
-                  _vm._v(" Elixir of Draenic Wisdom")
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Elixir of Draenic Wisdom")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.drums,
+                            expression: "config.drums"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.drums)
+                            ? _vm._i(_vm.config.drums, null) > -1
+                            : _vm.config.drums
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.drums,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "drums",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "drums",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "drums", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Drums (WIP)")])
+                    ])
+                  ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.drums,
-                        expression: "config.drums"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.drums)
-                        ? _vm._i(_vm.config.drums, null) > -1
-                        : _vm.config.drums
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.drums,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(_vm.config, "drums", $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "drums",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "drums", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Drums (WIP)")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("fieldset", [
-              _c("legend", [_vm._v("Items")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.t5_2set,
-                        expression: "config.t5_2set"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.t5_2set)
-                        ? _vm._i(_vm.config.t5_2set, null) > -1
-                        : _vm.config.t5_2set
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.t5_2set,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(_vm.config, "t5_2set", $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "t5_2set",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "t5_2set", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" T5 2-set bonus")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.t5_4set,
-                        expression: "config.t5_4set"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.t5_4set)
-                        ? _vm._i(_vm.config.t5_4set, null) > -1
-                        : _vm.config.t5_4set
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.t5_4set,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(_vm.config, "t5_4set", $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "t5_4set",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "t5_4set", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" T5 4-set bonus")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.serpent_coil,
-                        expression: "config.serpent_coil"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.serpent_coil)
-                        ? _vm._i(_vm.config.serpent_coil, null) > -1
-                        : _vm.config.serpent_coil
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.serpent_coil,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "serpent_coil",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "serpent_coil",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "serpent_coil", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Serpent Coil")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.silver_crescent,
-                        expression: "config.silver_crescent"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.silver_crescent)
-                        ? _vm._i(_vm.config.silver_crescent, null) > -1
-                        : _vm.config.silver_crescent
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.silver_crescent,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "silver_crescent",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "silver_crescent",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "silver_crescent", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Icon of the Silver Crescent")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.spellfire_set,
-                        expression: "config.spellfire_set"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.spellfire_set)
-                        ? _vm._i(_vm.config.spellfire_set, null) > -1
-                        : _vm.config.spellfire_set
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.spellfire_set,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "spellfire_set",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "spellfire_set",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "spellfire_set", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Spellfire set bonus")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-item" }, [
-                _c("label", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.config.chaotic_skyfire,
-                        expression: "config.chaotic_skyfire"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.config.chaotic_skyfire)
-                        ? _vm._i(_vm.config.chaotic_skyfire, null) > -1
-                        : _vm.config.chaotic_skyfire
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.config.chaotic_skyfire,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(
-                                _vm.config,
-                                "chaotic_skyfire",
-                                $$a.concat([$$v])
-                              )
-                          } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.config,
-                                "chaotic_skyfire",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
-                          }
-                        } else {
-                          _vm.$set(_vm.config, "chaotic_skyfire", $$c)
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" Chaotic Skyfire meta gem")
-                ])
-              ])
+              _c(
+                "div",
+                { staticClass: "close", on: { click: _vm.configToggle } },
+                [_vm._v("X")]
+              )
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "close", on: { click: _vm.configToggle } }, [
-            _vm._v("X")
-          ])
-        ])
-      : _vm._e()
+          : _vm._e()
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -20447,7 +20689,43 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("th", [_vm._v("T")]),
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Spell power")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Crit rating")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Hit rating")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Intellect")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Spirit")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("Enchant")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Spell power")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Crit rating")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Hit rating")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Intellect")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Spirit")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("Time")]),
       _vm._v(" "),
       _c("th", [_vm._v("Mana")]),
       _vm._v(" "),

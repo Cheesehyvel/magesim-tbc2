@@ -48,7 +48,18 @@ enum LogType : int
     LOG_SPELL,
     LOG_MANA,
     LOG_BUFF,
-    LOG_DEBUG
+    LOG_DEBUG,
+    LOG_WAIT
+};
+
+struct LogEntry
+{
+    LogType type;
+    std::string text;
+    double t;
+    double mana;
+    double mana_percent;
+    int dmg;
 };
 
 struct SimulationResult
@@ -56,25 +67,13 @@ struct SimulationResult
     int dmg;
     double t;
     double dps;
+    std::string log;
 };
 
 struct SimulationsResult
 {
     double min_dps, avg_dps, max_dps;
     int iterations;
-};
-
-class LogEntry
-{
-
-public:
-    LogType type;
-    std::string text;
-    double t;
-    double mana;
-    double mana_percent;
-    int dmg;
-
 };
 
 template<typename Numeric, typename Generator = std::mt19937>

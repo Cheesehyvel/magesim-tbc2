@@ -15,7 +15,7 @@ onmessage = (event) => {
     };
 
     if (data.type == "start") {
-        const wasm = fetch('./magesim.wasm')
+        const wasm = fetch("./magesim.wasm", {cache: "no-store"})
         .then(r => r.arrayBuffer())
         .then(binary => MageSim({wasmBinary: binary}))
         .then(w => w.ready)
@@ -44,8 +44,8 @@ onmessage = (event) => {
             else
                 var result = m.runSimulation(config, player);
 
-            m.freePlayer(player);
-            m.freeConfig(config);
+            if (result.log)
+                result.log = JSON.parse(result.log);
 
             postMessage({
                 type: "success",

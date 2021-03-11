@@ -27,7 +27,7 @@ class Simulation
 public:
     bool logging = true;
     list<shared_ptr<Event>> queue;
-    list<shared_ptr<LogEntry>> log;
+    vector<shared_ptr<LogEntry>> log;
     shared_ptr<State> state;
     shared_ptr<Player> player;
     shared_ptr<Config> config;
@@ -88,6 +88,9 @@ public:
         result.dmg = state->dmg;
         result.t = state->t;
         result.dps = state->dmg/state->t;
+
+        if (logging)
+            result.log = jsonLog();
 
         return result;
     }
@@ -223,6 +226,8 @@ public:
         event->t = t;
 
         push(event);
+
+        addLog(LOG_WAIT, "Out of mana, waiting...");
     }
 
     void cast(shared_ptr<spell::Spell> spell)
@@ -811,12 +816,36 @@ public:
         addLog(LOG_MANA, s.str());
     }
 
+    string jsonLog()
+    {
+        ostringstream s;
+
+        s << "[";
+
+        for (int i=0; i<log.size(); i++) {
+            if (i > 0)
+                s << ",";
+            s << "{";
+            s << "\"text\":\"" << log[i]->text << "\"";
+            s << ",\"t\":" << log[i]->t;
+            s << ",\"type\":" << log[i]->type;
+            s << ",\"dmg\":" << log[i]->dmg;
+            s << ",\"mana\":" << log[i]->mana;
+            s << ",\"mana_percent\":" << log[i]->mana_percent;
+            s << "}";
+        }
+
+        s << "]";
+
+        return s.str();
+    }
+
     void addLog(LogType type, string text)
     {
         if (!logging)
             return;
 
-        shared_ptr<LogEntry> entry(new LogEntry());
+        shared_ptr<LogEntry> entry(new LogEntry);
         entry->type = type;
         entry->text = text;
         entry->t = state->t;
