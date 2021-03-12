@@ -387,6 +387,19 @@ label {
   display: block;
 }
 
+a {
+  color: #08f;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.material-icons {
+  font-size: inherit;
+  vertical-align: middle;
+}
+
 .btn {
   display: inline-block;
   padding: 5px 12px;
@@ -485,7 +498,7 @@ table tbody tr.active {
 }
 #app .wrapper {
   display: grid;
-  grid-template-columns: 250px auto;
+  grid-template-columns: 200px auto;
   height: 100vh;
 }
 #app .wrapper .sidebar {
@@ -523,6 +536,10 @@ table tbody tr.active {
   cursor: pointer;
   color: rgba(255, 255, 255, 0.5);
   border-bottom: 2px solid transparent;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 #app .wrapper .main .gear .slots .slot:hover {
@@ -535,8 +552,76 @@ table tbody tr.active {
 #app .wrapper .main .gear .items {
   padding: 30px;
 }
+#app .wrapper .main .gear .items .socket-color {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 25%;
+  vertical-align: middle;
+}
+#app .wrapper .main .gear .items .socket-color.color-m {
+  background: #aaa;
+}
+#app .wrapper .main .gear .items .socket-color.color-b {
+  background: #00f;
+}
+#app .wrapper .main .gear .items .socket-color.color-r {
+  background: #f00;
+}
+#app .wrapper .main .gear .items .socket-color.color-y {
+  background: #ff0;
+}
+#app .wrapper .main .gear .items .socket-color.color-o {
+  background: #f80;
+}
+#app .wrapper .main .gear .items .socket-color.color-p {
+  background: #f0f;
+}
+#app .wrapper .main .gear .items .socket-color.color-g {
+  background: #0f0;
+}
+#app .wrapper .main .gear .items .socket-color:nth-child(n+2) {
+  margin-left: 5px;
+}
+#app .wrapper .main .gear .items .gem-color.color-m {
+  color: #aaa;
+}
+#app .wrapper .main .gear .items .gem-color.color-b {
+  color: #00f;
+}
+#app .wrapper .main .gear .items .gem-color.color-r {
+  color: #f00;
+}
+#app .wrapper .main .gear .items .gem-color.color-y {
+  color: #ff0;
+}
+#app .wrapper .main .gear .items .gem-color.color-o {
+  color: #f80;
+}
+#app .wrapper .main .gear .items .gem-color.color-p {
+  color: #f0f;
+}
+#app .wrapper .main .gear .items .gem-color.color-g {
+  color: #0f0;
+}
+#app .wrapper .main .gear .items tr.active .socket-bonus {
+  color: #bbe8ba;
+}
+#app .wrapper .main .gear .items .sockets:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+#app .wrapper .main .gear .items .sockets .socket {
+  float: left;
+  width: 30%;
+}
+#app .wrapper .main .gear .items .sockets .socket:nth-child(n+2) {
+  margin-left: 5%;
+}
 #app .wrapper .main .gear .items table th:nth-child(n+2), #app .wrapper .main .gear .items table td:nth-child(n+2) {
   width: 10%;
+  white-space: nowrap;
 }
 #app .config {
   position: absolute;
@@ -562,6 +647,7 @@ table tbody tr.active {
   left: 0;
   width: 30px;
   line-height: 30px;
+  font-size: 20px;
   cursor: pointer;
   text-align: center;
 }

@@ -115,6 +115,8 @@ public:
             stats.intellect*= 1.1;
             stats.spirit*= 1.1;
         }
+        if (config->meta_gem == META_EMBER_SKYFIRE)
+            stats.intellect*= 1.02;
         stats.intellect = round(stats.intellect);
         stats.spirit = round(stats.spirit);
 
@@ -160,11 +162,12 @@ public:
             stats.crit+= critRatingToChance(critrating);
         if (talents.arcane_instability)
             stats.crit+= 3;
-        // stats.crit+= stats.intellect/80.0;
 
         // Spell hit
         if (config->totem_of_wrath)
             stats.hit+= 3;
+        if (race == RACE_DRAENEI)
+            stats.hit+= 1;
     }
 
     void setDefaultTalents()
@@ -257,21 +260,6 @@ public:
     double maxMana()
     {
         return base_mana + stats.intellect*15;
-    }
-
-    double critRatingToChance(double rating)
-    {
-        return rating / 22.08;
-    }
-
-    double hitRatingToChance(double rating)
-    {
-        return rating / 12.62;
-    }
-
-    double hasteRatingToHaste(double rating)
-    {
-        return rating / 15.75;
     }
 
 };

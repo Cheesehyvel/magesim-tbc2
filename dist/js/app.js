@@ -59,16 +59,87 @@ __webpack_require__.r(__webpack_exports__);
 var ids = {
   TIRISFAL_SET: 649,
   SPELLFIRE_SET: 552,
+  SPELLSTRIKE_SET: 559,
   SERPENT_COIL: 30720,
   SILVER_CRESCENT: 29370,
-  CHAOTIC_SKYFIRE: 34220
+  EYE_OF_MAGTHERIDON: 28789,
+  RESTRAINED_ESSENCE: 23046,
+  QUAGMIRRANS_EYE: 27683,
+  UNSTABLE_CURRENTS: 30626,
+  LIGHTNING_CAPACITOR: 28785,
+  CHAOTIC_SKYFIRE: 34220,
+  EMBER_SKYFIRE: 35503,
+  INSIGHTFUL_EARTHSTORM: 25901
 };
 var equip = {
-  main_hand: [{
+  weapon: [{
     id: 30095,
     title: "Fang of the Leviathan",
     "int": 20,
     sp: 221,
+    crit: 21
+  }, {
+    id: 29988,
+    title: "The Nexus Key",
+    twohand: true,
+    "int": 52,
+    sp: 236,
+    crit: 51
+  }, {
+    id: 32055,
+    title: "Merciless Gladiator's War Staff",
+    twohand: true,
+    "int": 42,
+    sp: 225,
+    crit: 42,
+    hit: 24
+  }, {
+    id: 24557,
+    title: "Gladiator's War Staff",
+    twohand: true,
+    "int": 35,
+    sp: 199,
+    crit: 36,
+    hit: 21
+  }, {
+    id: 32053,
+    title: "Merciless Gladiator's Spellblade",
+    "int": 18,
+    sp: 225,
+    hit: 15
+  }, {
+    id: 28633,
+    title: "Staff of Infinite Mysteries",
+    twohand: true,
+    "int": 51,
+    sp: 185,
+    hit: 23
+  }, {
+    id: 28770,
+    title: "Nathrezim Mindblade",
+    "int": 18,
+    sp: 203,
+    crit: 23
+  }, {
+    id: 22589,
+    title: "Atiesh, Greatstaff of the Guardian",
+    twohand: true,
+    "int": 32,
+    spi: 24,
+    sp: 150,
+    crit: 28,
+    hit: 16
+  }, {
+    id: 23554,
+    title: "Eternium Runed Blade",
+    "int": 19,
+    sp: 168,
+    crit: 21
+  }, {
+    id: 29155,
+    title: "Stormcaller",
+    "int": 12,
+    sp: 159,
     crit: 21
   }],
   off_hand: [{
@@ -77,15 +148,60 @@ var equip = {
     "int": 12,
     sp: 36,
     crit: 23
+  }, {
+    id: 29271,
+    title: "Talisman of Kalecgos",
+    "int": 14,
+    sp_arcane: 50
+  }, {
+    id: 28603,
+    title: "Talisman of Nightbane",
+    "int": 19,
+    sp: 28,
+    crit: 17
+  }, {
+    id: 28734,
+    title: "Jewel of Infinite Possibilities",
+    "int": 18,
+    sp: 23,
+    hit: 21
+  }, {
+    id: 28412,
+    title: "Lamp of Peaceful Radiance",
+    "int": 14,
+    sp: 21,
+    crit: 13,
+    hit: 12
   }],
-  two_hand: [//
-  ],
   ranged: [{
     id: 29982,
     title: "Wand of the Forgotten Star",
     sp: 23,
     crit: 14,
     hit: 11
+  }, {
+    id: 28783,
+    title: "Eredar Wand of Obliteration",
+    "int": 11,
+    sp: 16,
+    crit: 14
+  }, {
+    id: 28673,
+    title: "Tirisfal Wand of Ascendency",
+    "int": 9,
+    sp: 15,
+    hit: 11
+  }, {
+    id: 29350,
+    title: "The Black Stalk",
+    sp: 20,
+    crit: 11
+  }, {
+    id: 29350,
+    title: "Nether Core's Control Rod",
+    "int": 10,
+    sp: 13,
+    hit: 8
   }],
   head: [{
     id: 30206,
@@ -99,6 +215,55 @@ var equip = {
     bonus: {
       hit: 4
     }
+  }, {
+    id: 24266,
+    itemset: ids.SPELLSTRIKE_SET,
+    title: "Spellstrike Hood",
+    "int": 12,
+    sp: 46,
+    crit: 24,
+    hit: 16,
+    sockets: ["b", "y", "r"]
+  }, {
+    id: 29986,
+    title: "Cowl of the Grand Engineer",
+    "int": 27,
+    sp: 53,
+    crit: 35,
+    hit: 16,
+    sockets: ["y", "y", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 29076,
+    title: "Collar of the Aldor",
+    "int": 35,
+    spi: 17,
+    sp: 41,
+    crit: 27,
+    sockets: ["m", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 28744,
+    title: "Uni-Mind Headdress",
+    "int": 40,
+    sp: 46,
+    crit: 25,
+    hit: 19
+  }, {
+    id: 31104,
+    title: "Evoker's Helmet of Second Sight",
+    "int": 15,
+    spi: 8,
+    sp: 35,
+    crit: 24,
+    sockets: ["b", "b", "y"],
+    bonus: {
+      sp: 5
+    }
   }],
   neck: [{
     id: 30015,
@@ -106,6 +271,31 @@ var equip = {
     "int": 16,
     sp: 41,
     crit: 24
+  }, {
+    id: 28762,
+    title: "Adornment of Stolen Souls",
+    "int": 20,
+    sp: 28,
+    crit: 23
+  }, {
+    id: 33067,
+    title: "Veteran's Pendant of Conquest",
+    "int": 12,
+    sp: 21,
+    crit: 18
+  }, {
+    id: 28530,
+    title: "Brooch of Unquenchable Fury",
+    "int": 21,
+    sp: 26,
+    hit: 15
+  }, {
+    id: 28134,
+    title: "Brooch of Heightened Potential",
+    "int": 14,
+    sp: 22,
+    crit: 14,
+    hit: 9
   }],
   shoulder: [{
     id: 30210,
@@ -119,12 +309,97 @@ var equip = {
     bonus: {
       sp: 4
     }
+  }, {
+    id: 30079,
+    title: "Illidari Shoulderpads",
+    "int": 23,
+    sp: 39,
+    crit: 16,
+    sockets: ["y", "y"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 30024,
+    title: "Mantle of the Elven Kings",
+    "int": 18,
+    spi: 17,
+    sp: 39,
+    crit: 25,
+    hit: 18
+  }, {
+    id: 29079,
+    title: "Pauldrons of the Aldor",
+    "int": 26,
+    spi: 16,
+    sp: 27,
+    crit: 15,
+    sockets: ["y", "r"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 32047,
+    title: "Merciless Gladiator's Silk Amice",
+    "int": 15,
+    sp: 36,
+    crit: 14,
+    sockets: ["b", "y"]
+  }, {
+    id: 27796,
+    title: "Mana-Etched Spaulders",
+    "int": 17,
+    sp: 20,
+    crit: 16,
+    sockets: ["y", "r"]
   }],
   back: [{
     id: 29992,
     title: "Royal Cloak of the Sunstriders",
     "int": 22,
     sp: 44
+  }, {
+    id: 30735,
+    title: "Ancient Spellcloak of the Highborne",
+    "int": 15,
+    sp: 36,
+    crit: 19
+  }, {
+    id: 28766,
+    title: "Ruby Drape of the Mysticant",
+    "int": 21,
+    sp: 30,
+    hit: 18
+  }, {
+    id: 28797,
+    title: "Brute Cloak of the Ogre-Magi",
+    "int": 18,
+    sp: 36
+  }, {
+    id: 28570,
+    title: "Shadow-Cloak of Dalaran",
+    "int": 16,
+    sp: 21,
+    crit: 22
+  }, {
+    id: 29369,
+    title: "Shawl of Shifting Probabilities",
+    "int": 16,
+    sp: 21,
+    crit: 22
+  }, {
+    id: 23050,
+    title: "Cloak of the Necropolis",
+    "int": 11,
+    sp: 26,
+    crit: 14,
+    hit: 8
+  }, {
+    id: 25777,
+    title: "Ogre Slayer's Cover",
+    "int": 18,
+    sp: 20,
+    crit: 16
   }],
   chest: [{
     id: 30196,
@@ -147,6 +422,55 @@ var equip = {
     sp_fire: 72,
     crit: 28,
     sockets: ["y", "b"]
+  }, {
+    id: 30107,
+    title: "Vestments of the Sea-Witch",
+    "int": 28,
+    sp: 57,
+    crit: 31,
+    hit: 27,
+    sockets: ["y", "y", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 30056,
+    title: "Robe of Hateful Echoes",
+    "int": 36,
+    sp: 50,
+    crit: 25,
+    sockets: ["r", "y", "y"]
+  }, {
+    id: 29077,
+    title: "Vestments of the Aldor",
+    "int": 32,
+    spi: 14,
+    sp: 49,
+    crit: 25,
+    sockets: ["y", "b", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 32050,
+    title: "Merciless Gladiator's Silk Raiment",
+    "int": 21,
+    sp: 35,
+    crit: 30,
+    sockets: ["r", "y", "y"],
+    bonus: {
+      crit: 4
+    }
+  }, {
+    id: 29341,
+    title: "Auchenai Anchorite's Robe",
+    "int": 24,
+    sp: 28,
+    hit: 23,
+    sockets: ["y", "y", "r"],
+    bonus: {
+      crit: 4
+    }
   }],
   wrist: [{
     id: 29918,
@@ -154,15 +478,37 @@ var equip = {
     "int": 13,
     sp: 36,
     crit: 23
+  }, {
+    id: 32820,
+    title: "Veteran's Silk Cuffs",
+    "int": 18,
+    sp: 22,
+    crit: 14,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
+  }, {
+    id: 28411,
+    title: "General's Silk Cuffs",
+    "int": 17,
+    sp: 20,
+    crit: 12,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
+  }, {
+    id: 24250,
+    title: "Bracers of Havok",
+    "int": 12,
+    sp: 30,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
   }],
   hands: [{
-    id: 29987,
-    title: "Gauntlets of the Sun King",
-    "int": 29,
-    spi: 20,
-    sp: 42,
-    crit: 28
-  }, {
     id: 30205,
     itemset: ids.TIRISFAL_SET,
     title: "Gloves of Tirisfal",
@@ -179,6 +525,38 @@ var equip = {
     sp_fire: 50,
     crit: 23,
     sockets: ["y", "b"]
+  }, {
+    id: 29987,
+    title: "Gauntlets of the Sun King",
+    "int": 29,
+    spi: 20,
+    sp: 42,
+    crit: 28
+  }, {
+    id: 28780,
+    title: "Soul-Eater's Handwraps",
+    "int": 24,
+    sp: 36,
+    crit: 21,
+    sockets: ["y", "b"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 29080,
+    title: "Gloves of the Aldor",
+    "int": 22,
+    spi: 19,
+    sp: 35,
+    crit: 19,
+    hit: 17
+  }, {
+    id: 27465,
+    title: "Mana-Etched Glovesr",
+    "int": 17,
+    sp: 20,
+    crit: 16,
+    sockets: ["r", "y"]
   }],
   waist: [{
     id: 30038,
@@ -199,6 +577,45 @@ var equip = {
     sp_fire: 50,
     crit: 18,
     sockets: ["y", "b"]
+  }, {
+    id: 30064,
+    title: "Cord of Screaming Terrors",
+    "int": 15,
+    sp: 50,
+    hit: 24,
+    sockets: ["y", "y"]
+  }, {
+    id: 24256,
+    title: "Girdle of Ruination",
+    "int": 13,
+    sp: 39,
+    crit: 20,
+    sockets: ["r", "y"]
+  }, {
+    id: 28799,
+    title: "Belt of Divine Inspiration",
+    "int": 26,
+    sp: 43,
+    sockets: ["b", "y"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 27843,
+    title: "Glyph-Lined Sash",
+    "int": 23,
+    sp: 30,
+    crit: 9,
+    sockets: ["y", "y"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 32807,
+    title: "Veteran's Silk Belt",
+    "int": 27,
+    sp: 32,
+    crit: 27
   }],
   legs: [{
     id: 30207,
@@ -213,6 +630,88 @@ var equip = {
     bonus: {
       hit: 2
     }
+  }, {
+    id: 24262,
+    itemset: ids.SPELLSTRIKE_SET,
+    title: "Spellstrike Pants",
+    "int": 8,
+    sp: 46,
+    crit: 26,
+    hit: 22,
+    sockets: ["b", "y", "r"]
+  }, {
+    id: 30734,
+    title: "Leggings of the Seventh Circle",
+    "int": 22,
+    sp: 50,
+    crit: 25,
+    hit: 18,
+    sockets: ["r", "y", "y"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 29972,
+    title: "Trousers of the Astromancer",
+    "int": 36,
+    spi: 22,
+    sp: 54,
+    sockets: ["b", "y", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 28594,
+    title: "Trial-Fire Trousers",
+    "int": 40,
+    sp: 49,
+    sockets: ["y", "y", "y"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 30531,
+    title: "Breeches of the Occultist",
+    "int": 22,
+    sp: 36,
+    crit: 23,
+    sockets: ["b", "y", "y"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 29078,
+    title: "Legwraps of the Aldor",
+    "int": 40,
+    spi: 23,
+    sp: 49,
+    hit: 24
+  }, {
+    id: 30532,
+    title: "Kirin Tor Master's Trousers",
+    "int": 29,
+    spi: 25,
+    sp: 36,
+    sockets: ["r", "y", "b"],
+    bonus: {
+      hit: 4
+    }
+  }, {
+    id: 32051,
+    title: "Merciless Gladiator's Silk Trousers",
+    "int": 36,
+    sp: 49,
+    crit: 29
+  }, {
+    id: 28185,
+    title: "Khadgar's Kilt of Abjuration",
+    "int": 22,
+    spi: 15,
+    sp: 36,
+    sockets: ["y", "b", "b"],
+    bonus: {
+      sp: 5
+    }
   }],
   feet: [{
     id: 30067,
@@ -220,6 +719,45 @@ var equip = {
     "int": 21,
     sp: 49,
     crit: 24
+  }, {
+    id: 30037,
+    title: "Boots of Blasting",
+    "int": 25,
+    sp: 39,
+    crit: 25,
+    hit: 18
+  }, {
+    id: 28517,
+    title: "Boots of Foretelling",
+    "int": 23,
+    sp: 26,
+    crit: 19,
+    sockets: ["r", "y"],
+    bonus: {
+      "int": 3
+    }
+  }, {
+    id: 32795,
+    title: "Veteran's Silk Footguards",
+    "int": 27,
+    sp: 32,
+    crit: 27
+  }, {
+    id: 28406,
+    title: "Sigil-Laced Boots",
+    "int": 18,
+    sp: 20,
+    crit: 17,
+    sockets: ["r", "y"],
+    bonus: {
+      "int": 3
+    }
+  }, {
+    id: 28585,
+    title: "Ruby Slippers",
+    "int": 29,
+    sp: 35,
+    hit: 16
   }],
   finger: [{
     id: 29287,
@@ -233,6 +771,47 @@ var equip = {
     "int": 19,
     sp: 32,
     crit: 19
+  }, {
+    id: 28793,
+    title: "Band of Crimson Fury",
+    "int": 22,
+    sp: 28,
+    hit: 16
+  }, {
+    id: 29286,
+    title: "Violet Signet",
+    "int": 22,
+    sp: 28,
+    crit: 17
+  }, {
+    id: 30109,
+    title: "Ring of Endless Coils",
+    sp: 37,
+    crit: 22
+  }, {
+    id: 29922,
+    title: "Band of Al'ar",
+    "int": 23,
+    sp: 37
+  }, {
+    id: 28227,
+    title: "Sparking Arcanite Ring",
+    "int": 14,
+    sp: 22,
+    crit: 14,
+    hit: 10
+  }, {
+    id: 21709,
+    title: "Ring of the Fallen God",
+    "int": 6,
+    sp: 37,
+    hit: 8
+  }, {
+    id: 23062,
+    title: "Frostfire Ring",
+    "int": 10,
+    sp: 30,
+    crit: 14
   }],
   trinket: [{
     id: ids.SERPENT_COIL,
@@ -243,36 +822,165 @@ var equip = {
     id: ids.SILVER_CRESCENT,
     title: "Icon of the Silver Crescent",
     sp: 43
+  }, {
+    id: 19379,
+    title: "Neltharion's Tear",
+    sp: 44,
+    hit: 16
+  }, {
+    id: ids.EYE_OF_MAGTHERIDON,
+    title: "Eye of Magtheridon",
+    sp: 54
+  }, {
+    id: ids.RESTRAINED_ESSENCE,
+    title: "The Restrained Essence of Sapphiron",
+    sp: 40
+  }, {
+    id: ids.QUAGMIRRANS_EYE,
+    title: "Quagmirran's Eye",
+    sp: 37
+  }, {
+    id: ids.UNSTABLE_CURRENTS,
+    title: "Sextant of Unstable Currents",
+    crit: 40
+  }, {
+    id: ids.LIGHTNING_CAPACITOR,
+    title: "The Lightning Capacitor"
   }]
 };
 var gems = [{
   id: ids.CHAOTIC_SKYFIRE,
   title: "Chaotic Skyfire Diamond",
-  slot: "m",
-  crit: 12
+  color: "m",
+  crit: 12,
+  desc: "+3% crit dmg"
 }, {
-  id: 30551,
-  title: "Infused Fire Opal",
-  slot: "o",
-  "int": 4,
-  sp: 6
+  id: ids.EMBER_SKYFIRE,
+  title: "Ember Skyfire Diamond",
+  color: "m",
+  sp: 14,
+  desc: "+2% int"
+}, {
+  id: ids.INSIGHTFUL_EARTHSTORM,
+  title: "Insightful Earthstorm Diamond",
+  color: "m",
+  "int": 12,
+  desc: "Chance to restore mana"
+}, {
+  id: 25890,
+  title: "Destructive Skyfire Diamond",
+  color: "m",
+  sp: 14,
+  desc: "1% Spell reflect"
+}, {
+  id: 32641,
+  title: "Imbued Unstable Diamond",
+  color: "m",
+  sp: 14,
+  desc: "5% stun resist"
+}, {
+  id: 28557,
+  title: "Swift Skyfire Diamond",
+  color: "m",
+  sp: 12,
+  desc: "Minor run speed"
 }, {
   id: 33133,
   title: "Don Julio's Heart",
-  slot: "r",
+  color: "r",
   sp: 14,
   unique: true
 }, {
   id: 28118,
-  title: "Runed Living Ruby",
-  slot: "r",
+  title: "Runed Ornate Ruby",
+  color: "r",
   sp: 12,
   unique: true
 }, {
   id: 24030,
-  title: "Runed Ornate Ruby",
-  slot: "r",
+  title: "Runed Living Ruby",
+  color: "r",
   sp: 9
+}, {
+  id: 30551,
+  title: "Infused Fire Opal",
+  color: "o",
+  "int": 4,
+  sp: 6
+}, {
+  id: 30564,
+  title: "Shining Fire Opal",
+  color: "o",
+  sp: 6,
+  hit: 5
+}, {
+  id: 30588,
+  title: "Potent Fire Opal",
+  color: "o",
+  sp: 6,
+  crit: 4
+}, {
+  id: 28123,
+  title: "Potent Ornate Topaz",
+  color: "o",
+  sp: 6,
+  crit: 5,
+  unique: true
+}, {
+  id: 31867,
+  title: "Veiled Noble Topaz",
+  color: "o",
+  sp: 5,
+  hit: 4
+}, {
+  id: 24059,
+  title: "Potent Noble Topaz",
+  color: "o",
+  sp: 5,
+  crit: 4
+}, {
+  id: 32638,
+  title: "Unstable Topaz",
+  color: "o",
+  sp: 5,
+  "int": 4,
+  unique: true
+}, {
+  id: 33140,
+  title: "Blood of Amber",
+  color: "y",
+  crit: 12
+}, {
+  id: 31861,
+  title: "Great Dawnstone",
+  color: "y",
+  hit: 8
+}, {
+  id: 24050,
+  title: "Gleaming Dawnstone",
+  color: "y",
+  crit: 8
+}, {
+  id: 24047,
+  title: "Brilliant Dawnstone",
+  color: "y",
+  "int": 8
+}, {
+  id: 30600,
+  title: "Fluorescent Tanzanite",
+  color: "p",
+  spi: 4,
+  sp: 6
+}, {
+  id: 30555,
+  title: "Glowing Tanzanite",
+  color: "p",
+  sp: 6
+}, {
+  id: 24056,
+  title: "Glowing Nightseye",
+  color: "p",
+  sp: 5
 }];
 var enchants = {
   head: [{
@@ -313,6 +1021,11 @@ var enchants = {
     id: 24274,
     title: "Runic Spellthread",
     sp: 35
+  }],
+  finger: [{
+    id: 27924,
+    title: "Spellpower",
+    sp: 12
   }]
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -717,6 +1430,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -726,11 +1494,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     var data = {
+      races: {
+        RACE_BLOOD_ELF: 0,
+        RACE_DRAENEI: 1,
+        RACE_GNOME: 2,
+        RACE_HUMAN: 3,
+        RACE_TROLL: 4,
+        RACE_UNDEAD: 5
+      },
+      specs: {
+        SPEC_ARCANE: 0
+      },
       items: _items__WEBPACK_IMPORTED_MODULE_1__.default,
       equipped: {},
       enchants: {},
       gems: {},
-      active_slot: "main_hand",
+      active_slot: "weapon",
       result: null,
       is_running: false,
       config_open: false,
@@ -745,8 +1524,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       config: {
         iterations: 10000,
-        race: "RACE_UNDEAD",
-        spec: "SPEC_ARCANE",
+        race: 5,
+        spec: 0,
         duration: 180,
         vampiric_touch_regen: 50,
         misery: true,
@@ -774,12 +1553,13 @@ __webpack_require__.r(__webpack_exports__);
         adepts_elixir: false,
         elixir_of_draenic_wisdom: false,
         drums: true,
-        t5_2set: true,
-        t5_4set: true,
+        tirisfal_2set: true,
+        tirisfal_4set: true,
         spellfire_set: false,
-        chaotic_skyfire: true,
-        serpent_coil: true,
-        silver_crescent: true,
+        spellstrike_set: false,
+        meta_gem: 0,
+        trinket1: 0,
+        trinket2: 0,
         innervate: 0,
         mana_tide: true,
         bloodlust: true,
@@ -802,7 +1582,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     };
-    var slots = ["main_hand", "off_hand", "ranged", "head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "finger1", "finger2", "trinket1", "trinket2"];
+    var slots = ["weapon", "off_hand", "ranged", "head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "finger1", "finger2", "trinket1", "trinket2"];
 
     for (var _i = 0, _slots = slots; _i < _slots.length; _i++) {
       var slot = _slots[_i];
@@ -816,7 +1596,7 @@ __webpack_require__.r(__webpack_exports__);
 
       data.equipped[slot] = _.get(data.items.equip, islot + "." + i + ".id", null);
       data.enchants[slot] = _.get(data.items.enchants, islot + "." + i + ".id", null);
-      data.gems[slot] = null;
+      data.gems[slot] = [null, null, null];
     }
 
     return data;
@@ -832,9 +1612,13 @@ __webpack_require__.r(__webpack_exports__);
       return this.items.equip[slot];
     },
     activeEnchants: function activeEnchants() {
-      var slot = this.equipSlotToItemSlot(this.active_slot);
+      var slot = this.equipSlotToEnchantSlot(this.active_slot);
       if (!this.items.enchants.hasOwnProperty(slot)) return [];
       return this.items.enchants[slot];
+    },
+    activeSockets: function activeSockets() {
+      var item = this.equippedItem(this.active_slot);
+      return item && item.sockets ? item.sockets : [];
     }
   },
   methods: {
@@ -847,6 +1631,7 @@ __webpack_require__.r(__webpack_exports__);
         self.is_running = false;
         console.error(error);
       });
+      this.log_open = false;
       this.prepare();
       this.is_running = true;
       sim.start(this.config);
@@ -873,6 +1658,9 @@ __webpack_require__.r(__webpack_exports__);
       if (slot.indexOf("trinket") === 0) slot = "trinket";
       return slot;
     },
+    equipSlotToEnchantSlot: function equipSlotToEnchantSlot(slot) {
+      return this.equipSlotToItemSlot(slot);
+    },
     dontStack: function dontStack(input, config) {
       if (!Array.isArray(config)) config = [config];
 
@@ -885,6 +1673,23 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }
+    },
+    equippedItem: function equippedItem(slot) {
+      var id = this.equipped[slot];
+      if (!id) return null;
+      slot = this.equipSlotToItemSlot(slot);
+      return _.find(this.items.equip[slot], {
+        id: this.equipped[slot]
+      }, null);
+    },
+    activeGems: function activeGems(index) {
+      if (this.activeSockets.length < index) return [];
+      if (this.activeSockets[index] == "m") return this.items.gems.filter(function (g) {
+        return g.color == "m";
+      });
+      return this.items.gems.filter(function (g) {
+        return g.color != "m";
+      });
     },
     baseStats: function baseStats() {
       // Undead default
@@ -940,30 +1745,43 @@ __webpack_require__.r(__webpack_exports__);
         sp_fire: 0
       };
 
-      for (var key in this.equipped) {
-        var slot = this.equipSlotToItemSlot(key);
+      var addStats = function addStats(itm) {
+        for (var stat in itm) {
+          if (item_stats.hasOwnProperty(stat)) item_stats[stat] += itm[stat];
+        }
+      };
 
-        var item = _.find(this.items.equip[slot], {
+      var slot, item, has_bonus, get_bonus, enchant, gem, gem_id;
+
+      for (var key in this.equipped) {
+        slot = this.equipSlotToItemSlot(key);
+        item = _.find(this.items.equip[slot], {
           id: this.equipped[key]
         });
 
         if (item) {
-          for (var stat in item) {
-            if (item_stats.hasOwnProperty(stat)) item_stats[stat] += item[stat];
+          has_bonus = item.hasOwnProperty("bonus");
+          get_bonus = true;
+          addStats(item);
+
+          if (this.items.enchants[slot] && this.enchants[key]) {
+            enchant = _.find(this.items.enchants[slot], {
+              id: this.enchants[key]
+            });
+            if (enchant) addStats(enchant);
           }
-        }
-      }
 
-      for (var key in this.enchants) {
-        var slot = this.equipSlotToItemSlot(key);
+          if (item.sockets) {
+            for (var i = 0; i < item.sockets.length; i++) {
+              gem_id = this.gems[slot][i];
+              gem = gem_id ? _.find(this.items.gems, {
+                id: gem_id
+              }) : null;
+              if (gem) addStats(gem);
+              if (has_bonus && (!gem || !this.matchSocketColor(item.sockets[i], gem.color))) get_bonus = false;
+            }
 
-        var item = _.find(this.items.enchants[slot], {
-          id: this.enchants[key]
-        });
-
-        if (item) {
-          for (var stat in item) {
-            if (item_stats.hasOwnProperty(stat)) item_stats[stat] += item[stat];
+            if (has_bonus && get_bonus) addStats(item.bonus);
           }
         }
       }
@@ -984,11 +1802,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     itemConfig: function itemConfig() {
       var num = this.numEquippedSet(this.items.ids.TIRISFAL_SET);
-      this.config.t5_2set = num > 1;
-      this.config.t5_4set = num > 3;
+      this.config.tirisfal_2set = num > 1;
+      this.config.tirisfal_4set = num > 3;
+      this.config.spellstrike_set = this.numEquippedSet(this.items.ids.SPELLSTRIKE_SET) > 1;
       this.config.spellfire_set = this.numEquippedSet(this.items.ids.SPELLFIRE_SET) > 2;
-      this.config.serpent_coil = this.isEquipped("trinket", this.items.ids.SERPENT_COIL);
-      this.config.silver_crescent = this.isEquipped("trinket", this.items.ids.SILVER_CRESCENT);
+      this.config.trinket1 = 0;
+      this.config.trinket2 = 0;
+      this.config.meta_gem = 0;
+      if (this.isSpecialItem(this.equipped.trinket1)) this.config.trinket1 = this.equipped.trinket1;
+      if (this.isSpecialItem(this.equipped.trinket2)) this.config.trinket2 = this.equipped.trinket2;
+      if (this.metaGem() && this.isSpecialItem(this.metaGem().id)) this.config.meta_gem = this.metaGem().id;
+    },
+    itemUrl: function itemUrl(item) {
+      return "https://tbcdb.com/?item=" + item.id;
     },
     critRatingToChance: function critRatingToChance(rating) {
       return rating / 22.08;
@@ -999,13 +1825,20 @@ __webpack_require__.r(__webpack_exports__);
     hasteRatingToHaste: function hasteRatingToHaste(rating) {
       return rating / 15.75;
     },
+    isSpecialItem: function isSpecialItem(item_id) {
+      for (var key in this.items.ids) {
+        if (this.items.ids[key] == item_id) return true;
+      }
+
+      return false;
+    },
     equip: function equip(slot, item) {
-      if (slot == "two_hand") {
-        this.equipped.off_hand = null;
-        slot = "main_hand";
+      if (slot == "weapon") {
+        if (item.twohand) this.equipped.off_hand = null;
       }
 
       if (this.equipped[slot] == item.id) this.equipped[slot] = null;else this.equipped[slot] = item.id;
+      this.gems[slot] = [null, null, null];
       this.saveGear();
     },
     isEquipped: function isEquipped(slot, id) {
@@ -1028,11 +1861,6 @@ __webpack_require__.r(__webpack_exports__);
       return num;
     },
     enchant: function enchant(slot, item) {
-      if (slot == "two_hand") {
-        this.enchants.off_hand = null;
-        slot = "main_hand";
-      }
-
       if (this.enchants[slot] == item.id) this.enchants[slot] = null;else this.enchants[slot] = item.id;
       this.saveGear();
     },
@@ -1040,8 +1868,81 @@ __webpack_require__.r(__webpack_exports__);
       if (slot == "trinket" || slot == "finger") return this.isEnchanted(slot + "1") || this.isEnchanted(slot + "2");
       return _.get(this.enchants, slot) == id;
     },
+    setSocket: function setSocket(slot, item, index) {
+      if (this.isSocketed(slot, item.id, index)) {
+        this.gems[slot].splice(index, 1, null);
+      } else {
+        if (item.unique && this.isSocketedAnywhere(item.id)) return;
+        this.gems[slot].splice(index, 1, item.id);
+      }
+
+      this.saveGear();
+    },
+    matchSocketColor: function matchSocketColor(sock, gem) {
+      if (sock == gem) return true;
+      if (sock == "r" && ["o", "p"].indexOf(gem) != -1) return true;
+      if (sock == "y" && ["o", "g"].indexOf(gem) != -1) return true;
+      if (sock == "b" && ["g", "p"].indexOf(gem) != -1) return true;
+      return false;
+    },
+    hasSocketBonus: function hasSocketBonus(slot) {
+      var item = this.equippedItem(slot);
+
+      if (item && item.sockets && item.bonus) {
+        for (var i = 0; i < item.sockets.length; i++) {
+          var gem_id = this.gems[slot][i];
+          var gem = gem_id ? _.find(this.items.gems, {
+            id: gem_id
+          }) : null;
+          if (!gem || !this.matchSocketColor(item.sockets[i], gem.color)) return false;
+        }
+
+        return true;
+      }
+
+      return false;
+    },
+    isSocketed: function isSocketed(slot, id, index) {
+      return _.get(this.gems[slot], index) == id;
+    },
+    isSocketedAnywhere: function isSocketedAnywhere(id) {
+      for (var slot in this.gems) {
+        for (var i = 0; i < this.gems[slot].length; i++) {
+          if (id == this.gems[slot][i]) return true;
+        }
+      }
+
+      return false;
+    },
+    metaGem: function metaGem() {
+      for (var key in this.gems.head) {
+        if (this.gems.head[key]) {
+          var gem = _.find(this.items.gems, {
+            id: this.gems.head[key]
+          });
+
+          if (gem && gem.color == "m") return gem;
+        }
+      }
+
+      return null;
+    },
+    formatStats: function formatStats(item) {
+      var stats = [];
+      if (item["int"]) stats.push(item["int"] + " int");
+      if (item.spi) stats.push(item.spi + " spi");
+      if (item.sp) stats.push(item.sp + " sp");
+      if (item.hit) stats.push(item.hit + " hit");
+      if (item.crit) stats.push(item.crit + " crit");
+      if (item.desc) stats.push(item.desc);
+      return stats.join(" / ");
+    },
     formatKey: function formatKey(str) {
       return _.startCase(str);
+    },
+    formatSockets: function formatSockets(item) {
+      if (!item.sockets) return null;
+      return item.sockets.join(" / ");
     },
     formatSP: function formatSP(item) {
       var str = item.sp ? item.sp : 0;
@@ -1081,6 +1982,7 @@ __webpack_require__.r(__webpack_exports__);
     saveGear: function saveGear() {
       window.localStorage.setItem("magesim_tbc_equipped", JSON.stringify(this.equipped));
       window.localStorage.setItem("magesim_tbc_enchants", JSON.stringify(this.enchants));
+      window.localStorage.setItem("magesim_tbc_gems", JSON.stringify(this.gems));
     },
     loadGear: function loadGear() {
       var str = window.localStorage.getItem("magesim_tbc_equipped");
@@ -1095,6 +1997,13 @@ __webpack_require__.r(__webpack_exports__);
       if (str) {
         var enchants = JSON.parse(str);
         if (enchants) _.merge(this.enchants, enchants);
+      }
+
+      var str = window.localStorage.getItem("magesim_tbc_gems");
+
+      if (str) {
+        var gems = JSON.parse(str);
+        if (gems) _.merge(this.gems, gems);
       }
     },
     saveConfig: function saveConfig() {
@@ -18560,17 +19469,79 @@ var render = function() {
                       }
                     },
                     [
-                      _c("td", [_vm._v(_vm._s(item.title))]),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(item.title) +
+                            "\n                                    "
+                        ),
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: _vm.itemUrl(item),
+                              target: "_blank"
+                            },
+                            on: {
+                              click: function($event) {
+                                $event.stopPropagation()
+                              }
+                            }
+                          },
+                          [
+                            _c("span", { staticClass: "material-icons ml-n" }, [
+                              _vm._v("")
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          item.sockets
+                            ? _vm._l(item.sockets, function(socket) {
+                                return _c("div", {
+                                  staticClass: "socket-color",
+                                  class: ["color-" + socket]
+                                })
+                              })
+                            : _vm._e()
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c("td", [
+                        item.bonus
+                          ? _c(
+                              "span",
+                              {
+                                class: [
+                                  _vm.hasSocketBonus(_vm.active_slot)
+                                    ? "socket-bonus"
+                                    : ""
+                                ]
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(_vm.formatStats(item.bonus)) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "crit", 0)))]),
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "crit", "")))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", 0)))]),
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", "")))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", 0)))]),
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "spirit", 0)))])
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "spirit", "")))])
                     ]
                   )
                 }),
@@ -18605,21 +19576,86 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "crit", 0)))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", 0)))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", 0)))]),
-                          _vm._v(" "),
                           _c("td", [
-                            _vm._v(_vm._s(_vm.$get(item, "spirit", 0)))
-                          ])
+                            _vm._v(_vm._s(_vm.$get(item, "crit", "")))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", "")))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "spi", "")))])
                         ]
                       )
                     }),
                     0
                   )
                 ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.activeSockets.length
+              ? _c(
+                  "div",
+                  { staticClass: "sockets mt-4" },
+                  _vm._l(_vm.activeSockets, function(socket, index) {
+                    return _c("div", { staticClass: "socket" }, [
+                      _c("div", { staticClass: "title" }, [
+                        _c("span", [_vm._v("Socket " + _vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "socket-color",
+                          class: ["color-" + socket]
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("table", [
+                        _vm._m(2, true),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.activeGems(index), function(gem) {
+                            return _c(
+                              "tr",
+                              {
+                                staticClass: "gem-color",
+                                class: [
+                                  "color-" + gem.color,
+                                  _vm.isSocketed(_vm.active_slot, gem.id, index)
+                                    ? "active"
+                                    : ""
+                                ],
+                                on: {
+                                  click: function($event) {
+                                    return _vm.setSocket(
+                                      _vm.active_slot,
+                                      gem,
+                                      index
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("td", [_vm._v(_vm._s(gem.title))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.formatStats(gem)))
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  [gem.unique ? [_vm._v("Yes")] : _vm._e()],
+                                  2
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
               : _vm._e()
           ])
         ]),
@@ -18724,7 +19760,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("table", [
-                  _vm._m(2),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -18798,29 +19834,41 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { value: "RACE_BLOOD_ELF" } }, [
-                          _vm._v("Blood elf")
-                        ]),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.races.RACE_BLOOD_ELF } },
+                          [_vm._v("Blood elf")]
+                        ),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "RACE_DRAENEI" } }, [
-                          _vm._v("Draenei")
-                        ]),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.races.RACE_DRAENEI } },
+                          [_vm._v("Draenei")]
+                        ),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "RACE_GNOME" } }, [
-                          _vm._v("Gnome")
-                        ]),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.races.RACE_GNOME } },
+                          [_vm._v("Gnome")]
+                        ),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "RACE_HUMAN" } }, [
-                          _vm._v("Human")
-                        ]),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.races.RACE_HUMAN } },
+                          [_vm._v("Human")]
+                        ),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "RACE_TROLL" } }, [
-                          _vm._v("Troll")
-                        ]),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.races.RACE_TROLL } },
+                          [_vm._v("Troll")]
+                        ),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "RACE_UNDEAD" } }, [
-                          _vm._v("Undead")
-                        ])
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.races.RACE_UNDEAD } },
+                          [_vm._v("Undead")]
+                        )
                       ]
                     )
                   ]),
@@ -18860,9 +19908,11 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { value: "SPEC_ARCANE" } }, [
-                          _vm._v("Arcane")
-                        ])
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.specs.SPEC_ARCANE } },
+                          [_vm._v("Arcane")]
+                        )
                       ]
                     )
                   ]),
@@ -18900,7 +19950,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _vm.config.spec == "SPEC_ARCANE"
+                  _vm.config.spec == _vm.specs.SPEC_ARCANE
                     ? _c("div", { staticClass: "form-item" }, [
                         _c("label", [_vm._v("Regen rotation")]),
                         _vm._v(" "),
@@ -20675,7 +21725,11 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "close", on: { click: _vm.configToggle } },
-                [_vm._v("X")]
+                [
+                  _c("span", { staticClass: "material-icons" }, [
+                    _vm._v("\n                        \n                    ")
+                  ])
+                ]
               )
             ])
           : _vm._e()
@@ -20689,17 +21743,23 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Spell power")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Crit rating")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Hit rating")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Intellect")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Spirit")])
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sockets")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Socket bonus")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Spell power")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Crit rating")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Hit rating")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Intellect")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Spirit")])
+      ])
     ])
   },
   function() {
@@ -20707,17 +21767,33 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("th", [_vm._v("Enchant")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Spell power")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Crit rating")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Hit rating")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Intellect")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Spirit")])
+      _c("tr", [
+        _c("th", [_vm._v("Enchant")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Spell power")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Crit rating")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Hit rating")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Intellect")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Spirit")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Gem")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Stats")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Unique")])
+      ])
     ])
   },
   function() {

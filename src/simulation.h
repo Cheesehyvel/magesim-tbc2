@@ -260,7 +260,7 @@ public:
             }
 
             onCastDmg(spell);
-            if (!spell->done)
+            if (!spell->done || spell->proc)
                 return;
 
             next = onCastComplete(spell);
@@ -282,6 +282,10 @@ public:
             onBuffExpire(make_shared<buff::Clearcast>());
         clearcast();
 
+        // 5% proc rate
+        if (config->meta_gem == META_INSIGHTFUL_EARTHSTORM && random<int>(0, 19) == 0)
+            onManaGain(300, "Mana Restore (meta)");
+
         return spell->actual_cost;
     }
 
@@ -302,11 +306,36 @@ public:
 
         logSpellDmg(spell);
 
+        if (spell->proc)
+            return;
+
         if (!spell->channeling)
             onCastSuccess(spell);
 
-        if (config->judgement_of_wisdom && random<int>(0, 1) == 1)
-            onManaGain(74, "Judgement of Wisdom");
+        if (spell->result == spell::MISS) {
+            if (hasTrinket(TRINKET_EYE_OF_MAGTHERIDON))
+                onBuffGain(make_shared<buff::EyeOfMagtheridon>());
+        }
+        else {
+            // 5% proc rate ?
+            if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && random<int>(0, 19) == 0)
+                onBuffGain(make_shared<buff::QuagmirransEye>());
+            // 5% proc rate ?
+            if (config->spellstrike_set && random<int>(0, 19) == 0)
+                onBuffGain(make_shared<buff::Spellstrike>());
+            // 50% proc rate
+            if (config->judgement_of_wisdom && random<int>(0, 1) == 1)
+                onManaGain(74, "Judgement of Wisdom");
+
+            if (spell->result == spell::CRIT) {
+                // 20% proc rate
+                if (hasTrinket(TRINKET_UNSTABLE_CURRENTS) && random<int>(0, 4) == 0)
+                    onBuffGain(make_shared<buff::UnstableCurrents>());
+                // 100% proc rate
+                if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR))
+                    onBuffGain(make_shared<buff::LightningCapacitor>());
+            }
+        }
 
         if (spell->channeling) {
             spell->tick++;
@@ -320,7 +349,7 @@ public:
 
         if (spell->id == spell::ARCANE_BLAST) {
             onBuffGain(make_shared<buff::ArcaneBlast>());
-            if (config->t5_4set && spell->result == spell::CRIT)
+            if (config->tirisfal_4set && spell->result == spell::CRIT)
                 onBuffGain(make_shared<buff::ArcaneMadness>());
         }
 
@@ -405,6 +434,11 @@ public:
 
         if (stacks)
             logBuffGain(buff, stacks);
+
+        if (buff->id == buff::LIGHTNING_CAPACITOR && stacks == 3) {
+            onBuffExpire(buff);
+            fireLightningCapacitor();
+        }
     }
 
     void onBuffExpire(shared_ptr<buff::Buff> buff)
@@ -440,14 +474,14 @@ public:
             state->mana_ruby--;
         }
 
-        if (config->serpent_coil)
+        if (hasTrinket(TRINKET_SERPENT_COIL))
             mana*= 1.25;
 
         state->addCooldown(cooldown::MANA_GEM);
         onManaGain(mana, "Mana Gem");
         pushCooldownExpire(cooldown::MANA_GEM, 120);
 
-        if (config->serpent_coil)
+        if (hasTrinket(TRINKET_SERPENT_COIL))
             onBuffGain(make_shared<buff::SerpentCoil>());
     }
 
@@ -487,21 +521,30 @@ public:
 
     void useCooldowns()
     {
-        state->cooldowns[cooldown::PERSONAL] = true;
+        state->addCooldown(cooldown::PERSONAL);
 
         if (player->talents.arcane_power)
             onBuffGain(make_shared<buff::ArcanePower>());
         if (player->talents.icy_veins)
             onBuffGain(make_shared<buff::IcyVeins>());
-        if (config->silver_crescent)
+        if (hasTrinket(TRINKET_SILVER_CRESCENT))
             onBuffGain(make_shared<buff::SilverCrescent>());
+        if (hasTrinket(TRINKET_RESTRAINED_ESSENCE))
+            onBuffGain(make_shared<buff::RestrainedEssence>());
     }
 
     void useColdSnap()
     {
-        state->cooldowns[cooldown::COLD_SNAP] = true;
+        state->addCooldown(cooldown::COLD_SNAP);
+        addLog(LOG_NONE, "Casted Cold Snap");
+
         if (player->talents.icy_veins)
             onBuffGain(make_shared<buff::IcyVeins>());
+    }
+
+    bool hasTrinket(Trinket trinket)
+    {
+        return config->trinket1 == trinket || config->trinket2 == trinket;
     }
 
     void removeBuffExpiration(shared_ptr<buff::Buff> buff)
@@ -528,7 +571,7 @@ public:
 
         if (spell->id == spell::ARCANE_BLAST) {
             multi+= 0.75 * state->buffStacks(buff::ARCANE_BLAST);
-            if (config->t5_2set)
+            if (config->tirisfal_2set)
                 multi+= 0.2;
         }
 
@@ -554,9 +597,17 @@ public:
     double castHaste()
     {
         double haste = 1;
+        double phaste = player->stats.haste;
+        double rating = 0;
 
-        if (player->stats.haste)
-            haste*= (100.0 - player->stats.haste)/100.0;
+        if (state->hasBuff(buff::QUAGMIRRANS_EYE))
+            rating+= 320;
+
+        if (rating)
+            phaste+= hasteRatingToHaste(rating);
+
+        if (phaste)
+            haste*= (100.0 - phaste)/100.0;
 
         if (state->hasBuff(buff::BLOODLUST))
             haste*= 0.7;
@@ -568,6 +619,9 @@ public:
 
     double hitChance(shared_ptr<spell::Spell> spell)
     {
+        if (spell->proc)
+            return 99.0;
+
         double hit = 83.0 + player->stats.hit;
 
         if (spell->school == SCHOOL_ARCANE && player->talents.arcane_focus)
@@ -581,6 +635,16 @@ public:
     double critChance(shared_ptr<spell::Spell> spell)
     {
         double crit = player->stats.crit;
+        double rating = 0;
+
+        if (state->hasBuff(buff::UNSTABLE_CURRENTS))
+            rating+= 190;
+
+        if (rating)
+            crit+= critRatingToChance(rating);
+
+        if (spell->proc)
+            return crit;
 
         if (spell->id == spell::ARCANE_BLAST && player->talents.arcane_impact)
             crit+= player->talents.arcane_impact*2.0;
@@ -600,10 +664,13 @@ public:
     {
         double multi = 1.5;
 
+        if (spell->proc)
+            return multi;
+
         if (player->talents.spell_power)
             multi+= player->talents.spell_power*0.125;
 
-        if (config->chaotic_skyfire)
+        if (config->meta_gem == META_CHAOTIC_SKYFIRE)
             multi+= 0.03;
 
         if (spell->school == SCHOOL_FROST && player->talents.ice_shards)
@@ -614,7 +681,10 @@ public:
 
     double dmgMultiplier(shared_ptr<spell::Spell> spell)
     {
-        double multi = spell->coeff;
+        double multi = 1;
+
+        if (spell->proc)
+            return multi;
 
         if (config->misery)
             multi*= 1.05;
@@ -629,7 +699,7 @@ public:
         if (state->hasBuff(buff::ARCANE_POWER))
             multi*= 1.3;
 
-        if (spell->id == spell::ARCANE_BLAST && config->t5_2set)
+        if (spell->id == spell::ARCANE_BLAST && config->tirisfal_2set)
             multi*= 1.2;
 
         return multi;
@@ -638,19 +708,32 @@ public:
     double spellDmg(shared_ptr<spell::Spell> spell)
     {
         double dmg = random<double>(spell->min_dmg, spell->max_dmg);
-        dmg+= player->stats.spell_power;
 
-        if (spell->school == SCHOOL_ARCANE)
-            dmg+= player->stats.spell_power_arcane;
-        if (spell->school == SCHOOL_FROST)
-            dmg+= player->stats.spell_power_frost;
+        if (spell->coeff) {
+            double sp = player->stats.spell_power;
 
-        if (state->hasBuff(buff::ARCANE_MADNESS))
-            dmg+= 70.0;
-        if (state->hasBuff(buff::SILVER_CRESCENT))
-            dmg+= 155.0;
-        if (state->hasBuff(buff::SERPENT_COIL))
-            dmg+= 225.0;
+            if (spell->school == SCHOOL_ARCANE)
+                sp+= player->stats.spell_power_arcane;
+            if (spell->school == SCHOOL_FROST)
+                sp+= player->stats.spell_power_frost;
+            if (spell->school == SCHOOL_FIRE)
+                sp+= player->stats.spell_power_fire;
+
+            if (state->hasBuff(buff::ARCANE_MADNESS))
+                sp+= 70.0;
+            if (state->hasBuff(buff::SILVER_CRESCENT))
+                sp+= 155.0;
+            if (state->hasBuff(buff::SERPENT_COIL))
+                sp+= 225.0;
+            if (state->hasBuff(buff::SPELLSTRIKE))
+                sp+= 92.0;
+            if (state->hasBuff(buff::EYE_OF_MAGTHERIDON))
+                sp+= 170.0;
+            if (state->hasBuff(buff::RESTRAINED_ESSENCE))
+                sp+= 130.0;
+
+            dmg+= sp*spell->coeff;
+        }
 
         return dmg * dmgMultiplier(spell);
     }
@@ -696,6 +779,11 @@ public:
             onBuffGain(make_shared<buff::Clearcast>());
     }
 
+    void fireLightningCapacitor()
+    {
+        cast(make_shared<spell::LightningCapacitor>());
+    }
+
     bool shouldInnervate()
     {
         if (!state->innervates || state->hasBuff(buff::INNERVATE))
@@ -737,7 +825,7 @@ public:
         else
             return false;
 
-        if (config->serpent_coil)
+        if (hasTrinket(TRINKET_SERPENT_COIL))
             max*= 1.25;
 
         if (state->hasBuff(buff::MANA_TIDE))

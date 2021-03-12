@@ -13,6 +13,20 @@ label {
     display: block;
 }
 
+a {
+    color: #08f;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.material-icons {
+    font-size: inherit;
+    vertical-align: middle;
+}
+
 .btn {
     display: inline-block;
     padding: 5px 12px;
@@ -118,7 +132,7 @@ table {
 
     .wrapper {
         display: grid;
-        grid-template-columns: 250px auto;
+        grid-template-columns: 200px auto;
         height: 100vh;
 
         .sidebar {
@@ -160,6 +174,7 @@ table {
                         cursor: pointer;
                         color: rgba(255,255,255,0.5);
                         border-bottom: 2px solid transparent;
+                        user-select: none;
                         transition: color 0.2s ease, border-color 0.2s ease;
 
                         &:hover {
@@ -176,10 +191,58 @@ table {
                 .items {
                     padding: $spacer*0.5;
 
+                    .socket-color {
+                        display: inline-block;
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 25%;
+                        vertical-align: middle;
+
+                        &.color-m { background: #aaa; }
+                        &.color-b { background: #00f; }
+                        &.color-r { background: #f00; }
+                        &.color-y { background: #ff0; }
+                        &.color-o { background: #f80; }
+                        &.color-p { background: #f0f; }
+                        &.color-g { background: #0f0; }
+
+                        &:nth-child(n+2) {
+                            margin-left: 5px;
+                        }
+                    }
+
+                    .gem-color {
+                        &.color-m { color: #aaa; }
+                        &.color-b { color: #00f; }
+                        &.color-r { color: #f00; }
+                        &.color-y { color: #ff0; }
+                        &.color-o { color: #f80; }
+                        &.color-p { color: #f0f; }
+                        &.color-g { color: #0f0; }
+                    }
+
+                    tr.active .socket-bonus {
+                        color: #bbe8ba;
+                    }
+
+                    .sockets {
+                        @include clearfix();
+
+                        .socket {
+                            float: left;
+                            width: 30%;
+
+                            &:nth-child(n+2) {
+                                margin-left: 5%;
+                            }
+                        }
+                    }
+
                     table {
                         th, td {
                             &:nth-child(n+2) {
                                 width: 10%;
+                                white-space: nowrap;
                             }
                         }
                     }
@@ -214,6 +277,7 @@ table {
             left: 0;
             width: 30px;
             line-height: 30px;
+            font-size: 20px;
             cursor: pointer;
             text-align: center;
         }

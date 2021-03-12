@@ -21,12 +21,32 @@ enum School : int
 {
     SCHOOL_ARCANE,
     SCHOOL_FROST,
-    SCHOOL_FIRE
+    SCHOOL_FIRE,
+    SCHOOL_NONE
 };
 
 enum Spec : int
 {
     SPEC_ARCANE
+};
+
+enum MetaGem : int {
+    META_NONE = 0,
+    META_CHAOTIC_SKYFIRE = 34220,
+    META_EMBER_SKYFIRE = 35503,
+    META_INSIGHTFUL_EARTHSTORM = 25901,
+};
+
+enum Trinket : int
+{
+    TRINKET_NONE = 0,
+    TRINKET_SERPENT_COIL = 30720,
+    TRINKET_SILVER_CRESCENT = 29370,
+    TRINKET_EYE_OF_MAGTHERIDON = 28789,
+    TRINKET_RESTRAINED_ESSENCE = 23046,
+    TRINKET_QUAGMIRRANS_EYE = 27683,
+    TRINKET_UNSTABLE_CURRENTS = 30626,
+    TRINKET_LIGHTNING_CAPACITOR = 28785
 };
 
 enum EventType : int
@@ -75,6 +95,21 @@ struct SimulationsResult
     double min_dps, avg_dps, max_dps;
     int iterations;
 };
+
+double critRatingToChance(double rating)
+{
+    return rating / 22.08;
+}
+
+double hitRatingToChance(double rating)
+{
+    return rating / 12.62;
+}
+
+double hasteRatingToHaste(double rating)
+{
+    return rating / 15.75;
+}
 
 template<typename Numeric, typename Generator = std::mt19937>
 Numeric random(Numeric from, Numeric to)

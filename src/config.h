@@ -32,12 +32,14 @@ struct Config
     bool elixir_of_draenic_wisdom = false;
     bool drums = true;
 
-    bool t5_2set = true;
-    bool t5_4set = true;
+    bool tirisfal_2set = true;
+    bool tirisfal_4set = true;
     bool spellfire_set = false;
-    bool chaotic_skyfire = true;
-    bool serpent_coil = true;
-    bool silver_crescent = true;
+    bool spellstrike_set = false;
+
+    Trinket trinket1 = TRINKET_NONE;
+    Trinket trinket2 = TRINKET_NONE;
+    MetaGem meta_gem = META_NONE;
 
     int innervate = 0;
     bool mana_tide = true;

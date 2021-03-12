@@ -15,7 +15,13 @@ namespace buff
         CLEARCAST,
         SILVER_CRESCENT,
         SERPENT_COIL,
-        MANA_TIDE
+        MANA_TIDE,
+        SPELLSTRIKE,
+        EYE_OF_MAGTHERIDON,
+        RESTRAINED_ESSENCE,
+        QUAGMIRRANS_EYE,
+        UNSTABLE_CURRENTS,
+        LIGHTNING_CAPACITOR,
     };
 
 
@@ -101,7 +107,7 @@ namespace buff
         SilverCrescent()
         {
             id = SILVER_CRESCENT;
-            name = "Icy Veins";
+            name = "Silver Crescent";
             duration = 20;
         }
 
@@ -168,6 +174,85 @@ namespace buff
             id = MANA_TIDE;
             name = "Mana Tide";
             duration = 12;
+        }
+
+    };
+
+    class Spellstrike : public Buff
+    {
+
+    public:
+        Spellstrike()
+        {
+            id = SPELLSTRIKE;
+            name = "Lesser Spell Blasting";
+            duration = 10;
+        }
+
+    };
+
+    class EyeOfMagtheridon : public Buff
+    {
+
+    public:
+        EyeOfMagtheridon()
+        {
+            id = EYE_OF_MAGTHERIDON;
+            name = "Recurring Power";
+            duration = 10;
+        }
+
+    };
+
+    class RestrainedEssence : public Buff
+    {
+
+    public:
+        RestrainedEssence()
+        {
+            id = RESTRAINED_ESSENCE;
+            name = "Essence of Sapphiron";
+            duration = 20;
+        }
+
+    };
+
+    class QuagmirransEye : public Buff
+    {
+
+    public:
+        QuagmirransEye()
+        {
+            id = QUAGMIRRANS_EYE;
+            name = "Spell Haste";
+            duration = 6;
+        }
+
+    };
+
+    class UnstableCurrents : public Buff
+    {
+
+    public:
+        UnstableCurrents()
+        {
+            id = UNSTABLE_CURRENTS;
+            name = "Unstable Currents";
+            duration = 15;
+        }
+
+    };
+
+    class LightningCapacitor : public Buff
+    {
+
+    public:
+        LightningCapacitor()
+        {
+            id = LIGHTNING_CAPACITOR;
+            name = "Lightning Capacitor";
+            duration = 200;
+            max_stacks = 3;
         }
 
     };

@@ -49,6 +49,22 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("RACE_TROLL", RACE_TROLL)
         .value("RACE_UNDEAD", RACE_UNDEAD);
 
+    emscripten::enum_<Trinket>("Trinket")
+        .value("TRINKET_NONE", TRINKET_NONE)
+        .value("TRINKET_SERPENT_COIL", TRINKET_SERPENT_COIL)
+        .value("TRINKET_SILVER_CRESCENT", TRINKET_SILVER_CRESCENT)
+        .value("TRINKET_EYE_OF_MAGTHERIDON", TRINKET_EYE_OF_MAGTHERIDON)
+        .value("TRINKET_RESTRAINED_ESSENCE", TRINKET_RESTRAINED_ESSENCE)
+        .value("TRINKET_QUAGMIRRANS_EYE", TRINKET_QUAGMIRRANS_EYE)
+        .value("TRINKET_UNSTABLE_CURRENTS", TRINKET_UNSTABLE_CURRENTS)
+        .value("TRINKET_LIGHTNING_CAPACITOR", TRINKET_LIGHTNING_CAPACITOR);
+
+    emscripten::enum_<MetaGem>("MetaGem")
+        .value("META_NONE", META_NONE)
+        .value("META_CHAOTIC_SKYFIRE", META_CHAOTIC_SKYFIRE)
+        .value("META_EMBER_SKYFIRE", META_EMBER_SKYFIRE)
+        .value("META_INSIGHTFUL_EARTHSTORM", META_INSIGHTFUL_EARTHSTORM);
+
     emscripten::enum_<LogType>("LogType")
         .value("LOG_NONE", LOG_NONE)
         .value("LOG_SPELL", LOG_SPELL)
@@ -88,12 +104,13 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("elixir_of_draenic_wisdom", &Config::elixir_of_draenic_wisdom)
         .property("drums", &Config::drums)
 
-        .property("t5_2set", &Config::t5_2set)
-        .property("t5_4set", &Config::t5_4set)
+        .property("tirisfal_2set", &Config::tirisfal_2set)
+        .property("tirisfal_4set", &Config::tirisfal_4set)
         .property("spellfire_set", &Config::spellfire_set)
-        .property("chaotic_skyfire", &Config::chaotic_skyfire)
-        .property("serpent_coil", &Config::serpent_coil)
-        .property("silver_crescent", &Config::silver_crescent)
+        .property("spellstrike_set", &Config::spellstrike_set)
+        .property("trinket1", &Config::trinket1)
+        .property("trinket2", &Config::trinket2)
+        .property("meta_gem", &Config::meta_gem)
 
         .property("innervate", &Config::innervate)
         .property("mana_tide", &Config::mana_tide)

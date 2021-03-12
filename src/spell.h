@@ -7,7 +7,8 @@ namespace spell
     {
         ARCANE_BLAST,
         ARCANE_MISSILES,
-        FROSTBOLT
+        FROSTBOLT,
+        LIGHTNING_CAPACITOR,
     };
 
     enum Result : int
@@ -29,6 +30,7 @@ namespace spell
         double cast_time = 0;
         double coeff = 1;
         bool channeling = false;
+        bool proc = false;
         int ticks = 0;
         School school;
 
@@ -94,6 +96,23 @@ namespace spell
             school = SCHOOL_FROST;
         }
 
+    };
+
+    class LightningCapacitor : public Spell{
+
+    public:
+        LightningCapacitor()
+        {
+            id = LIGHTNING_CAPACITOR;
+            name = "Lightning Capacitor";
+            cost = 0;
+            min_dmg = 694;
+            max_dmg = 807;
+            cast_time = 0;
+            school = SCHOOL_NONE;
+            coeff = 0;
+            proc = true;
+        }
     };
 
 }

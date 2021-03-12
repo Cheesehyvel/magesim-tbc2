@@ -36,12 +36,16 @@
                     <div class="items">
                         <table>
                             <thead>
-                                <th>Name</th>
-                                <th>Spell power</th>
-                                <th>Crit rating</th>
-                                <th>Hit rating</th>
-                                <th>Intellect</th>
-                                <th>Spirit</th>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Sockets</th>
+                                    <th>Socket bonus</th>
+                                    <th>Spell power</th>
+                                    <th>Crit rating</th>
+                                    <th>Hit rating</th>
+                                    <th>Intellect</th>
+                                    <th>Spirit</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr
@@ -50,24 +54,41 @@
                                     v-for="item in activeItems"
                                     @click="equip(active_slot, item)"
                                 >
-                                    <td>{{ item.title }}</td>
+                                    <td>
+                                        {{ item.title }}
+                                        <a :href="itemUrl(item)" target="_blank" @click.stop>
+                                            <span class="material-icons ml-n">&#xe89e;</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <template v-if="item.sockets">
+                                            <div class="socket-color" :class="['color-'+socket]" v-for="socket in item.sockets"></div>
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <span v-if="item.bonus" :class="[hasSocketBonus(active_slot) ? 'socket-bonus' : '']">
+                                            {{ formatStats(item.bonus) }}
+                                        </span>
+                                    </td>
                                     <td>{{ formatSP(item) }}</td>
-                                    <td>{{ $get(item, "crit", 0) }}</td>
-                                    <td>{{ $get(item, "hit", 0) }}</td>
-                                    <td>{{ $get(item, "int", 0) }}</td>
-                                    <td>{{ $get(item, "spirit", 0) }}</td>
+                                    <td>{{ $get(item, "crit", "") }}</td>
+                                    <td>{{ $get(item, "hit", "") }}</td>
+                                    <td>{{ $get(item, "int", "") }}</td>
+                                    <td>{{ $get(item, "spirit", "") }}</td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <table class="mt-4" v-if="activeEnchants.length">
                             <thead>
-                                <th>Enchant</th>
-                                <th>Spell power</th>
-                                <th>Crit rating</th>
-                                <th>Hit rating</th>
-                                <th>Intellect</th>
-                                <th>Spirit</th>
+                                <tr>
+                                    <th>Enchant</th>
+                                    <th>Spell power</th>
+                                    <th>Crit rating</th>
+                                    <th>Hit rating</th>
+                                    <th>Intellect</th>
+                                    <th>Spirit</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr
@@ -78,13 +99,43 @@
                                 >
                                     <td>{{ item.title }}</td>
                                     <td>{{ formatSP(item) }}</td>
-                                    <td>{{ $get(item, "crit", 0) }}</td>
-                                    <td>{{ $get(item, "hit", 0) }}</td>
-                                    <td>{{ $get(item, "int", 0) }}</td>
-                                    <td>{{ $get(item, "spirit", 0) }}</td>
+                                    <td>{{ $get(item, "crit", "") }}</td>
+                                    <td>{{ $get(item, "hit", "") }}</td>
+                                    <td>{{ $get(item, "int", "") }}</td>
+                                    <td>{{ $get(item, "spi", "") }}</td>
                                 </tr>
                             </tbody>
                         </table>
+
+                        <div class="sockets mt-4" v-if="activeSockets.length">
+                            <div class="socket" v-for="(socket, index) in activeSockets">
+                                <div class="title">
+                                    <span>Socket {{ (index+1) }}</span>
+                                    <span class="socket-color" :class="['color-'+socket]"></span>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Gem</th>
+                                            <th>Stats</th>
+                                            <th>Unique</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            class="gem-color"
+                                            :class="['color-'+gem.color, isSocketed(active_slot, gem.id, index) ? 'active' : '']"
+                                            v-for="gem in activeGems(index)"
+                                            @click="setSocket(active_slot, gem, index)"
+                                        >
+                                            <td>{{ gem.title }}</td>
+                                            <td>{{ formatStats(gem) }}</td>
+                                            <td><template v-if="gem.unique">Yes</template></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -128,25 +179,25 @@
                             <div class="form-item">
                                 <label>Race</label>
                                 <select v-model="config.race">
-                                    <option value="RACE_BLOOD_ELF">Blood elf</option>
-                                    <option value="RACE_DRAENEI">Draenei</option>
-                                    <option value="RACE_GNOME">Gnome</option>
-                                    <option value="RACE_HUMAN">Human</option>
-                                    <option value="RACE_TROLL">Troll</option>
-                                    <option value="RACE_UNDEAD">Undead</option>
+                                    <option :value="races.RACE_BLOOD_ELF">Blood elf</option>
+                                    <option :value="races.RACE_DRAENEI">Draenei</option>
+                                    <option :value="races.RACE_GNOME">Gnome</option>
+                                    <option :value="races.RACE_HUMAN">Human</option>
+                                    <option :value="races.RACE_TROLL">Troll</option>
+                                    <option :value="races.RACE_UNDEAD">Undead</option>
                                 </select>
                             </div>
                             <div class="form-item">
                                 <label>Spec</label>
                                 <select v-model="config.spec">
-                                    <option value="SPEC_ARCANE">Arcane</option>
+                                    <option :value="specs.SPEC_ARCANE">Arcane</option>
                                 </select>
                             </div>
                             <div class="form-item">
                                 <label>Talents (<a :href="talentsLink" target="_blank">link</a>)</label>
                                 <input type="text" v-model="config.talents">
                             </div>
-                            <div class="form-item" v-if="config.spec == 'SPEC_ARCANE'">
+                            <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE">
                                 <label>Regen rotation</label>
                                 <select v-model="config.regen_rotation">
                                     <option value="ROTATION_FB">3AB, 3FrB</option>
@@ -270,7 +321,11 @@
                             </div>
                         </fieldset>
                     </div>
-                    <div class="close" @click="configToggle">X</div>
+                    <div class="close" @click="configToggle">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -289,11 +344,22 @@
 
         data() {
             var data = {
+                races: {
+                    RACE_BLOOD_ELF: 0,
+                    RACE_DRAENEI: 1,
+                    RACE_GNOME: 2,
+                    RACE_HUMAN: 3,
+                    RACE_TROLL: 4,
+                    RACE_UNDEAD: 5
+                },
+                specs: {
+                    SPEC_ARCANE: 0,
+                },
                 items: items,
                 equipped: {},
                 enchants: {},
                 gems: {},
-                active_slot: "main_hand",
+                active_slot: "weapon",
                 result: null,
                 is_running: false,
                 config_open: false,
@@ -308,8 +374,8 @@
                 },
                 config: {
                     iterations: 10000,
-                    race: "RACE_UNDEAD",
-                    spec: "SPEC_ARCANE",
+                    race: 5,
+                    spec: 0,
 
                     duration: 180,
                     vampiric_touch_regen: 50,
@@ -342,12 +408,13 @@
                     elixir_of_draenic_wisdom: false,
                     drums: true,
 
-                    t5_2set: true,
-                    t5_4set: true,
+                    tirisfal_2set: true,
+                    tirisfal_4set: true,
                     spellfire_set: false,
-                    chaotic_skyfire: true,
-                    serpent_coil: true,
-                    silver_crescent: true,
+                    spellstrike_set: false,
+                    meta_gem: 0,
+                    trinket1: 0,
+                    trinket2: 0,
 
                     innervate: 0,
                     mana_tide: true,
@@ -376,7 +443,7 @@
             };
 
             var slots = [
-                "main_hand", "off_hand", "ranged",
+                "weapon", "off_hand", "ranged",
                 "head", "neck", "shoulder", "back", "chest", "wrist",
                 "hands", "waist", "legs", "feet",
                 "finger1", "finger2", "trinket1", "trinket2",
@@ -391,7 +458,7 @@
                 }
                 data.equipped[slot] = _.get(data.items.equip, islot+"."+i+".id", null);
                 data.enchants[slot] = _.get(data.items.enchants, islot+"."+i+".id", null);
-                data.gems[slot] = null;
+                data.gems[slot] = [null, null, null];
             }
 
             return data;
@@ -413,12 +480,17 @@
             },
 
             activeEnchants() {
-                var slot = this.equipSlotToItemSlot(this.active_slot);
+                var slot = this.equipSlotToEnchantSlot(this.active_slot);
 
                 if (!this.items.enchants.hasOwnProperty(slot))
                     return [];
 
                 return this.items.enchants[slot];
+            },
+
+            activeSockets() {
+                var item = this.equippedItem(this.active_slot);
+                return item && item.sockets ? item.sockets : [];
             },
         },
 
@@ -433,6 +505,7 @@
                     console.error(error);
                 });
 
+                this.log_open = false;
                 this.prepare();
                 this.is_running = true;
                 sim.start(this.config);
@@ -467,6 +540,10 @@
                 return slot;
             },
 
+            equipSlotToEnchantSlot(slot) {
+                return this.equipSlotToItemSlot(slot);
+            },
+
             dontStack(input, config) {
                 if (!Array.isArray(config))
                     config = [config];
@@ -479,6 +556,24 @@
                         }
                     }
                 }
+            },
+
+            equippedItem(slot) {
+                var id = this.equipped[slot];
+                if (!id)
+                    return null;
+
+                slot = this.equipSlotToItemSlot(slot);
+
+                return _.find(this.items.equip[slot], {id: this.equipped[slot]}, null)
+            },
+
+            activeGems(index) {
+                if (this.activeSockets.length < index)
+                    return [];
+                if (this.activeSockets[index] == "m")
+                    return this.items.gems.filter(g => g.color == "m");
+                return this.items.gems.filter(g => g.color != "m");
             },
 
             baseStats() {
@@ -533,24 +628,41 @@
                     sp_fire: 0,
                 };
 
-                for (var key in this.equipped) {
-                    var slot = this.equipSlotToItemSlot(key);
-                    var item = _.find(this.items.equip[slot], {id: this.equipped[key]});
-                    if (item) {
-                        for (var stat in item) {
-                            if (item_stats.hasOwnProperty(stat))
-                                item_stats[stat]+= item[stat];
-                        }
+                var addStats = function(itm) {
+                    for (var stat in itm) {
+                        if (item_stats.hasOwnProperty(stat))
+                            item_stats[stat]+= itm[stat];
                     }
-                }
+                };
 
-                for (var key in this.enchants) {
-                    var slot = this.equipSlotToItemSlot(key);
-                    var item = _.find(this.items.enchants[slot], {id: this.enchants[key]});
+                var slot, item, has_bonus, get_bonus, enchant, gem, gem_id;
+                for (var key in this.equipped) {
+                    slot = this.equipSlotToItemSlot(key);
+                    item = _.find(this.items.equip[slot], {id: this.equipped[key]});
                     if (item) {
-                        for (var stat in item) {
-                            if (item_stats.hasOwnProperty(stat))
-                                item_stats[stat]+= item[stat];
+                        has_bonus = item.hasOwnProperty("bonus");
+                        get_bonus = true;
+
+                        addStats(item);
+
+                        if (this.items.enchants[slot] && this.enchants[key]) {
+                            enchant = _.find(this.items.enchants[slot], {id: this.enchants[key]});
+                            if (enchant)
+                                addStats(enchant);
+                        }
+
+                        if (item.sockets) {
+                            for (var i=0; i<item.sockets.length; i++) {
+                                gem_id = this.gems[slot][i];
+                                gem = gem_id ? _.find(this.items.gems, {id: gem_id}) : null;
+                                if (gem)
+                                    addStats(gem);
+                                if (has_bonus && (!gem || !this.matchSocketColor(item.sockets[i], gem.color)))
+                                    get_bonus = false;
+                            }
+
+                            if (has_bonus && get_bonus)
+                                addStats(item.bonus);
                         }
                     }
                 }
@@ -574,12 +686,25 @@
 
             itemConfig() {
                 var num = this.numEquippedSet(this.items.ids.TIRISFAL_SET);
-                this.config.t5_2set = num > 1;
-                this.config.t5_4set = num > 3;
+                this.config.tirisfal_2set = num > 1;
+                this.config.tirisfal_4set = num > 3;
 
+                this.config.spellstrike_set = this.numEquippedSet(this.items.ids.SPELLSTRIKE_SET) > 1;
                 this.config.spellfire_set = this.numEquippedSet(this.items.ids.SPELLFIRE_SET) > 2;
-                this.config.serpent_coil = this.isEquipped("trinket", this.items.ids.SERPENT_COIL);
-                this.config.silver_crescent = this.isEquipped("trinket", this.items.ids.SILVER_CRESCENT);
+
+                this.config.trinket1 = 0;
+                this.config.trinket2 = 0;
+                this.config.meta_gem = 0;
+                if (this.isSpecialItem(this.equipped.trinket1))
+                    this.config.trinket1 = this.equipped.trinket1;
+                if (this.isSpecialItem(this.equipped.trinket2))
+                    this.config.trinket2 = this.equipped.trinket2;
+                if (this.metaGem() && this.isSpecialItem(this.metaGem().id))
+                    this.config.meta_gem = this.metaGem().id;
+            },
+
+            itemUrl(item) {
+                return "https://tbcdb.com/?item="+item.id;
             },
 
             critRatingToChance(rating) {
@@ -594,16 +719,26 @@
                 return rating / 15.75;
             },
 
+            isSpecialItem(item_id) {
+                for (var key in this.items.ids) {
+                    if (this.items.ids[key] == item_id)
+                        return true;
+                }
+                return false;
+            },
+
             equip(slot, item) {
-                if (slot == "two_hand") {
-                    this.equipped.off_hand = null;
-                    slot = "main_hand";
+                if (slot == "weapon") {
+                    if (item.twohand)
+                        this.equipped.off_hand = null;
                 }
 
                 if (this.equipped[slot] == item.id)
                     this.equipped[slot] = null;
                 else
                     this.equipped[slot] = item.id;
+
+                this.gems[slot] = [null, null, null];
 
                 this.saveGear();
             },
@@ -629,11 +764,6 @@
             },
 
             enchant(slot, item) {
-                if (slot == "two_hand") {
-                    this.enchants.off_hand = null;
-                    slot = "main_hand";
-                }
-
                 if (this.enchants[slot] == item.id)
                     this.enchants[slot] = null;
                 else
@@ -649,8 +779,102 @@
                 return _.get(this.enchants, slot) == id;
             },
 
+            setSocket(slot, item, index) {
+                if (this.isSocketed(slot, item.id, index)) {
+                    this.gems[slot].splice(index, 1, null);
+                }
+                else {
+                    if (item.unique && this.isSocketedAnywhere(item.id))
+                        return;
+                    this.gems[slot].splice(index, 1, item.id);
+                }
+
+                this.saveGear();
+            },
+
+            matchSocketColor(sock, gem) {
+                if (sock == gem)
+                    return true;
+                if (sock == "r" && ["o", "p"].indexOf(gem) != -1)
+                    return true;
+                if (sock == "y" && ["o", "g"].indexOf(gem) != -1)
+                    return true;
+                if (sock == "b" && ["g", "p"].indexOf(gem) != -1)
+                    return true;
+                return false;
+            },
+
+            hasSocketBonus(slot) {
+                var item = this.equippedItem(slot);
+
+                if (item && item.sockets && item.bonus) {
+                    for (var i=0; i<item.sockets.length; i++) {
+                        var gem_id = this.gems[slot][i];
+                        var gem = gem_id ? _.find(this.items.gems, {id: gem_id}) : null;
+                        if (!gem || !this.matchSocketColor(item.sockets[i], gem.color))
+                            return false;
+                    }
+
+                    return true;
+                }
+
+                return false;
+            },
+
+            isSocketed(slot, id, index) {
+                return _.get(this.gems[slot], index) == id;
+            },
+
+            isSocketedAnywhere(id) {
+                for (var slot in this.gems) {
+                    for (var i=0; i<this.gems[slot].length; i++) {
+                        if (id == this.gems[slot][i])
+                            return true;
+                    }
+                }
+                return false;
+            },
+
+            metaGem() {
+                for (var key in this.gems.head) {
+                    if (this.gems.head[key]) {
+                        var gem = _.find(this.items.gems, {id: this.gems.head[key]});
+                        if (gem && gem.color == "m")
+                            return gem;
+                    }
+                }
+
+                return null;
+            },
+
+            formatStats(item) {
+                var stats = [];
+
+                if (item.int)
+                    stats.push(item.int+" int");
+                if (item.spi)
+                    stats.push(item.spi+" spi");
+                if (item.sp)
+                    stats.push(item.sp+" sp");
+                if (item.hit)
+                    stats.push(item.hit+" hit");
+                if (item.crit)
+                    stats.push(item.crit+" crit");
+                if (item.desc)
+                    stats.push(item.desc);
+
+                return stats.join(" / ");
+            },
+
             formatKey(str) {
                 return _.startCase(str);
+            },
+
+            formatSockets(item) {
+                if (!item.sockets)
+                    return null;
+
+                return item.sockets.join(" / ");
             },
 
             formatSP(item) {
@@ -704,6 +928,7 @@
             saveGear() {
                 window.localStorage.setItem("magesim_tbc_equipped", JSON.stringify(this.equipped));
                 window.localStorage.setItem("magesim_tbc_enchants", JSON.stringify(this.enchants));
+                window.localStorage.setItem("magesim_tbc_gems", JSON.stringify(this.gems));
             },
 
             loadGear() {
@@ -719,6 +944,13 @@
                     var enchants = JSON.parse(str);
                     if (enchants)
                         _.merge(this.enchants, enchants);
+                }
+
+                var str = window.localStorage.getItem("magesim_tbc_gems");
+                if (str) {
+                    var gems = JSON.parse(str);
+                    if (gems)
+                        _.merge(this.gems, gems);
                 }
             },
 
