@@ -128,7 +128,12 @@
                                             v-for="gem in activeGems(index)"
                                             @click="setSocket(active_slot, gem, index)"
                                         >
-                                            <td>{{ gem.title }}</td>
+                                            <td>
+                                                {{ gem.title }}
+                                                <a :href="itemUrl(gem)" target="_blank" @click.stop>
+                                                    <span class="material-icons ml-n">&#xe89e;</span>
+                                                </a>
+                                            </td>
                                             <td>{{ formatStats(gem) }}</td>
                                             <td><template v-if="gem.unique">Yes</template></td>
                                         </tr>

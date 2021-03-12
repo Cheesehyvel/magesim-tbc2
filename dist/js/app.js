@@ -1485,6 +1485,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -19635,7 +19640,34 @@ var render = function() {
                                 }
                               },
                               [
-                                _c("td", [_vm._v(_vm._s(gem.title))]),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(gem.title) +
+                                      "\n                                            "
+                                  ),
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: _vm.itemUrl(gem),
+                                        target: "_blank"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.stopPropagation()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "material-icons ml-n" },
+                                        [_vm._v("")]
+                                      )
+                                    ]
+                                  )
+                                ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(_vm._s(_vm.formatStats(gem)))

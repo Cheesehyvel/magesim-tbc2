@@ -614,10 +614,10 @@ table tbody tr.active {
 }
 #app .wrapper .main .gear .items .sockets .socket {
   float: left;
-  width: 30%;
+  width: 32%;
 }
 #app .wrapper .main .gear .items .sockets .socket:nth-child(n+2) {
-  margin-left: 5%;
+  margin-left: 2%;
 }
 #app .wrapper .main .gear .items table th:nth-child(n+2), #app .wrapper .main .gear .items table td:nth-child(n+2) {
   width: 10%;
