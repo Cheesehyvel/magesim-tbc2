@@ -115,6 +115,26 @@ table {
             background: rgba(152, 192, 255, 0.2);
         }
     }
+
+    &.simple {
+        color: #aaa;
+
+        tbody tr:first-child {
+            border-top: 0;
+        }
+
+        th, td {
+            padding: 2px 8px;
+
+            &:first-child {
+                padding-left: 0;
+            }
+            &:last-child {
+                padding-right: 0;
+                text-align: right;
+            }
+        }
+    }
 }
 
 #app {
@@ -140,12 +160,17 @@ table {
             background: #111;
             padding: $spacer*0.5;
 
+            .final-stats {
+                margin-top: $spacer*0.5;
+            }
+
             .result {
                 margin-top: $spacer;
                 text-align: center;
 
                 div:nth-child(1) {
                     font-weight: 700;
+                    color: #08f;
                 }
                 div:nth-child(2) {
                     font-weight: 700;
@@ -251,6 +276,20 @@ table {
         }
     }
 
+    .log,
+    .config {
+        .close {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30px;
+            line-height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+        }
+    }
+
     .config {
         position: absolute;
         left: 0;
@@ -270,17 +309,6 @@ table {
                 grid-row: 1;
             }
         }
-
-        .close {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 30px;
-            line-height: 30px;
-            font-size: 20px;
-            cursor: pointer;
-            text-align: center;
-        }
     }
 
     .log {
@@ -294,7 +322,7 @@ table {
         z-index: 102;
 
         .log-wrapper {
-            padding: $spacer*0.5;
+            padding: $spacer $spacer*0.5 $spacer*0.5;
 
             .filter {
                 @include clearfix();

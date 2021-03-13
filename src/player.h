@@ -132,28 +132,28 @@ public:
         if (config->improved_divine_spirit)
             stats.spell_power+= stats.spirit*0.1;
         if (config->wrath_of_air)
-            stats.spell_power+= 102;
+            stats.spell_power+= 102.0;
         if (config->brilliant_wizard_oil)
-            stats.spell_power+= 36;
+            stats.spell_power+= 36.0;
         if (config->spell_dmg_food)
-            stats.spell_power+= 23;
+            stats.spell_power+= 23.0;
         if (config->flask_of_supreme_power)
-            stats.spell_power+= 70;
+            stats.spell_power+= 70.0;
         if (config->flask_of_blinding_light)
-            stats.spell_power_arcane+= 80;
+            stats.spell_power_arcane+= 80.0;
         if (config->adepts_elixir)
-            stats.spell_power+= 24;
+            stats.spell_power+= 24.0;
 
         // Spell crit
         double critrating = 0;
         if (config->judgement_of_the_crusader)
-            stats.crit+= 3;
+            stats.crit+= 3.0;
         if (config->moonkin_aura)
-            stats.crit+= 5;
+            stats.crit+= 5.0;
         if (config->totem_of_wrath)
-            stats.crit+= 3;
+            stats.crit+= 3.0;
         if (config->molten_armor)
-            stats.crit+= 3;
+            stats.crit+= 3.0;
         if (config->adepts_elixir)
             critrating+= 24;
         if (config->brilliant_wizard_oil)
@@ -161,13 +161,13 @@ public:
         if (critrating > 0)
             stats.crit+= critRatingToChance(critrating);
         if (talents.arcane_instability)
-            stats.crit+= 3;
+            stats.crit+= 1.0 * talents.arcane_instability;
 
         // Spell hit
         if (config->totem_of_wrath)
-            stats.hit+= 3;
+            stats.hit+= 3.0;
         if (race == RACE_DRAENEI)
-            stats.hit+= 1;
+            stats.hit+= 1.0;
     }
 
     void setDefaultTalents()

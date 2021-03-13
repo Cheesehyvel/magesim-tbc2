@@ -484,6 +484,22 @@ table tbody tr {
 table tbody tr.active {
   background: rgba(152, 192, 255, 0.2);
 }
+table.simple {
+  color: #aaa;
+}
+table.simple tbody tr:first-child {
+  border-top: 0;
+}
+table.simple th, table.simple td {
+  padding: 2px 8px;
+}
+table.simple th:first-child, table.simple td:first-child {
+  padding-left: 0;
+}
+table.simple th:last-child, table.simple td:last-child {
+  padding-right: 0;
+  text-align: right;
+}
 
 #app .github {
   display: block;
@@ -506,12 +522,16 @@ table tbody tr.active {
   background: #111;
   padding: 30px;
 }
+#app .wrapper .sidebar .final-stats {
+  margin-top: 30px;
+}
 #app .wrapper .sidebar .result {
   margin-top: 60px;
   text-align: center;
 }
 #app .wrapper .sidebar .result div:nth-child(1) {
   font-weight: 700;
+  color: #08f;
 }
 #app .wrapper .sidebar .result div:nth-child(2) {
   font-weight: 700;
@@ -623,6 +643,17 @@ table tbody tr.active {
   width: 10%;
   white-space: nowrap;
 }
+#app .log .close,
+#app .config .close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  line-height: 30px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+}
 #app .config {
   position: absolute;
   left: 0;
@@ -641,16 +672,6 @@ table tbody tr.active {
 #app .config .fieldsets fieldset {
   grid-row: 1;
 }
-#app .config .close {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30px;
-  line-height: 30px;
-  font-size: 20px;
-  cursor: pointer;
-  text-align: center;
-}
 #app .log {
   position: absolute;
   left: 0;
@@ -662,7 +683,7 @@ table tbody tr.active {
   z-index: 102;
 }
 #app .log .log-wrapper {
-  padding: 30px;
+  padding: 60px 30px 30px;
 }
 #app .log .log-wrapper .filter {
   margin-bottom: 30px;

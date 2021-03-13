@@ -9,6 +9,48 @@
                     <div class="btn block mt-n" @click="runSingle" :class="[is_running ? 'disabled' : '']">Run</div>
                     <div class="btn block mt-n" @click="runMultiple" :class="[is_running ? 'disabled' : '']">Run {{ config.iterations }} times</div>
                 </div>
+                <div class="final-stats" v-if="final_stats">
+                    <table class="simple">
+                        <tbody>
+                            <tr>
+                                <td>Intellect</td>
+                                <td>{{ final_stats.intellect }}</td>
+                            </tr>
+                            <tr>
+                                <td>Spirit</td>
+                                <td>{{ final_stats.spirit }}</td>
+                            </tr>
+                            <tr>
+                                <td>Mp5</td>
+                                <td>{{ final_stats.mp5 }}</td>
+                            </tr>
+                            <tr>
+                                <td>Spell power</td>
+                                <td>{{ final_stats.spell_power }}</td>
+                            </tr>
+                            <tr v-if="final_stats.spell_power_arcane">
+                                <td>SP Arcane</td>
+                                <td>+{{ final_stats.spell_power_arcane }}</td>
+                            </tr>
+                            <tr v-if="final_stats.spell_power_frost">
+                                <td>SP Frost</td>
+                                <td>+{{ final_stats.spell_power_frost }}</td>
+                            </tr>
+                            <tr v-if="final_stats.spell_power_fire">
+                                <td>SP Fire</td>
+                                <td>+{{ final_stats.spell_power_fire }}</td>
+                            </tr>
+                            <tr>
+                                <td>Crit</td>
+                                <td>{{ $round(final_stats.crit, 2) }}%</td>
+                            </tr>
+                            <tr>
+                                <td>Hit</td>
+                                <td>{{ $round(final_stats.hit, 2) }}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="result" v-if="result">
                     <template v-if="result.iterations">
                         <div>DPS</div>
@@ -178,6 +220,11 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="close" @click="logToggle">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
                     </div>
                 </div>
 
@@ -377,6 +424,7 @@
         mounted() {
             this.loadConfig();
             this.loadGear();
+            this.finalStats();
         },
 
         data() {
@@ -401,6 +449,7 @@
                 enchants: {},
                 gems: {},
                 active_slot: "weapon",
+                final_stats: null,
                 result: null,
                 is_running: false,
                 config_open: false,
@@ -626,6 +675,95 @@
                 return this.items.gems.filter(g => g.color != "m");
             },
 
+            finalStats() {
+                var x;
+                this.itemStats();
+                this.itemConfig();
+
+                var stats = _.cloneDeep(this.config.stats);
+
+                // Attribute additions
+                if (this.config.arcane_intellect)
+                    stats.intellect+= 40;
+                if (this.config.divine_spirit)
+                    stats.spirit+= 40;
+                if (this.config.elixir_of_draenic_wisdom) {
+                    stats.intellect+= 30;
+                    stats.spirit+= 30;
+                }
+                if (this.config.mark_of_the_wild) {
+                    stats.intellect+= 18;
+                    stats.spirit+= 18;
+                }
+
+                // Attribute multipliers
+                if (x = this.hasTalent("arcane_mind"))
+                    stats.intellect*= 1.0 + x*0.03;
+                if (this.config.race == this.races.RACE_GNOME)
+                    stats.intellect*= 1.05;
+                if (this.config.race == this.races.RACE_HUMAN)
+                    stats.spirit*= 1.1;
+                if (this.config.blessing_of_kings) {
+                    stats.intellect*= 1.1;
+                    stats.spirit*= 1.1;
+                }
+                if (this.metaGem() && this.metaGem().id == this.items.ids.EMBER_SKYFIRE)
+                    stats.intellect*= 1.02;
+                stats.intellect = Math.round(stats.intellect);
+                stats.spirit = Math.round(stats.spirit);
+
+                // Spell power
+                var int_multi = 0;
+                if (x = this.hasTalent("mind_mastery"))
+                    int_multi+= x*0.05;
+                if (this.config.spellfire_set)
+                    int_multi+= 0.07;
+                if (int_multi > 0)
+                    stats.spell_power+= Math.round(stats.intellect * int_multi);
+
+                if (this.config.improved_divine_spirit)
+                    stats.spell_power+= stats.spirit*0.1;
+                if (this.config.wrath_of_air)
+                    stats.spell_power+= 102;
+                if (this.config.brilliant_wizard_oil)
+                    stats.spell_power+= 36;
+                if (this.config.spell_dmg_food)
+                    stats.spell_power+= 23;
+                if (this.config.flask_of_supreme_power)
+                    stats.spell_power+= 70;
+                if (this.config.flask_of_blinding_light)
+                    stats.spell_power_arcane+= 80;
+                if (this.config.adepts_elixir)
+                    stats.spell_power+= 24;
+
+                // Spell crit
+                var critrating = 0;
+                if (this.config.judgement_of_the_crusader)
+                    stats.crit+= 3;
+                if (this.config.moonkin_aura)
+                    stats.crit+= 5;
+                if (this.config.totem_of_wrath)
+                    stats.crit+= 3;
+                if (this.config.molten_armor)
+                    stats.crit+= 3;
+                if (this.config.adepts_elixir)
+                    critrating+= 24;
+                if (this.config.brilliant_wizard_oil)
+                    critrating+= 14;
+                if (critrating > 0)
+                    stats.crit+= this.critRatingToChance(critrating);
+                if (x = this.hasTalent("arcane_instability"))
+                    stats.crit+= x;
+
+                // Spell hit
+                if (this.config.totem_of_wrath)
+                    stats.hit+= 3;
+                if (this.config.race == this.races.RACE_DRAENEI)
+                    stats.hit+= 1;
+
+                this.final_stats = stats;
+            },
+
             baseStats() {
                 // Undead default
                 var stats = {
@@ -794,6 +932,7 @@
                 this.gems[slot] = [null, null, null];
 
                 this.saveGear();
+                this.finalStats();
             },
 
             isEquipped(slot, id) {
@@ -823,6 +962,7 @@
                     this.enchants[slot] = item.id;
 
                 this.saveGear();
+                this.finalStats();
             },
 
             isEnchanted(slot, id) {
@@ -843,6 +983,7 @@
                 }
 
                 this.saveGear();
+                this.finalStats();
             },
 
             matchSocketColor(sock, gem) {
@@ -903,12 +1044,15 @@
             hasTalent(talent) {
                 var indexes = {
                     presence_of_mind: 13,
+                    arcane_mind: 14,
+                    arcane_instability: 16,
                     arcane_power: 19,
+                    mind_mastery: 21,
                     icy_veins: 53,
                     cold_snap: 59,
                 };
 
-                var index = _.get(indexes, talent);
+                var index = _.isNumber(talent) ? talent : _.get(indexes, talent);
                 if (!index)
                     return;
 
@@ -967,16 +1111,23 @@
                 return item.sockets.join(" / ");
             },
 
-            formatSP(item) {
-                var str = item.sp ? item.sp : 0;
+            formatSP(data) {
+                var str = data.sp ? data.sp : (data.spell_power ? data.spell_power : 0);
                 var extra = [];
 
-                if (item.sp_arcane)
-                    extra.push("+"+item.sp_arcane+" arc");
-                if (item.sp_frost)
-                    extra.push("+"+item.sp_frost+" frost");
-                if (item.sp_fire)
-                    extra.push("+"+item.sp_fire+" fire");
+                if (data.sp_arcane)
+                    extra.push("+"+data.sp_arcane+" arc");
+                if (data.sp_frost)
+                    extra.push("+"+data.sp_frost+" frost");
+                if (data.sp_fire)
+                    extra.push("+"+data.sp_fire+" fire");
+
+                if (data.spell_power_arcane)
+                    extra.push("+"+data.spell_power_arcane+" arc");
+                if (data.spell_power_frost)
+                    extra.push("+"+data.spell_power_frost+" frost");
+                if (data.spell_power_fire)
+                    extra.push("+"+data.spell_power_fire+" fire");
 
                 if (extra.length)
                     str+= " / "+extra.join(" / ");

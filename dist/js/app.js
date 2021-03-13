@@ -1537,12 +1537,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     this.loadConfig();
     this.loadGear();
+    this.finalStats();
   },
   data: function data() {
     var data = {
@@ -1566,6 +1614,7 @@ __webpack_require__.r(__webpack_exports__);
       enchants: {},
       gems: {},
       active_slot: "weapon",
+      final_stats: null,
       result: null,
       is_running: false,
       config_open: false,
@@ -1756,6 +1805,67 @@ __webpack_require__.r(__webpack_exports__);
         return g.color != "m";
       });
     },
+    finalStats: function finalStats() {
+      var x;
+      this.itemStats();
+      this.itemConfig();
+
+      var stats = _.cloneDeep(this.config.stats); // Attribute additions
+
+
+      if (this.config.arcane_intellect) stats.intellect += 40;
+      if (this.config.divine_spirit) stats.spirit += 40;
+
+      if (this.config.elixir_of_draenic_wisdom) {
+        stats.intellect += 30;
+        stats.spirit += 30;
+      }
+
+      if (this.config.mark_of_the_wild) {
+        stats.intellect += 18;
+        stats.spirit += 18;
+      } // Attribute multipliers
+
+
+      if (x = this.hasTalent("arcane_mind")) stats.intellect *= 1.0 + x * 0.03;
+      if (this.config.race == this.races.RACE_GNOME) stats.intellect *= 1.05;
+      if (this.config.race == this.races.RACE_HUMAN) stats.spirit *= 1.1;
+
+      if (this.config.blessing_of_kings) {
+        stats.intellect *= 1.1;
+        stats.spirit *= 1.1;
+      }
+
+      if (this.metaGem() && this.metaGem().id == this.items.ids.EMBER_SKYFIRE) stats.intellect *= 1.02;
+      stats.intellect = Math.round(stats.intellect);
+      stats.spirit = Math.round(stats.spirit); // Spell power
+
+      var int_multi = 0;
+      if (x = this.hasTalent("mind_mastery")) int_multi += x * 0.05;
+      if (this.config.spellfire_set) int_multi += 0.07;
+      if (int_multi > 0) stats.spell_power += Math.round(stats.intellect * int_multi);
+      if (this.config.improved_divine_spirit) stats.spell_power += stats.spirit * 0.1;
+      if (this.config.wrath_of_air) stats.spell_power += 102;
+      if (this.config.brilliant_wizard_oil) stats.spell_power += 36;
+      if (this.config.spell_dmg_food) stats.spell_power += 23;
+      if (this.config.flask_of_supreme_power) stats.spell_power += 70;
+      if (this.config.flask_of_blinding_light) stats.spell_power_arcane += 80;
+      if (this.config.adepts_elixir) stats.spell_power += 24; // Spell crit
+
+      var critrating = 0;
+      if (this.config.judgement_of_the_crusader) stats.crit += 3;
+      if (this.config.moonkin_aura) stats.crit += 5;
+      if (this.config.totem_of_wrath) stats.crit += 3;
+      if (this.config.molten_armor) stats.crit += 3;
+      if (this.config.adepts_elixir) critrating += 24;
+      if (this.config.brilliant_wizard_oil) critrating += 14;
+      if (critrating > 0) stats.crit += this.critRatingToChance(critrating);
+      if (x = this.hasTalent("arcane_instability")) stats.crit += x; // Spell hit
+
+      if (this.config.totem_of_wrath) stats.hit += 3;
+      if (this.config.race == this.races.RACE_DRAENEI) stats.hit += 1;
+      this.final_stats = stats;
+    },
     baseStats: function baseStats() {
       // Undead default
       var stats = {
@@ -1908,6 +2018,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.equipped[slot] == item.id) this.equipped[slot] = null;else this.equipped[slot] = item.id;
       this.gems[slot] = [null, null, null];
       this.saveGear();
+      this.finalStats();
     },
     isEquipped: function isEquipped(slot, id) {
       if (slot == "trinket" || slot == "finger") return this.isEquipped(slot + "1", id) || this.isEquipped(slot + "2", id);
@@ -1931,6 +2042,7 @@ __webpack_require__.r(__webpack_exports__);
     enchant: function enchant(slot, item) {
       if (this.enchants[slot] == item.id) this.enchants[slot] = null;else this.enchants[slot] = item.id;
       this.saveGear();
+      this.finalStats();
     },
     isEnchanted: function isEnchanted(slot, id) {
       if (slot == "trinket" || slot == "finger") return this.isEnchanted(slot + "1") || this.isEnchanted(slot + "2");
@@ -1945,6 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.saveGear();
+      this.finalStats();
     },
     matchSocketColor: function matchSocketColor(sock, gem) {
       if (sock == gem) return true;
@@ -1998,13 +2111,14 @@ __webpack_require__.r(__webpack_exports__);
     hasTalent: function hasTalent(talent) {
       var indexes = {
         presence_of_mind: 13,
+        arcane_mind: 14,
+        arcane_instability: 16,
         arcane_power: 19,
+        mind_mastery: 21,
         icy_veins: 53,
         cold_snap: 59
       };
-
-      var index = _.get(indexes, talent);
-
+      var index = _.isNumber(talent) ? talent : _.get(indexes, talent);
       if (!index) return;
       var numbers = null;
 
@@ -2041,12 +2155,15 @@ __webpack_require__.r(__webpack_exports__);
       if (!item.sockets) return null;
       return item.sockets.join(" / ");
     },
-    formatSP: function formatSP(item) {
-      var str = item.sp ? item.sp : 0;
+    formatSP: function formatSP(data) {
+      var str = data.sp ? data.sp : data.spell_power ? data.spell_power : 0;
       var extra = [];
-      if (item.sp_arcane) extra.push("+" + item.sp_arcane + " arc");
-      if (item.sp_frost) extra.push("+" + item.sp_frost + " frost");
-      if (item.sp_fire) extra.push("+" + item.sp_fire + " fire");
+      if (data.sp_arcane) extra.push("+" + data.sp_arcane + " arc");
+      if (data.sp_frost) extra.push("+" + data.sp_frost + " frost");
+      if (data.sp_fire) extra.push("+" + data.sp_fire + " fire");
+      if (data.spell_power_arcane) extra.push("+" + data.spell_power_arcane + " arc");
+      if (data.spell_power_frost) extra.push("+" + data.spell_power_frost + " frost");
+      if (data.spell_power_fire) extra.push("+" + data.spell_power_fire + " fire");
       if (extra.length) str += " / " + extra.join(" / ");
       return str;
     },
@@ -19475,6 +19592,88 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
+        _vm.final_stats
+          ? _c("div", { staticClass: "final-stats" }, [
+              _c("table", { staticClass: "simple" }, [
+                _c("tbody", [
+                  _c("tr", [
+                    _c("td", [_vm._v("Intellect")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.final_stats.intellect))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Spirit")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.final_stats.spirit))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Mp5")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.final_stats.mp5))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Spell power")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.final_stats.spell_power))])
+                  ]),
+                  _vm._v(" "),
+                  _vm.final_stats.spell_power_arcane
+                    ? _c("tr", [
+                        _c("td", [_vm._v("SP Arcane")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "+" + _vm._s(_vm.final_stats.spell_power_arcane)
+                          )
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.final_stats.spell_power_frost
+                    ? _c("tr", [
+                        _c("td", [_vm._v("SP Frost")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "+" + _vm._s(_vm.final_stats.spell_power_frost)
+                          )
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.final_stats.spell_power_fire
+                    ? _c("tr", [
+                        _c("td", [_vm._v("SP Fire")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v("+" + _vm._s(_vm.final_stats.spell_power_fire))
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Crit")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm.$round(_vm.final_stats.crit, 2)) + "%")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Hit")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm.$round(_vm.final_stats.hit, 2)) + "%")
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _vm.result
           ? _c(
               "div",
@@ -19919,7 +20118,17 @@ var render = function() {
                     0
                   )
                 ])
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "close", on: { click: _vm.logToggle } },
+                [
+                  _c("span", { staticClass: "material-icons" }, [
+                    _vm._v("\n                        \n                    ")
+                  ])
+                ]
+              )
             ])
           : _vm._e(),
         _vm._v(" "),
