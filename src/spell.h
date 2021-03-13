@@ -72,7 +72,7 @@ namespace spell
             min_dmg = 280;
             max_dmg = 280;
             cast_time = 5;
-            coeff = 3.5/5;
+            coeff = 5/3.5;
             school = SCHOOL_ARCANE;
             channeling = true;
             ticks = 5;

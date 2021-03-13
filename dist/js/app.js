@@ -197,7 +197,7 @@ var equip = {
     sp: 20,
     crit: 11
   }, {
-    id: 29350,
+    id: 28386,
     title: "Nether Core's Control Rod",
     "int": 10,
     sp: 13,

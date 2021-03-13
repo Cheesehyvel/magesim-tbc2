@@ -7,6 +7,7 @@ namespace cooldown
         MANA_GEM,
         EVOCATION,
         COLD_SNAP,
+        BERSERKING,
         PERSONAL
     };
 

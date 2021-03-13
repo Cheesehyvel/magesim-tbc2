@@ -543,6 +543,8 @@ public:
             onBuffGain(make_shared<buff::ArcanePower>());
         if (player->talents.icy_veins)
             onBuffGain(make_shared<buff::IcyVeins>());
+        if (player->race == RACE_TROLL)
+            onBuffGain(make_shared<buff::Berserking>());
         if (hasTrinket(TRINKET_SILVER_CRESCENT))
             onBuffGain(make_shared<buff::SilverCrescent>());
         if (hasTrinket(TRINKET_RESTRAINED_ESSENCE))
@@ -644,6 +646,8 @@ public:
             haste*= 0.7;
         if (state->hasBuff(buff::ICY_VEINS))
             haste*= 0.8;
+        if (state->hasBuff(buff::BERSERKING))
+            haste*= 0.9;
 
         return haste;
     }
@@ -742,6 +746,7 @@ public:
 
         if (spell->coeff) {
             double sp = player->stats.spell_power;
+            double coeff = spell->coeff;
 
             if (spell->school == SCHOOL_ARCANE)
                 sp+= player->stats.spell_power_arcane;
@@ -764,9 +769,12 @@ public:
                 sp+= 130.0;
 
             if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
-                sp*= 1 + player->talents.empowered_arcane_missiles * 0.15;
+                coeff+= player->talents.empowered_arcane_missiles * 0.15;
 
-            dmg+= sp*spell->coeff;
+            if (spell->channeling)
+                coeff/= spell->ticks;
+
+            dmg+= sp*coeff;
         }
 
         return dmg * dmgMultiplier(spell);

@@ -39,7 +39,7 @@ var equip = {
         { id: 28783, title: "Eredar Wand of Obliteration", int: 11, sp: 16, crit: 14 },
         { id: 28673, title: "Tirisfal Wand of Ascendency", int: 9, sp: 15, hit: 11 },
         { id: 29350, title: "The Black Stalk", sp: 20, crit: 11 },
-        { id: 29350, title: "Nether Core's Control Rod", int: 10, sp: 13, hit: 8 },
+        { id: 28386, title: "Nether Core's Control Rod", int: 10, sp: 13, hit: 8 },
     ],
     head: [
         { id: 30206, itemset: ids.TIRISFAL_SET, title: "Cowl of Tirisfal", int: 36, spi: 24, sp: 55, crit: 24, sockets: ["m", "y"], bonus: { hit: 4 } },

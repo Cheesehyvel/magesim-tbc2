@@ -22,6 +22,7 @@ namespace buff
         QUAGMIRRANS_EYE,
         UNSTABLE_CURRENTS,
         LIGHTNING_CAPACITOR,
+        BERSERKING,
     };
 
 
@@ -253,6 +254,19 @@ namespace buff
             name = "Lightning Capacitor";
             duration = 200;
             max_stacks = 3;
+        }
+
+    };
+
+    class Berserking : public Buff
+    {
+
+    public:
+        Berserking()
+        {
+            id = BERSERKING;
+            name = "Berserking";
+            duration = 10;
         }
 
     };
