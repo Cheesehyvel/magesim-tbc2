@@ -1617,15 +1617,15 @@ __webpack_require__.r(__webpack_exports__);
         bloodlust: true,
         regen_mana_at: 20,
         regen_rotation: "ROTATION_FB",
-        mana_tide_at: 10,
-        bloodlust_at: 10,
-        icy_veins_at: 0,
-        cold_snap_at: 20,
-        trinket1_at: 0,
-        trinket2_at: 20,
-        berserking_at: 0,
-        arcane_power_at: 0,
-        presence_of_mind_at: 19,
+        mana_tide_at: 20,
+        bloodlust_at: 20,
+        icy_veins_at: 1,
+        cold_snap_at: 21,
+        trinket1_at: 21,
+        trinket2_at: 1,
+        berserking_at: 1,
+        arcane_power_at: 1,
+        presence_of_mind_at: 0,
         talents: "2500250300030150330125000000000000000000000000535000310030010000000",
         stats: {
           intellect: 465,
@@ -1738,8 +1738,8 @@ __webpack_require__.r(__webpack_exports__);
     equippedItem: function equippedItem(slot) {
       var id = this.equipped[slot];
       if (!id) return null;
-      slot = this.equipSlotToItemSlot(slot);
-      return _.find(this.items.equip[slot], {
+      var eslot = this.equipSlotToItemSlot(slot);
+      return _.find(this.items.equip[eslot], {
         id: this.equipped[slot]
       }, null);
     },
@@ -2016,7 +2016,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     hasUseTrinket: function hasUseTrinket(nr) {
       var slot = "trinket" + nr;
-      var item = this.equippedItem(nr);
+      var item = this.equippedItem(slot);
       if (item && item.use) return true;
       return false;
     },

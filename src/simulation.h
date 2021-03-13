@@ -80,7 +80,6 @@ public:
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
 
-        useCooldowns();
         cast(defaultSpell());
 
         work();
@@ -252,6 +251,7 @@ public:
             }
             else {
                 state->t_gcd = state->t + gcd();
+                useCooldowns();
                 if (spell->channeling)
                     onCast(spell);
                 else
@@ -376,8 +376,6 @@ public:
             if (config->tirisfal_4set && spell->result == spell::CRIT)
                 onBuffGain(make_shared<buff::ArcaneMadness>());
         }
-
-        useCooldowns();
 
         if (shouldUseManaGem())
             useManaGem();
