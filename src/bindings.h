@@ -60,6 +60,11 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("TRINKET_LIGHTNING_CAPACITOR", TRINKET_LIGHTNING_CAPACITOR)
         .value("TRINKET_MQG", TRINKET_MQG)
         .value("TRINKET_BLUE_DRAGON", TRINKET_BLUE_DRAGON)
+        .value("TRINKET_MARK_OF_DEFIANCE", TRINKET_MARK_OF_DEFIANCE)
+        .value("TRINKET_SCRYERS_BLOODGEM", TRINKET_SCRYERS_BLOODGEM)
+        .value("TRINKET_CRYSTAL_TALISMAN", TRINKET_CRYSTAL_TALISMAN)
+        .value("TRINKET_PENDANT_VIOLET_EYE", TRINKET_PENDANT_VIOLET_EYE)
+        .value("TRINKET_VENGEANCE_ILLIDARI", TRINKET_VENGEANCE_ILLIDARI)
         ;
 
     emscripten::enum_<MetaGem>("MetaGem")
@@ -97,10 +102,12 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("moonkin_aura", &Config::moonkin_aura)
         .property("mage_armor", &Config::mage_armor)
         .property("molten_armor", &Config::molten_armor)
+        .property("inspiring_presence", &Config::inspiring_presence)
 
         .property("spell_dmg_food", &Config::spell_dmg_food)
         .property("spell_crit_food", &Config::spell_crit_food)
         .property("brilliant_wizard_oil", &Config::brilliant_wizard_oil)
+        .property("superior_wizard_oil", &Config::superior_wizard_oil)
         .property("flask_of_supreme_power", &Config::flask_of_supreme_power)
         .property("flask_of_blinding_light", &Config::flask_of_blinding_light)
         .property("adepts_elixir", &Config::adepts_elixir)

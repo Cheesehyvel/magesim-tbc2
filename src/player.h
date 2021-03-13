@@ -135,6 +135,8 @@ public:
             stats.spell_power+= 102.0;
         if (config->brilliant_wizard_oil)
             stats.spell_power+= 36.0;
+        if (config->superior_wizard_oil)
+            stats.spell_power+= 42.0;
         if (config->spell_dmg_food)
             stats.spell_power+= 23.0;
         if (config->flask_of_supreme_power)
@@ -166,7 +168,7 @@ public:
         // Spell hit
         if (config->totem_of_wrath)
             stats.hit+= 3.0;
-        if (race == RACE_DRAENEI)
+        if (race == RACE_DRAENEI || config->inspiring_presence)
             stats.hit+= 1.0;
     }
 

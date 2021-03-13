@@ -93,7 +93,7 @@
                             <tbody>
                                 <tr
                                     class="item"
-                                    :class="[isEquipped(active_slot, item.id) ? 'active' : '']"
+                                    :class="['quality-'+$get(item, 'q', 'epic'), isEquipped(active_slot, item.id) ? 'active' : '']"
                                     v-for="item in activeItems"
                                     @click="equip(active_slot, item)"
                                 >
@@ -138,7 +138,7 @@
                             <tbody>
                                 <tr
                                     class="item"
-                                    :class="[isEnchanted(active_slot, item.id) ? 'active' : '']"
+                                    :class="['quality-'+$get(item, 'q', 'uncommon'), isEnchanted(active_slot, item.id) ? 'active' : '']"
                                     v-for="item in activeEnchants"
                                     @click="enchant(active_slot, item)"
                                 >
@@ -333,6 +333,9 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.moonkin_aura"> <span>Moonkin Aura</span></label>
                             </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.inspiring_presence"> <span>Inspiring Presence (Draenei hit aura)</span></label>
+                            </div>
                         </fieldset>
                         <fieldset>
                             <legend>Cooldowns</legend>
@@ -386,7 +389,10 @@
                                 <label><input type="checkbox" v-model="config.spell_crit_food" @input="dontStack($event, 'spell_dmg_food')"> <span>Spell crit food</span></label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.brilliant_wizard_oil"> <span>Brilliant Wizard Oil</span></label>
+                                <label><input type="checkbox" v-model="config.brilliant_wizard_oil" @input="dontStack($event, 'superior_wizard_oil')"> <span>Brilliant Wizard Oil</span></label>
+                            </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.superior_wizard_oil" @input="dontStack($event, 'brilliant_wizard_oil')"> <span>Superior Wizard Oil</span></label>
                             </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.flask_of_supreme_power" @input="dontStack($event, ['flask_of_blinding_light', 'adepts_elixir', 'elixir_of_draenic_wisdom'])"> <span>Flask of Supreme Power</span></label>
@@ -556,6 +562,11 @@
                 data.equipped[slot] = _.get(data.items.equip, islot+"."+i+".id", null);
                 data.enchants[slot] = _.get(data.items.enchants, islot+"."+i+".id", null);
                 data.gems[slot] = [null, null, null];
+
+                if (data.equipped[slot] && data.equipped[slot].sockets) {
+                    for (var j in data.equipped[slot].sockets)
+                        this.gems[slot][j] = this.items.ids.RUNED_LIVING_RUBY;
+                }
             }
 
             return data;
@@ -931,6 +942,11 @@
 
                 this.gems[slot] = [null, null, null];
 
+                if (item.sockets) {
+                    for (var i in item.sockets)
+                        this.gems[slot][i] = this.items.ids.RUNED_LIVING_RUBY;
+                }
+
                 this.saveGear();
                 this.finalStats();
             },
@@ -1112,27 +1128,27 @@
             },
 
             formatSP(data) {
-                var str = data.sp ? data.sp : (data.spell_power ? data.spell_power : 0);
-                var extra = [];
+                var arr = [];
 
+                if (data.sp)
+                    arr.push(data.sp);
                 if (data.sp_arcane)
-                    extra.push("+"+data.sp_arcane+" arc");
+                    arr.push(data.sp_arcane+" arc");
                 if (data.sp_frost)
-                    extra.push("+"+data.sp_frost+" frost");
+                    arr.push(data.sp_frost+" frost");
                 if (data.sp_fire)
-                    extra.push("+"+data.sp_fire+" fire");
+                    arr.push(data.sp_fire+" fire");
 
+                if (data.spell_power)
+                    arr.push(data.spell_power);
                 if (data.spell_power_arcane)
-                    extra.push("+"+data.spell_power_arcane+" arc");
+                    arr.push(data.spell_power_arcane+" arc");
                 if (data.spell_power_frost)
-                    extra.push("+"+data.spell_power_frost+" frost");
+                    arr.push(data.spell_power_frost+" frost");
                 if (data.spell_power_fire)
-                    extra.push("+"+data.spell_power_fire+" fire");
+                    arr.push(data.spell_power_fire+" fire");
 
-                if (extra.length)
-                    str+= " / "+extra.join(" / ");
-
-                return str;
+                return arr.join(" / ");
             },
 
             formatTime(s) {

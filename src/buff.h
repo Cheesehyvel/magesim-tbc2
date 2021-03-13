@@ -25,6 +25,11 @@ namespace buff
         BERSERKING = 20554,
         MQG = 23723,
         BLUE_DRAGON = 23684,
+        SCRYERS_BLOODGEM = 35337,
+        CRYSTAL_TALISMAN = 32355,
+        PENDANT_VIOLET_EYE = 29601,
+        ENLIGHTENMENT = 35095,
+        VENGEANCE_ILLIDARI = 33662,
     };
 
 
@@ -37,6 +42,7 @@ namespace buff
         double duration;
         int stacks = 1;
         int max_stacks = 1;
+        bool hidden = false;
 
         int addStack()
         {
@@ -307,6 +313,73 @@ namespace buff
         {
             id = BLUE_DRAGON;
             name = "Aura of the Blue Dragon";
+            duration = 15;
+        }
+
+    };
+
+    class ScryersBloodgem : public Buff
+    {
+
+    public:
+        ScryersBloodgem()
+        {
+            id = SCRYERS_BLOODGEM;
+            name = "Spell Power";
+            duration = 15;
+        }
+
+    };
+
+    class CrystalTalisman : public Buff
+    {
+
+    public:
+        CrystalTalisman()
+        {
+            id = CRYSTAL_TALISMAN;
+            name = "Focused Power";
+            duration = 20;
+        }
+
+    };
+
+    class PendantVioletEye : public Buff
+    {
+
+    public:
+        PendantVioletEye()
+        {
+            id = PENDANT_VIOLET_EYE;
+            name = "Enlightenment";
+            duration = 20;
+            hidden = true;
+        }
+
+    };
+
+    class Enlightenment : public Buff
+    {
+
+    public:
+        Enlightenment()
+        {
+            id = ENLIGHTENMENT;
+            name = "Enlightenment";
+            duration = 20;
+            max_stacks = 100;
+        }
+
+    };
+
+    class VengeanceIllidari : public Buff
+    {
+
+    public:
+        VengeanceIllidari()
+        {
+            id = VENGEANCE_ILLIDARI;
+            name = "Arcane Energy";
             duration = 15;
         }
 

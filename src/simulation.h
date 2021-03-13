@@ -310,6 +310,9 @@ public:
         if (state->hasBuff(buff::PRESENCE_OF_MIND))
             onBuffExpire(make_shared<buff::PresenceOfMind>());
 
+        if (spell->actual_cost > 0 && state->hasBuff(buff::PENDANT_VIOLET_EYE))
+            onBuffGain(make_shared<buff::Enlightenment>());
+
         // 5% proc rate
         if (config->meta_gem == META_INSIGHTFUL_EARTHSTORM && random<int>(0, 19) == 0)
             onManaGain(300, "Mana Restore (meta)");
@@ -349,6 +352,9 @@ public:
             // 5% proc rate ?
             if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && random<int>(0, 19) == 0)
                 onBuffGain(make_shared<buff::QuagmirransEye>());
+            // 15% proc rate
+            if (hasTrinket(TRINKET_MARK_OF_DEFIANCE) && random<int>(0, 99) < 15)
+                onManaGain(random<double>(128, 173), "Mana Restore (Mark of Defiance)");
             // 5% proc rate ?
             if (config->spellstrike_set && random<int>(0, 19) == 0)
                 onBuffGain(make_shared<buff::Spellstrike>());
@@ -488,6 +494,11 @@ public:
         removeBuffExpiration(buff);
         logBuffExpire(buff);
         state->removeBuff(buff->id);
+
+        if (buff->id == buff::PENDANT_VIOLET_EYE) {
+            removeBuffExpiration(make_shared<buff::Enlightenment>());
+            state->removeBuff(buff::ENLIGHTENMENT);
+        }
     }
 
     void onCooldownExpire(cooldown::ID id)
@@ -540,6 +551,8 @@ public:
 
         if (config->mana_spring && !state->hasBuff(buff::MANA_TIDE))
             mps+= 50/5.0;
+        if (state->hasBuff(buff::ENLIGHTENMENT))
+            mps+= 21/5.0 * state->buffStacks(buff::ENLIGHTENMENT);
 
         double while_casting = 0;
         if (state-> t - state->t_mana_spent >= 5.0) {
@@ -605,6 +618,14 @@ public:
             onBuffGain(make_shared<buff::RestrainedEssence>());
         if (trinket_id == TRINKET_SILVER_CRESCENT)
             onBuffGain(make_shared<buff::SilverCrescent>());
+        if (trinket_id == TRINKET_SCRYERS_BLOODGEM)
+            onBuffGain(make_shared<buff::ScryersBloodgem>());
+        if (trinket_id == TRINKET_CRYSTAL_TALISMAN)
+            onBuffGain(make_shared<buff::CrystalTalisman>());
+        if (trinket_id == TRINKET_VENGEANCE_ILLIDARI)
+            onBuffGain(make_shared<buff::VengeanceIllidari>());
+        if (trinket_id == TRINKET_PENDANT_VIOLET_EYE)
+            onBuffGain(make_shared<buff::PendantVioletEye>());
     }
 
     void useArcanePower()
@@ -854,6 +875,12 @@ public:
                 sp+= 70.0;
             if (state->hasBuff(buff::SILVER_CRESCENT))
                 sp+= 155.0;
+            if (state->hasBuff(buff::SCRYERS_BLOODGEM))
+                sp+= 150.0;
+            if (state->hasBuff(buff::CRYSTAL_TALISMAN))
+                sp+= 104.0;
+            if (state->hasBuff(buff::VENGEANCE_ILLIDARI))
+                sp+= 120.0;
             if (state->hasBuff(buff::SERPENT_COIL))
                 sp+= 225.0;
             if (state->hasBuff(buff::SPELLSTRIKE))
@@ -1004,13 +1031,13 @@ public:
 
     void logBuffGain(shared_ptr<buff::Buff> buff, int stacks = 1)
     {
-        if (!logging)
+        if (!logging || buff->hidden)
             return;
 
         ostringstream s;
 
         s << "Gained " << buff->name;
-        if (stacks > 1)
+        if (buff->max_stacks > 1)
             s << " (" << stacks << ")";
 
         addLog(LOG_BUFF, s.str());
@@ -1018,7 +1045,7 @@ public:
 
     void logBuffExpire(shared_ptr<buff::Buff> buff)
     {
-        if (!logging)
+        if (!logging || buff->hidden)
             return;
 
         ostringstream s;

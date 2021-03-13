@@ -71,7 +71,13 @@ var ids = {
   EMBER_SKYFIRE: 35503,
   INSIGHTFUL_EARTHSTORM: 25901,
   MQG: 19339,
-  BLUE_DRAGON: 19288
+  BLUE_DRAGON: 19288,
+  RUNED_LIVING_RUBY: 24030,
+  MARK_OF_DEFIANCE: 27924,
+  SCRYERS_BLOODGEM: 29132,
+  CRYSTAL_TALISMAN: 25620,
+  PENDANT_VIOLET_EYE: 28727,
+  VENGEANCE_ILLIDARI: 28040
 };
 var equip = {
   weapon: [{
@@ -130,7 +136,8 @@ var equip = {
     spi: 24,
     sp: 150,
     crit: 28,
-    hit: 16
+    hit: 16,
+    q: "legendary"
   }, {
     id: 23554,
     title: "Eternium Runed Blade",
@@ -143,6 +150,29 @@ var equip = {
     "int": 12,
     sp: 159,
     crit: 21
+  }, {
+    id: 28935,
+    title: "High Warlord's War Staff",
+    "int": 30,
+    sp: 121,
+    crit: 30,
+    hit: 20,
+    q: "rare"
+  }, {
+    id: 28341,
+    title: "Warpstaff of Arcanum",
+    "int": 38,
+    sp: 121,
+    crit: 26,
+    hit: 16,
+    q: "rare"
+  }, {
+    id: 28188,
+    title: "Bloodfire Greatstaff",
+    "int": 42,
+    sp: 121,
+    crit: 28,
+    q: "rare"
   }],
   off_hand: [{
     id: 30049,
@@ -168,12 +198,48 @@ var equip = {
     sp: 23,
     hit: 21
   }, {
+    id: 28781,
+    title: "Karaborian Talisman",
+    "int": 23,
+    sp: 35
+  }, {
     id: 28412,
     title: "Lamp of Peaceful Radiance",
     "int": 14,
     sp: 21,
     crit: 13,
-    hit: 12
+    hit: 12,
+    q: "rare"
+  }, {
+    id: 29273,
+    title: "Khadgar's Knapsack",
+    sp: 49
+  }, {
+    id: 23049,
+    title: "Sapphiron's Left Eye",
+    ínt: 8,
+    sp: 26,
+    crit: 14,
+    hit: 8
+  }, {
+    id: 31978,
+    title: "Merciless Gladiator's Endgame",
+    ínt: 19,
+    sp: 33
+  }, {
+    id: 28260,
+    title: "Manual of the Nethermancer",
+    ínt: 15,
+    sp: 21,
+    crit: 19,
+    q: "rare"
+  }, {
+    id: 28187,
+    title: "Star-Heart Lamp",
+    ínt: 18,
+    sp: 22,
+    hjt: 12,
+    q: "rare"
   }],
   ranged: [{
     id: 29982,
@@ -199,10 +265,41 @@ var equip = {
     sp: 20,
     crit: 11
   }, {
+    id: 22821,
+    title: "Doomfinger",
+    sp: 16,
+    crit: 14
+  }, {
     id: 28386,
     title: "Nether Core's Control Rod",
     "int": 10,
     sp: 13,
+    hit: 8,
+    q: "rare"
+  }, {
+    id: 25806,
+    title: "Nethekurse's Rod of Torment",
+    "int": 10,
+    sp: 11,
+    crit: 10,
+    q: "rare"
+  }, {
+    id: 25808,
+    title: "Rod of Dire Shadows",
+    "int": 10,
+    sp: 11,
+    crit: 10,
+    q: "rare"
+  }, {
+    id: 32962,
+    title: "Merciless Gladiator's Touch of Defeat",
+    "int": 13,
+    sp: 16
+  }, {
+    id: 22820,
+    title: "Wand of Fates",
+    "int": 7,
+    sp: 12,
     hit: 8
   }],
   head: [{
@@ -256,6 +353,13 @@ var equip = {
     crit: 25,
     hit: 19
   }, {
+    id: 32048,
+    title: "Merciless Gladiator's Silk Cowl",
+    "int": 26,
+    sp: 42,
+    crit: 20,
+    sockets: ["m", "r"]
+  }, {
     id: 31104,
     title: "Evoker's Helmet of Second Sight",
     "int": 15,
@@ -266,6 +370,62 @@ var equip = {
     bonus: {
       sp: 5
     }
+  }, {
+    id: 23828,
+    title: "Gnomish Power Goggles",
+    "int": 21,
+    sp: 59,
+    crit: 28
+  }, {
+    id: 28586,
+    title: "Wicked Witch's Hat",
+    "int": 38,
+    sp: 43,
+    crit: 32
+  }, {
+    id: 32089,
+    title: "Mana-Binders Cowl",
+    "int": 29,
+    sp: 34,
+    crit: 15,
+    sockets: ["m", "y"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 28278,
+    title: "Incanter's Cowl",
+    "int": 27,
+    spi: 17,
+    sp: 29,
+    crit: 19,
+    sockets: ["m", "y"],
+    bonus: {
+      spi: 4
+    }
+  }, {
+    id: 28415,
+    title: "Hood of Oblivion",
+    "int": 32,
+    sp: 40,
+    sockets: ["m", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 28169,
+    title: "Mag'hari Ritualist's Horns",
+    "int": 16,
+    sp: 50,
+    crit: 15,
+    hit: 12
+  }, {
+    id: 22498,
+    title: "Frostfire Circlet",
+    "int": 23,
+    sp: 35,
+    crit: 35,
+    hit: 8
   }],
   neck: [{
     id: 30015,
@@ -297,7 +457,51 @@ var equip = {
     "int": 14,
     sp: 22,
     crit: 14,
-    hit: 9
+    hit: 9,
+    q: "rare"
+  }, {
+    id: 30008,
+    title: "Pendant of the Lost Ages",
+    "int": 17,
+    sp: 36
+  }, {
+    id: 31692,
+    title: "Natasha's Ember Necklace",
+    "int": 15,
+    sp: 29,
+    crit: 10,
+    q: "rare"
+  }, {
+    id: 29333,
+    title: "Torc of the Sethekk Prophet",
+    "int": 18,
+    sp: 19,
+    crit: 21,
+    q: "rare"
+  }, {
+    id: 24462,
+    title: "Luminous Pearls of Insight",
+    "int": 15,
+    sp: 25,
+    crit: 11,
+    q: "rare"
+  }, {
+    id: 21608,
+    title: "Amulet of Vek'nilash",
+    "int": 5,
+    sp: 27,
+    crit: 14
+  }, {
+    id: 23057,
+    title: "Gem of Trapped Innocents",
+    "int": 7,
+    sp: 15,
+    crit: 28
+  }, {
+    id: 18814,
+    title: "Choker of the Fire Lord",
+    "int": 7,
+    sp: 34
   }],
   shoulder: [{
     id: 30210,
@@ -353,7 +557,40 @@ var equip = {
     "int": 17,
     sp: 20,
     crit: 16,
-    sockets: ["y", "r"]
+    sockets: ["y", "r"],
+    q: "rare"
+  }, {
+    id: 28866,
+    title: "High Warlord's Silk Amice",
+    "int": 16,
+    sp: 25,
+    crit: 8,
+    sockets: ["b", "y"],
+    q: "rare"
+  }, {
+    id: 27778,
+    title: "Spaulders of Oblivion",
+    "int": 17,
+    sp: 29,
+    sockets: ["b", "y"],
+    bonus: {
+      hit: 3
+    },
+    q: "rare"
+  }, {
+    id: 30925,
+    title: "Spaulders of the Torn-heart",
+    "int": 7,
+    spi: 8,
+    sp: 40,
+    crit: 18,
+    q: "rare"
+  }, {
+    id: 22983,
+    title: "Rime Covered Mantle",
+    "int": 12,
+    sp: 39,
+    crit: 14
   }],
   back: [{
     id: 29992,
@@ -378,6 +615,13 @@ var equip = {
     "int": 18,
     sp: 36
   }, {
+    id: 23050,
+    title: "Cloak of the Necropolis",
+    "int": 11,
+    sp: 26,
+    crit: 14,
+    hit: 8
+  }, {
     id: 28570,
     title: "Shadow-Cloak of Dalaran",
     "int": 16,
@@ -390,18 +634,33 @@ var equip = {
     sp: 21,
     crit: 22
   }, {
-    id: 23050,
-    title: "Cloak of the Necropolis",
-    "int": 11,
-    sp: 26,
-    crit: 14,
-    hit: 8
-  }, {
     id: 25777,
     title: "Ogre Slayer's Cover",
     "int": 18,
     sp: 20,
-    crit: 16
+    crit: 16,
+    q: "rare"
+  }, {
+    id: 27981,
+    title: "Sethekk Oracle Cloak",
+    "int": 18,
+    sp: 22,
+    hit: 12,
+    q: "rare"
+  }, {
+    id: 22731,
+    title: "Cloak of the Devoured",
+    "int": 10,
+    sp: 30,
+    hit: 8
+  }, {
+    id: 29813,
+    title: "Cloak of Woven Energy",
+    "int": 13,
+    spi: 3,
+    sp: 29,
+    crit: 6,
+    q: "rare"
   }],
   chest: [{
     id: 30196,
@@ -472,7 +731,83 @@ var equip = {
     sockets: ["y", "y", "r"],
     bonus: {
       crit: 4
+    },
+    q: "rare"
+  }, {
+    id: 25856,
+    title: "Gladiator's Silk Raiment",
+    "int": 18,
+    sp: 32,
+    crit: 25,
+    sockets: ["y", "y", "r"],
+    bonus: {
+      crit: 4
     }
+  }, {
+    id: 31340,
+    title: "Will of Edward the Odd",
+    "int": 30,
+    sp: 53,
+    crit: 30
+  }, {
+    id: 28342,
+    title: "Warp Infused Drape",
+    "int": 28,
+    sp: 30,
+    hit: 12,
+    sockets: ["r", "b", "y"],
+    bonus: {
+      crit: 4
+    },
+    q: "rare"
+  }, {
+    id: 28191,
+    title: "Mana-Etched Vestments",
+    "int": 25,
+    sp: 29,
+    hit: 17,
+    sockets: ["r", "b", "y"],
+    bonus: {
+      sp: 4
+    },
+    q: "rare"
+  }, {
+    id: 29129,
+    title: "Anchorite's Robes",
+    "int": 38,
+    spi: 18,
+    sp: 29,
+    sockets: ["y", "b", "y"],
+    bonus: {
+      mp5: 2
+    },
+    q: "rare"
+  }, {
+    id: 28229,
+    title: "Incanter's Robe",
+    "int": 22,
+    spi: 22,
+    sp: 29,
+    crit: 8,
+    sockets: ["y", "y", "r"],
+    bonus: {
+      "int": 4
+    },
+    q: "rare"
+  }, {
+    id: 28232,
+    title: "Robe of Oblivion",
+    "int": 20,
+    sp: 40,
+    sockets: ["r", "y", "b"],
+    q: "rare"
+  }, {
+    id: 22496,
+    title: "Frostfire Robe",
+    "int": 27,
+    sp: 47,
+    crit: 14,
+    hit: 8
   }],
   wrist: [{
     id: 29918,
@@ -508,7 +843,53 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
+    },
+    q: "rare"
+  }, {
+    id: 32811,
+    title: "Veteran's Dreadweave Cuffs",
+    "int": 16,
+    sp: 25,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
     }
+  }, {
+    id: 28515,
+    title: "Bands of Nefarious Deeds",
+    "int": 22,
+    sp: 32
+  }, {
+    id: 27462,
+    title: "Crimson Bracers of Gloom",
+    "int": 18,
+    sp: 22,
+    hit: 12,
+    q: "rare"
+  }, {
+    id: 29240,
+    title: "Bands of Negation",
+    "int": 22,
+    sp: 29
+  }, {
+    id: 28174,
+    title: "Shattrath Wraps",
+    "int": 15,
+    sp: 21,
+    sockets: ["r"],
+    q: "rare"
+  }, {
+    id: 28477,
+    title: "Harbinger Bands",
+    "int": 21,
+    spi: 14,
+    sp: 26
+  }, {
+    id: 23021,
+    title: "The Soul Harvester's Bindings",
+    "int": 11,
+    sp: 21,
+    crit: 14
   }],
   hands: [{
     id: 30205,
@@ -545,6 +926,26 @@ var equip = {
       sp: 4
     }
   }, {
+    id: 30725,
+    title: "Anger-Spark Gloves",
+    sp: 30,
+    crit: 25,
+    hit: 20,
+    sockets: ["r", "r"],
+    bonus: {
+      crit: 3
+    }
+  }, {
+    id: 28507,
+    title: "Handwraps of Flowing Thought",
+    "int": 22,
+    sp: 35,
+    hit: 14,
+    sockets: ["y", "b"],
+    bonus: {
+      hit: 3
+    }
+  }, {
     id: 29080,
     title: "Gloves of the Aldor",
     "int": 22,
@@ -554,11 +955,64 @@ var equip = {
     hit: 17
   }, {
     id: 27465,
-    title: "Mana-Etched Glovesr",
+    title: "Mana-Etched Gloves",
     "int": 17,
     sp: 20,
     crit: 16,
-    sockets: ["r", "y"]
+    sockets: ["r", "y"],
+    q: "rare"
+  }, {
+    id: 29317,
+    title: "Tempest's Touch",
+    "int": 20,
+    spi: 6,
+    sp: 27,
+    sockets: ["b", "b"],
+    bonus: {
+      crit: 3
+    },
+    q: "rare"
+  }, {
+    id: 32049,
+    title: "Merciless Gladiator's Silk Handguards",
+    "int": 20,
+    sp: 36,
+    crit: 19
+  }, {
+    id: 24450,
+    title: "Manaspark Gloves",
+    "int": 14,
+    spi: 10,
+    sp: 16,
+    hit: 15,
+    sockets: ["r", "y"],
+    bonus: {
+      crit: 3
+    },
+    q: "rare"
+  }, {
+    id: 27493,
+    title: "Gloves of the Deadwatcher",
+    "int": 24,
+    sp: 29,
+    hit: 18,
+    q: "rare"
+  }, {
+    id: 31149,
+    title: "Gloves of Pandemonium",
+    "int": 15,
+    sp: 25,
+    crit: 22,
+    hit: 10,
+    q: "rare"
+  }, {
+    id: 27508,
+    title: "Incanter's Gloves",
+    "int": 24,
+    spi: 12,
+    sp: 29,
+    crit: 14,
+    q: "rare"
   }],
   waist: [{
     id: 30038,
@@ -611,13 +1065,65 @@ var equip = {
     sockets: ["y", "y"],
     bonus: {
       sp: 4
-    }
+    },
+    q: "rare"
   }, {
     id: 32807,
     title: "Veteran's Silk Belt",
     "int": 27,
     sp: 32,
     crit: 27
+  }, {
+    id: 28654,
+    title: "Malefic Girdle",
+    "int": 26,
+    sp: 37,
+    crit: 21
+  }, {
+    id: 31461,
+    title: "A'dal's Gift",
+    "int": 25,
+    sp: 34,
+    crit: 21,
+    q: "rare"
+  }, {
+    id: 29241,
+    title: "Belt of Depravity",
+    "int": 27,
+    sp: 34,
+    hit: 17
+  }, {
+    id: 24395,
+    title: "Mindfire Waistband",
+    "int": 14,
+    spi: 8,
+    sp: 21,
+    hit: 11,
+    sockets: ["y", "b"],
+    bonus: {
+      hit: 3
+    },
+    q: "rare"
+  }, {
+    id: 29257,
+    title: "Sash of Arcane Visions",
+    "int": 23,
+    spi: 19,
+    sp: 28,
+    crit: 22
+  }, {
+    id: 31283,
+    title: "Sash of Sealed Fate",
+    "int": 15,
+    sp: 35,
+    crit: 23,
+    q: "rare"
+  }, {
+    id: 22730,
+    title: "Eyestalk Waist Cord",
+    "int": 9,
+    sp: 41,
+    crit: 14
   }],
   legs: [{
     id: 30207,
@@ -705,6 +1211,17 @@ var equip = {
     sp: 49,
     crit: 29
   }, {
+    id: 28212,
+    title: "Aran's Sorcerous Slacks",
+    "int": 28,
+    sp: 23,
+    crit: 21,
+    sockets: ["r", "y", "b"],
+    bonus: {
+      sp: 5
+    },
+    q: "rare"
+  }, {
     id: 28185,
     title: "Khadgar's Kilt of Abjuration",
     "int": 22,
@@ -713,7 +1230,42 @@ var equip = {
     sockets: ["y", "b", "b"],
     bonus: {
       sp: 5
+    },
+    q: "rare"
+  }, {
+    id: 24263,
+    title: "Battlecast Pants",
+    "int": 27,
+    sp: 46,
+    sockets: ["r", "b"],
+    bonus: {
+      crit: 3
     }
+  }, {
+    id: 30709,
+    title: "Pantaloons of Flaming Wrath",
+    "int": 28,
+    sp: 33,
+    crit: 42,
+    q: "rare"
+  }, {
+    id: 28338,
+    title: "Devil-Stitched Leggings",
+    "int": 28,
+    sp: 29,
+    sockets: ["r", "y", "b"],
+    bonus: {
+      sp: 5
+    },
+    q: "rare"
+  }, {
+    id: 27838,
+    title: "Incanter's Trousers",
+    "int": 30,
+    spi: 17,
+    sp: 42,
+    crit: 18,
+    q: "rare"
   }],
   feet: [{
     id: 30067,
@@ -753,13 +1305,79 @@ var equip = {
     sockets: ["r", "y"],
     bonus: {
       "int": 3
-    }
+    },
+    q: "rare"
   }, {
     id: 28585,
     title: "Ruby Slippers",
     "int": 29,
     sp: 35,
     hit: 16
+  }, {
+    id: 32787,
+    title: "Veteran's Dreadweave Stalkers",
+    "int": 30,
+    sp: 36
+  }, {
+    id: 29242,
+    title: "Boots of Blasphemy",
+    "int": 29,
+    sp: 36
+  }, {
+    id: 27848,
+    title: "Embroidered Spellpyre Boots",
+    "int": 21,
+    sp: 41
+  }, {
+    id: 29258,
+    title: "Boots of Ethereal Manipulation",
+    "int": 27,
+    spi: 21,
+    sp: 33
+  }, {
+    id: 25957,
+    title: "Ethereal Boots of the Skystrider",
+    "int": 19,
+    spi: 12,
+    sp: 26,
+    crit: 17,
+    q: "rare"
+  }, {
+    id: 22500,
+    title: "Frostfire Sandals",
+    "int": 18,
+    spi: 10,
+    sp: 28,
+    crit: 14
+  }, {
+    id: 28179,
+    title: "Shattrath Jumpers",
+    "int": 17,
+    sp: 29,
+    sockets: ["b", "y"],
+    bonus: {
+      "int": 3
+    },
+    q: "rare"
+  }, {
+    id: 28410,
+    title: "General's Silk Footguards",
+    "int": 23,
+    sp: 28,
+    crit: 24
+  }, {
+    id: 27821,
+    title: "Extravagant Boots of Malice",
+    "int": 24,
+    sp: 30,
+    hit: 14,
+    q: "rare"
+  }, {
+    id: 28670,
+    title: "Boots of the Infernal Coven",
+    "int": 27,
+    spi: 23,
+    sp: 34
   }],
   finger: [{
     id: 29287,
@@ -801,7 +1419,8 @@ var equip = {
     "int": 14,
     sp: 22,
     crit: 14,
-    hit: 10
+    hit: 10,
+    q: "rare"
   }, {
     id: 21709,
     title: "Ring of the Fallen God",
@@ -814,6 +1433,73 @@ var equip = {
     "int": 10,
     sp: 30,
     crit: 14
+  }, {
+    id: 29367,
+    title: "Ring of Cryptic Dreams",
+    "int": 17,
+    sp: 23,
+    crit: 20
+  }, {
+    id: 29352,
+    title: "Cobalt Band of Tyrigosa",
+    "int": 17,
+    sp: 35
+  }, {
+    id: 31075,
+    title: "Evoker's Mark of the Redemption",
+    "int": 15,
+    sp: 29,
+    crit: 10,
+    q: "rare"
+  }, {
+    id: 30366,
+    title: "Manastorm Band",
+    "int": 15,
+    sp: 29,
+    crit: 10,
+    q: "rare"
+  }, {
+    id: 28510,
+    title: "Spectral Band of Innervation",
+    "int": 24,
+    sp: 29
+  }, {
+    id: 28394,
+    title: "Ryngo's Band of Ingenuity",
+    "int": 14,
+    sp: 25,
+    crit: 14,
+    q: "rare"
+  }, {
+    id: 31290,
+    title: "Band of Dominion",
+    sp: 28,
+    crit: 21,
+    q: "rare"
+  }, {
+    id: 27784,
+    title: "Scintillating Coral Band",
+    "int": 15,
+    sp: 21,
+    crit: 17,
+    q: "rare"
+  }, {
+    id: 29126,
+    title: "Seer's Signet",
+    sp: 34,
+    crit: 12
+  }, {
+    id: 23031,
+    title: "Band of the Inevitable",
+    sp: 36,
+    hit: 8
+  }, {
+    id: 29320,
+    title: "Band of the Guardian",
+    "int": 11,
+    sp: 23,
+    crit: 17,
+    q: "rare"
   }],
   trinket: [{
     id: ids.SERPENT_COIL,
@@ -857,6 +1543,42 @@ var equip = {
   }, {
     id: ids.BLUE_DRAGON,
     title: "Darkmoon Card: Blue Dragon"
+  }, {
+    id: 26055,
+    title: "Oculus of the Hidden Eye",
+    sp: 33,
+    q: "rare"
+  }, {
+    id: ids.MARK_OF_DEFIANCE,
+    title: "Mark of Defiance",
+    sp: 32,
+    q: "rare"
+  }, {
+    id: ids.SCRYERS_BLOODGEM,
+    title: "Scryer's Bloodgem",
+    hit: 32,
+    use: true,
+    q: "rare"
+  }, {
+    id: 12930,
+    title: "Briarwood Reed",
+    sp: 29,
+    q: "rare"
+  }, {
+    id: ids.CRYSTAL_TALISMAN,
+    title: "Ancient Crystal Talisman",
+    sp: 26,
+    use: true,
+    q: "uncommon"
+  }, {
+    id: ids.PENDANT_VIOLET_EYE,
+    title: "Pendant of the Violet Eye",
+    use: true
+  }, {
+    id: ids.VENGEANCE_ILLIDARI,
+    title: "Vengeance of the Illidari",
+    crit: 26,
+    use: true
   }]
 };
 var gems = [{
@@ -908,7 +1630,7 @@ var gems = [{
   sp: 12,
   unique: true
 }, {
-  id: 24030,
+  id: ids.RUNED_LIVING_RUBY,
   title: "Runed Living Ruby",
   color: "r",
   sp: 9
@@ -962,6 +1684,12 @@ var gems = [{
   color: "y",
   crit: 12
 }, {
+  id: 28120,
+  title: "Gleaming Ornate Dawnstone",
+  color: "y",
+  crit: 10,
+  unique: true
+}, {
   id: 31861,
   title: "Great Dawnstone",
   color: "y",
@@ -999,23 +1727,66 @@ var enchants = {
     title: "Glyph of Power",
     sp: 22,
     hit: 14
+  }, {
+    id: 19787,
+    title: "Presence of Might",
+    sp: 18,
+    hit: 8,
+    q: "rare"
   }],
   shoulder: [{
     id: 28886,
     title: "Greater Inscription of Discipline (Aldor)",
     sp: 18,
-    crit: 10
+    crit: 10,
+    q: "rare"
+  }, {
+    id: 28909,
+    title: "Greater Inscription of the Orb (Scryer)",
+    sp: 15,
+    crit: 12,
+    q: "rare"
+  }, {
+    id: 23545,
+    title: "Power of the Scourge",
+    sp: 15,
+    crit: 14,
+    q: "epic"
+  }, {
+    id: 28881,
+    title: "Inscription of the Orb (Aldor)",
+    sp: 15
+  }, {
+    id: 28903,
+    title: "Inscription of the Orb (Scryer)",
+    crit: 13
   }],
   chest: [{
     id: 27960,
     title: "Exceptional Stats",
     "int": 6,
     spi: 6
+  }, {
+    id: 33990,
+    title: "Major Spirit",
+    spi: 15
+  }, {
+    id: 33991,
+    title: "Restore Mana Prime",
+    mp5: 6
   }],
   wrist: [{
     id: 27917,
     title: "Spellpower",
     sp: 15
+  }, {
+    id: 34001,
+    title: "Major Intellect",
+    "int": 12
+  }, {
+    id: 27913,
+    title: "Restore Mana Prime",
+    mp5: 6
   }],
   weapon: [{
     id: 27891,
@@ -1031,11 +1802,45 @@ var enchants = {
     id: 33997,
     title: "Major Spellpower",
     sp: 20
+  }, {
+    id: 33994,
+    title: "Spell Strike",
+    hit: 15
+  }, {
+    id: 33993,
+    title: "Blasting",
+    crit: 10
   }],
   legs: [{
     id: 24274,
     title: "Runic Spellthread",
-    sp: 35
+    sp: 35,
+    q: "epic"
+  }, {
+    id: 24273,
+    title: "Mystic Spellthread",
+    sp: 25,
+    q: "rare"
+  }, {
+    id: 19787,
+    title: "Presence of Sight",
+    sp: 18,
+    hit: 8,
+    q: "epic"
+  }],
+  feet: [{
+    id: 34008,
+    title: "Boar's Speed",
+    q: "rare"
+  }, {
+    id: 25652,
+    title: "Magister's Armor Kit",
+    mp5: 3,
+    q: "common"
+  }, {
+    id: 20024,
+    title: "Spirit",
+    spi: 5
   }],
   finger: [{
     id: 27924,
@@ -1584,6 +2389,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1709,6 +2520,12 @@ __webpack_require__.r(__webpack_exports__);
       data.equipped[slot] = _.get(data.items.equip, islot + "." + i + ".id", null);
       data.enchants[slot] = _.get(data.items.enchants, islot + "." + i + ".id", null);
       data.gems[slot] = [null, null, null];
+
+      if (data.equipped[slot] && data.equipped[slot].sockets) {
+        for (var j in data.equipped[slot].sockets) {
+          this.gems[slot][j] = this.items.ids.RUNED_LIVING_RUBY;
+        }
+      }
     }
 
     return data;
@@ -2017,6 +2834,13 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.equipped[slot] == item.id) this.equipped[slot] = null;else this.equipped[slot] = item.id;
       this.gems[slot] = [null, null, null];
+
+      if (item.sockets) {
+        for (var i in item.sockets) {
+          this.gems[slot][i] = this.items.ids.RUNED_LIVING_RUBY;
+        }
+      }
+
       this.saveGear();
       this.finalStats();
     },
@@ -2156,16 +2980,16 @@ __webpack_require__.r(__webpack_exports__);
       return item.sockets.join(" / ");
     },
     formatSP: function formatSP(data) {
-      var str = data.sp ? data.sp : data.spell_power ? data.spell_power : 0;
-      var extra = [];
-      if (data.sp_arcane) extra.push("+" + data.sp_arcane + " arc");
-      if (data.sp_frost) extra.push("+" + data.sp_frost + " frost");
-      if (data.sp_fire) extra.push("+" + data.sp_fire + " fire");
-      if (data.spell_power_arcane) extra.push("+" + data.spell_power_arcane + " arc");
-      if (data.spell_power_frost) extra.push("+" + data.spell_power_frost + " frost");
-      if (data.spell_power_fire) extra.push("+" + data.spell_power_fire + " fire");
-      if (extra.length) str += " / " + extra.join(" / ");
-      return str;
+      var arr = [];
+      if (data.sp) arr.push(data.sp);
+      if (data.sp_arcane) arr.push(data.sp_arcane + " arc");
+      if (data.sp_frost) arr.push(data.sp_frost + " frost");
+      if (data.sp_fire) arr.push(data.sp_fire + " fire");
+      if (data.spell_power) arr.push(data.spell_power);
+      if (data.spell_power_arcane) arr.push(data.spell_power_arcane + " arc");
+      if (data.spell_power_frost) arr.push(data.spell_power_frost + " frost");
+      if (data.spell_power_fire) arr.push(data.spell_power_fire + " fire");
+      return arr.join(" / ");
     },
     formatTime: function formatTime(s) {
       var dec = Math.round(s % 1 * 100);
@@ -19756,6 +20580,7 @@ var render = function() {
                     {
                       staticClass: "item",
                       class: [
+                        "quality-" + _vm.$get(item, "q", "epic"),
                         _vm.isEquipped(_vm.active_slot, item.id) ? "active" : ""
                       ],
                       on: {
@@ -19859,6 +20684,7 @@ var render = function() {
                         {
                           staticClass: "item",
                           class: [
+                            "quality-" + _vm.$get(item, "q", "uncommon"),
                             _vm.isEnchanted(_vm.active_slot, item.id)
                               ? "active"
                               : ""
@@ -21383,6 +22209,59 @@ var render = function() {
                       _vm._v(" "),
                       _c("span", [_vm._v("Moonkin Aura")])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.inspiring_presence,
+                            expression: "config.inspiring_presence"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.inspiring_presence)
+                            ? _vm._i(_vm.config.inspiring_presence, null) > -1
+                            : _vm.config.inspiring_presence
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.inspiring_presence,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "inspiring_presence",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "inspiring_presence",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "inspiring_presence", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [
+                        _vm._v("Inspiring Presence (Draenei hit aura)")
+                      ])
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
@@ -21977,6 +22856,9 @@ var render = function() {
                             : _vm.config.brilliant_wizard_oil
                         },
                         on: {
+                          input: function($event) {
+                            return _vm.dontStack($event, "superior_wizard_oil")
+                          },
                           change: function($event) {
                             var $$a = _vm.config.brilliant_wizard_oil,
                               $$el = $event.target,
@@ -22007,6 +22889,60 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("span", [_vm._v("Brilliant Wizard Oil")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.superior_wizard_oil,
+                            expression: "config.superior_wizard_oil"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.superior_wizard_oil)
+                            ? _vm._i(_vm.config.superior_wizard_oil, null) > -1
+                            : _vm.config.superior_wizard_oil
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.dontStack($event, "brilliant_wizard_oil")
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.superior_wizard_oil,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "superior_wizard_oil",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "superior_wizard_oil",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "superior_wizard_oil", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Superior Wizard Oil")])
                     ])
                   ]),
                   _vm._v(" "),

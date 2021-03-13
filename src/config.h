@@ -22,10 +22,12 @@ struct Config
     bool moonkin_aura = false;
     bool mage_armor = true;
     bool molten_armor = false;
+    bool inspiring_presence = false;
 
     bool spell_dmg_food = true;
     bool spell_crit_food = false;
     bool brilliant_wizard_oil = true;
+    bool superior_wizard_oil = false;
     bool flask_of_supreme_power = true;
     bool flask_of_blinding_light = false;
     bool adepts_elixir = false;

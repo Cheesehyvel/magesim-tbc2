@@ -112,7 +112,7 @@ table {
         cursor: pointer;
 
         &.active {
-            background: rgba(152, 192, 255, 0.2);
+            background: rgba(85, 85, 142, 0.24);
         }
     }
 
@@ -244,6 +244,14 @@ table {
                         &.color-o { color: #f80; }
                         &.color-p { color: #f0f; }
                         &.color-g { color: #0f0; }
+                    }
+
+                    .quality {
+                        &-epic { color: #a335ee; }
+                        &-rare { color: #0070dd; }
+                        &-legendary { color: #ff8000; }
+                        &-uncommon { color: #1eff00; }
+                        &-common { color: #fff; }
                     }
 
                     tr.active .socket-bonus {

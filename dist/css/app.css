@@ -482,7 +482,7 @@ table tbody tr {
   cursor: pointer;
 }
 table tbody tr.active {
-  background: rgba(152, 192, 255, 0.2);
+  background: rgba(85, 85, 142, 0.24);
 }
 table.simple {
   color: #aaa;
@@ -623,6 +623,21 @@ table.simple th:last-child, table.simple td:last-child {
 }
 #app .wrapper .main .gear .items .gem-color.color-g {
   color: #0f0;
+}
+#app .wrapper .main .gear .items .quality-epic {
+  color: #a335ee;
+}
+#app .wrapper .main .gear .items .quality-rare {
+  color: #0070dd;
+}
+#app .wrapper .main .gear .items .quality-legendary {
+  color: #ff8000;
+}
+#app .wrapper .main .gear .items .quality-uncommon {
+  color: #1eff00;
+}
+#app .wrapper .main .gear .items .quality-common {
+  color: #fff;
 }
 #app .wrapper .main .gear .items tr.active .socket-bonus {
   color: #bbe8ba;
