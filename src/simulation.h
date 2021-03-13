@@ -80,6 +80,7 @@ public:
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
 
+        useCooldowns();
         cast(defaultSpell());
 
         work();
@@ -237,7 +238,10 @@ public:
 
         push(event);
 
-        addLog(LOG_WAIT, "Out of mana, waiting...");
+        ostringstream s;
+        s << std::fixed << std::setprecision(2);
+        s << "Out of mana, waiting " << t << " seconds...";
+        addLog(LOG_WAIT, s.str());
     }
 
     void cast(shared_ptr<spell::Spell> spell)
@@ -289,8 +293,11 @@ public:
             cast(next);
     }
 
-    double onCastSuccess(shared_ptr<spell::Spell> spell)
+    void onCastSuccess(shared_ptr<spell::Spell> spell)
     {
+        if (spell->proc)
+            return;
+
         spell->actual_cost = manaCost(spell);
         state->mana-= spell->actual_cost;
 
@@ -298,11 +305,12 @@ public:
             onBuffExpire(make_shared<buff::Clearcast>());
         clearcast();
 
+        if (state->hasBuff(buff::PRESENCE_OF_MIND))
+            onBuffExpire(make_shared<buff::PresenceOfMind>());
+
         // 5% proc rate
         if (config->meta_gem == META_INSIGHTFUL_EARTHSTORM && random<int>(0, 19) == 0)
             onManaGain(300, "Mana Restore (meta)");
-
-        return spell->actual_cost;
     }
 
     void onCastDmg(shared_ptr<spell::Spell> spell)
@@ -320,13 +328,13 @@ public:
             state->dmg+= spell->dmg;
         }
 
+        if (!spell->channeling)
+            onCastSuccess(spell);
+
         logSpellDmg(spell);
 
         if (spell->proc)
             return;
-
-        if (!spell->channeling)
-            onCastSuccess(spell);
 
         if (spell->result == spell::MISS) {
             if (hasTrinket(TRINKET_EYE_OF_MAGTHERIDON))
@@ -369,10 +377,7 @@ public:
                 onBuffGain(make_shared<buff::ArcaneMadness>());
         }
 
-        if (!state->hasCooldown(cooldown::PERSONAL) && config->cooldowns_at <= state->t)
-            useCooldowns();
-        else if (state->hasCooldown(cooldown::PERSONAL) && !state->hasCooldown(cooldown::COLD_SNAP) && player->talents.cold_snap && !state->hasBuff(buff::ICY_VEINS))
-            useColdSnap();
+        useCooldowns();
 
         if (shouldUseManaGem())
             useManaGem();
@@ -434,7 +439,25 @@ public:
 
     void onWait()
     {
-        cast(defaultSpell());
+        shared_ptr<spell::Spell> spell = defaultSpell();
+
+        if (spell->id == spell::ARCANE_BLAST && state->hasBuff(buff::ARCANE_BLAST)) {
+            double t = buffDuration(buff::ARCANE_BLAST) - castTime(spell);
+            double stacks = state->buffStacks(buff::ARCANE_BLAST);
+            if (stacks > 1 && t > 0.0) {
+                t+= 0.1;
+                pushCast(spell, t);
+
+                ostringstream s;
+                s << std::fixed << std::setprecision(2);
+                s << "AB stacks up, waiting another " << t << " seconds...";
+                addLog(LOG_WAIT, s.str());
+
+                return;
+            }
+        }
+
+        cast(spell);
     }
 
     void onBuffGain(shared_ptr<buff::Buff> buff)
@@ -459,6 +482,7 @@ public:
 
     void onBuffExpire(shared_ptr<buff::Buff> buff)
     {
+        removeBuffExpiration(buff);
         logBuffExpire(buff);
         state->removeBuff(buff->id);
     }
@@ -537,18 +561,50 @@ public:
 
     void useCooldowns()
     {
-        state->addCooldown(cooldown::PERSONAL);
+        if (state->t >= config->arcane_power_at && !state->hasCooldown(cooldown::ARCANE_POWER) && player->talents.arcane_power)
+            useArcanePower();
+        if (state->t >= config->presence_of_mind_at && !state->hasCooldown(cooldown::PRESENCE_OF_MIND) && player->talents.presence_of_mind)
+            usePresenceOfMind();
+        if (state->t >= config->icy_veins_at && !state->hasCooldown(cooldown::ICY_VEINS) && player->talents.icy_veins)
+            useIcyVeins();
+        if (state->t >= config->cold_snap_at && !state->hasCooldown(cooldown::COLD_SNAP) && player->talents.cold_snap)
+            useColdSnap();
+        if (state->t >= config->berserking_at && !state->hasCooldown(cooldown::BERSERKING) && player->race == RACE_TROLL)
+            useBerserking();
+        if (state->t >= config->trinket1_at && !state->hasCooldown(cooldown::TRINKET1))
+            useTrinket(config->trinket1, cooldown::TRINKET1);
+        if (state->t >= config->trinket2_at && !state->hasCooldown(cooldown::TRINKET2))
+            useTrinket(config->trinket2, cooldown::TRINKET2);
+    }
 
-        if (player->talents.arcane_power)
-            onBuffGain(make_shared<buff::ArcanePower>());
-        if (player->talents.icy_veins)
-            onBuffGain(make_shared<buff::IcyVeins>());
-        if (player->race == RACE_TROLL)
-            onBuffGain(make_shared<buff::Berserking>());
-        if (hasTrinket(TRINKET_SILVER_CRESCENT))
-            onBuffGain(make_shared<buff::SilverCrescent>());
-        if (hasTrinket(TRINKET_RESTRAINED_ESSENCE))
+    void useTrinket(Trinket trinket_id, cooldown::ID cd)
+    {
+        state->addCooldown(cd);
+
+        if (trinket_id == TRINKET_MQG)
+            onBuffGain(make_shared<buff::MindQuickening>());
+        if (trinket_id == TRINKET_RESTRAINED_ESSENCE)
             onBuffGain(make_shared<buff::RestrainedEssence>());
+        if (trinket_id == TRINKET_SILVER_CRESCENT)
+            onBuffGain(make_shared<buff::SilverCrescent>());
+    }
+
+    void useArcanePower()
+    {
+        state->addCooldown(cooldown::ARCANE_POWER);
+        onBuffGain(make_shared<buff::ArcanePower>());
+    }
+
+    void usePresenceOfMind()
+    {
+        state->addCooldown(cooldown::PRESENCE_OF_MIND);
+        onBuffGain(make_shared<buff::PresenceOfMind>());
+    }
+
+    void useIcyVeins()
+    {
+        state->addCooldown(cooldown::ICY_VEINS);
+        onBuffGain(make_shared<buff::IcyVeins>());
     }
 
     void useColdSnap()
@@ -557,7 +613,13 @@ public:
         addLog(LOG_NONE, "Casted Cold Snap");
 
         if (player->talents.icy_veins)
-            onBuffGain(make_shared<buff::IcyVeins>());
+            useIcyVeins();
+    }
+
+    void useBerserking()
+    {
+        state->addCooldown(cooldown::BERSERKING);
+        onBuffGain(make_shared<buff::Berserking>());
     }
 
     bool hasTrinket(Trinket trinket)
@@ -573,6 +635,16 @@ public:
                 return;
             }
         }
+    }
+
+    double buffDuration(buff::ID id)
+    {
+        for (auto itr = queue.begin(); itr != queue.end(); itr++) {
+            if ((*itr)->type == EVENT_BUFF_EXPIRE && (*itr)->buff->id == id)
+                return (*itr)->t - state->t;
+        }
+
+        return 0;
     }
 
     bool canCast(shared_ptr<spell::Spell> spell)
@@ -616,6 +688,9 @@ public:
 
     double castTime(shared_ptr<spell::Spell> spell)
     {
+        if (state->hasBuff(buff::PRESENCE_OF_MIND))
+            return 0;
+
         double t = spell->cast_time;
 
         if (spell->id == spell::ARCANE_BLAST && state->hasBuff(buff::ARCANE_BLAST))
@@ -623,6 +698,9 @@ public:
 
         if (spell->id == spell::FROSTBOLT && player->talents.imp_frostbolt)
             t-= player->talents.imp_frostbolt*0.1;
+
+        if (spell->id == spell::FROSTBOLT)
+            printf("%.2f %  d: %.2f - %.2f\n", state->t, spell->id, t, t * castHaste());
 
         return t * castHaste();
     }
@@ -635,6 +713,8 @@ public:
 
         if (state->hasBuff(buff::QUAGMIRRANS_EYE))
             rating+= 320;
+        if (state->hasBuff(buff::MQG))
+            rating+= 330;
 
         if (rating)
             phaste+= hasteRatingToHaste(rating);

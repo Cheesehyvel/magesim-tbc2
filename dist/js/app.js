@@ -69,7 +69,8 @@ var ids = {
   LIGHTNING_CAPACITOR: 28785,
   CHAOTIC_SKYFIRE: 34220,
   EMBER_SKYFIRE: 35503,
-  INSIGHTFUL_EARTHSTORM: 25901
+  INSIGHTFUL_EARTHSTORM: 25901,
+  MQG: 19339
 };
 var equip = {
   weapon: [{
@@ -821,7 +822,8 @@ var equip = {
   }, {
     id: ids.SILVER_CRESCENT,
     title: "Icon of the Silver Crescent",
-    sp: 43
+    sp: 43,
+    use: true
   }, {
     id: 19379,
     title: "Neltharion's Tear",
@@ -834,7 +836,8 @@ var equip = {
   }, {
     id: ids.RESTRAINED_ESSENCE,
     title: "The Restrained Essence of Sapphiron",
-    sp: 40
+    sp: 40,
+    use: true
   }, {
     id: ids.QUAGMIRRANS_EYE,
     title: "Quagmirran's Eye",
@@ -846,6 +849,10 @@ var equip = {
   }, {
     id: ids.LIGHTNING_CAPACITOR,
     title: "The Lightning Capacitor"
+  }, {
+    id: ids.MQG,
+    title: "Mind Quickening Gem",
+    use: true
   }]
 };
 var gems = [{
@@ -1011,10 +1018,14 @@ var enchants = {
     title: "Sunfire",
     sp_arcane: 50,
     sp_fire: 50
+  }, {
+    id: 27975,
+    title: "Major Spellpower",
+    sp: 40
   }],
   hands: [{
     id: 33997,
-    title: "Major spellpower",
+    title: "Major Spellpower",
     sp: 20
   }],
   legs: [{
@@ -1494,6 +1505,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1530,7 +1569,7 @@ __webpack_require__.r(__webpack_exports__);
       log_filter: {
         "0": true,
         "1": true,
-        "2": true,
+        "2": false,
         "3": true,
         "4": true,
         "5": true
@@ -1540,7 +1579,7 @@ __webpack_require__.r(__webpack_exports__);
         race: 5,
         spec: 0,
         duration: 180,
-        vampiric_touch_regen: 50,
+        vampiric_touch_regen: 40,
         misery: true,
         curse_of_elements: true,
         judgement_of_the_crusader: false,
@@ -1580,11 +1619,18 @@ __webpack_require__.r(__webpack_exports__);
         regen_rotation: "ROTATION_FB",
         mana_tide_at: 10,
         bloodlust_at: 10,
-        cooldowns_at: 10,
+        icy_veins_at: 0,
+        cold_snap_at: 20,
+        trinket1_at: 0,
+        trinket2_at: 20,
+        berserking_at: 0,
+        arcane_power_at: 0,
+        presence_of_mind_at: 19,
         talents: "2500250300030150330125000000000000000000000000535000310030010000000",
         stats: {
           intellect: 465,
           spirit: 285,
+          mp5: 0,
           crit: 20,
           hit: 0,
           haste: 0,
@@ -1663,6 +1709,8 @@ __webpack_require__.r(__webpack_exports__);
       sim.start(this.config);
     },
     prepare: function prepare() {
+      this.saveGear();
+      this.saveConfig();
       this.itemStats();
       this.itemConfig();
     },
@@ -1709,6 +1757,7 @@ __webpack_require__.r(__webpack_exports__);
       var stats = {
         intellect: 149,
         spirit: 150,
+        mp5: 0,
         crit: 0.91,
         hit: 0,
         haste: 0,
@@ -1749,6 +1798,7 @@ __webpack_require__.r(__webpack_exports__);
       var item_stats = {
         "int": 0,
         spi: 0,
+        mp5: 0,
         crit: 0,
         hit: 0,
         sp: 0,
@@ -1801,6 +1851,7 @@ __webpack_require__.r(__webpack_exports__);
 
       stats.intellect += item_stats["int"];
       stats.spirit += item_stats.spi;
+      stats.mp5 += item_stats.mp5;
       stats.spell_power += item_stats.sp;
       stats.spell_power_arcane += item_stats.sp_arcane;
       stats.spell_power_frost += item_stats.sp_frost;
@@ -1939,6 +1990,35 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return null;
+    },
+    hasTalent: function hasTalent(talent) {
+      var indexes = {
+        presence_of_mind: 13,
+        arcane_power: 19,
+        icy_veins: 53,
+        cold_snap: 59
+      };
+
+      var index = _.get(indexes, talent);
+
+      if (!index) return;
+      var numbers = null;
+
+      if (this.config.talents.match(/^[0-9]+$/)) {
+        numbers = this.config.talents;
+      } else {
+        var m = this.config.talents.match(/tbcdb\.com.*mage\&([0-9]+)/i);
+        numbers = m[1];
+      }
+
+      if (numbers && numbers[index]) return parseInt(numbers[index]);
+      return false;
+    },
+    hasUseTrinket: function hasUseTrinket(nr) {
+      var slot = "trinket" + nr;
+      var item = this.equippedItem(nr);
+      if (item && item.use) return true;
+      return false;
     },
     formatStats: function formatStats(item) {
       var stats = [];
@@ -19554,7 +19634,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "spirit", "")))])
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "spirit", "")))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "mp5", "")))])
                     ]
                   )
                 }),
@@ -19597,7 +19679,9 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "spi", "")))])
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "spi", "")))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "mp5", "")))])
                         ]
                       )
                     }),
@@ -19819,7 +19903,9 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v(_vm._s(_vm.round(log.dmg / log.t)))
+                              _vm._v(
+                                _vm._s(log.t ? _vm.round(log.dmg / log.t) : "0")
+                              )
                             ]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(log.text))])
@@ -21090,38 +21176,250 @@ var render = function() {
                 _c("fieldset", [
                   _c("legend", [_vm._v("Cooldowns")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Personal CDs at")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.config.cooldowns_at,
-                          expression: "config.cooldowns_at",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.cooldowns_at },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                  _vm.hasTalent("presence_of_mind")
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Presence of Mind at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.presence_of_mind_at,
+                              expression: "config.presence_of_mind_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.presence_of_mind_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "presence_of_mind_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
                           }
-                          _vm.$set(
-                            _vm.config,
-                            "cooldowns_at",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    })
-                  ]),
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hasTalent("arcane_power")
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Arcane Power at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.arcane_power_at,
+                              expression: "config.arcane_power_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.arcane_power_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "arcane_power_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hasTalent("icy_veins")
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Icy Veins at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.icy_veins_at,
+                              expression: "config.icy_veins_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.icy_veins_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "icy_veins_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hasTalent("cold_snap")
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Cold Snap at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.cold_snap_at,
+                              expression: "config.cold_snap_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.cold_snap_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "cold_snap_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.config.race == _vm.races.RACE_TROLL
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Berserking at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.berserking_at,
+                              expression: "config.berserking_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.berserking_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "berserking_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hasUseTrinket(1)
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Trinket #1 at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.trinket1_at,
+                              expression: "config.trinket1_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.trinket1_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "trinket1_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hasUseTrinket(2)
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Trinket #2 at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.trinket2_at,
+                              expression: "config.trinket2_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.trinket2_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "trinket2_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
                     _c("label", [
@@ -21841,7 +22139,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Intellect")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Spirit")])
+        _c("th", [_vm._v("Spirit")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mp5")])
       ])
     ])
   },
@@ -21861,7 +22161,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Intellect")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Spirit")])
+        _c("th", [_vm._v("Spirit")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mp5")])
       ])
     ])
   },

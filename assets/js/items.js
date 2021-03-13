@@ -12,6 +12,7 @@ var ids = {
     CHAOTIC_SKYFIRE: 34220,
     EMBER_SKYFIRE: 35503,
     INSIGHTFUL_EARTHSTORM: 25901,
+    MQG: 19339,
 };
 
 var equip = {
@@ -139,13 +140,14 @@ var equip = {
     ],
     trinket: [
         { id: ids.SERPENT_COIL, title: "Serpent-Coil Braid", crit: 30, hit: 12 },
-        { id: ids.SILVER_CRESCENT, title: "Icon of the Silver Crescent", sp: 43 },
+        { id: ids.SILVER_CRESCENT, title: "Icon of the Silver Crescent", sp: 43, use: true },
         { id: 19379, title: "Neltharion's Tear", sp: 44, hit: 16 },
         { id: ids.EYE_OF_MAGTHERIDON, title: "Eye of Magtheridon", sp: 54 },
-        { id: ids.RESTRAINED_ESSENCE, title: "The Restrained Essence of Sapphiron", sp: 40 },
+        { id: ids.RESTRAINED_ESSENCE, title: "The Restrained Essence of Sapphiron", sp: 40, use: true },
         { id: ids.QUAGMIRRANS_EYE, title: "Quagmirran's Eye", sp: 37 },
         { id: ids.UNSTABLE_CURRENTS, title: "Sextant of Unstable Currents", crit: 40 },
         { id: ids.LIGHTNING_CAPACITOR, title: "The Lightning Capacitor" },
+        { id: ids.MQG, title: "Mind Quickening Gem", use: true },
     ],
 };
 
@@ -190,9 +192,10 @@ var enchants = {
     ],
     weapon: [
         { id: 27891, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
+        { id: 27975, title: "Major Spellpower", sp: 40 },
     ],
     hands: [
-        { id: 33997, title: "Major spellpower", sp: 20 },
+        { id: 33997, title: "Major Spellpower", sp: 20 },
     ],
     legs: [
         { id: 24274, title: "Runic Spellthread", sp: 35 },

@@ -5,10 +5,10 @@ namespace spell
 
     enum ID : int
     {
-        ARCANE_BLAST,
-        ARCANE_MISSILES,
-        FROSTBOLT,
-        LIGHTNING_CAPACITOR,
+        ARCANE_BLAST = 30451,
+        ARCANE_MISSILES = 38704,
+        FROSTBOLT = 38670,
+        LIGHTNING_CAPACITOR = 28785,
     };
 
     enum Result : int

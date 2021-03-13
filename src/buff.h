@@ -5,24 +5,25 @@ namespace buff
 
     enum ID : int
     {
-        ARCANE_BLAST,
-        ARCANE_MADNESS,
-        ARCANE_POWER,
-        ICY_VEINS,
-        PRESENCE_OF_MIND,
-        BLOODLUST,
-        INNERVATE,
-        CLEARCAST,
-        SILVER_CRESCENT,
-        SERPENT_COIL,
-        MANA_TIDE,
-        SPELLSTRIKE,
-        EYE_OF_MAGTHERIDON,
-        RESTRAINED_ESSENCE,
-        QUAGMIRRANS_EYE,
-        UNSTABLE_CURRENTS,
-        LIGHTNING_CAPACITOR,
-        BERSERKING,
+        ARCANE_BLAST = 30451,
+        ARCANE_MADNESS = 37444,
+        ARCANE_POWER = 12042,
+        PRESENCE_OF_MIND = 12043,
+        ICY_VEINS = 12472,
+        BLOODLUST = 2825,
+        INNERVATE = 29166,
+        CLEARCAST = 12536,
+        SILVER_CRESCENT = 35163,
+        SERPENT_COIL = 30720,
+        MANA_TIDE = 39609,
+        SPELLSTRIKE = 32106,
+        EYE_OF_MAGTHERIDON = 34747,
+        RESTRAINED_ESSENCE = 28779,
+        QUAGMIRRANS_EYE = 33370,
+        UNSTABLE_CURRENTS = 38348,
+        LIGHTNING_CAPACITOR = 37657,
+        BERSERKING = 20554,
+        MQG = 23723,
     };
 
 
@@ -84,6 +85,19 @@ namespace buff
             id = ARCANE_POWER;
             name = "Arcane Power";
             duration = 15;
+        }
+
+    };
+
+    class PresenceOfMind : public Buff
+    {
+
+    public:
+        PresenceOfMind()
+        {
+            id = PRESENCE_OF_MIND;
+            name = "Presence of Mind";
+            duration = 100;
         }
 
     };
@@ -267,6 +281,19 @@ namespace buff
             id = BERSERKING;
             name = "Berserking";
             duration = 10;
+        }
+
+    };
+
+    class MindQuickening : public Buff
+    {
+
+    public:
+        MindQuickening()
+        {
+            id = MQG;
+            name = "MQG";
+            duration = 20;
         }
 
     };

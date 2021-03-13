@@ -48,7 +48,13 @@ struct Config
     double regen_mana_at = 20;
     RegenRotation regen_rotation = ROTATION_FB;
     double mana_tide_at = 10;
-    double bloodlust_at = 10;
-    double cooldowns_at = 10;
+    double bloodlust_at = 20;
+    double icy_veins_at = 0;
+    double cold_snap_at = 20;
+    double trinket1_at = 0;
+    double trinket2_at = 20;
+    double berserking_at = 0;
+    double arcane_power_at = 0;
+    double presence_of_mind_at = 19;
 
 };

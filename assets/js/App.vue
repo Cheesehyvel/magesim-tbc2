@@ -45,6 +45,7 @@
                                     <th>Hit rating</th>
                                     <th>Intellect</th>
                                     <th>Spirit</th>
+                                    <th>Mp5</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,6 +76,7 @@
                                     <td>{{ $get(item, "hit", "") }}</td>
                                     <td>{{ $get(item, "int", "") }}</td>
                                     <td>{{ $get(item, "spirit", "") }}</td>
+                                    <td>{{ $get(item, "mp5", "") }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -88,6 +90,7 @@
                                     <th>Hit rating</th>
                                     <th>Intellect</th>
                                     <th>Spirit</th>
+                                    <th>Mp5</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,6 +106,7 @@
                                     <td>{{ $get(item, "hit", "") }}</td>
                                     <td>{{ $get(item, "int", "") }}</td>
                                     <td>{{ $get(item, "spi", "") }}</td>
+                                    <td>{{ $get(item, "mp5", "") }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -169,7 +173,7 @@
                                 >
                                     <td>{{ formatTime(log.t) }}</td>
                                     <td>{{ round(log.mana) }} ({{ round(log.mana_percent) }}%)</td>
-                                    <td>{{ round(log.dmg/log.t) }}</td>
+                                    <td>{{ (log.t ? round(log.dmg/log.t) : "0") }}</td>
                                     <td>{{ log.text }}</td>
                                 </tr>
                             </tbody>
@@ -285,9 +289,33 @@
                         </fieldset>
                         <fieldset>
                             <legend>Cooldowns</legend>
-                            <div class="form-item">
-                                <label>Personal CDs at</label>
-                                <input type="text" v-model.number="config.cooldowns_at">
+                            <div class="form-item" v-if="hasTalent('presence_of_mind')">
+                                <label>Presence of Mind at</label>
+                                <input type="text" v-model.number="config.presence_of_mind_at">
+                            </div>
+                            <div class="form-item" v-if="hasTalent('arcane_power')">
+                                <label>Arcane Power at</label>
+                                <input type="text" v-model.number="config.arcane_power_at">
+                            </div>
+                            <div class="form-item" v-if="hasTalent('icy_veins')">
+                                <label>Icy Veins at</label>
+                                <input type="text" v-model.number="config.icy_veins_at">
+                            </div>
+                            <div class="form-item" v-if="hasTalent('cold_snap')">
+                                <label>Cold Snap at</label>
+                                <input type="text" v-model.number="config.cold_snap_at">
+                            </div>
+                            <div class="form-item" v-if="config.race == races.RACE_TROLL">
+                                <label>Berserking at</label>
+                                <input type="text" v-model.number="config.berserking_at">
+                            </div>
+                            <div class="form-item" v-if="hasUseTrinket(1)">
+                                <label>Trinket #1 at</label>
+                                <input type="text" v-model.number="config.trinket1_at">
+                            </div>
+                            <div class="form-item" v-if="hasUseTrinket(2)">
+                                <label>Trinket #2 at</label>
+                                <input type="text" v-model.number="config.trinket2_at">
                             </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.bloodlust"> <span>Bloodlust <template v-if="config.bloodlust">at</template></span></label>
@@ -380,7 +408,7 @@
                 log_filter: {
                     "0": true,
                     "1": true,
-                    "2": true,
+                    "2": false,
                     "3": true,
                     "4": true,
                     "5": true,
@@ -391,7 +419,7 @@
                     spec: 0,
 
                     duration: 180,
-                    vampiric_touch_regen: 50,
+                    vampiric_touch_regen: 40,
 
                     misery: true,
                     curse_of_elements: true,
@@ -437,13 +465,20 @@
                     regen_rotation: "ROTATION_FB",
                     mana_tide_at: 10,
                     bloodlust_at: 10,
-                    cooldowns_at: 10,
+                    icy_veins_at: 0,
+                    cold_snap_at: 20,
+                    trinket1_at: 0,
+                    trinket2_at: 20,
+                    berserking_at: 0,
+                    arcane_power_at: 0,
+                    presence_of_mind_at: 19,
 
                     talents: "2500250300030150330125000000000000000000000000535000310030010000000",
 
                     stats: {
                         intellect: 465,
                         spirit: 285,
+                        mp5: 0,
                         crit: 20,
                         hit: 0,
                         haste: 0,
@@ -540,6 +575,8 @@
             },
 
             prepare() {
+                this.saveGear();
+                this.saveConfig();
                 this.itemStats();
                 this.itemConfig();
             },
@@ -594,6 +631,7 @@
                 var stats = {
                     intellect: 149,
                     spirit: 150,
+                    mp5: 0,
                     crit: 0.91,
                     hit: 0,
                     haste: 0,
@@ -632,6 +670,7 @@
                 var item_stats = {
                     int: 0,
                     spi: 0,
+                    mp5: 0,
                     crit: 0,
                     hit: 0,
                     sp: 0,
@@ -682,6 +721,7 @@
 
                 stats.intellect+= item_stats.int;
                 stats.spirit+= item_stats.spi;
+                stats.mp5+= item_stats.mp5;
                 stats.spell_power+= item_stats.sp;
                 stats.spell_power_arcane+= item_stats.sp_arcane;
                 stats.spell_power_frost+= item_stats.sp_frost;
@@ -858,6 +898,43 @@
                 }
 
                 return null;
+            },
+
+            hasTalent(talent) {
+                var indexes = {
+                    presence_of_mind: 13,
+                    arcane_power: 19,
+                    icy_veins: 53,
+                    cold_snap: 59,
+                };
+
+                var index = _.get(indexes, talent);
+                if (!index)
+                    return;
+
+                var numbers = null;
+                if (this.config.talents.match(/^[0-9]+$/)) {
+                    numbers = this.config.talents;
+                }
+                else {
+                    var m = this.config.talents.match(/tbcdb\.com.*mage\&([0-9]+)/i);
+                    numbers = m[1];
+                }
+
+                if (numbers && numbers[index])
+                    return parseInt(numbers[index]);
+
+                return false;
+            },
+
+            hasUseTrinket(nr) {
+                var slot = "trinket"+nr;
+                var item = this.equippedItem(nr);
+
+                if (item && item.use)
+                    return true;
+
+                return false;
             },
 
             formatStats(item) {

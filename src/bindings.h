@@ -57,7 +57,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("TRINKET_RESTRAINED_ESSENCE", TRINKET_RESTRAINED_ESSENCE)
         .value("TRINKET_QUAGMIRRANS_EYE", TRINKET_QUAGMIRRANS_EYE)
         .value("TRINKET_UNSTABLE_CURRENTS", TRINKET_UNSTABLE_CURRENTS)
-        .value("TRINKET_LIGHTNING_CAPACITOR", TRINKET_LIGHTNING_CAPACITOR);
+        .value("TRINKET_LIGHTNING_CAPACITOR", TRINKET_LIGHTNING_CAPACITOR)
+        .value("TRINKET_MQG", TRINKET_MQG);
 
     emscripten::enum_<MetaGem>("MetaGem")
         .value("META_NONE", META_NONE)
@@ -120,7 +121,13 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("regen_rotation", &Config::regen_rotation)
         .property("mana_tide_at", &Config::mana_tide_at)
         .property("bloodlust_at", &Config::bloodlust_at)
-        .property("cooldowns_at", &Config::cooldowns_at)
+        .property("icy_veins_at", &Config::icy_veins_at)
+        .property("cold_snap_at", &Config::cold_snap_at)
+        .property("trinket1_at", &Config::trinket1_at)
+        .property("trinket2_at", &Config::trinket2_at)
+        .property("berserking_at", &Config::berserking_at)
+        .property("arcane_power_at", &Config::arcane_power_at)
+        .property("presence_of_mind_at", &Config::presence_of_mind_at)
         ;
 
     emscripten::function("allocConfig", &allocConfig);
@@ -128,6 +135,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
     emscripten::value_object<Stats>("Stats")
         .field("intellect", &Stats::intellect)
         .field("spirit", &Stats::spirit)
+        .field("mp5", &Stats::mp5)
         .field("crit", &Stats::crit)
         .field("hit", &Stats::hit)
         .field("haste", &Stats::haste)
