@@ -699,9 +699,6 @@ public:
         if (spell->id == spell::FROSTBOLT && player->talents.imp_frostbolt)
             t-= player->talents.imp_frostbolt*0.1;
 
-        if (spell->id == spell::FROSTBOLT)
-            printf("%.2f %  d: %.2f - %.2f\n", state->t, spell->id, t, t * castHaste());
-
         return t * castHaste();
     }
 
