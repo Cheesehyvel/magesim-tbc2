@@ -243,12 +243,11 @@ public:
     void cast(shared_ptr<spell::Spell> spell)
     {
         if (canCast(spell)) {
-            double gcd = state->t_gcd + 1.0 - state->t;
-            if (gcd > 0.0) {
-                pushCast(spell, gcd);
+            if (state->t_gcd > state->t) {
+                pushCast(spell, state->t_gcd - state->t);
             }
             else {
-                state->t_gcd = state->t;
+                state->t_gcd = state->t + gcd();
                 if (spell->channeling)
                     onCast(spell);
                 else
@@ -596,6 +595,18 @@ public:
             multi-= player->talents.frost_channeling*0.05;
 
         return round(spell->cost * multi);
+    }
+
+    double gcd()
+    {
+        double t = 1.5;
+
+        t*= castHaste();
+
+        if (t < 1.0)
+            t = 1.0;
+
+        return t;
     }
 
     double castTime(shared_ptr<spell::Spell> spell)
