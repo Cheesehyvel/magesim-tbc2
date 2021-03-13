@@ -72,7 +72,7 @@
                             class="slot"
                             :class="[active_slot == slot ? 'active' : '']"
                             v-for="(i, slot) in equipped"
-                            @click="active_slot = slot"
+                            @click="setActiveSlot(slot);"
                         >{{ formatKey(slot) }}</div>
                     </div>
                     <div class="items">
@@ -97,11 +97,11 @@
                                         :class="['quality-'+$get(item, 'q', 'epic'), isEquipped(active_slot, item.id) ? 'active' : '']"
                                         v-for="item in activeItems"
                                         @click="equip(active_slot, item)"
+                                        :key="item.id"
                                     >
                                         <td>
-                                            {{ item.title }}
                                             <a :href="itemUrl(item)" target="_blank" @click.stop>
-                                                <span class="material-icons ml-n">&#xe89e;</span>
+                                                {{ item.title }}
                                             </a>
                                         </td>
                                         <td>
@@ -143,7 +143,11 @@
                                         v-for="item in activeEnchants"
                                         @click="enchant(active_slot, item)"
                                     >
-                                        <td>{{ item.title }}</td>
+                                        <td>
+                                            <a :href="spellUrl(item)" target="_blank" @click.stop>
+                                                {{ item.title }}
+                                            </a>
+                                        </td>
                                         <td>{{ formatSP(item) }}</td>
                                         <td>{{ $get(item, "crit", "") }}</td>
                                         <td>{{ $get(item, "hit", "") }}</td>
@@ -176,9 +180,8 @@
                                                 @click="setSocket(active_slot, gem, index)"
                                             >
                                                 <td>
-                                                    {{ gem.title }}
                                                     <a :href="itemUrl(gem)" target="_blank" @click.stop>
-                                                        <span class="material-icons ml-n">&#xe89e;</span>
+                                                        {{ gem.title }}
                                                     </a>
                                                 </td>
                                                 <td>{{ formatStats(gem) }}</td>
@@ -273,6 +276,9 @@
                             <div class="form-item">
                                 <label>Number of sims</label>
                                 <input type="text" v-model.number="config.iterations">
+                            </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.tooltips" @input="refreshTooltips(true)"> <span>Use item tooltips (requires reload)</span></label>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -433,6 +439,7 @@
             this.loadConfig();
             this.loadGear();
             this.finalStats();
+            this.loadTooltips();
         },
 
         data() {
@@ -544,7 +551,9 @@
                         spell_power_arcane: 50,
                         spell_power_frost: 0,
                         spell_power_fire: 0,
-                    }
+                    },
+
+                    tooltips: false,
                 },
             };
 
@@ -643,6 +652,16 @@
                 this.itemStats();
                 this.itemConfig();
                 this.finalStats();
+            },
+
+            setActiveSlot(slot) {
+                this.active_slot = slot;
+
+                if (window.$WowheadPower && this.config.tooltips) {
+                    this.$nextTick(function() {
+                        this.refreshTooltips();
+                    });
+                }
             },
 
             equipSlotToItemSlot(slot) {
@@ -911,6 +930,10 @@
 
             itemUrl(item) {
                 return "https://tbcdb.com/?item="+item.id;
+            },
+
+            spellUrl(spell) {
+                return "https://tbcdb.com/?spell="+spell.id;
             },
 
             critRatingToChance(rating) {
@@ -1191,6 +1214,29 @@
             logToggle() {
                 this.config_open = false;
                 this.log_open = !this.log_open;
+            },
+
+            loadTooltips() {
+                if (!window.aowow_tooltips && this.config.tooltips) {
+                    window.aowow_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true };
+                    var script = document.createElement("script");
+                    script.id = "wowheadpower";
+                    script.type = "text/javascript";
+                    script.src = "http://tbcdb.com/tooltips/power.js?vnew";
+                    document.body.appendChild(script);
+                }
+            },
+
+            refreshTooltips(save) {
+                if (window.$WowheadPower)
+                    window.$WowheadPower.refreshLinks();
+
+                if (save) {
+                    var self = this;
+                    setTimeout(function() {
+                        self.saveConfig();
+                    }, 50);
+                }
             },
 
             saveGear() {

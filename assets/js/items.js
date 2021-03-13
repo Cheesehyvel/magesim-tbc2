@@ -206,7 +206,7 @@ var equip = {
         { id: 28585, title: "Ruby Slippers", int: 29, sp: 35, hit: 16 },
         { id: 32787, title: "Veteran's Dreadweave Stalkers", int: 30, sp: 36 },
         { id: 29242, title: "Boots of Blasphemy", int: 29, sp: 36 },
-        { id: 27848, title: "Embroidered Spellpyre Boots", int: 21, sp: 41 },
+        { id: 27848, title: "Embroidered Spellpyre Boots", int: 21, sp: 41, q: "rare" },
         { id: 29258, title: "Boots of Ethereal Manipulation", int: 27, spi: 21, sp: 33 },
         { id: 25957, title: "Ethereal Boots of the Skystrider", int: 19, spi: 12, sp: 26, crit: 17, q: "rare" },
         { id: 22500, title: "Frostfire Sandals", int: 18, spi: 10, sp: 28, crit: 14 },
@@ -286,48 +286,47 @@ var gems = [
 ];
 
 var enchants = {
+    weapon: [
+        { id: 46540, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
+        { id: 46533, title: "Major Spellpower", sp: 40 },
+    ],
     head: [
-        { id: 29191, title: "Glyph of Power", sp: 22, hit: 14 },
-        { id: 19787, title: "Presence of Might", sp: 18, hit: 8, q: "rare" },
+        { id: 35447, title: "Glyph of Power", sp: 22, hit: 14 },
+        { id: 24164, title: "Presence of Sight", sp: 18, hit: 8, q: "rare" },
     ],
     shoulder: [
-        { id: 28886, title: "Greater Inscription of Discipline (Aldor)", sp: 18, crit: 10, q: "rare" },
-        { id: 28909, title: "Greater Inscription of the Orb (Scryer)", sp: 15, crit: 12, q: "rare" },
-        { id: 23545, title: "Power of the Scourge", sp: 15, crit: 14, q: "epic" },
-        { id: 28881, title: "Inscription of the Orb (Aldor)", sp: 15 },
-        { id: 28903, title: "Inscription of the Orb (Scryer)", crit: 13 },
+        { id: 35406, title: "Greater Inscription of Discipline (Aldor)", sp: 18, crit: 10, q: "rare" },
+        { id: 35437, title: "Greater Inscription of the Orb (Scryer)", sp: 15, crit: 12, q: "rare" },
+        { id: 29467, title: "Power of the Scourge", sp: 15, crit: 14, q: "epic" },
+        { id: 35405, title: "Inscription of the Orb (Aldor)", sp: 15 },
+        { id: 35436, title: "Inscription of the Orb (Scryer)", crit: 13 },
     ],
     chest: [
-        { id: 27960, title: "Exceptional Stats", int: 6, spi: 6 },
-        { id: 33990, title: "Major Spirit", spi: 15 },
-        { id: 33991, title: "Restore Mana Prime", mp5: 6 },
+        { id: 46502, title: "Exceptional Stats", int: 6, spi: 6 },
+        { id: 46504, title: "Major Spirit", spi: 15 },
     ],
     wrist: [
-        { id: 27917, title: "Spellpower", sp: 15 },
-        { id: 34001, title: "Major Intellect", int: 12 },
-        { id: 27913, title: "Restore Mana Prime", mp5: 6 },
-    ],
-    weapon: [
-        { id: 27891, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
-        { id: 27975, title: "Major Spellpower", sp: 40 },
+        { id: 46498, title: "Spellpower", sp: 15 },
+        { id: 46496, title: "Major Intellect", int: 12 },
+        { id: 46497, title: "Restore Mana Prime", mp5: 6 },
     ],
     hands: [
-        { id: 33997, title: "Major Spellpower", sp: 20 },
-        { id: 33994, title: "Spell Strike", hit: 15 },
-        { id: 33993, title: "Blasting", crit: 10 },
+        { id: 46514, title: "Major Spellpower", sp: 20 },
+        { id: 46516, title: "Spell Strike", hit: 15 },
+        { id: 46512, title: "Blasting", crit: 10 },
     ],
     legs: [
-        { id: 24274, title: "Runic Spellthread", sp: 35, q: "epic" },
-        { id: 24273, title: "Mystic Spellthread", sp: 25, q: "rare" },
-        { id: 19787, title: "Presence of Sight", sp: 18, hit: 8, q: "epic" },
+        { id: 31372, title: "Runic Spellthread", sp: 35, q: "epic" },
+        { id: 31371, title: "Mystic Spellthread", sp: 25, q: "rare" },
+        { id: 24164, title: "Presence of Sight", sp: 18, hit: 8, q: "epic" },
     ],
     feet: [
-        { id: 34008, title: "Boar's Speed", q: "rare" },
-        { id: 25652, title: "Magister's Armor Kit", mp5: 3, q: "common" },
+        { id: 46470, title: "Boar's Speed", q: "rare" },
+        { id: 32399, title: "Magister's Armor Kit", mp5: 3, q: "common" },
         { id: 20024, title: "Spirit", spi: 5 },
     ],
     finger: [
-        { id: 27924, title: "Spellpower", sp: 12 },
+        { id: 46518, title: "Spellpower", sp: 12 },
     ],
 };
 

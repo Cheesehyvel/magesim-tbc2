@@ -240,6 +240,8 @@ table {
                         &:nth-child(n+2) {
                             margin-left: 5px;
                         }
+
+                        a { color: inherit; }
                     }
 
                     .gem-color {
@@ -250,14 +252,16 @@ table {
                         &.color-o { color: #f80; }
                         &.color-p { color: #f0f; }
                         &.color-g { color: #0f0; }
+
+                        a { color: inherit; }
                     }
 
                     .quality {
-                        &-epic { color: #a335ee; }
-                        &-rare { color: #0070dd; }
-                        &-legendary { color: #ff8000; }
-                        &-uncommon { color: #1eff00; }
-                        &-common { color: #fff; }
+                        &-epic { color: #a335ee; a { color: inherit; } }
+                        &-rare { color: #0070dd; a { color: inherit; } }
+                        &-legendary { color: #ff8000; a { color: inherit; } }
+                        &-uncommon { color: #1eff00; a { color: inherit; } }
+                        &-common { color: #fff; a { color: inherit; } }
                     }
 
                     tr.active .socket-bonus {

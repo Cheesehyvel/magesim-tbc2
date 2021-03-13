@@ -608,6 +608,9 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .main .gear .items .socket-color:nth-child(n+2) {
   margin-left: 5px;
 }
+#app .wrapper .main .gear .items .socket-color a {
+  color: inherit;
+}
 #app .wrapper .main .gear .items .gem-color.color-m {
   color: #aaa;
 }
@@ -629,20 +632,38 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .main .gear .items .gem-color.color-g {
   color: #0f0;
 }
+#app .wrapper .main .gear .items .gem-color a {
+  color: inherit;
+}
 #app .wrapper .main .gear .items .quality-epic {
   color: #a335ee;
+}
+#app .wrapper .main .gear .items .quality-epic a {
+  color: inherit;
 }
 #app .wrapper .main .gear .items .quality-rare {
   color: #0070dd;
 }
+#app .wrapper .main .gear .items .quality-rare a {
+  color: inherit;
+}
 #app .wrapper .main .gear .items .quality-legendary {
   color: #ff8000;
+}
+#app .wrapper .main .gear .items .quality-legendary a {
+  color: inherit;
 }
 #app .wrapper .main .gear .items .quality-uncommon {
   color: #1eff00;
 }
+#app .wrapper .main .gear .items .quality-uncommon a {
+  color: inherit;
+}
 #app .wrapper .main .gear .items .quality-common {
   color: #fff;
+}
+#app .wrapper .main .gear .items .quality-common a {
+  color: inherit;
 }
 #app .wrapper .main .gear .items tr.active .socket-bonus {
   color: #bbe8ba;

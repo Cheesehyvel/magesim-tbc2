@@ -1327,7 +1327,8 @@ var equip = {
     id: 27848,
     title: "Embroidered Spellpyre Boots",
     "int": 21,
-    sp: 41
+    sp: 41,
+    q: "rare"
   }, {
     id: 29258,
     title: "Boots of Ethereal Manipulation",
@@ -1724,118 +1725,114 @@ var gems = [{
   sp: 5
 }];
 var enchants = {
+  weapon: [{
+    id: 46540,
+    title: "Sunfire",
+    sp_arcane: 50,
+    sp_fire: 50
+  }, {
+    id: 46533,
+    title: "Major Spellpower",
+    sp: 40
+  }],
   head: [{
-    id: 29191,
+    id: 35447,
     title: "Glyph of Power",
     sp: 22,
     hit: 14
   }, {
-    id: 19787,
-    title: "Presence of Might",
+    id: 24164,
+    title: "Presence of Sight",
     sp: 18,
     hit: 8,
     q: "rare"
   }],
   shoulder: [{
-    id: 28886,
+    id: 35406,
     title: "Greater Inscription of Discipline (Aldor)",
     sp: 18,
     crit: 10,
     q: "rare"
   }, {
-    id: 28909,
+    id: 35437,
     title: "Greater Inscription of the Orb (Scryer)",
     sp: 15,
     crit: 12,
     q: "rare"
   }, {
-    id: 23545,
+    id: 29467,
     title: "Power of the Scourge",
     sp: 15,
     crit: 14,
     q: "epic"
   }, {
-    id: 28881,
+    id: 35405,
     title: "Inscription of the Orb (Aldor)",
     sp: 15
   }, {
-    id: 28903,
+    id: 35436,
     title: "Inscription of the Orb (Scryer)",
     crit: 13
   }],
   chest: [{
-    id: 27960,
+    id: 46502,
     title: "Exceptional Stats",
     "int": 6,
     spi: 6
   }, {
-    id: 33990,
+    id: 46504,
     title: "Major Spirit",
     spi: 15
-  }, {
-    id: 33991,
-    title: "Restore Mana Prime",
-    mp5: 6
   }],
   wrist: [{
-    id: 27917,
+    id: 46498,
     title: "Spellpower",
     sp: 15
   }, {
-    id: 34001,
+    id: 46496,
     title: "Major Intellect",
     "int": 12
   }, {
-    id: 27913,
+    id: 46497,
     title: "Restore Mana Prime",
     mp5: 6
   }],
-  weapon: [{
-    id: 27891,
-    title: "Sunfire",
-    sp_arcane: 50,
-    sp_fire: 50
-  }, {
-    id: 27975,
-    title: "Major Spellpower",
-    sp: 40
-  }],
   hands: [{
-    id: 33997,
+    id: 46514,
     title: "Major Spellpower",
     sp: 20
   }, {
-    id: 33994,
+    id: 46516,
     title: "Spell Strike",
     hit: 15
   }, {
-    id: 33993,
+    id: 46512,
     title: "Blasting",
     crit: 10
   }],
   legs: [{
-    id: 24274,
+    id: 31372,
     title: "Runic Spellthread",
     sp: 35,
     q: "epic"
   }, {
-    id: 24273,
+    id: 31371,
     title: "Mystic Spellthread",
     sp: 25,
     q: "rare"
   }, {
-    id: 19787,
+    id: 24164,
     title: "Presence of Sight",
     sp: 18,
     hit: 8,
     q: "epic"
   }],
   feet: [{
-    id: 34008,
+    id: 46470,
     title: "Boar's Speed",
     q: "rare"
   }, {
-    id: 25652,
+    id: 32399,
     title: "Magister's Armor Kit",
     mp5: 3,
     q: "common"
@@ -1845,7 +1842,7 @@ var enchants = {
     spi: 5
   }],
   finger: [{
-    id: 27924,
+    id: 46518,
     title: "Spellpower",
     sp: 12
   }]
@@ -2399,6 +2396,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2406,6 +2409,7 @@ __webpack_require__.r(__webpack_exports__);
     this.loadConfig();
     this.loadGear();
     this.finalStats();
+    this.loadTooltips();
   },
   data: function data() {
     var data = {
@@ -2507,7 +2511,8 @@ __webpack_require__.r(__webpack_exports__);
           spell_power_arcane: 50,
           spell_power_frost: 0,
           spell_power_fire: 0
-        }
+        },
+        tooltips: false
       }
     };
     var slots = ["weapon", "off_hand", "ranged", "head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "finger1", "finger2", "trinket1", "trinket2"];
@@ -2589,6 +2594,15 @@ __webpack_require__.r(__webpack_exports__);
       this.itemStats();
       this.itemConfig();
       this.finalStats();
+    },
+    setActiveSlot: function setActiveSlot(slot) {
+      this.active_slot = slot;
+
+      if (window.$WowheadPower && this.config.tooltips) {
+        this.$nextTick(function () {
+          this.refreshTooltips();
+        });
+      }
     },
     equipSlotToItemSlot: function equipSlotToItemSlot(slot) {
       if (slot.indexOf("finger") === 0) slot = "finger";
@@ -2817,6 +2831,9 @@ __webpack_require__.r(__webpack_exports__);
     itemUrl: function itemUrl(item) {
       return "https://tbcdb.com/?item=" + item.id;
     },
+    spellUrl: function spellUrl(spell) {
+      return "https://tbcdb.com/?spell=" + spell.id;
+    },
     critRatingToChance: function critRatingToChance(rating) {
       return rating / 22.08;
     },
@@ -3031,6 +3048,30 @@ __webpack_require__.r(__webpack_exports__);
     logToggle: function logToggle() {
       this.config_open = false;
       this.log_open = !this.log_open;
+    },
+    loadTooltips: function loadTooltips() {
+      if (!window.aowow_tooltips && this.config.tooltips) {
+        window.aowow_tooltips = {
+          "colorlinks": true,
+          "iconizelinks": true,
+          "renamelinks": true
+        };
+        var script = document.createElement("script");
+        script.id = "wowheadpower";
+        script.type = "text/javascript";
+        script.src = "http://tbcdb.com/tooltips/power.js?vnew";
+        document.body.appendChild(script);
+      }
+    },
+    refreshTooltips: function refreshTooltips(save) {
+      if (window.$WowheadPower) window.$WowheadPower.refreshLinks();
+
+      if (save) {
+        var self = this;
+        setTimeout(function () {
+          self.saveConfig();
+        }, 50);
+      }
     },
     saveGear: function saveGear() {
       window.localStorage.setItem("magesim_tbc_equipped", JSON.stringify(this.equipped));
@@ -20573,7 +20614,7 @@ var render = function() {
                   class: [_vm.active_slot == slot ? "active" : ""],
                   on: {
                     click: function($event) {
-                      _vm.active_slot = slot
+                      return _vm.setActiveSlot(slot)
                     }
                   }
                 },
@@ -20594,6 +20635,7 @@ var render = function() {
                     return _c(
                       "tr",
                       {
+                        key: item.id,
                         staticClass: "item",
                         class: [
                           "quality-" + _vm.$get(item, "q", "epic"),
@@ -20609,11 +20651,6 @@ var render = function() {
                       },
                       [
                         _c("td", [
-                          _vm._v(
-                            "\n                                        " +
-                              _vm._s(item.title) +
-                              "\n                                        "
-                          ),
                           _c(
                             "a",
                             {
@@ -20628,10 +20665,10 @@ var render = function() {
                               }
                             },
                             [
-                              _c(
-                                "span",
-                                { staticClass: "material-icons ml-n" },
-                                [_vm._v("")]
+                              _vm._v(
+                                "\n                                            " +
+                                  _vm._s(item.title) +
+                                  "\n                                        "
                               )
                             ]
                           )
@@ -20718,7 +20755,29 @@ var render = function() {
                             }
                           },
                           [
-                            _c("td", [_vm._v(_vm._s(item.title))]),
+                            _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: _vm.spellUrl(item),
+                                    target: "_blank"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(item.title) +
+                                      "\n                                        "
+                                  )
+                                ]
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
                             _vm._v(" "),
@@ -20796,11 +20855,6 @@ var render = function() {
                                 },
                                 [
                                   _c("td", [
-                                    _vm._v(
-                                      "\n                                                " +
-                                        _vm._s(gem.title) +
-                                        "\n                                                "
-                                    ),
                                     _c(
                                       "a",
                                       {
@@ -20815,12 +20869,10 @@ var render = function() {
                                         }
                                       },
                                       [
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass: "material-icons ml-n"
-                                          },
-                                          [_vm._v("")]
+                                        _vm._v(
+                                          "\n                                                    " +
+                                            _vm._s(gem.title) +
+                                            "\n                                                "
                                         )
                                       ]
                                     )
@@ -21309,6 +21361,62 @@ var render = function() {
                         }
                       }
                     })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.tooltips,
+                            expression: "config.tooltips"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.tooltips)
+                            ? _vm._i(_vm.config.tooltips, null) > -1
+                            : _vm.config.tooltips
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.refreshTooltips(true)
+                          },
+                          change: function($event) {
+                            var $$a = _vm.config.tooltips,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "tooltips",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "tooltips",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "tooltips", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [
+                        _vm._v("Use item tooltips (requires reload)")
+                      ])
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
