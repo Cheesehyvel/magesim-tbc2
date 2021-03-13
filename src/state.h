@@ -10,6 +10,7 @@ class State
 public:
     double t;
     double t_gcd;
+    double t_mana_spent;
     double mana;
     int dmg;
     int regen_cycle;
@@ -32,6 +33,7 @@ public:
     {
         t = 0;
         t_gcd = 0;
+        t_mana_spent = -10;
         mana = 0;
         dmg = 0;
         regen_cycle = 0;

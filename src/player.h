@@ -255,8 +255,6 @@ public:
             mps+= stats.mp5/5.0;
         if (config->blessing_of_wisdom)
             mps+= 49/5.0;
-        if (config->mana_spring)
-            mps+= 50/5.0;
 
         return mps;
     }

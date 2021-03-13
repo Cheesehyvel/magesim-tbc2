@@ -300,6 +300,8 @@ public:
 
         spell->actual_cost = manaCost(spell);
         state->mana-= spell->actual_cost;
+        if (spell->actual_cost > 0)
+            state->t_mana_spent = state->t;
 
         if (state->hasBuff(buff::CLEARCAST))
             onBuffExpire(make_shared<buff::Clearcast>());
@@ -536,16 +538,25 @@ public:
         double mps = player->staticManaPerSecond();
         double spi = player->spiritManaPerSecond();
 
+        if (config->mana_spring && !state->hasBuff(buff::MANA_TIDE))
+            mps+= 50/5.0;
+
         double while_casting = 0;
-        if (player->talents.arcane_meditation)
-            while_casting+= player->talents.arcane_meditation*0.1;
-        if (config->mage_armor)
-            while_casting+= 0.3;
-        if (state->hasBuff(buff::BLUE_DRAGON))
+        if (state-> t - state->t_mana_spent >= 5.0) {
             while_casting = 1;
-        if (state->hasBuff(buff::INNERVATE)) {
+        }
+        else if (state->hasBuff(buff::BLUE_DRAGON)) {
+            while_casting = 1;
+        }
+        else if (state->hasBuff(buff::INNERVATE)) {
             while_casting = 1;
             spi*= 4;
+        }
+        else {
+            if (player->talents.arcane_meditation)
+                while_casting+= player->talents.arcane_meditation*0.1;
+            if (config->mage_armor)
+                while_casting+= 0.3;
         }
 
         mps+= while_casting * spi;
