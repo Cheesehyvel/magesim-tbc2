@@ -214,7 +214,13 @@ table {
                 }
 
                 .items {
-                    padding: $spacer*0.5;
+                    max-height: calc(100vh - 86px);
+                    overflow: auto;
+                    box-sizing: border-box;
+
+                    .items-wrapper {
+                        padding: $spacer*0.5;
+                    }
 
                     .socket-color {
                         display: inline-block;

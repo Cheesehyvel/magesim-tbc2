@@ -76,115 +76,117 @@
                         >{{ formatKey(slot) }}</div>
                     </div>
                     <div class="items">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Sockets</th>
-                                    <th>Socket bonus</th>
-                                    <th>Spell power</th>
-                                    <th>Crit rating</th>
-                                    <th>Hit rating</th>
-                                    <th>Intellect</th>
-                                    <th>Spirit</th>
-                                    <th>Mp5</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    class="item"
-                                    :class="['quality-'+$get(item, 'q', 'epic'), isEquipped(active_slot, item.id) ? 'active' : '']"
-                                    v-for="item in activeItems"
-                                    @click="equip(active_slot, item)"
-                                >
-                                    <td>
-                                        {{ item.title }}
-                                        <a :href="itemUrl(item)" target="_blank" @click.stop>
-                                            <span class="material-icons ml-n">&#xe89e;</span>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <template v-if="item.sockets">
-                                            <div class="socket-color" :class="['color-'+socket]" v-for="socket in item.sockets"></div>
-                                        </template>
-                                    </td>
-                                    <td>
-                                        <span v-if="item.bonus" :class="[hasSocketBonus(active_slot) ? 'socket-bonus' : '']">
-                                            {{ formatStats(item.bonus) }}
-                                        </span>
-                                    </td>
-                                    <td>{{ formatSP(item) }}</td>
-                                    <td>{{ $get(item, "crit", "") }}</td>
-                                    <td>{{ $get(item, "hit", "") }}</td>
-                                    <td>{{ $get(item, "int", "") }}</td>
-                                    <td>{{ $get(item, "spirit", "") }}</td>
-                                    <td>{{ $get(item, "mp5", "") }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="items-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Sockets</th>
+                                        <th>Socket bonus</th>
+                                        <th>Spell power</th>
+                                        <th>Crit rating</th>
+                                        <th>Hit rating</th>
+                                        <th>Intellect</th>
+                                        <th>Spirit</th>
+                                        <th>Mp5</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        class="item"
+                                        :class="['quality-'+$get(item, 'q', 'epic'), isEquipped(active_slot, item.id) ? 'active' : '']"
+                                        v-for="item in activeItems"
+                                        @click="equip(active_slot, item)"
+                                    >
+                                        <td>
+                                            {{ item.title }}
+                                            <a :href="itemUrl(item)" target="_blank" @click.stop>
+                                                <span class="material-icons ml-n">&#xe89e;</span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <template v-if="item.sockets">
+                                                <div class="socket-color" :class="['color-'+socket]" v-for="socket in item.sockets"></div>
+                                            </template>
+                                        </td>
+                                        <td>
+                                            <span v-if="item.bonus" :class="[hasSocketBonus(active_slot) ? 'socket-bonus' : '']">
+                                                {{ formatStats(item.bonus) }}
+                                            </span>
+                                        </td>
+                                        <td>{{ formatSP(item) }}</td>
+                                        <td>{{ $get(item, "crit", "") }}</td>
+                                        <td>{{ $get(item, "hit", "") }}</td>
+                                        <td>{{ $get(item, "int", "") }}</td>
+                                        <td>{{ $get(item, "spirit", "") }}</td>
+                                        <td>{{ $get(item, "mp5", "") }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                        <table class="mt-4" v-if="activeEnchants.length">
-                            <thead>
-                                <tr>
-                                    <th>Enchant</th>
-                                    <th>Spell power</th>
-                                    <th>Crit rating</th>
-                                    <th>Hit rating</th>
-                                    <th>Intellect</th>
-                                    <th>Spirit</th>
-                                    <th>Mp5</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    class="item"
-                                    :class="['quality-'+$get(item, 'q', 'uncommon'), isEnchanted(active_slot, item.id) ? 'active' : '']"
-                                    v-for="item in activeEnchants"
-                                    @click="enchant(active_slot, item)"
-                                >
-                                    <td>{{ item.title }}</td>
-                                    <td>{{ formatSP(item) }}</td>
-                                    <td>{{ $get(item, "crit", "") }}</td>
-                                    <td>{{ $get(item, "hit", "") }}</td>
-                                    <td>{{ $get(item, "int", "") }}</td>
-                                    <td>{{ $get(item, "spi", "") }}</td>
-                                    <td>{{ $get(item, "mp5", "") }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <table class="mt-4" v-if="activeEnchants.length">
+                                <thead>
+                                    <tr>
+                                        <th>Enchant</th>
+                                        <th>Spell power</th>
+                                        <th>Crit rating</th>
+                                        <th>Hit rating</th>
+                                        <th>Intellect</th>
+                                        <th>Spirit</th>
+                                        <th>Mp5</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        class="item"
+                                        :class="['quality-'+$get(item, 'q', 'uncommon'), isEnchanted(active_slot, item.id) ? 'active' : '']"
+                                        v-for="item in activeEnchants"
+                                        @click="enchant(active_slot, item)"
+                                    >
+                                        <td>{{ item.title }}</td>
+                                        <td>{{ formatSP(item) }}</td>
+                                        <td>{{ $get(item, "crit", "") }}</td>
+                                        <td>{{ $get(item, "hit", "") }}</td>
+                                        <td>{{ $get(item, "int", "") }}</td>
+                                        <td>{{ $get(item, "spi", "") }}</td>
+                                        <td>{{ $get(item, "mp5", "") }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                        <div class="sockets mt-4" v-if="activeSockets.length">
-                            <div class="socket" v-for="(socket, index) in activeSockets">
-                                <div class="title">
-                                    <span>Socket {{ (index+1) }}</span>
-                                    <span class="socket-color" :class="['color-'+socket]"></span>
+                            <div class="sockets mt-4" v-if="activeSockets.length">
+                                <div class="socket" v-for="(socket, index) in activeSockets">
+                                    <div class="title">
+                                        <span>Socket {{ (index+1) }}</span>
+                                        <span class="socket-color" :class="['color-'+socket]"></span>
+                                    </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Gem</th>
+                                                <th>Stats</th>
+                                                <th>Unique</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                class="gem-color"
+                                                :class="['color-'+gem.color, isSocketed(active_slot, gem.id, index) ? 'active' : '']"
+                                                v-for="gem in activeGems(index)"
+                                                @click="setSocket(active_slot, gem, index)"
+                                            >
+                                                <td>
+                                                    {{ gem.title }}
+                                                    <a :href="itemUrl(gem)" target="_blank" @click.stop>
+                                                        <span class="material-icons ml-n">&#xe89e;</span>
+                                                    </a>
+                                                </td>
+                                                <td>{{ formatStats(gem) }}</td>
+                                                <td><template v-if="gem.unique">Yes</template></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Gem</th>
-                                            <th>Stats</th>
-                                            <th>Unique</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr
-                                            class="gem-color"
-                                            :class="['color-'+gem.color, isSocketed(active_slot, gem.id, index) ? 'active' : '']"
-                                            v-for="gem in activeGems(index)"
-                                            @click="setSocket(active_slot, gem, index)"
-                                        >
-                                            <td>
-                                                {{ gem.title }}
-                                                <a :href="itemUrl(gem)" target="_blank" @click.stop>
-                                                    <span class="material-icons ml-n">&#xe89e;</span>
-                                                </a>
-                                            </td>
-                                            <td>{{ formatStats(gem) }}</td>
-                                            <td><template v-if="gem.unique">Yes</template></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -769,7 +771,7 @@
                 // Spell hit
                 if (this.config.totem_of_wrath)
                     stats.hit+= 3;
-                if (this.config.race == this.races.RACE_DRAENEI)
+                if (this.config.race == this.races.RACE_DRAENEI || this.config.inspiring_presence)
                     stats.hit+= 1;
 
                 this.final_stats = stats;

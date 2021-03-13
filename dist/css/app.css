@@ -570,6 +570,11 @@ table.simple th:last-child, table.simple td:last-child {
   border-color: #fff;
 }
 #app .wrapper .main .gear .items {
+  max-height: calc(100vh - 86px);
+  overflow: auto;
+  box-sizing: border-box;
+}
+#app .wrapper .main .gear .items .items-wrapper {
   padding: 30px;
 }
 #app .wrapper .main .gear .items .socket-color {

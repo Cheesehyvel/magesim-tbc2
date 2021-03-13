@@ -2395,6 +2395,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2680,7 +2682,7 @@ __webpack_require__.r(__webpack_exports__);
       if (x = this.hasTalent("arcane_instability")) stats.crit += x; // Spell hit
 
       if (this.config.totem_of_wrath) stats.hit += 3;
-      if (this.config.race == this.races.RACE_DRAENEI) stats.hit += 1;
+      if (this.config.race == this.races.RACE_DRAENEI || this.config.inspiring_presence) stats.hit += 1;
       this.final_stats = stats;
     },
     baseStats: function baseStats() {
@@ -20569,247 +20571,269 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "items" }, [
-            _c("table", [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.activeItems, function(item) {
-                  return _c(
-                    "tr",
-                    {
-                      staticClass: "item",
-                      class: [
-                        "quality-" + _vm.$get(item, "q", "epic"),
-                        _vm.isEquipped(_vm.active_slot, item.id) ? "active" : ""
-                      ],
-                      on: {
-                        click: function($event) {
-                          return _vm.equip(_vm.active_slot, item)
+            _c("div", { staticClass: "items-wrapper" }, [
+              _c("table", [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.activeItems, function(item) {
+                    return _c(
+                      "tr",
+                      {
+                        staticClass: "item",
+                        class: [
+                          "quality-" + _vm.$get(item, "q", "epic"),
+                          _vm.isEquipped(_vm.active_slot, item.id)
+                            ? "active"
+                            : ""
+                        ],
+                        on: {
+                          click: function($event) {
+                            return _vm.equip(_vm.active_slot, item)
+                          }
                         }
-                      }
-                    },
-                    [
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(item.title) +
-                            "\n                                    "
-                        ),
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: _vm.itemUrl(item),
-                              target: "_blank"
+                      },
+                      [
+                        _c("td", [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(item.title) +
+                              "\n                                        "
+                          ),
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: _vm.itemUrl(item),
+                                target: "_blank"
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                }
+                              }
                             },
+                            [
+                              _c(
+                                "span",
+                                { staticClass: "material-icons ml-n" },
+                                [_vm._v("")]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            item.sockets
+                              ? _vm._l(item.sockets, function(socket) {
+                                  return _c("div", {
+                                    staticClass: "socket-color",
+                                    class: ["color-" + socket]
+                                  })
+                                })
+                              : _vm._e()
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("td", [
+                          item.bonus
+                            ? _c(
+                                "span",
+                                {
+                                  class: [
+                                    _vm.hasSocketBonus(_vm.active_slot)
+                                      ? "socket-bonus"
+                                      : ""
+                                  ]
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(_vm.formatStats(item.bonus)) +
+                                      "\n                                        "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(_vm.$get(item, "crit", "")))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", "")))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm.$get(item, "spirit", "")))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(_vm.$get(item, "mp5", "")))])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _vm.activeEnchants.length
+                ? _c("table", { staticClass: "mt-4" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.activeEnchants, function(item) {
+                        return _c(
+                          "tr",
+                          {
+                            staticClass: "item",
+                            class: [
+                              "quality-" + _vm.$get(item, "q", "uncommon"),
+                              _vm.isEnchanted(_vm.active_slot, item.id)
+                                ? "active"
+                                : ""
+                            ],
                             on: {
                               click: function($event) {
-                                $event.stopPropagation()
+                                return _vm.enchant(_vm.active_slot, item)
                               }
                             }
                           },
                           [
-                            _c("span", { staticClass: "material-icons ml-n" }, [
-                              _vm._v("")
+                            _c("td", [_vm._v(_vm._s(item.title))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.$get(item, "crit", "")))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.$get(item, "hit", "")))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.$get(item, "int", "")))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.$get(item, "spi", "")))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.$get(item, "mp5", "")))
                             ])
                           ]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        [
-                          item.sockets
-                            ? _vm._l(item.sockets, function(socket) {
-                                return _c("div", {
-                                  staticClass: "socket-color",
-                                  class: ["color-" + socket]
-                                })
-                              })
-                            : _vm._e()
-                        ],
-                        2
-                      ),
-                      _vm._v(" "),
-                      _c("td", [
-                        item.bonus
-                          ? _c(
-                              "span",
-                              {
-                                class: [
-                                  _vm.hasSocketBonus(_vm.active_slot)
-                                    ? "socket-bonus"
-                                    : ""
+                      }),
+                      0
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.activeSockets.length
+                ? _c(
+                    "div",
+                    { staticClass: "sockets mt-4" },
+                    _vm._l(_vm.activeSockets, function(socket, index) {
+                      return _c("div", { staticClass: "socket" }, [
+                        _c("div", { staticClass: "title" }, [
+                          _c("span", [_vm._v("Socket " + _vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "socket-color",
+                            class: ["color-" + socket]
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("table", [
+                          _vm._m(2, true),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.activeGems(index), function(gem) {
+                              return _c(
+                                "tr",
+                                {
+                                  staticClass: "gem-color",
+                                  class: [
+                                    "color-" + gem.color,
+                                    _vm.isSocketed(
+                                      _vm.active_slot,
+                                      gem.id,
+                                      index
+                                    )
+                                      ? "active"
+                                      : ""
+                                  ],
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.setSocket(
+                                        _vm.active_slot,
+                                        gem,
+                                        index
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                                                " +
+                                        _vm._s(gem.title) +
+                                        "\n                                                "
+                                    ),
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: _vm.itemUrl(gem),
+                                          target: "_blank"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            $event.stopPropagation()
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass: "material-icons ml-n"
+                                          },
+                                          [_vm._v("")]
+                                        )
+                                      ]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.formatStats(gem)))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [gem.unique ? [_vm._v("Yes")] : _vm._e()],
+                                    2
+                                  )
                                 ]
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(_vm.formatStats(item.bonus)) +
-                                    "\n                                    "
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "crit", "")))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", "")))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "spirit", "")))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.$get(item, "mp5", "")))])
-                    ]
-                  )
-                }),
-                0
-              )
-            ]),
-            _vm._v(" "),
-            _vm.activeEnchants.length
-              ? _c("table", { staticClass: "mt-4" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.activeEnchants, function(item) {
-                      return _c(
-                        "tr",
-                        {
-                          staticClass: "item",
-                          class: [
-                            "quality-" + _vm.$get(item, "q", "uncommon"),
-                            _vm.isEnchanted(_vm.active_slot, item.id)
-                              ? "active"
-                              : ""
-                          ],
-                          on: {
-                            click: function($event) {
-                              return _vm.enchant(_vm.active_slot, item)
-                            }
-                          }
-                        },
-                        [
-                          _c("td", [_vm._v(_vm._s(item.title))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(_vm.$get(item, "crit", "")))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", "")))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "spi", "")))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "mp5", "")))])
-                        ]
-                      )
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      ])
                     }),
                     0
                   )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.activeSockets.length
-              ? _c(
-                  "div",
-                  { staticClass: "sockets mt-4" },
-                  _vm._l(_vm.activeSockets, function(socket, index) {
-                    return _c("div", { staticClass: "socket" }, [
-                      _c("div", { staticClass: "title" }, [
-                        _c("span", [_vm._v("Socket " + _vm._s(index + 1))]),
-                        _vm._v(" "),
-                        _c("span", {
-                          staticClass: "socket-color",
-                          class: ["color-" + socket]
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("table", [
-                        _vm._m(2, true),
-                        _vm._v(" "),
-                        _c(
-                          "tbody",
-                          _vm._l(_vm.activeGems(index), function(gem) {
-                            return _c(
-                              "tr",
-                              {
-                                staticClass: "gem-color",
-                                class: [
-                                  "color-" + gem.color,
-                                  _vm.isSocketed(_vm.active_slot, gem.id, index)
-                                    ? "active"
-                                    : ""
-                                ],
-                                on: {
-                                  click: function($event) {
-                                    return _vm.setSocket(
-                                      _vm.active_slot,
-                                      gem,
-                                      index
-                                    )
-                                  }
-                                }
-                              },
-                              [
-                                _c("td", [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(gem.title) +
-                                      "\n                                            "
-                                  ),
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        href: _vm.itemUrl(gem),
-                                        target: "_blank"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          $event.stopPropagation()
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "span",
-                                        { staticClass: "material-icons ml-n" },
-                                        [_vm._v("")]
-                                      )
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(_vm.formatStats(gem)))
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  [gem.unique ? [_vm._v("Yes")] : _vm._e()],
-                                  2
-                                )
-                              ]
-                            )
-                          }),
-                          0
-                        )
-                      ])
-                    ])
-                  }),
-                  0
-                )
-              : _vm._e()
+                : _vm._e()
+            ])
           ])
         ]),
         _vm._v(" "),
