@@ -1502,6 +1502,15 @@ var equip = {
     q: "rare"
   }],
   trinket: [{
+    id: ids.UNSTABLE_CURRENTS,
+    title: "Sextant of Unstable Currents",
+    crit: 40
+  }, {
+    id: ids.QUAGMIRRANS_EYE,
+    title: "Quagmirran's Eye",
+    sp: 37,
+    q: "rare"
+  }, {
     id: ids.SERPENT_COIL,
     title: "Serpent-Coil Braid",
     crit: 30,
@@ -1525,14 +1534,6 @@ var equip = {
     title: "The Restrained Essence of Sapphiron",
     sp: 40,
     use: true
-  }, {
-    id: ids.QUAGMIRRANS_EYE,
-    title: "Quagmirran's Eye",
-    sp: 37
-  }, {
-    id: ids.UNSTABLE_CURRENTS,
-    title: "Sextant of Unstable Currents",
-    crit: 40
   }, {
     id: ids.LIGHTNING_CAPACITOR,
     title: "The Lightning Capacitor"
@@ -1578,7 +1579,8 @@ var equip = {
     id: ids.VENGEANCE_ILLIDARI,
     title: "Vengeance of the Illidari",
     crit: 26,
-    use: true
+    use: true,
+    q: "rare"
   }]
 };
 var gems = [{
@@ -2834,6 +2836,11 @@ __webpack_require__.r(__webpack_exports__);
     equip: function equip(slot, item) {
       if (slot == "weapon") {
         if (item.twohand) this.equipped.off_hand = null;
+      }
+
+      if (slot.indexOf("trinket") === 0) {
+        var other = slot == "trinket1" ? "trinket2" : "trinket1";
+        if (this.isEquipped(other, item.id)) return;
       }
 
       if (this.equipped[slot] == item.id) this.equipped[slot] = null;else this.equipped[slot] = item.id;

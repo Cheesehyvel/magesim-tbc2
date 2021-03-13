@@ -238,13 +238,13 @@ var equip = {
         { id: 29320, title: "Band of the Guardian", int: 11, sp: 23, crit: 17, q: "rare" },
     ],
     trinket: [
+        { id: ids.UNSTABLE_CURRENTS, title: "Sextant of Unstable Currents", crit: 40 },
+        { id: ids.QUAGMIRRANS_EYE, title: "Quagmirran's Eye", sp: 37, q: "rare" },
         { id: ids.SERPENT_COIL, title: "Serpent-Coil Braid", crit: 30, hit: 12 },
         { id: ids.SILVER_CRESCENT, title: "Icon of the Silver Crescent", sp: 43, use: true },
         { id: 19379, title: "Neltharion's Tear", sp: 44, hit: 16 },
         { id: ids.EYE_OF_MAGTHERIDON, title: "Eye of Magtheridon", sp: 54 },
         { id: ids.RESTRAINED_ESSENCE, title: "The Restrained Essence of Sapphiron", sp: 40, use: true },
-        { id: ids.QUAGMIRRANS_EYE, title: "Quagmirran's Eye", sp: 37 },
-        { id: ids.UNSTABLE_CURRENTS, title: "Sextant of Unstable Currents", crit: 40 },
         { id: ids.LIGHTNING_CAPACITOR, title: "The Lightning Capacitor" },
         { id: ids.MQG, title: "Mind Quickening Gem", use: true },
         { id: ids.BLUE_DRAGON, title: "Darkmoon Card: Blue Dragon" },
@@ -254,7 +254,7 @@ var equip = {
         { id: 12930, title: "Briarwood Reed", sp: 29, q: "rare" },
         { id: ids.CRYSTAL_TALISMAN, title: "Ancient Crystal Talisman", sp: 26, use: true, q: "uncommon" },
         { id: ids.PENDANT_VIOLET_EYE, title: "Pendant of the Violet Eye", use: true },
-        { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true },
+        { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true, q: "rare" },
     ],
 };
 

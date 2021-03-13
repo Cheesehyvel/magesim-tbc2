@@ -938,6 +938,11 @@
                     if (item.twohand)
                         this.equipped.off_hand = null;
                 }
+                if (slot.indexOf("trinket") === 0) {
+                    var other = slot == "trinket1" ? "trinket2" : "trinket1";
+                    if (this.isEquipped(other, item.id))
+                        return;
+                }
 
                 if (this.equipped[slot] == item.id)
                     this.equipped[slot] = null;
