@@ -210,6 +210,10 @@
                                 </select>
                             </div>
                             <div class="form-item">
+                                <label>Regen rotation at mana %</label>
+                                <input type="text" v-model.number="config.regen_mana_at">
+                            </div>
+                            <div class="form-item">
                                 <label>Fight duration (sec)</label>
                                 <input type="text" v-model.number="config.duration">
                             </div>

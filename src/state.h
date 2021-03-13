@@ -9,6 +9,7 @@ class State
 
 public:
     double t;
+    double t_gcd;
     double mana;
     int dmg;
     int regen_cycle;
@@ -30,6 +31,7 @@ public:
     void reset()
     {
         t = 0;
+        t_gcd = -10.0;
         mana = 0;
         dmg = 0;
         regen_cycle = 0;

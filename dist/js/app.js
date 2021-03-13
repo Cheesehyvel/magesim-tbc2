@@ -1490,6 +1490,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -20031,6 +20035,39 @@ var render = function() {
                         )
                       ])
                     : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Regen rotation at mana %")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.config.regen_mana_at,
+                          expression: "config.regen_mana_at",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.config.regen_mana_at },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.config,
+                            "regen_mana_at",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
                     _c("label", [_vm._v("Fight duration (sec)")]),

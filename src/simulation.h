@@ -150,6 +150,16 @@ public:
         queue.push_back(event);
     }
 
+    void pushCast(shared_ptr<spell::Spell> spell, double t)
+    {
+        shared_ptr<Event> event(new Event());
+        event->type = EVENT_CAST;
+        event->spell = spell;
+        event->t = t;
+
+        push(event);
+    }
+
     void pushSpell(shared_ptr<spell::Spell> spell, double t)
     {
         shared_ptr<Event> event(new Event());
@@ -233,10 +243,17 @@ public:
     void cast(shared_ptr<spell::Spell> spell)
     {
         if (canCast(spell)) {
-            if (spell->channeling)
-                onCast(spell);
-            else
-                pushSpell(spell, castTime(spell));
+            double gcd = state->t_gcd + 1.0 - state->t;
+            if (gcd > 0.0) {
+                pushCast(spell, gcd);
+            }
+            else {
+                state->t_gcd = state->t;
+                if (spell->channeling)
+                    onCast(spell);
+                else
+                    pushSpell(spell, castTime(spell));
+            }
         }
         else {
             pushWait(1);
