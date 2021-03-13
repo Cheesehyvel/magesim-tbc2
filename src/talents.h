@@ -11,6 +11,7 @@ struct Talents
     int presence_of_mind = 0;
     int arcane_power = 0;
     int mind_mastery = 0;
+    int empowered_arcane_missiles = 0;
     int elemental_precision = 0;
     int imp_frostbolt = 0;
     int icy_veins = 0;

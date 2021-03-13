@@ -594,6 +594,9 @@ public:
         if (spell->school == SCHOOL_FROST && player->talents.frost_channeling)
             multi-= player->talents.frost_channeling*0.05;
 
+        if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
+            multi+= player->talents.empowered_arcane_missiles * 0.02;
+
         return round(spell->cost * multi);
     }
 
@@ -759,6 +762,9 @@ public:
                 sp+= 170.0;
             if (state->hasBuff(buff::RESTRAINED_ESSENCE))
                 sp+= 130.0;
+
+            if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
+                sp*= 1 + player->talents.empowered_arcane_missiles * 0.15;
 
             dmg+= sp*spell->coeff;
         }

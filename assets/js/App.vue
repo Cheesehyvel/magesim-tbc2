@@ -205,8 +205,8 @@
                             <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE">
                                 <label>Regen rotation</label>
                                 <select v-model="config.regen_rotation">
-                                    <option value="ROTATION_FB">3AB, 3FrB</option>
-                                    <option value="ROTATION_AMFB">3AB, AM, FrB</option>
+                                    <option :value="regen_rotations.ROTATION_FB">3AB, 3FrB</option>
+                                    <option :value="regen_rotations.ROTATION_AMFB">3AB, AM, FrB</option>
                                 </select>
                             </div>
                             <div class="form-item">
@@ -363,6 +363,10 @@
                 },
                 specs: {
                     SPEC_ARCANE: 0,
+                },
+                regen_rotations: {
+                    ROTATION_FB: 0,
+                    ROTATION_AMFB: 1,
                 },
                 items: items,
                 equipped: {},

@@ -184,6 +184,7 @@ public:
             talents.presence_of_mind = 1;
             talents.arcane_power = 1;
             talents.mind_mastery = 5;
+            talents.empowered_arcane_missiles = 0;
             talents.elemental_precision = 3;
             talents.imp_frostbolt = 5;
             talents.icy_veins = 1;
@@ -224,6 +225,7 @@ public:
                 else if (t == 14) talents.arcane_mind = p;
                 else if (t == 16) talents.arcane_instability = p;
                 else if (t == 17) talents.arcane_potency = p;
+                else if (t == 18) talents.empowered_arcane_missiles = p;
                 else if (t == 19) talents.arcane_power = p;
                 else if (t == 20) talents.spell_power = p;
                 else if (t == 21) talents.mind_mastery = p;

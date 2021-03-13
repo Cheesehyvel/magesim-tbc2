@@ -1514,6 +1514,10 @@ __webpack_require__.r(__webpack_exports__);
       specs: {
         SPEC_ARCANE: 0
       },
+      regen_rotations: {
+        ROTATION_FB: 0,
+        ROTATION_AMFB: 1
+      },
       items: _items__WEBPACK_IMPORTED_MODULE_1__.default,
       equipped: {},
       enchants: {},
@@ -20022,13 +20026,23 @@ var render = function() {
                             }
                           },
                           [
-                            _c("option", { attrs: { value: "ROTATION_FB" } }, [
-                              _vm._v("3AB, 3FrB")
-                            ]),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.regen_rotations.ROTATION_FB
+                                }
+                              },
+                              [_vm._v("3AB, 3FrB")]
+                            ),
                             _vm._v(" "),
                             _c(
                               "option",
-                              { attrs: { value: "ROTATION_AMFB" } },
+                              {
+                                domProps: {
+                                  value: _vm.regen_rotations.ROTATION_AMFB
+                                }
+                              },
                               [_vm._v("3AB, AM, FrB")]
                             )
                           ]

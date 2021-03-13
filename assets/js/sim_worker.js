@@ -25,6 +25,8 @@ onmessage = (event) => {
                 if (typeof(config[key]) != "undefined")
                     config[key] = data.config[key];
             }
+            if (m.RegenRotation.values.hasOwnProperty(data.config.regen_rotation))
+                config.regen_rotation = m.RegenRotation.values[data.config.regen_rotation];
             if (m.Trinket.values.hasOwnProperty(data.config.trinket1))
                 config.trinket1 = m.Trinket.values[data.config.trinket1];
             if (m.Trinket.values.hasOwnProperty(data.config.trinket2))
