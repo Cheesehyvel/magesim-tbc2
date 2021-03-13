@@ -534,6 +534,7 @@ public:
     double totalManaPerSecond()
     {
         double mps = player->staticManaPerSecond();
+        double spi = player->spiritManaPerSecond();
 
         double while_casting = 0;
         if (player->talents.arcane_meditation)
@@ -542,9 +543,12 @@ public:
             while_casting+= 0.3;
         if (state->hasBuff(buff::BLUE_DRAGON))
             while_casting = 1;
-        if (state->hasBuff(buff::INNERVATE))
-            while_casting = 4;
-        mps+= while_casting * player->spiritManaPerSecond();
+        if (state->hasBuff(buff::INNERVATE)) {
+            while_casting = 1;
+            spi*= 4;
+        }
+
+        mps+= while_casting * spi;
 
         return mps;
     }
