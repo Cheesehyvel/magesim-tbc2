@@ -2463,6 +2463,7 @@ __webpack_require__.r(__webpack_exports__);
         moonkin_aura: false,
         mage_armor: true,
         molten_armor: false,
+        inspiring_presence: false,
         spell_dmg_food: true,
         spell_crit_food: false,
         brilliant_wizard_oil: true,
@@ -2585,6 +2586,7 @@ __webpack_require__.r(__webpack_exports__);
       this.saveConfig();
       this.itemStats();
       this.itemConfig();
+      this.finalStats();
     },
     equipSlotToItemSlot: function equipSlotToItemSlot(slot) {
       if (slot.indexOf("finger") === 0) slot = "finger";
@@ -3013,7 +3015,11 @@ __webpack_require__.r(__webpack_exports__);
     configToggle: function configToggle() {
       this.log_open = false;
       this.config_open = !this.config_open;
-      if (!this.config_open) this.saveConfig();
+
+      if (!this.config_open) {
+        this.saveConfig();
+        this.finalStats();
+      }
     },
     logToggle: function logToggle() {
       this.config_open = false;

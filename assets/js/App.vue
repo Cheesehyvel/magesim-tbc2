@@ -496,6 +496,7 @@
                     moonkin_aura: false,
                     mage_armor: true,
                     molten_armor: false,
+                    inspiring_presence: false,
 
                     spell_dmg_food: true,
                     spell_crit_food: false,
@@ -641,6 +642,7 @@
                 this.saveConfig();
                 this.itemStats();
                 this.itemConfig();
+                this.finalStats();
             },
 
             equipSlotToItemSlot(slot) {
@@ -1175,8 +1177,10 @@
             configToggle() {
                 this.log_open = false;
                 this.config_open = !this.config_open;
-                if (!this.config_open)
+                if (!this.config_open) {
                     this.saveConfig();
+                    this.finalStats();
+                }
             },
 
             logToggle() {
