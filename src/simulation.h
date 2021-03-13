@@ -268,7 +268,7 @@ public:
                 onCastSuccess(spell);
 
                 double cast_time = castTime(spell);
-                for (int i=1; i<=4; i++)
+                for (int i=1; i<=spell->ticks; i++)
                     pushSpell(spell, cast_time / spell->ticks * i);
 
                 spell->tick++;
@@ -354,8 +354,8 @@ public:
         }
 
         if (spell->channeling) {
-            spell->tick++;
             spell->done = spell->tick == spell->ticks;
+            spell->tick++;
         }
     }
 
