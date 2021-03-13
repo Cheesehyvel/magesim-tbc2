@@ -58,7 +58,9 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("TRINKET_QUAGMIRRANS_EYE", TRINKET_QUAGMIRRANS_EYE)
         .value("TRINKET_UNSTABLE_CURRENTS", TRINKET_UNSTABLE_CURRENTS)
         .value("TRINKET_LIGHTNING_CAPACITOR", TRINKET_LIGHTNING_CAPACITOR)
-        .value("TRINKET_MQG", TRINKET_MQG);
+        .value("TRINKET_MQG", TRINKET_MQG)
+        .value("TRINKET_BLUE_DRAGON", TRINKET_BLUE_DRAGON)
+        ;
 
     emscripten::enum_<MetaGem>("MetaGem")
         .value("META_NONE", META_NONE)

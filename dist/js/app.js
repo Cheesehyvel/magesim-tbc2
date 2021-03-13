@@ -70,7 +70,8 @@ var ids = {
   CHAOTIC_SKYFIRE: 34220,
   EMBER_SKYFIRE: 35503,
   INSIGHTFUL_EARTHSTORM: 25901,
-  MQG: 19339
+  MQG: 19339,
+  BLUE_DRAGON: 19288
 };
 var equip = {
   weapon: [{
@@ -853,6 +854,9 @@ var equip = {
     id: ids.MQG,
     title: "Mind Quickening Gem",
     use: true
+  }, {
+    id: ids.BLUE_DRAGON,
+    title: "Darkmoon Card: Blue Dragon"
   }]
 };
 var gems = [{

@@ -311,6 +311,9 @@ public:
         // 5% proc rate
         if (config->meta_gem == META_INSIGHTFUL_EARTHSTORM && random<int>(0, 19) == 0)
             onManaGain(300, "Mana Restore (meta)");
+        // 2% proc rate
+        if (hasTrinket(TRINKET_BLUE_DRAGON) && random<int>(0, 49) == 0)
+            onBuffGain(make_shared<buff::BlueDragon>());
     }
 
     void onCastDmg(shared_ptr<spell::Spell> spell)
@@ -537,6 +540,8 @@ public:
             while_casting+= player->talents.arcane_meditation*0.1;
         if (config->mage_armor)
             while_casting+= 0.3;
+        if (state->hasBuff(buff::BLUE_DRAGON))
+            while_casting = 1;
         if (state->hasBuff(buff::INNERVATE))
             while_casting = 4;
         mps+= while_casting * player->spiritManaPerSecond();

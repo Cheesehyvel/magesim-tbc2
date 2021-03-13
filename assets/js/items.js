@@ -13,6 +13,7 @@ var ids = {
     EMBER_SKYFIRE: 35503,
     INSIGHTFUL_EARTHSTORM: 25901,
     MQG: 19339,
+    BLUE_DRAGON: 19288,
 };
 
 var equip = {
@@ -148,6 +149,7 @@ var equip = {
         { id: ids.UNSTABLE_CURRENTS, title: "Sextant of Unstable Currents", crit: 40 },
         { id: ids.LIGHTNING_CAPACITOR, title: "The Lightning Capacitor" },
         { id: ids.MQG, title: "Mind Quickening Gem", use: true },
+        { id: ids.BLUE_DRAGON, title: "Darkmoon Card: Blue Dragon" },
     ],
 };
 

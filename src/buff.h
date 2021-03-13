@@ -24,6 +24,7 @@ namespace buff
         LIGHTNING_CAPACITOR = 37657,
         BERSERKING = 20554,
         MQG = 23723,
+        BLUE_DRAGON = 23684,
     };
 
 
@@ -294,6 +295,19 @@ namespace buff
             id = MQG;
             name = "MQG";
             duration = 20;
+        }
+
+    };
+
+    class BlueDragon : public Buff
+    {
+
+    public:
+        BlueDragon()
+        {
+            id = BLUE_DRAGON;
+            name = "Aura of the Blue Dragon";
+            duration = 15;
         }
 
     };
