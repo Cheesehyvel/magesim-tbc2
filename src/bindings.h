@@ -116,8 +116,11 @@ EMSCRIPTEN_BINDINGS(my_module) {
 
         .property("tirisfal_2set", &Config::tirisfal_2set)
         .property("tirisfal_4set", &Config::tirisfal_4set)
+        .property("tempest_2set", &Config::tempest_2set)
+        .property("tempest_4set", &Config::tempest_4set)
         .property("spellfire_set", &Config::spellfire_set)
         .property("spellstrike_set", &Config::spellstrike_set)
+        .property("eternal_sage", &Config::eternal_sage)
         .property("trinket1", &Config::trinket1)
         .property("trinket2", &Config::trinket2)
         .property("meta_gem", &Config::meta_gem)

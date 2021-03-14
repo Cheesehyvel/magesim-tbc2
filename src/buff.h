@@ -30,6 +30,8 @@ namespace buff
         PENDANT_VIOLET_EYE = 29601,
         ENLIGHTENMENT = 35095,
         VENGEANCE_ILLIDARI = 33662,
+        ETERNAL_SAGE = 35084,
+        SKULL_GULDAN = 40396,
     };
 
 
@@ -381,6 +383,32 @@ namespace buff
             id = VENGEANCE_ILLIDARI;
             name = "Arcane Energy";
             duration = 15;
+        }
+
+    };
+
+    class EternalSage : public Buff
+    {
+
+    public:
+        EternalSage()
+        {
+            id = ETERNAL_SAGE;
+            name = "Band of Eternal Sage";
+            duration = 10;
+        }
+
+    };
+
+    class SkullGuldan : public Buff
+    {
+
+    public:
+        SkullGuldan()
+        {
+            id = SKULL_GULDAN;
+            name = "Fel Infusion";
+            duration = 20;
         }
 
     };

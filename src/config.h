@@ -36,8 +36,11 @@ struct Config
 
     bool tirisfal_2set = true;
     bool tirisfal_4set = true;
+    bool tempest_2set = false;
+    bool tempest_4set = false;
     bool spellfire_set = false;
     bool spellstrike_set = false;
+    bool eternal_sage = false;
 
     Trinket trinket1 = TRINKET_NONE;
     Trinket trinket2 = TRINKET_NONE;

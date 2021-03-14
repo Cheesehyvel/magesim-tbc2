@@ -18,7 +18,7 @@ public:
     int mana_emerald;
     int mana_ruby;
 
-    map<cooldown::ID, bool> cooldowns;
+    map<cooldown::ID, shared_ptr<cooldown::Cooldown>> cooldowns;
     map<buff::ID, shared_ptr<buff::Buff>> buffs;
 
     shared_ptr<Config> config;
@@ -58,9 +58,9 @@ public:
         return cooldowns.find(id) != cooldowns.end();
     }
 
-    void addCooldown(cooldown::ID id)
+    void addCooldown(shared_ptr<cooldown::Cooldown> cooldown)
     {
-        cooldowns[id] = true;
+        cooldowns[cooldown->id] = cooldown;
     }
 
     void removeCooldown(cooldown::ID id)

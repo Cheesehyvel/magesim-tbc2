@@ -58,6 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var ids = {
   TIRISFAL_SET: 649,
+  TEMPEST_SET: 671,
   SPELLFIRE_SET: 552,
   SPELLSTRIKE_SET: 559,
   SERPENT_COIL: 30720,
@@ -77,10 +78,33 @@ var ids = {
   SCRYERS_BLOODGEM: 29132,
   CRYSTAL_TALISMAN: 25620,
   PENDANT_VIOLET_EYE: 28727,
-  VENGEANCE_ILLIDARI: 28040
+  VENGEANCE_ILLIDARI: 28040,
+  ETERNAL_SAGE: 29305,
+  SKULL_GULDAN: 32483
 };
 var equip = {
   weapon: [{
+    id: 32374,
+    title: "Zhar'doom, Greatstaff of the Devourer",
+    "int": 47,
+    sp: 259,
+    crit: 36,
+    haste: 55,
+    twohand: true
+  }, {
+    id: 30910,
+    title: "Tempest of Chaos",
+    "int": 22,
+    sp: 259,
+    crit: 24,
+    hit: 17
+  }, {
+    id: 32237,
+    title: "The Maelstrom's Fury",
+    "int": 21,
+    sp: 236,
+    crit: 22
+  }, {
     id: 30095,
     title: "Fang of the Leviathan",
     "int": 20,
@@ -116,6 +140,17 @@ var equip = {
     sp: 225,
     hit: 15
   }, {
+    id: 30723,
+    title: "Talon of the Tempest",
+    "int": 10,
+    sp: 194,
+    crit: 19,
+    hit: 9,
+    sockets: ["y", "y"],
+    bonus: {
+      "int": 3
+    }
+  }, {
     id: 28633,
     title: "Staff of Infinite Mysteries",
     twohand: true,
@@ -128,6 +163,12 @@ var equip = {
     "int": 18,
     sp: 203,
     crit: 23
+  }, {
+    id: 28802,
+    title: "Bloodmaw Magus-Blade",
+    "int": 15,
+    sp: 203,
+    crit: 25
   }, {
     id: 22589,
     title: "Atiesh, Greatstaff of the Guardian",
@@ -173,8 +214,69 @@ var equip = {
     sp: 121,
     crit: 28,
     q: "rare"
+  }, {
+    id: 27842,
+    title: "Grand Scepter of the Nexus-Kings",
+    "int": 43,
+    sp: 121,
+    hit: 19,
+    q: "rare"
+  }, {
+    id: 27905,
+    title: "Greatsword of Horrid Dreams",
+    "int": 14,
+    sp: 130,
+    hit: 14,
+    q: "rare"
+  }, {
+    id: 27543,
+    title: "Starlight Dagger",
+    "int": 15,
+    sp: 121,
+    hit: 16,
+    q: "rare"
+  }, {
+    id: 27868,
+    title: "Runesong Dagger",
+    "int": 11,
+    sp: 121,
+    crit: 20,
+    q: "rare"
+  }, {
+    id: 27512,
+    title: "The Willbreaker",
+    "int": 14,
+    sp: 121,
+    crit: 17,
+    q: "rare"
+  }, {
+    id: 27899,
+    title: "Mana Wrath",
+    "int": 18,
+    sp: 126,
+    q: "rare"
+  }, {
+    id: 29185,
+    title: "Continuum Blade",
+    "int": 11,
+    sp: 121,
+    hit: 8,
+    q: "rare"
   }],
   off_hand: [{
+    id: 30872,
+    title: "Chronicle of Dark Secrets",
+    "int": 12,
+    sp: 42,
+    crit: 23,
+    hit: 17
+  }, {
+    id: 32361,
+    title: "Blind-Seers Icon",
+    "int": 16,
+    sp: 42,
+    crit: 24
+  }, {
     id: 30049,
     title: "Fathomstone",
     "int": 12,
@@ -248,6 +350,11 @@ var equip = {
     crit: 14,
     hit: 11
   }, {
+    id: 32343,
+    title: "Wand of Prismatic Focus",
+    sp: 25,
+    hit: 13
+  }, {
     id: 28783,
     title: "Eredar Wand of Obliteration",
     "int": 11,
@@ -303,6 +410,27 @@ var equip = {
     hit: 8
   }],
   head: [{
+    id: 32525,
+    title: "Cowl of the Illidari High Lord",
+    "int": 31,
+    sp: 64,
+    crit: 47,
+    hit: 21,
+    sockets: ["m", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 31056,
+    itemset: ids.TEMPEST_SET,
+    title: "Cowl of the Tempest",
+    "int": 40,
+    spi: 28,
+    sp: 62,
+    crit: 29,
+    hit: 13,
+    sockets: ["m", "y"]
+  }, {
     id: 30206,
     itemset: ids.TIRISFAL_SET,
     title: "Cowl of Tirisfal",
@@ -323,6 +451,16 @@ var equip = {
     crit: 24,
     hit: 16,
     sockets: ["b", "y", "r"]
+  }, {
+    id: 32494,
+    title: "Destruction Holo-gogs",
+    "int": 24,
+    sp: 64,
+    crit: 29,
+    sockets: ["m", "b"],
+    bonus: {
+      sp: 5
+    }
   }, {
     id: 29986,
     title: "Cowl of the Grand Engineer",
@@ -352,6 +490,13 @@ var equip = {
     sp: 46,
     crit: 25,
     hit: 19
+  }, {
+    id: 33758,
+    title: "Vengeful Gladiator's Silk Cowl",
+    "int": 23,
+    sp: 47,
+    crit: 23,
+    sockets: ["m", "r"]
   }, {
     id: 32048,
     title: "Merciless Gladiator's Silk Cowl",
@@ -428,11 +573,24 @@ var equip = {
     hit: 8
   }],
   neck: [{
+    id: 32349,
+    title: "Translucent Spellthread Necklace",
+    sp: 46,
+    crit: 24,
+    hit: 15
+  }, {
     id: 30015,
     title: "The Sun King's Talisman",
     "int": 16,
     sp: 41,
     crit: 24
+  }, {
+    id: 33920,
+    title: "Vindicator's Pendant of Conquest",
+    "int": 15,
+    sp: 25,
+    crit: 21,
+    sockets: ["y"]
   }, {
     id: 28762,
     title: "Adornment of Stolen Souls",
@@ -504,6 +662,41 @@ var equip = {
     sp: 34
   }],
   shoulder: [{
+    id: 30884,
+    title: "Hatefury Mantle",
+    "int": 18,
+    sp: 55,
+    crit: 24,
+    sockets: ["b", "y"],
+    bonus: {
+      crit: 3
+    }
+  }, {
+    id: 31059,
+    itemset: ids.TEMPEST_SET,
+    title: "Mantle of the Tempest",
+    "int": 27,
+    spi: 21,
+    sp: 46,
+    crit: 21,
+    sockets: ["y", "b"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 32338,
+    title: "Blood-cursed Shoulderpads",
+    "int": 19,
+    sp: 55,
+    crit: 26,
+    hit: 18
+  }, {
+    id: 32587,
+    title: "Mantle of Nimble Thought",
+    "int": 26,
+    sp: 44,
+    haste: 38
+  }, {
     id: 30210,
     itemset: ids.TIRISFAL_SET,
     title: "Mantle of Tirisfal",
@@ -533,6 +726,13 @@ var equip = {
     sp: 39,
     crit: 25,
     hit: 18
+  }, {
+    id: 33757,
+    title: "Vengeful Gladiator's Silk Amice",
+    "int": 13,
+    sp: 40,
+    crit: 17,
+    sockets: ["b", "y"]
   }, {
     id: 29079,
     title: "Pauldrons of the Aldor",
@@ -593,6 +793,18 @@ var equip = {
     crit: 14
   }],
   back: [{
+    id: 32331,
+    title: "Cloak of the Illidari Council",
+    "int": 16,
+    sp: 42,
+    crit: 25
+  }, {
+    id: 32524,
+    title: "Shroud of the Highborne",
+    "int": 23,
+    sp: 23,
+    haste: 23
+  }, {
     id: 29992,
     title: "Royal Cloak of the Sunstriders",
     "int": 22,
@@ -663,6 +875,19 @@ var equip = {
     q: "rare"
   }],
   chest: [{
+    id: 31057,
+    itemset: ids.TEMPEST_SET,
+    title: "Robes of the Tempest",
+    "int": 39,
+    spi: 31,
+    sp: 62,
+    crit: 23,
+    hit: 13,
+    sockets: ["y", "y", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
     id: 30196,
     itemset: ids.TIRISFAL_SET,
     title: "Robes of Tirisfal",
@@ -695,12 +920,36 @@ var equip = {
       sp: 5
     }
   }, {
+    id: 30913,
+    title: "Robes of Rhonin",
+    "int": 38,
+    sp: 81,
+    crit: 24,
+    hit: 27
+  }, {
     id: 30056,
     title: "Robe of Hateful Echoes",
     "int": 36,
     sp: 50,
     crit: 25,
     sockets: ["r", "y", "y"]
+  }, {
+    id: 32327,
+    title: "Robe of the Shadow Council",
+    "int": 36,
+    spi: 26,
+    sp: 73,
+    crit: 28
+  }, {
+    id: 33760,
+    title: "Vengeful Gladiator's Silk Raiment",
+    "int": 15,
+    sp: 39,
+    crit: 33,
+    sockets: ["r", "y", "y"],
+    bonus: {
+      crit: 4
+    }
   }, {
     id: 29077,
     title: "Vestments of the Aldor",
@@ -810,6 +1059,36 @@ var equip = {
     hit: 8
   }],
   wrist: [{
+    id: 32586,
+    title: "Bracers of Nimble Thought",
+    "int": 20,
+    sp: 34,
+    haste: 28
+  }, {
+    id: 30870,
+    title: "Cuffs of Devastation",
+    "int": 20,
+    spi: 19,
+    sp: 34,
+    crit: 14,
+    sockets: ["y"]
+  }, {
+    id: 32270,
+    title: "Focused Mana Bindings",
+    "int": 20,
+    sp: 42,
+    hit: 19
+  }, {
+    id: 33913,
+    title: "Vindicator's Silk Cuffs",
+    "int": 22,
+    sp: 27,
+    crit: 15,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
+  }, {
     id: 29918,
     title: "Mindstorm Wristbands",
     "int": 13,
@@ -892,6 +1171,19 @@ var equip = {
     crit: 14
   }],
   hands: [{
+    id: 31055,
+    itemset: ids.TEMPEST_SET,
+    title: "Gloves of the Tempest",
+    "int": 26,
+    spi: 21,
+    sp: 46,
+    crit: 19,
+    hit: 20,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
+  }, {
     id: 30205,
     itemset: ids.TIRISFAL_SET,
     title: "Gloves of Tirisfal",
@@ -953,6 +1245,12 @@ var equip = {
     sp: 35,
     crit: 19,
     hit: 17
+  }, {
+    id: 33759,
+    title: "Vengeful Gladiator's Silk Handguards",
+    "int": 18,
+    sp: 40,
+    crit: 22
   }, {
     id: 27465,
     title: "Mana-Etched Gloves",
@@ -1025,6 +1323,16 @@ var equip = {
       sp: 4
     }
   }, {
+    id: 30888,
+    title: "Anetheron's Noose",
+    "int": 23,
+    sp: 55,
+    crit: 24,
+    sockets: ["y", "b"],
+    bonus: {
+      sp: 4
+    }
+  }, {
     id: 21847,
     itemset: ids.SPELLFIRE_SET,
     title: "Spellfire Belt",
@@ -1040,6 +1348,12 @@ var equip = {
     sp: 50,
     hit: 24,
     sockets: ["y", "y"]
+  }, {
+    id: 32256,
+    title: "Waistwrap of Infinity",
+    "int": 22,
+    sp: 56,
+    haste: 32
   }, {
     id: 24256,
     title: "Girdle of Ruination",
@@ -1126,6 +1440,41 @@ var equip = {
     crit: 14
   }],
   legs: [{
+    id: 30916,
+    title: "Leggings of Channeled Elements",
+    "int": 28,
+    spi: 28,
+    sp: 59,
+    crit: 34,
+    hit: 18,
+    sockets: ["y", "y", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 31058,
+    itemset: ids.TEMPEST_SET,
+    title: "Leggings of the Tempest",
+    "int": 47,
+    spi: 29,
+    sp: 62,
+    crit: 29,
+    hit: 20,
+    sockets: ["b"],
+    bonus: {
+      hit: 2
+    }
+  }, {
+    id: 32367,
+    title: "Leggings of Devastation",
+    "int": 42,
+    sp: 60,
+    hit: 26,
+    sockets: ["y", "y", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
     id: 30207,
     itemset: ids.TIRISFAL_SET,
     title: "Leggings of Tirisfal",
@@ -1268,6 +1617,23 @@ var equip = {
     q: "rare"
   }],
   feet: [{
+    id: 32239,
+    title: "Slippers of the Seacaller",
+    "int": 18,
+    spi: 18,
+    sp: 44,
+    crit: 29,
+    sockets: ["y", "b"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 30894,
+    title: "Blue Suede Shoes",
+    "int": 32,
+    sp: 56,
+    hit: 18
+  }, {
     id: 30067,
     title: "Velvet Boots of the Guardian",
     "int": 21,
@@ -1381,6 +1747,24 @@ var equip = {
     sp: 34
   }],
   finger: [{
+    id: 32527,
+    title: "Ring of Ancient Knowledge",
+    "int": 20,
+    sp: 39,
+    haste: 31
+  }, {
+    id: 32247,
+    title: "Ring of Captured Storms",
+    sp: 42,
+    crit: 29,
+    hit: 19
+  }, {
+    id: ids.ETERNAL_SAGE,
+    title: "Band of the Eternal Sage",
+    "int": 25,
+    sp: 34,
+    crit: 24
+  }, {
     id: 29287,
     title: "Violet Signet of the Archmage",
     "int": 23,
@@ -1503,6 +1887,12 @@ var equip = {
     q: "rare"
   }],
   trinket: [{
+    id: ids.SKULL_GULDAN,
+    title: "The Skull of Gul'dan",
+    sp: 55,
+    hit: 25,
+    use: true
+  }, {
     id: ids.UNSTABLE_CURRENTS,
     title: "Sextant of Unstable Currents",
     crit: 40
@@ -1538,6 +1928,10 @@ var equip = {
   }, {
     id: ids.LIGHTNING_CAPACITOR,
     title: "The Lightning Capacitor"
+  }, {
+    id: 34579,
+    title: "Battlemaster's Audacity",
+    sp: 47
   }, {
     id: ids.MQG,
     title: "Mind Quickening Gem",
@@ -1633,10 +2027,27 @@ var gems = [{
   sp: 12,
   unique: true
 }, {
+  id: 32196,
+  title: "Runed Crimson Spinel",
+  color: "r",
+  sp: 12
+}, {
   id: ids.RUNED_LIVING_RUBY,
   title: "Runed Living Ruby",
   color: "r",
   sp: 9
+}, {
+  id: 32221,
+  title: "Veiled Pyrestone",
+  color: "o",
+  sp: 6,
+  hit: 5
+}, {
+  id: 32218,
+  title: "Potent Pyrestone",
+  color: "o",
+  sp: 6,
+  crit: 5
 }, {
   id: 30551,
   title: "Infused Fire Opal",
@@ -1685,7 +2096,18 @@ var gems = [{
   id: 33140,
   title: "Blood of Amber",
   color: "y",
-  crit: 12
+  crit: 12,
+  unique: true
+}, {
+  id: 32210,
+  title: "Great Lionseye",
+  color: "y",
+  hit: 10
+}, {
+  id: 32207,
+  title: "Gleaming Lionseye",
+  color: "y",
+  crit: 10
 }, {
   id: 28120,
   title: "Gleaming Ornate Dawnstone",
@@ -1847,11 +2269,155 @@ var enchants = {
     sp: 12
   }]
 };
+var quicksets = {
+  t5bis: {
+    title: "T5 All-round",
+    equip: {
+      weapon: 30095,
+      off_hand: 30049,
+      ranged: 29982,
+      head: 30206,
+      neck: 30015,
+      shoulder: 30210,
+      back: 29992,
+      chest: 30196,
+      wrist: 29918,
+      hands: 29987,
+      waist: 30038,
+      legs: 30207,
+      feet: 30067,
+      finger1: 29287,
+      finger2: 28753,
+      trinket1: 27683,
+      trinket2: 30626
+    },
+    enchants: {
+      weapon: 46540,
+      head: 35447,
+      shoulder: 35406,
+      chest: 46502,
+      wrist: 46498,
+      hands: 46514,
+      legs: 31372,
+      feet: 46470,
+      finger1: 46518,
+      finger2: 46518
+    },
+    gems: {
+      back: [null, null, null],
+      chest: [30551, 30551, 30600],
+      feet: [null, null, null],
+      hands: [null, null, null],
+      head: [25901, 30551, null],
+      legs: [28123, null, null],
+      shoulder: [30551, 30600, null],
+      waist: [30600, 32638, null],
+      weapon: [null, null, null],
+      wrist: [null, null, null]
+    }
+  },
+  t4sf: {
+    title: "T4 Spellfire",
+    equip: {
+      back: 30735,
+      chest: 21848,
+      feet: 28517,
+      finger1: 29287,
+      finger2: 28753,
+      hands: 21846,
+      head: 29076,
+      legs: 29078,
+      neck: 28762,
+      off_hand: 28734,
+      ranged: 28673,
+      shoulder: 29079,
+      trinket1: 27683,
+      trinket2: 29370,
+      waist: 21847,
+      weapon: 28770,
+      wrist: 28411
+    },
+    enchants: {
+      back: null,
+      chest: 46502,
+      feet: 46470,
+      finger1: 46518,
+      finger2: 46518,
+      hands: 46514,
+      head: 35447,
+      legs: 31372,
+      main_hand: 27891,
+      shoulder: 35406,
+      weapon: 46540,
+      wrist: 46498
+    },
+    gems: {
+      back: [null, null, null],
+      chest: [30551, 30551, null],
+      feet: [30551, 30551, null],
+      hands: [30551, 30551, null],
+      head: [25901, 30600, null],
+      legs: [null, null, null],
+      shoulder: [30551, 24030, null],
+      waist: [30551, 30551, null],
+      weapon: [null, null, null],
+      wrist: [30551, null, null]
+    }
+  },
+  spsf: {
+    title: "Spellstrike + Spellfire",
+    equip: {
+      back: 30735,
+      chest: 21848,
+      feet: 28517,
+      finger1: 29287,
+      finger2: 28753,
+      hands: 21846,
+      head: 24266,
+      legs: 24262,
+      neck: 28762,
+      off_hand: 28734,
+      ranged: 28783,
+      shoulder: 29079,
+      trinket1: 27683,
+      trinket2: 29370,
+      waist: 21847,
+      weapon: 28770,
+      wrist: 28411
+    },
+    enchants: {
+      back: null,
+      chest: 46502,
+      feet: 46470,
+      finger1: 46518,
+      finger2: 46518,
+      hands: 46514,
+      head: 35447,
+      legs: 31372,
+      shoulder: 35406,
+      weapon: 46540,
+      wrist: 46498
+    },
+    gems: {
+      back: [null, null, null],
+      chest: [24030, 24030, null],
+      feet: [30551, 30551, null],
+      hands: [30551, 30551, null],
+      head: [30551, 28118, 33133],
+      legs: [30551, 30551, 30551],
+      shoulder: [30551, 24030, null],
+      waist: [30551, 30551, null],
+      weapon: [null, null, null],
+      wrist: [24030, null, null]
+    }
+  }
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   ids: ids,
   equip: equip,
   gems: gems,
-  enchants: enchants
+  enchants: enchants,
+  quicksets: quicksets
 });
 
 /***/ }),
@@ -2402,6 +2968,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2480,8 +3062,11 @@ __webpack_require__.r(__webpack_exports__);
         drums: true,
         tirisfal_2set: true,
         tirisfal_4set: true,
+        tempest_2set: false,
+        tempest_4set: false,
         spellfire_set: false,
         spellstrike_set: false,
+        eternal_sage: false,
         meta_gem: 0,
         trinket1: 0,
         trinket2: 0,
@@ -2538,6 +3123,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
 
+    data.slots = [].concat(slots, ["quicksets"]);
     return data;
   },
   computed: {
@@ -2819,8 +3405,12 @@ __webpack_require__.r(__webpack_exports__);
       var num = this.numEquippedSet(this.items.ids.TIRISFAL_SET);
       this.config.tirisfal_2set = num > 1;
       this.config.tirisfal_4set = num > 3;
+      num = this.numEquippedSet(this.items.ids.TEMPEST_SET);
+      this.config.tempest_2set = num > 1;
+      this.config.tempest_4set = num > 3;
       this.config.spellstrike_set = this.numEquippedSet(this.items.ids.SPELLSTRIKE_SET) > 1;
       this.config.spellfire_set = this.numEquippedSet(this.items.ids.SPELLFIRE_SET) > 2;
+      this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
       this.config.trinket1 = 0;
       this.config.trinket2 = 0;
       this.config.meta_gem = 0;
@@ -2911,6 +3501,22 @@ __webpack_require__.r(__webpack_exports__);
       this.saveGear();
       this.finalStats();
     },
+    quickset: function quickset(set) {
+      for (var slot in set.equip) {
+        this.equipped[slot] = set.equip[slot];
+      }
+
+      for (var slot in set.enchants) {
+        this.enchants[slot] = set.enchants[slot];
+      }
+
+      for (var slot in set.gems) {
+        this.gems[slot] = set.gems[slot];
+      }
+
+      this.saveGear();
+      this.finalStats();
+    },
     matchSocketColor: function matchSocketColor(sock, gem) {
       if (sock == gem) return true;
       if (sock == "r" && ["o", "p"].indexOf(gem) != -1) return true;
@@ -2992,11 +3598,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     formatStats: function formatStats(item) {
       var stats = [];
-      if (item["int"]) stats.push(item["int"] + " int");
-      if (item.spi) stats.push(item.spi + " spi");
       if (item.sp) stats.push(item.sp + " sp");
       if (item.hit) stats.push(item.hit + " hit");
       if (item.crit) stats.push(item.crit + " crit");
+      if (item["int"]) stats.push(item["int"] + " int");
+      if (item.spi) stats.push(item.spi + " spi");
       if (item.desc) stats.push(item.desc);
       return stats.join(" / ");
     },
@@ -20606,7 +21212,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "slots" },
-            _vm._l(_vm.equipped, function(i, slot) {
+            _vm._l(_vm.slots, function(slot) {
               return _c(
                 "div",
                 {
@@ -20631,103 +21237,142 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.activeItems, function(item) {
-                    return _c(
-                      "tr",
-                      {
-                        key: item.id,
-                        staticClass: "item",
-                        class: [
-                          "quality-" + _vm.$get(item, "q", "epic"),
-                          _vm.isEquipped(_vm.active_slot, item.id)
-                            ? "active"
-                            : ""
-                        ],
-                        on: {
-                          click: function($event) {
-                            return _vm.equip(_vm.active_slot, item)
+                  [
+                    _vm._l(_vm.activeItems, function(item) {
+                      return _c(
+                        "tr",
+                        {
+                          key: item.id,
+                          staticClass: "item",
+                          class: [
+                            "quality-" + _vm.$get(item, "q", "epic"),
+                            _vm.isEquipped(_vm.active_slot, item.id)
+                              ? "active"
+                              : ""
+                          ],
+                          on: {
+                            click: function($event) {
+                              return _vm.equip(_vm.active_slot, item)
+                            }
                           }
-                        }
-                      },
-                      [
-                        _c("td", [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href: _vm.itemUrl(item),
-                                target: "_blank"
+                        },
+                        [
+                          _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: _vm.itemUrl(item),
+                                  target: "_blank"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.stopPropagation()
+                                  }
+                                }
                               },
+                              [
+                                _vm._v(
+                                  "\n                                            " +
+                                    _vm._s(item.title) +
+                                    "\n                                        "
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              item.sockets
+                                ? _vm._l(item.sockets, function(socket) {
+                                    return _c("div", {
+                                      staticClass: "socket-color",
+                                      class: ["color-" + socket]
+                                    })
+                                  })
+                                : _vm._e()
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c("td", [
+                            item.bonus
+                              ? _c(
+                                  "span",
+                                  {
+                                    class: [
+                                      _vm.hasSocketBonus(_vm.active_slot)
+                                        ? "socket-bonus"
+                                        : ""
+                                    ]
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(_vm.formatStats(item.bonus)) +
+                                        "\n                                        "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm.$get(item, "crit", "")))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", "")))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm.$get(item, "spirit", "")))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "mp5", "")))])
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm._l(_vm.items.quicksets, function(set, key) {
+                      return _vm.active_slot == "quicksets"
+                        ? _c(
+                            "tr",
+                            {
+                              staticClass: "item",
                               on: {
                                 click: function($event) {
-                                  $event.stopPropagation()
+                                  return _vm.quickset(set)
                                 }
                               }
                             },
                             [
-                              _vm._v(
-                                "\n                                            " +
-                                  _vm._s(item.title) +
-                                  "\n                                        "
-                              )
+                              _c("td", [_vm._v(_vm._s(set.title))]),
+                              _vm._v(" "),
+                              _c("td"),
+                              _vm._v(" "),
+                              _c("td"),
+                              _vm._v(" "),
+                              _c("td"),
+                              _vm._v(" "),
+                              _c("td"),
+                              _vm._v(" "),
+                              _c("td"),
+                              _vm._v(" "),
+                              _c("td"),
+                              _vm._v(" "),
+                              _c("td"),
+                              _vm._v(" "),
+                              _c("td")
                             ]
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            item.sockets
-                              ? _vm._l(item.sockets, function(socket) {
-                                  return _c("div", {
-                                    staticClass: "socket-color",
-                                    class: ["color-" + socket]
-                                  })
-                                })
-                              : _vm._e()
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c("td", [
-                          item.bonus
-                            ? _c(
-                                "span",
-                                {
-                                  class: [
-                                    _vm.hasSocketBonus(_vm.active_slot)
-                                      ? "socket-bonus"
-                                      : ""
-                                  ]
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(_vm.formatStats(item.bonus)) +
-                                      "\n                                        "
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(_vm.formatSP(item)))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(_vm.$get(item, "crit", "")))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", "")))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(_vm.$get(item, "spirit", "")))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(_vm.$get(item, "mp5", "")))])
-                      ]
-                    )
-                  }),
-                  0
+                        : _vm._e()
+                    })
+                  ],
+                  2
                 )
               ]),
               _vm._v(" "),

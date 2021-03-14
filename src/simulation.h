@@ -17,7 +17,7 @@ public:
     EventType type;
     shared_ptr<spell::Spell> spell;
     shared_ptr<buff::Buff> buff;
-    cooldown::ID cooldown_id;
+    shared_ptr<cooldown::Cooldown> cooldown;
 
 };
 
@@ -130,6 +130,8 @@ public:
             onBuffGain(event->buff);
         else if (event->type == EVENT_BUFF_EXPIRE)
             onBuffExpire(event->buff);
+        else if (event->type == EVENT_CD_EXPIRE)
+            onCooldownExpire(event->cooldown);
         else if (event->type == EVENT_VAMPIRIC_TOUCH)
             onVampiricTouch(event->mana);
         else if (event->type == EVENT_WAIT)
@@ -219,12 +221,12 @@ public:
         push(event);
     }
 
-    void pushCooldownExpire(cooldown::ID id, double t)
+    void pushCooldownExpire(shared_ptr<cooldown::Cooldown> cooldown)
     {
         shared_ptr<Event> event(new Event());
         event->type = EVENT_CD_EXPIRE;
-        event->t = t;
-        event->cooldown_id = id;
+        event->t = cooldown->duration;
+        event->cooldown = cooldown;
 
         push(event);
     }
@@ -350,22 +352,31 @@ public:
         }
         else {
             // 5% proc rate ?
-            if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && random<int>(0, 19) == 0)
+            if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && !state->hasCooldown(cooldown::QUAGMIRRANS_EYE) && random<int>(0, 19) == 0) {
+                onCooldownGain(make_shared<cooldown::QuagmirransEye>());
                 onBuffGain(make_shared<buff::QuagmirransEye>());
+            }
             // 15% proc rate
             if (hasTrinket(TRINKET_MARK_OF_DEFIANCE) && random<int>(0, 99) < 15)
                 onManaGain(random<double>(128, 173), "Mana Restore (Mark of Defiance)");
             // 5% proc rate ?
             if (config->spellstrike_set && random<int>(0, 19) == 0)
                 onBuffGain(make_shared<buff::Spellstrike>());
+            // 10% proc rate
+            if (config->eternal_sage && !state->hasCooldown(cooldown::ETERNAL_SAGE) && random<int>(0, 9) == 0) {
+                onCooldownGain(make_shared<cooldown::EternalSage>());
+                onBuffGain(make_shared<buff::EternalSage>());
+            }
             // 50% proc rate
             if (config->judgement_of_wisdom && random<int>(0, 1) == 1)
                 onManaGain(74, "Judgement of Wisdom");
 
             if (spell->result == spell::CRIT) {
                 // 20% proc rate
-                if (hasTrinket(TRINKET_UNSTABLE_CURRENTS) && random<int>(0, 4) == 0)
+                if (hasTrinket(TRINKET_UNSTABLE_CURRENTS) && !state->hasCooldown(cooldown::UNSTABLE_CURRENTS) && random<int>(0, 4) == 0) {
+                    onCooldownGain(make_shared<cooldown::UnstableCurrents>());
                     onBuffGain(make_shared<buff::UnstableCurrents>());
+                }
                 // 100% proc rate
                 if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR))
                     onBuffGain(make_shared<buff::LightningCapacitor>());
@@ -501,18 +512,23 @@ public:
         }
     }
 
-    void onCooldownExpire(cooldown::ID id)
+    void onCooldownGain(shared_ptr<cooldown::Cooldown> cooldown)
     {
-        state->removeCooldown(id);
+        state->addCooldown(cooldown);
+        pushCooldownExpire(cooldown);
+    }
+
+    void onCooldownExpire(shared_ptr<cooldown::Cooldown> cooldown)
+    {
+        state->removeCooldown(cooldown->id);
     }
 
     void useManaPotion()
     {
         double mana = round(random<double>(1800, 3000));
 
-        state->addCooldown(cooldown::POTION);
         onManaGain(mana, "Mana Potion");
-        pushCooldownExpire(cooldown::POTION, 120);
+        onCooldownGain(make_shared<cooldown::Potion>());
     }
 
     void useManaGem()
@@ -531,9 +547,8 @@ public:
         if (hasTrinket(TRINKET_SERPENT_COIL))
             mana*= 1.25;
 
-        state->addCooldown(cooldown::MANA_GEM);
         onManaGain(mana, "Mana Gem");
-        pushCooldownExpire(cooldown::MANA_GEM, 120);
+        onCooldownGain(make_shared<cooldown::ManaGem>());
 
         if (hasTrinket(TRINKET_SERPENT_COIL))
             onBuffGain(make_shared<buff::SerpentCoil>());
@@ -610,7 +625,8 @@ public:
 
     void useTrinket(Trinket trinket_id, cooldown::ID cd)
     {
-        state->addCooldown(cd);
+        // TODO: Get correct trinket CD when implenting double trinket usage
+        onCooldownGain(make_shared<cooldown::Cooldown>(cd, 180));
 
         if (trinket_id == TRINKET_MQG)
             onBuffGain(make_shared<buff::MindQuickening>());
@@ -630,25 +646,25 @@ public:
 
     void useArcanePower()
     {
-        state->addCooldown(cooldown::ARCANE_POWER);
+        onCooldownGain(make_shared<cooldown::ArcanePower>());
         onBuffGain(make_shared<buff::ArcanePower>());
     }
 
     void usePresenceOfMind()
     {
-        state->addCooldown(cooldown::PRESENCE_OF_MIND);
+        onCooldownGain(make_shared<cooldown::PresenceOfMind>());
         onBuffGain(make_shared<buff::PresenceOfMind>());
     }
 
     void useIcyVeins()
     {
-        state->addCooldown(cooldown::ICY_VEINS);
+        onCooldownGain(make_shared<cooldown::IcyVeins>());
         onBuffGain(make_shared<buff::IcyVeins>());
     }
 
     void useColdSnap()
     {
-        state->addCooldown(cooldown::COLD_SNAP);
+        onCooldownGain(make_shared<cooldown::ColdSnap>());
         addLog(LOG_NONE, "Casted Cold Snap");
 
         if (player->talents.icy_veins)
@@ -657,7 +673,7 @@ public:
 
     void useBerserking()
     {
-        state->addCooldown(cooldown::BERSERKING);
+        onCooldownGain(make_shared<cooldown::Berserking>());
         onBuffGain(make_shared<buff::Berserking>());
     }
 
@@ -747,6 +763,8 @@ public:
         double phaste = player->stats.haste;
         double rating = 0;
 
+        if (state->hasBuff(buff::SKULL_GULDAN))
+            rating+= 175;
         if (state->hasBuff(buff::QUAGMIRRANS_EYE))
             rating+= 320;
         if (state->hasBuff(buff::MQG))
@@ -889,6 +907,8 @@ public:
                 sp+= 170.0;
             if (state->hasBuff(buff::RESTRAINED_ESSENCE))
                 sp+= 130.0;
+            if (state->hasBuff(buff::ETERNAL_SAGE))
+                sp+= 95.0;
 
             if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
                 coeff+= player->talents.empowered_arcane_missiles * 0.15;
@@ -922,16 +942,20 @@ public:
     void evocate()
     {
         double haste = castHaste();
+        int ticks = 4;
+
+        if (config->tempest_2set)
+            ticks++;
 
         state->regen_cycle = 0;
-        state->addCooldown(cooldown::EVOCATION);
+        onCooldownGain(make_shared<cooldown::Evocation>());
 
-        for (double i=1; i<=4; i++)
+        for (double i=1; i<=ticks; i++)
             pushManaGain(i * haste * 2.0, player->maxMana()*0.15, "Evocation");
 
         shared_ptr<Event> event(new Event());
         event->type = EVENT_CAST;
-        event->t = 8.0 * haste;
+        event->t = ticks * 2 * haste;
         event->spell = defaultSpell();
         push(event);
     }

@@ -71,7 +71,7 @@
                         <div
                             class="slot"
                             :class="[active_slot == slot ? 'active' : '']"
-                            v-for="(i, slot) in equipped"
+                            v-for="slot in slots"
                             @click="setActiveSlot(slot);"
                         >{{ formatKey(slot) }}</div>
                     </div>
@@ -120,6 +120,22 @@
                                         <td>{{ $get(item, "int", "") }}</td>
                                         <td>{{ $get(item, "spirit", "") }}</td>
                                         <td>{{ $get(item, "mp5", "") }}</td>
+                                    </tr>
+                                    <tr
+                                        class="item"
+                                        @click="quickset(set)"
+                                        v-for="(set, key) in items.quicksets"
+                                        v-if="active_slot == 'quicksets'"
+                                    >
+                                        <td>{{ set.title }}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -516,8 +532,11 @@
 
                     tirisfal_2set: true,
                     tirisfal_4set: true,
+                    tempest_2set: false,
+                    tempest_4set: false,
                     spellfire_set: false,
                     spellstrike_set: false,
+                    eternal_sage: false,
                     meta_gem: 0,
                     trinket1: 0,
                     trinket2: 0,
@@ -580,6 +599,8 @@
                         this.gems[slot][j] = this.items.ids.RUNED_LIVING_RUBY;
                 }
             }
+
+            data.slots = [...slots, "quicksets"];
 
             return data;
         },
@@ -914,8 +935,14 @@
                 this.config.tirisfal_2set = num > 1;
                 this.config.tirisfal_4set = num > 3;
 
+                num = this.numEquippedSet(this.items.ids.TEMPEST_SET);
+                this.config.tempest_2set = num > 1;
+                this.config.tempest_4set = num > 3;
+
                 this.config.spellstrike_set = this.numEquippedSet(this.items.ids.SPELLSTRIKE_SET) > 1;
                 this.config.spellfire_set = this.numEquippedSet(this.items.ids.SPELLFIRE_SET) > 2;
+
+                this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
 
                 this.config.trinket1 = 0;
                 this.config.trinket2 = 0;
@@ -1034,6 +1061,18 @@
                 this.finalStats();
             },
 
+            quickset(set) {
+                for (var slot in set.equip)
+                    this.equipped[slot] = set.equip[slot];
+                for (var slot in set.enchants)
+                    this.enchants[slot] = set.enchants[slot];
+                for (var slot in set.gems)
+                    this.gems[slot] = set.gems[slot];
+
+                this.saveGear();
+                this.finalStats();
+            },
+
             matchSocketColor(sock, gem) {
                 if (sock == gem)
                     return true;
@@ -1132,16 +1171,16 @@
             formatStats(item) {
                 var stats = [];
 
-                if (item.int)
-                    stats.push(item.int+" int");
-                if (item.spi)
-                    stats.push(item.spi+" spi");
                 if (item.sp)
                     stats.push(item.sp+" sp");
                 if (item.hit)
                     stats.push(item.hit+" hit");
                 if (item.crit)
                     stats.push(item.crit+" crit");
+                if (item.int)
+                    stats.push(item.int+" int");
+                if (item.spi)
+                    stats.push(item.spi+" spi");
                 if (item.desc)
                     stats.push(item.desc);
 
