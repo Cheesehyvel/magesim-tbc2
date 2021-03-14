@@ -372,6 +372,97 @@
   padding-right: 180px;
 }
 
+.tooltip-anchor {
+  position: relative;
+}
+.tooltip-anchor .tooltip.open, .tooltip-anchor:hover > .tooltip {
+  display: inline-block;
+}
+.tooltip-anchor > .tooltip {
+  position: absolute;
+  box-sizing: border-box;
+  display: none;
+  z-index: 110;
+  padding: 6px 12px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  background: #2f2f48;
+  color: #fff;
+  border-radius: 2px;
+  border: 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+.tooltip-anchor > .tooltip.position-t, .tooltip-anchor > .tooltip.position-tl, .tooltip-anchor > .tooltip.position-tr {
+  bottom: 100%;
+  margin-bottom: 10px;
+}
+.tooltip-anchor > .tooltip.position-t:before, .tooltip-anchor > .tooltip.position-tl:before, .tooltip-anchor > .tooltip.position-tr:before {
+  top: 100%;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top-width: 4px;
+  border-bottom-width: 0;
+}
+.tooltip-anchor > .tooltip.position-b, .tooltip-anchor > .tooltip.position-bl, .tooltip-anchor > .tooltip.position-br {
+  top: 100%;
+  margin-top: 10px;
+}
+.tooltip-anchor > .tooltip.position-b:before, .tooltip-anchor > .tooltip.position-bl:before, .tooltip-anchor > .tooltip.position-br:before {
+  bottom: 100%;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom-width: 4px;
+  border-top-width: 0;
+}
+.tooltip-anchor > .tooltip.position-tl, .tooltip-anchor > .tooltip.position-bl {
+  left: 0;
+}
+.tooltip-anchor > .tooltip.position-tl:before, .tooltip-anchor > .tooltip.position-bl:before {
+  left: 12px;
+}
+.tooltip-anchor > .tooltip.position-tr, .tooltip-anchor > .tooltip.position-br {
+  right: 0;
+}
+.tooltip-anchor > .tooltip.position-tr:before, .tooltip-anchor > .tooltip.position-br:before {
+  right: 12px;
+}
+.tooltip-anchor > .tooltip.position-t, .tooltip-anchor > .tooltip.position-b {
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+}
+.tooltip-anchor > .tooltip.position-t:before, .tooltip-anchor > .tooltip.position-b:before {
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+}
+.tooltip-anchor > .tooltip.position-l, .tooltip-anchor > .tooltip.position-r {
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+}
+.tooltip-anchor > .tooltip.position-l:before, .tooltip-anchor > .tooltip.position-r:before {
+  top: 50%;
+  margin-top: -4px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.tooltip-anchor > .tooltip.position-l {
+  right: 100%;
+  margin-right: 10px;
+}
+.tooltip-anchor > .tooltip.position-l:before {
+  left: 100%;
+  border-left-width: 4px;
+  border-right-width: 0;
+}
+.tooltip-anchor > .tooltip.position-r {
+  left: 100%;
+  margin-left: 10px;
+}
+.tooltip-anchor > .tooltip.position-r:before {
+  right: 100%;
+  border-right-width: 4px;
+  border-left-width: 0;
+}
+
 body {
   background: #222;
   color: #fff;
@@ -476,6 +567,12 @@ table {
 table th, table td {
   padding: 4px 12px;
   text-align: left;
+}
+table th.min, table td.min {
+  width: 1px;
+}
+table th.title, table td.title {
+  width: auto !important;
 }
 table tbody tr {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -665,6 +762,15 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .main .gear .items .quality-common a {
   color: inherit;
 }
+#app .wrapper .main .gear .items .compare {
+  color: #aaa;
+}
+#app .wrapper .main .gear .items .compare.active {
+  color: #08f;
+}
+#app .wrapper .main .gear .items .compare.error {
+  color: #f00;
+}
 #app .wrapper .main .gear .items tr.active .socket-bonus {
   color: #bbe8ba;
 }
@@ -681,7 +787,7 @@ table.simple th:last-child, table.simple td:last-child {
   margin-left: 2%;
 }
 #app .wrapper .main .gear .items table th:nth-child(n+2), #app .wrapper .main .gear .items table td:nth-child(n+2) {
-  width: 10%;
+  width: 8%;
   white-space: nowrap;
 }
 #app .log .close,

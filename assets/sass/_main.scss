@@ -105,6 +105,14 @@ table {
     th, td {
         padding: 4px 12px;
         text-align: left;
+
+        &.min {
+            width: 1px;
+        }
+
+        &.title {
+            width: auto !important;
+        }
     }
 
     tbody tr {
@@ -264,6 +272,18 @@ table {
                         &-common { color: #fff; a { color: inherit; } }
                     }
 
+                    .compare {
+                        color: #aaa;
+
+                        &.active {
+                            color: #08f;
+                        }
+
+                        &.error {
+                            color: #f00;
+                        }
+                    }
+
                     tr.active .socket-bonus {
                         color: #bbe8ba;
                     }
@@ -284,7 +304,7 @@ table {
                     table {
                         th, td {
                             &:nth-child(n+2) {
-                                width: 10%;
+                                width: 8%;
                                 white-space: nowrap;
                             }
                         }

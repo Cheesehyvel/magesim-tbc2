@@ -28,6 +28,7 @@ var ids = {
 var equip = {
     weapon: [
         { id: 32374, title: "Zhar'doom, Greatstaff of the Devourer", int: 47, sp: 259, crit: 36, haste: 55, twohand: true },
+        { id: 34540, title: "Vengeful Gladiator's Battle Staff", int: 46, sp: 247, crit: 46, hit: 28, twohand: true },
         { id: 30910, title: "Tempest of Chaos", int: 22, sp: 259, crit: 24, hit: 17 },
         { id: 32237, title: "The Maelstrom's Fury", int: 21, sp: 236, crit: 22 },
         { id: 30095, title: "Fang of the Leviathan", int: 20, sp: 221, crit: 21 },

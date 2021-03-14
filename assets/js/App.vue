@@ -77,12 +77,17 @@
                     </div>
                     <div class="items">
                         <div class="items-wrapper">
-                            <table>
+                            <div class="btn" :class="[!hasComparisons || is_running ? 'disabled' : '']" @click="runComparison">
+                                Run item comparison
+                            </div>
+
+                            <table class="mt-2">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th class="min"></th>
+                                        <th class="title">Name</th>
+                                        <th v-if="hasComparisons">DPS</th>
                                         <th>Sockets</th>
-                                        <th>Socket bonus</th>
                                         <th>Spell power</th>
                                         <th>Crit rating</th>
                                         <th>Hit rating</th>
@@ -94,24 +99,33 @@
                                 <tbody>
                                     <tr
                                         class="item"
-                                        :class="['quality-'+$get(item, 'q', 'epic'), isEquipped(active_slot, item.id) ? 'active' : '']"
+                                        :class="[isEquipped(active_slot, item.id) ? 'active' : '']"
                                         v-for="item in activeItems"
                                         @click="equip(active_slot, item)"
                                         :key="item.id"
                                     >
-                                        <td>
-                                            <a :href="itemUrl(item)" target="_blank" @click.stop>
+                                        <td class="min">
+                                            <span class="compare" :class="[isComparing(item) ? 'active' : '']" v-if="canCompare(item)" @click.stop="compareItem(item)">
+                                                <help icon="e915">Add to comparison</help>
+                                            </span>
+                                            <span class="compare error" v-else>
+                                                <help icon="f08c">Missing gem sockets</help>
+                                            </span>
+                                        </td>
+                                        <td class="title">
+                                            <a :href="itemUrl(item)" :class="['quality-'+$get(item, 'q', 'epic')]" target="_blank" @click.stop>
                                                 {{ item.title }}
                                             </a>
                                         </td>
+                                        <th v-if="hasComparisons">
+                                            {{ comparisonDps(item) }}
+                                        </th>
                                         <td>
                                             <template v-if="item.sockets">
                                                 <div class="socket-color" :class="['color-'+socket]" v-for="socket in item.sockets"></div>
                                             </template>
-                                        </td>
-                                        <td>
-                                            <span v-if="item.bonus" :class="[hasSocketBonus(active_slot) ? 'socket-bonus' : '']">
-                                                {{ formatStats(item.bonus) }}
+                                            <span class="ml-n" v-if="item.bonus" :class="[hasSocketBonus(active_slot) ? 'socket-bonus' : '']">
+                                                +{{ formatStats(item.bonus) }}
                                             </span>
                                         </td>
                                         <td>{{ formatSP(item) }}</td>
@@ -155,12 +169,12 @@
                                 <tbody>
                                     <tr
                                         class="item"
-                                        :class="['quality-'+$get(item, 'q', 'uncommon'), isEnchanted(active_slot, item.id) ? 'active' : '']"
+                                        :class="[isEnchanted(active_slot, item.id) ? 'active' : '']"
                                         v-for="item in activeEnchants"
                                         @click="enchant(active_slot, item)"
                                     >
                                         <td>
-                                            <a :href="spellUrl(item)" target="_blank" @click.stop>
+                                            <a :href="spellUrl(item)" :class="['quality-'+$get(item, 'q', 'uncommon')]" target="_blank" @click.stop>
                                                 {{ item.title }}
                                             </a>
                                         </td>
@@ -190,13 +204,12 @@
                                         </thead>
                                         <tbody>
                                             <tr
-                                                class="gem-color"
-                                                :class="['color-'+gem.color, isSocketed(active_slot, gem.id, index) ? 'active' : '']"
+                                                :class="[isSocketed(active_slot, gem.id, index) ? 'active' : '']"
                                                 v-for="gem in activeGems(index)"
                                                 @click="setSocket(active_slot, gem, index)"
                                             >
                                                 <td>
-                                                    <a :href="itemUrl(gem)" target="_blank" @click.stop>
+                                                    <a :href="itemUrl(gem)" class="gem-color" :class="['color-'+gem.color]" target="_blank" @click.stop>
                                                         {{ gem.title }}
                                                     </a>
                                                 </td>
@@ -479,6 +492,8 @@
                 equipped: {},
                 enchants: {},
                 gems: {},
+                item_gems: {},
+                item_comparison: [],
                 active_slot: "weapon",
                 final_stats: null,
                 result: null,
@@ -633,6 +648,10 @@
                 var item = this.equippedItem(this.active_slot);
                 return item && item.sockets ? item.sockets : [];
             },
+
+            hasComparisons() {
+                return this.item_comparison.length > 1;
+            },
         },
 
         methods: {
@@ -667,6 +686,51 @@
                 sim.start(this.config);
             },
 
+            async runComparisonFor(item_id) {
+                var self = this;
+                if (!this.isEquipped(this.active_slot, item_id))
+                    this.equip(this.active_slot, item_id, false);
+
+                return new Promise((resolve, reject) => {
+                    var sim = new SimulationWorkers(self.config.iterations, (result) => {
+                        self.is_running = false;
+                        resolve(result);
+                    }, (error) => {
+                        self.is_running = false;
+                        console.error(error);
+                        reject(error);
+                    });
+
+                    self.log_open = false;
+                    self.prepare();
+                    self.is_running = true;
+                    sim.start(self.config);
+                });
+            },
+
+            async runComparison() {
+                if (!this.hasComparisons || this.is_running)
+                    return;
+
+                for (var i in this.item_comparison)
+                    this.item_comparison[i].dps = null;
+
+                var max_dps = 0;
+                var best_item_id = 0;
+                var result, cmp;
+                for (var i in this.item_comparison) {
+                    cmp = this.item_comparison[i];
+                    result = await this.runComparisonFor(cmp.id);
+                    this.item_comparison[i].dps = result.avg_dps;
+                    if (result.avg_dps > max_dps) {
+                        max_dps = result.avg_dps;
+                        best_item_id = cmp.id;
+                    }
+                }
+
+                this.equip(this.active_slot, best_item_id);
+            },
+
             prepare() {
                 this.saveGear();
                 this.saveConfig();
@@ -676,7 +740,11 @@
             },
 
             setActiveSlot(slot) {
+                if (this.is_running)
+                    return;
+
                 this.active_slot = slot;
+                this.item_comparison = [];
 
                 if (window.$WowheadPower && this.config.tooltips) {
                     this.$nextTick(function() {
@@ -712,14 +780,17 @@
                 }
             },
 
+            getItem(slot, id) {
+                var eslot = this.equipSlotToItemSlot(slot);
+                return _.find(this.items.equip[eslot], {id: id}, null);
+            },
+
             equippedItem(slot) {
                 var id = this.equipped[slot];
                 if (!id)
                     return null;
 
-                var eslot = this.equipSlotToItemSlot(slot);
-
-                return _.find(this.items.equip[eslot], {id: this.equipped[slot]}, null)
+                return this.getItem(slot, id);
             },
 
             activeGems(index) {
@@ -983,7 +1054,10 @@
                 return false;
             },
 
-            equip(slot, item) {
+            equip(slot, item, save) {
+                if (!_.isObject(item))
+                    item = this.getItem(slot, item);
+
                 if (slot == "weapon") {
                     if (item.twohand)
                         this.equipped.off_hand = null;
@@ -999,14 +1073,20 @@
                 else
                     this.equipped[slot] = item.id;
 
-                this.gems[slot] = [null, null, null];
-
-                if (item.sockets) {
-                    for (var i in item.sockets)
-                        this.gems[slot][i] = this.items.ids.RUNED_LIVING_RUBY;
+                if (this.item_gems.hasOwnProperty(item.id)) {
+                    this.gems[slot] = this.item_gems[item.id];
+                }
+                else {
+                    this.gems[slot] = [null, null, null];
+                    if (item.sockets) {
+                        for (var i in item.sockets)
+                            this.gems[slot][i] = this.items.ids.RUNED_LIVING_RUBY;
+                        this.item_gems[item.id] = this.gems[slot];
+                    }
                 }
 
-                this.saveGear();
+                if (typeof(save) == "undefined" || save)
+                    this.saveGear();
                 this.finalStats();
             },
 
@@ -1047,14 +1127,21 @@
                 return _.get(this.enchants, slot) == id;
             },
 
-            setSocket(slot, item, index) {
-                if (this.isSocketed(slot, item.id, index)) {
+            setSocket(slot, gem, index) {
+                if (this.isSocketed(slot, gem.id, index)) {
                     this.gems[slot].splice(index, 1, null);
                 }
                 else {
-                    if (item.unique && this.isSocketedAnywhere(item.id))
+                    if (gem.unique && this.isSocketedAnywhere(gem.id))
                         return;
-                    this.gems[slot].splice(index, 1, item.id);
+                    this.gems[slot].splice(index, 1, gem.id);
+                }
+
+                var item_id = this.equipped[slot];
+                if (item_id) {
+                    if (!this.item_gems.hasOwnProperty(item_id))
+                        this.item_gems[item_id] = [null, null, null];
+                    this.item_gems[item_id].splice(index, 1, gem.id);
                 }
 
                 this.saveGear();
@@ -1166,6 +1253,27 @@
                     return true;
 
                 return false;
+            },
+
+            canCompare(item) {
+                return !item.sockets || this.item_gems.hasOwnProperty(item.id);
+            },
+
+            isComparing(item) {
+                return _.findIndex(this.item_comparison, {id: item.id}) != -1;
+            },
+
+            compareItem(item) {
+                var index = _.findIndex(this.item_comparison, {id: item.id});
+                if (index == -1)
+                    this.item_comparison.push({id: item.id, dps: null});
+                else
+                    this.item_comparison.splice(index, 1);
+            },
+
+            comparisonDps(item) {
+                var cmp = _.find(this.item_comparison, {id: item.id});
+                return cmp && cmp.dps ? _.round(cmp.dps) : null;
             },
 
             formatStats(item) {
