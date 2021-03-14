@@ -101,7 +101,7 @@
                                         class="item"
                                         :class="[isEquipped(active_slot, item.id) ? 'active' : '']"
                                         v-for="item in activeItems"
-                                        @click="equip(active_slot, item)"
+                                        @click="equipToggle(active_slot, item)"
                                         :key="item.id"
                                     >
                                         <td class="min">
@@ -680,8 +680,7 @@
 
             async runComparisonFor(item_id) {
                 var self = this;
-                if (!this.isEquipped(this.active_slot, item_id))
-                    this.equip(this.active_slot, item_id, false);
+                this.equip(this.active_slot, item_id, false);
 
                 return new Promise((resolve, reject) => {
                     var sim = new SimulationWorkers(self.config.iterations, (result) => {
@@ -1046,7 +1045,26 @@
                 return false;
             },
 
+            equipToggle(slot, item) {
+                if (this.equipped[slot] == item.id)
+                    this.unequip(slot);
+                else
+                    this.equip(slot, item);
+            },
+
+            unequip(slot, save) {
+                this.equipped[slot] = null;
+                this.gems[slot] = [null, null, null];
+
+                this.finalStats();
+                if (typeof(save) == "undefined" || save)
+                    this.saveGear();
+            },
+
             equip(slot, item, save) {
+                if (this.equipped[slot] == item.id)
+                    return;
+
                 if (!_.isObject(item))
                     item = this.getItem(slot, item);
 
@@ -1060,10 +1078,7 @@
                         return;
                 }
 
-                if (this.equipped[slot] == item.id)
-                    this.equipped[slot] = null;
-                else
-                    this.equipped[slot] = item.id;
+                this.equipped[slot] = item.id;
 
                 if (this.item_gems.hasOwnProperty(item.id)) {
                     this.gems[slot] = this.item_gems[item.id];
@@ -1076,9 +1091,9 @@
                     }
                 }
 
+                this.finalStats();
                 if (typeof(save) == "undefined" || save)
                     this.saveGear();
-                this.finalStats();
             },
 
             isEquipped(slot, id) {

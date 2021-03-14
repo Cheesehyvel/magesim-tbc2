@@ -3256,7 +3256,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 self = _this;
-                if (!_this.isEquipped(_this.active_slot, item_id)) _this.equip(_this.active_slot, item_id, false);
+
+                _this.equip(_this.active_slot, item_id, false);
+
                 return _context.abrupt("return", new Promise(function (resolve, reject) {
                   var sim = new _simulation__WEBPACK_IMPORTED_MODULE_1__.SimulationWorkers(self.config.iterations, function (result) {
                     self.is_running = false;
@@ -3610,7 +3612,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return false;
     },
+    equipToggle: function equipToggle(slot, item) {
+      if (this.equipped[slot] == item.id) this.unequip(slot);else this.equip(slot, item);
+    },
+    unequip: function unequip(slot, save) {
+      this.equipped[slot] = null;
+      this.gems[slot] = [null, null, null];
+      this.finalStats();
+      if (typeof save == "undefined" || save) this.saveGear();
+    },
     equip: function equip(slot, item, save) {
+      if (this.equipped[slot] == item.id) return;
       if (!_.isObject(item)) item = this.getItem(slot, item);
 
       if (slot == "weapon") {
@@ -3622,7 +3634,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (this.isEquipped(other, item.id)) return;
       }
 
-      if (this.equipped[slot] == item.id) this.equipped[slot] = null;else this.equipped[slot] = item.id;
+      this.equipped[slot] = item.id;
 
       if (this.item_gems.hasOwnProperty(item.id)) {
         this.gems[slot] = this.item_gems[item.id];
@@ -3635,8 +3647,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
 
-      if (typeof save == "undefined" || save) this.saveGear();
       this.finalStats();
+      if (typeof save == "undefined" || save) this.saveGear();
     },
     isEquipped: function isEquipped(slot, id) {
       if (slot == "trinket" || slot == "finger") return this.isEquipped(slot + "1", id) || this.isEquipped(slot + "2", id);
@@ -22537,7 +22549,7 @@ var render = function() {
                           ],
                           on: {
                             click: function($event) {
-                              return _vm.equip(_vm.active_slot, item)
+                              return _vm.equipToggle(_vm.active_slot, item)
                             }
                           }
                         },
