@@ -1079,8 +1079,12 @@
                 else {
                     this.gems[slot] = [null, null, null];
                     if (item.sockets) {
-                        for (var i in item.sockets)
-                            this.gems[slot][i] = this.items.ids.RUNED_LIVING_RUBY;
+                        for (var i in item.sockets) {
+                            if (item.sockets[i] == "m")
+                                this.gems[slot][i] = this.items.ids.INSIGHTFUL_EARTHSTORM;
+                            else
+                                this.gems[slot][i] = this.items.ids.RUNED_LIVING_RUBY;
+                        }
                         this.item_gems[item.id] = this.gems[slot];
                     }
                 }

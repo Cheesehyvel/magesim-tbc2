@@ -3640,7 +3640,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         if (item.sockets) {
           for (var i in item.sockets) {
-            this.gems[slot][i] = this.items.ids.RUNED_LIVING_RUBY;
+            if (item.sockets[i] == "m") this.gems[slot][i] = this.items.ids.INSIGHTFUL_EARTHSTORM;else this.gems[slot][i] = this.items.ids.RUNED_LIVING_RUBY;
           }
 
           this.item_gems[item.id] = this.gems[slot];
