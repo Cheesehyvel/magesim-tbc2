@@ -642,6 +642,8 @@ public:
             onBuffGain(make_shared<buff::VengeanceIllidari>());
         if (trinket_id == TRINKET_PENDANT_VIOLET_EYE)
             onBuffGain(make_shared<buff::PendantVioletEye>());
+        if (trinket_id == TRINKET_SKULL_GULDAN)
+            onBuffGain(make_shared<buff::SkullGuldan>());
     }
 
     void useArcanePower()

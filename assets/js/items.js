@@ -409,7 +409,7 @@ var quicksets = {
             finger1: 29287,
             finger2: 28753,
             trinket1: 27683,
-            trinket2: 30626,
+            trinket2: 30720,
         },
         enchants: {
             weapon: 46540,
