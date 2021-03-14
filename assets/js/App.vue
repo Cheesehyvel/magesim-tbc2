@@ -105,11 +105,8 @@
                                         :key="item.id"
                                     >
                                         <td class="min">
-                                            <span class="compare" :class="[isComparing(item) ? 'active' : '']" v-if="canCompare(item)" @click.stop="compareItem(item)">
+                                            <span class="compare" :class="[isComparing(item) ? 'active' : '']" @click.stop="compareItem(item)">
                                                 <help icon="e915">Add to comparison</help>
-                                            </span>
-                                            <span class="compare error" v-else>
-                                                <help icon="f08c">Missing gem sockets</help>
                                             </span>
                                         </td>
                                         <td class="title">
@@ -605,14 +602,9 @@
                     islot = slot.substr(0, slot.length-1);
                     i = parseInt(slot.substr(slot.length-1))-1;
                 }
-                data.equipped[slot] = _.get(data.items.equip, islot+"."+i+".id", null);
-                data.enchants[slot] = _.get(data.items.enchants, islot+"."+i+".id", null);
+                data.equipped[slot] = null;
+                data.enchants[slot] = null;
                 data.gems[slot] = [null, null, null];
-
-                if (data.equipped[slot] && data.equipped[slot].sockets) {
-                    for (var j in data.equipped[slot].sockets)
-                        this.gems[slot][j] = this.items.ids.RUNED_LIVING_RUBY;
-                }
             }
 
             data.slots = [...slots, "quicksets"];
@@ -1079,12 +1071,7 @@
                 else {
                     this.gems[slot] = [null, null, null];
                     if (item.sockets) {
-                        for (var i in item.sockets) {
-                            if (item.sockets[i] == "m")
-                                this.gems[slot][i] = this.items.ids.INSIGHTFUL_EARTHSTORM;
-                            else
-                                this.gems[slot][i] = this.items.ids.RUNED_LIVING_RUBY;
-                        }
+                        this.gems[slot] = this.defaultGems(item);
                         this.item_gems[item.id] = this.gems[slot];
                     }
                 }
@@ -1157,8 +1144,11 @@
                     this.equipped[slot] = set.equip[slot];
                 for (var slot in set.enchants)
                     this.enchants[slot] = set.enchants[slot];
-                for (var slot in set.gems)
+                for (var slot in set.gems) {
                     this.gems[slot] = set.gems[slot];
+                    if (this.equipped[slot])
+                        this.item_gems[this.equipped[slot]] = this.gems[slot];
+                }
 
                 this.saveGear();
                 this.finalStats();
@@ -1219,6 +1209,21 @@
                 return null;
             },
 
+            defaultGems(item) {
+                var gems = [null, null, null];
+
+                if (item.sockets) {
+                    for (var i=0; i<item.sockets.length; i++)
+                        gems[i] = this.defaultGem(item.sockets[i]);
+                }
+
+                return gems;
+            },
+
+            defaultGem(color) {
+                return color == "m" ? this.items.ids.INSIGHTFUL_EARTHSTORM : this.items.ids.RUNED_LIVING_RUBY;
+            },
+
             hasTalent(talent) {
                 var indexes = {
                     presence_of_mind: 13,
@@ -1257,10 +1262,6 @@
                     return true;
 
                 return false;
-            },
-
-            canCompare(item) {
-                return !item.sockets || this.item_gems.hasOwnProperty(item.id);
             },
 
             isComparing(item) {
@@ -1397,26 +1398,31 @@
             },
 
             loadGear() {
+                var equipped, enchants, gems;
+
                 var str = window.localStorage.getItem("magesim_tbc_equipped");
                 if (str) {
-                    var equipped = JSON.parse(str);
+                    equipped = JSON.parse(str);
                     if (equipped)
                         _.merge(this.equipped, equipped);
                 }
 
                 var str = window.localStorage.getItem("magesim_tbc_enchants");
                 if (str) {
-                    var enchants = JSON.parse(str);
+                    enchants = JSON.parse(str);
                     if (enchants)
                         _.merge(this.enchants, enchants);
                 }
 
                 var str = window.localStorage.getItem("magesim_tbc_gems");
                 if (str) {
-                    var gems = JSON.parse(str);
+                    gems = JSON.parse(str);
                     if (gems)
                         _.merge(this.gems, gems);
                 }
+
+                if (!equipped)
+                    this.quickset(this.items.quicksets.t5bis);
             },
 
             saveConfig() {
