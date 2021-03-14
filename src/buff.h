@@ -32,6 +32,8 @@ namespace buff
         VENGEANCE_ILLIDARI = 33662,
         ETERNAL_SAGE = 35084,
         SKULL_GULDAN = 40396,
+        SHRUNKEN_HEAD = 43712,
+        NAARU_SLIVER = 45042,
     };
 
 
@@ -409,6 +411,32 @@ namespace buff
             id = SKULL_GULDAN;
             name = "Fel Infusion";
             duration = 20;
+        }
+
+    };
+
+    class ShrunkenHead : public Buff
+    {
+
+    public:
+        ShrunkenHead()
+        {
+            id = SHRUNKEN_HEAD;
+            name = "Mojo Madness";
+            duration = 20;
+        }
+
+    };
+
+    class NaaruSliver : public Buff
+    {
+
+    public:
+        NaaruSliver()
+        {
+            id = NAARU_SLIVER;
+            name = "Power Circle";
+            duration = 15;
         }
 
     };

@@ -527,6 +527,9 @@ public:
     {
         double mana = round(random<double>(1800, 3000));
 
+        if (hasTrinket(TRINKET_SORCERERS_ALCHEMIST_STONE) || hasTrinket(TRINKET_ALCHEMIST_STONE))
+            mana*= 1.4;
+
         onManaGain(mana, "Mana Potion");
         onCooldownGain(make_shared<cooldown::Potion>());
     }
@@ -644,6 +647,10 @@ public:
             onBuffGain(make_shared<buff::PendantVioletEye>());
         if (trinket_id == TRINKET_SKULL_GULDAN)
             onBuffGain(make_shared<buff::SkullGuldan>());
+        if (trinket_id == TRINKET_SHRUNKEN_HEAD)
+            onBuffGain(make_shared<buff::ShrunkenHead>());
+        if (trinket_id == TRINKET_NAARU_SLIVER)
+            onBuffGain(make_shared<buff::NaaruSliver>());
     }
 
     void useArcanePower()
@@ -914,6 +921,10 @@ public:
                 sp+= 130.0;
             if (state->hasBuff(buff::ETERNAL_SAGE))
                 sp+= 95.0;
+            if (state->hasBuff(buff::SHRUNKEN_HEAD))
+                sp+= 211.0;
+            if (state->hasBuff(buff::NAARU_SLIVER))
+                sp+= 320.0;
 
             if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
                 coeff+= player->talents.empowered_arcane_missiles * 0.15;

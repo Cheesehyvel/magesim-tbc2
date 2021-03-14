@@ -127,10 +127,26 @@ var ids = {
   PENDANT_VIOLET_EYE: 28727,
   VENGEANCE_ILLIDARI: 28040,
   ETERNAL_SAGE: 29305,
-  SKULL_GULDAN: 32483
+  SKULL_GULDAN: 32483,
+  SHRUNKEN_HEAD: 33829,
+  SORCERERS_ALCHEMIST_STONE: 35749,
+  ALCHEMIST_STONE: 13503,
+  NAARU_SLIVER: 34429
 };
 var equip = {
   weapon: [{
+    id: 34182,
+    title: "Grand Magister's Staff of Torrents",
+    "int": 52,
+    sp: 266,
+    crit: 49,
+    hit: 50,
+    twohand: true,
+    sockets: ["y", "y", "y"],
+    bonus: {
+      sp: 5
+    }
+  }, {
     id: 32374,
     title: "Zhar'doom, Greatstaff of the Devourer",
     "int": 47,
@@ -138,6 +154,21 @@ var equip = {
     crit: 36,
     haste: 55,
     twohand: true
+  }, {
+    id: 34987,
+    title: "Brutal Gladiator's Battle Staff",
+    "int": 50,
+    sp: 266,
+    crit: 50,
+    hit: 32,
+    twohand: true
+  }, {
+    id: 34336,
+    title: "Sunflare",
+    "int": 20,
+    sp: 292,
+    crit: 30,
+    haste: 23
   }, {
     id: 34540,
     title: "Vengeful Gladiator's Battle Staff",
@@ -154,17 +185,22 @@ var equip = {
     crit: 24,
     hit: 17
   }, {
+    id: 33494,
+    title: "Amani Divining Staff",
+    "int": 47,
+    sp: 217,
+    crit: 31,
+    twohand: true,
+    sockets: ["r", "y", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
     id: 32237,
     title: "The Maelstrom's Fury",
     "int": 21,
     sp: 236,
     crit: 22
-  }, {
-    id: 30095,
-    title: "Fang of the Leviathan",
-    "int": 20,
-    sp: 221,
-    crit: 21
   }, {
     id: 29988,
     title: "The Nexus Key",
@@ -181,6 +217,12 @@ var equip = {
     crit: 42,
     hit: 24
   }, {
+    id: 33763,
+    title: "Vengeful Gladiator's Spellblade",
+    "int": 20,
+    sp: 247,
+    hit: 17
+  }, {
     id: 24557,
     title: "Gladiator's War Staff",
     twohand: true,
@@ -188,6 +230,26 @@ var equip = {
     sp: 199,
     crit: 36,
     hit: 21
+  }, {
+    id: 33467,
+    title: "Blade of Twisted Visions",
+    "int": 21,
+    sp: 229,
+    haste: 21
+  }, {
+    id: 33354,
+    title: "Wub's Cursed Hexblade",
+    "int": 21,
+    sp: 217,
+    crit: 20,
+    hit: 13,
+    mp5: 6
+  }, {
+    id: 30095,
+    title: "Fang of the Leviathan",
+    "int": 20,
+    sp: 221,
+    crit: 21
   }, {
     id: 32053,
     title: "Merciless Gladiator's Spellblade",
@@ -319,6 +381,12 @@ var equip = {
     q: "rare"
   }],
   off_hand: [{
+    id: 34179,
+    title: "Heart of the Pit",
+    "int": 21,
+    sp: 39,
+    haste: 32
+  }, {
     id: 30872,
     title: "Chronicle of Dark Secrets",
     "int": 12,
@@ -331,6 +399,12 @@ var equip = {
     "int": 16,
     sp: 42,
     crit: 24
+  }, {
+    id: 33334,
+    title: "Fetish of the Primal Gods",
+    "int": 17,
+    sp: 37,
+    haste: 17
   }, {
     id: 30049,
     title: "Fathomstone",
@@ -399,11 +473,30 @@ var equip = {
     q: "rare"
   }],
   ranged: [{
+    id: 34347,
+    title: "Wand of the Demonsoul",
+    "int": 10,
+    sp: 22,
+    haste: 18,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
+  }, {
     id: 29982,
     title: "Wand of the Forgotten Star",
     sp: 23,
     crit: 14,
     hit: 11
+  }, {
+    id: 33192,
+    title: "Carved Witch Doctor's Stick",
+    "int": 15,
+    spt: 18,
+    sockets: ["b"],
+    bonus: {
+      sp: 2
+    }
   }, {
     id: 32343,
     title: "Wand of Prismatic Focus",
@@ -465,6 +558,27 @@ var equip = {
     hit: 8
   }],
   head: [{
+    id: 33829,
+    title: "Dark Conjuror's Collar",
+    "int": 42,
+    sp: 75,
+    crit: 38,
+    haste: 30,
+    sockets: ["m", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 34847,
+    title: "Annihilator Holo-Gogs",
+    "int": 37,
+    sp: 81,
+    crit: 42,
+    sockets: ["m", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
     id: 32525,
     title: "Cowl of the Illidari High Lord",
     "int": 31,
@@ -472,6 +586,28 @@ var equip = {
     crit: 47,
     hit: 21,
     sockets: ["m", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 34405,
+    title: "Helm of Arcane Purity",
+    "int": 42,
+    spi: 38,
+    sp: 75,
+    crit: 30,
+    sockets: ["m", "r"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 33453,
+    title: "Hood of Hexing",
+    "int": 33,
+    sp: 56,
+    crit: 24,
+    hit: 31,
+    sockets: ["r", "y", "b"],
     bonus: {
       sp: 5
     }
@@ -507,16 +643,6 @@ var equip = {
     hit: 16,
     sockets: ["b", "y", "r"]
   }, {
-    id: 32494,
-    title: "Destruction Holo-gogs",
-    "int": 24,
-    sp: 64,
-    crit: 29,
-    sockets: ["m", "b"],
-    bonus: {
-      sp: 5
-    }
-  }, {
     id: 29986,
     title: "Cowl of the Grand Engineer",
     "int": 27,
@@ -527,6 +653,23 @@ var equip = {
     bonus: {
       sp: 5
     }
+  }, {
+    id: 32494,
+    title: "Destruction Holo-gogs",
+    "int": 24,
+    sp: 64,
+    crit: 29,
+    sockets: ["m", "b"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 35097,
+    title: "Brutal Gladiator's Silk Cowl",
+    "int": 29,
+    sp: 54,
+    crit: 30,
+    sockets: ["m", "r"]
   }, {
     id: 29076,
     title: "Collar of the Aldor",
@@ -628,11 +771,59 @@ var equip = {
     hit: 8
   }],
   neck: [{
+    id: 34359,
+    title: "Pendant of Sunfire",
+    "int": 19,
+    sp: 34,
+    crit: 25,
+    haste: 25,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
+  }, {
+    id: 34204,
+    title: "Amulet of Unfettered Magics",
+    "int": 17,
+    sp: 39,
+    hit: 15,
+    haste: 32
+  }, {
     id: 32349,
     title: "Translucent Spellthread Necklace",
     sp: 46,
     crit: 24,
     hit: 15
+  }, {
+    id: 33281,
+    title: "Brooch of Nature's Mercy",
+    "int": 24,
+    spi: 19,
+    sp: 25,
+    haste: 33
+  }, {
+    id: 37928,
+    title: "Guardian's Pendant of Subjugation",
+    "int": 18,
+    sp: 28,
+    haste: 24,
+    sockets: ["y"]
+  }, {
+    id: 35290,
+    title: "Sin'dorei Pendant of Conquest",
+    "int": 19,
+    sp: 34,
+    crit: 19,
+    sockets: ["b"],
+    bonus: {
+      sp: 2
+    }
+  }, {
+    id: 33466,
+    title: "Loop of Cursed Bones",
+    "int": 20,
+    sp: 32,
+    haste: 27
   }, {
     id: 30015,
     title: "The Sun King's Talisman",
@@ -717,6 +908,28 @@ var equip = {
     sp: 34
   }],
   shoulder: [{
+    id: 34210,
+    title: "Amice of the Convoker",
+    "int": 28,
+    sp: 53,
+    crit: 22,
+    haste: 30,
+    sockets: ["r", "y"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 34393,
+    title: "Shoulderpads of Knowledge's Pursuit",
+    "int": 33,
+    spi: 22,
+    sp: 53,
+    crit: 26,
+    sockets: ["r", "y"],
+    bonus: {
+      sp: 4
+    }
+  }, {
     id: 30884,
     title: "Hatefury Mantle",
     "int": 18,
@@ -764,6 +977,13 @@ var equip = {
       sp: 4
     }
   }, {
+    id: 35096,
+    title: "Brutal Gladiator's Silk Amice",
+    "int": 18,
+    sp: 44,
+    crit: 21,
+    sockets: ["b", "y"]
+  }, {
     id: 30079,
     title: "Illidari Shoulderpads",
     "int": 23,
@@ -781,6 +1001,12 @@ var equip = {
     sp: 39,
     crit: 25,
     hit: 18
+  }, {
+    id: 33489,
+    title: "Mantle of Ill Intent",
+    "int": 24,
+    sp: 40,
+    haste: 33
   }, {
     id: 33757,
     title: "Vengeful Gladiator's Silk Amice",
@@ -848,6 +1074,16 @@ var equip = {
     crit: 14
   }],
   back: [{
+    id: 34242,
+    title: "Tattered Cape of Antonidas",
+    "int": 26,
+    sp: 42,
+    haste: 32,
+    sockets: ["r"],
+    bonus: {
+      sp: 2
+    }
+  }, {
     id: 32331,
     title: "Cloak of the Illidari Council",
     "int": 16,
@@ -859,6 +1095,12 @@ var equip = {
     "int": 23,
     sp: 23,
     haste: 23
+  }, {
+    id: 33591,
+    title: "Shadowcaster's Drape",
+    "int": 20,
+    sp: 27,
+    haste: 25
   }, {
     id: 29992,
     title: "Royal Cloak of the Sunstriders",
@@ -881,6 +1123,12 @@ var equip = {
     title: "Brute Cloak of the Ogre-Magi",
     "int": 18,
     sp: 36
+  }, {
+    id: 33592,
+    title: "Cloak of Ancient Rituals",
+    "int": 20,
+    sp: 17,
+    haste: 25
   }, {
     id: 23050,
     title: "Cloak of the Necropolis",
@@ -930,6 +1178,40 @@ var equip = {
     q: "rare"
   }],
   chest: [{
+    id: 34364,
+    title: "Sunfire Robe",
+    "int": 34,
+    sp: 71,
+    crit: 40,
+    haste: 40,
+    sockets: ["r", "r", "r"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 34399,
+    title: "Robes of Ghostly Hatred",
+    "int": 40,
+    spi: 32,
+    sp: 71,
+    crit: 26,
+    haste: 27,
+    sockets: ["r", "r", "y"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 34232,
+    title: "Fel Conquerer Raiments",
+    "int": 41,
+    sp: 71,
+    crit: 24,
+    haste: 33,
+    sockets: ["r", "y", "y"],
+    bonus: {
+      sp: 5
+    }
+  }, {
     id: 31057,
     itemset: ids.TEMPEST_SET,
     title: "Robes of the Tempest",
@@ -995,6 +1277,13 @@ var equip = {
     spi: 26,
     sp: 73,
     crit: 28
+  }, {
+    id: 33317,
+    title: "Robe of Departed Spirits",
+    "int": 31,
+    spi: 30,
+    sp: 54,
+    haste: 35
   }, {
     id: 33760,
     title: "Vengeful Gladiator's Silk Raiment",
@@ -1114,6 +1403,19 @@ var equip = {
     hit: 8
   }],
   wrist: [{
+    id: 34447,
+    itemset: ids.TEMPEST_SET,
+    title: "Bracers of the Tempest",
+    "int": 17,
+    spi: 14,
+    sp: 39,
+    crit: 11,
+    haste: 26,
+    sockets: ["r"],
+    bonus: {
+      sp: 2
+    }
+  }, {
     id: 32586,
     title: "Bracers of Nimble Thought",
     "int": 20,
@@ -1134,6 +1436,17 @@ var equip = {
     sp: 42,
     hit: 19
   }, {
+    id: 33285,
+    title: "Fury of the Ursine",
+    "int": 17,
+    spi: 16,
+    sp: 29,
+    crit: 17,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
+  }, {
     id: 33913,
     title: "Vindicator's Silk Cuffs",
     "int": 22,
@@ -1143,6 +1456,12 @@ var equip = {
     bonus: {
       sp: 2
     }
+  }, {
+    id: 33588,
+    title: "Runed Spell-cuffs",
+    "int": 18,
+    sp: 29,
+    haste: 25
   }, {
     id: 29918,
     title: "Mindstorm Wristbands",
@@ -1226,6 +1545,38 @@ var equip = {
     crit: 14
   }],
   hands: [{
+    id: 34344,
+    title: "Handguards of Defiled Worlds",
+    "int": 32,
+    sp: 47,
+    hit: 27,
+    haste: 36,
+    sockets: ["y", "r"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 34406,
+    title: "Gloves of Tyri's Power",
+    "int": 32,
+    spi: 27,
+    sp: 47,
+    haste: 36,
+    sockets: ["y", "r"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 34366,
+    title: "Sunfire Handwraps",
+    "int": 30,
+    sp: 53,
+    crit: 37,
+    sockets: ["r", "r"],
+    bonus: {
+      sp: 4
+    }
+  }, {
     id: 31055,
     itemset: ids.TEMPEST_SET,
     title: "Gloves of the Tempest",
@@ -1256,12 +1607,32 @@ var equip = {
     crit: 23,
     sockets: ["y", "b"]
   }, {
+    id: 33586,
+    title: "Studious Wraps",
+    "int": 22,
+    sp: 40,
+    crit: 25,
+    sockets: ["r", "b"],
+    bonus: {
+      sp: 4
+    }
+  }, {
     id: 29987,
     title: "Gauntlets of the Sun King",
     "int": 29,
     spi: 20,
     sp: 42,
     crit: 28
+  }, {
+    id: 34808,
+    title: "Gloves of Arcane Acuity",
+    "int": 20,
+    sp: 34,
+    hit: 18,
+    sockets: ["b", "r"],
+    bonus: {
+      sp: 4
+    }
   }, {
     id: 28780,
     title: "Soul-Eater's Handwraps",
@@ -1300,6 +1671,12 @@ var equip = {
     sp: 35,
     crit: 19,
     hit: 17
+  }, {
+    id: 35098,
+    title: "Brutal Gladiator's Silk Handguards",
+    "int": 23,
+    sp: 44,
+    crit: 26
   }, {
     id: 33759,
     title: "Vengeful Gladiator's Silk Handguards",
@@ -1368,6 +1745,20 @@ var equip = {
     q: "rare"
   }],
   waist: [{
+    id: 34557,
+    itemset: ids.TEMPEST_SET,
+    title: "Belt of the Tempest",
+    "int": 29,
+    spi: 20,
+    sp: 50,
+    crit: 17,
+    hit: 14,
+    haste: 29,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
+  }, {
     id: 30038,
     title: "Belt of Blasting",
     sp: 50,
@@ -1410,6 +1801,13 @@ var equip = {
     sp: 56,
     haste: 32
   }, {
+    id: 33291,
+    title: "Voodoo-woven Belt",
+    "int": 22,
+    sp: 40,
+    crit: 33,
+    hit: 17
+  }, {
     id: 24256,
     title: "Girdle of Ruination",
     "int": 13,
@@ -1418,6 +1816,12 @@ var equip = {
     sockets: ["r", "y"]
   }, {
     id: 28799,
+    title: "Vindicator's Silk Belt",
+    "int": 30,
+    sp: 35,
+    crit: 28
+  }, {
+    id: 33912,
     title: "Belt of Divine Inspiration",
     "int": 26,
     sp: 43,
@@ -1495,6 +1899,28 @@ var equip = {
     crit: 14
   }],
   legs: [{
+    id: 34181,
+    title: "Leggings of Calamity",
+    "int": 41,
+    sp: 71,
+    crit: 33,
+    haste: 32,
+    sockets: ["r", "r", "y"],
+    bonus: {
+      sp: 5
+    }
+  }, {
+    id: 34386,
+    title: "Pantaloons of Growing Strife",
+    "int": 36,
+    spi: 25,
+    sp: 71,
+    haste: 42,
+    sockets: ["r", "y", "y"],
+    bonus: {
+      sp: 5
+    }
+  }, {
     id: 30916,
     title: "Leggings of Channeled Elements",
     "int": 28,
@@ -1525,9 +1951,30 @@ var equip = {
     "int": 42,
     sp: 60,
     hit: 26,
+    sockets: ["y", "b"],
+    bonus: {
+      sp: 4
+    }
+  }, {
+    id: 34937,
+    title: "Corrupted Soulcloth Pantaloons",
+    "int": 33,
+    sp: 61,
+    crit: 43,
     sockets: ["y", "y", "b"],
     bonus: {
       sp: 5
+    }
+  }, {
+    id: 34918,
+    title: "Legwraps of Sweltering Flame",
+    "int": 36,
+    spi: 30,
+    sp: 62,
+    hit: 25,
+    sockets: ["y", "b"],
+    bonus: {
+      sp: 4
     }
   }, {
     id: 30207,
@@ -1562,6 +2009,12 @@ var equip = {
     bonus: {
       sp: 5
     }
+  }, {
+    id: 33584,
+    title: "Pantaloons of Arcane Annihilation",
+    "int": 35,
+    sp: 54,
+    haste: 45
   }, {
     id: 29972,
     title: "Trousers of the Astromancer",
@@ -1672,6 +2125,20 @@ var equip = {
     q: "rare"
   }],
   feet: [{
+    id: 34574,
+    itemset: ids.TEMPEST_SET,
+    title: "Boots of the Tempest",
+    "int": 29,
+    spi: 20,
+    sp: 50,
+    crit: 20,
+    hit: 15,
+    haste: 25,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    }
+  }, {
     id: 32239,
     title: "Slippers of the Seacaller",
     "int": 18,
@@ -1681,6 +2148,17 @@ var equip = {
     sockets: ["y", "b"],
     bonus: {
       sp: 4
+    }
+  }, {
+    id: 34919,
+    title: "Boots of Incantations",
+    "int": 26,
+    spi: 23,
+    sp: 47,
+    hit: 17,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
     }
   }, {
     id: 30894,
@@ -1701,6 +2179,12 @@ var equip = {
     sp: 39,
     crit: 25,
     hit: 18
+  }, {
+    id: 33357,
+    title: "Footpads of Madness",
+    "int": 22,
+    sp: 50,
+    haste: 25
   }, {
     id: 28517,
     title: "Boots of Foretelling",
@@ -1802,6 +2286,27 @@ var equip = {
     sp: 34
   }],
   finger: [{
+    id: 34362,
+    title: "Loop of Forged Power",
+    "int": 28,
+    sp: 34,
+    hit: 19,
+    haste: 30
+  }, {
+    id: 34230,
+    title: "Ring of Omnipotence",
+    "int": 14,
+    sp: 40,
+    crit: 22,
+    haste: 31
+  }, {
+    id: 33497,
+    title: "Mana Attuned Band",
+    "int": 19,
+    sp: 34,
+    hit: 18,
+    haste: 29
+  }, {
     id: 32527,
     title: "Ring of Ancient Knowledge",
     "int": 20,
@@ -1814,17 +2319,40 @@ var equip = {
     crit: 29,
     hit: 19
   }, {
+    id: 34889,
+    title: "Fused Nethergon Band",
+    "int": 19,
+    sp: 35,
+    hit: 28
+  }, {
     id: ids.ETERNAL_SAGE,
     title: "Band of the Eternal Sage",
     "int": 25,
     sp: 34,
     crit: 24
   }, {
+    id: 33498,
+    title: "Signet of the Quiet Forest",
+    "int": 17,
+    sp: 21,
+    haste: 30,
+    mp5: 8
+  }, {
     id: 29287,
     title: "Violet Signet of the Archmage",
     "int": 23,
     sp: 29,
     crit: 17
+  }, {
+    id: 33293,
+    title: "Signet of Ancient Magics",
+    "int": 17,
+    sp: 29,
+    mp5: 10,
+    sockets: ["b"],
+    bonus: {
+      sp: 2
+    }
   }, {
     id: 28753,
     title: "Ring of Recurrence",
@@ -1942,6 +2470,15 @@ var equip = {
     q: "rare"
   }],
   trinket: [{
+    id: ids.SORCERERS_ALCHEMIST_STONE,
+    title: "Sorcerer's Alchemist Stone",
+    sp: 63
+  }, {
+    id: ids.NAARU_SLIVER,
+    title: "Shifting Naaru Sliver",
+    haste: 54,
+    use: true
+  }, {
     id: ids.SKULL_GULDAN,
     title: "The Skull of Gul'dan",
     sp: 55,
@@ -1961,6 +2498,11 @@ var equip = {
     title: "Serpent-Coil Braid",
     crit: 30,
     hit: 12
+  }, {
+    id: ids.SHRUNKEN_HEAD,
+    title: "Hex Shrunken Head",
+    sp: 53,
+    use: true
   }, {
     id: ids.SILVER_CRESCENT,
     title: "Icon of the Silver Crescent",
@@ -1983,6 +2525,10 @@ var equip = {
   }, {
     id: ids.LIGHTNING_CAPACITOR,
     title: "The Lightning Capacitor"
+  }, {
+    id: 35327,
+    title: "Battlemaster's Alacrity",
+    haste: 40
   }, {
     id: 34579,
     title: "Battlemaster's Audacity",
