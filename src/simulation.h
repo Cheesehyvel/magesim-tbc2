@@ -871,6 +871,9 @@ public:
         if (spell->id == spell::ARCANE_BLAST && config->tirisfal_2set)
             multi*= 1.2;
 
+        if ((spell->id == spell::ARCANE_MISSILES || spell->id == spell::FROSTBOLT) && config->tempest_4set)
+            multi*= 1.05;
+
         return multi;
     }
 
