@@ -155,6 +155,8 @@ public:
             stats.spell_power_arcane+= 80.0;
         if (config->battle_elixir == ELIXIR_ADEPTS)
             stats.spell_power+= 24.0;
+        if (config->battle_elixir == ELIXIR_GREATER_ARCANE)
+            stats.spell_power+= 35.0;
 
         // Spell crit
         double critrating = 0;

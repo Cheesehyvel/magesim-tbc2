@@ -859,7 +859,7 @@
                     stats.intellect+= 40;
                 if (this.config.divine_spirit)
                     stats.spirit+= 40;
-                if (this.config.elixir_of_draenic_wisdom) {
+                if (this.config.guardian_elixir == this.elixirs.ELIXIR_DRAENIC_WISDOM) {
                     stats.intellect+= 30;
                     stats.spirit+= 30;
                 }
@@ -867,7 +867,7 @@
                     stats.intellect+= 18;
                     stats.spirit+= 18;
                 }
-                if (this.config.spell_dmg_food || this.config.spell_crit_food)
+                if (this.config.food == this.foods.FOOD_SPELL_POWER || this.config.food == this.foods.FOOD_SPELL_CRIT)
                     stats.spirit+= 20;
 
                 // Attribute multipliers
@@ -886,6 +886,12 @@
                 stats.intellect = Math.round(stats.intellect);
                 stats.spirit = Math.round(stats.spirit);
 
+                // Mp5
+                if (config.guardian_elixir == this.elixirs.ELIXIR_MAJOR_MAGEBLOOD)
+                    stats.mp5+= 16;
+                if (config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_MANA)
+                    stats.mp5+= 14;
+
                 // Spell power
                 var int_multi = 0;
                 if (x = this.hasTalent("mind_mastery"))
@@ -899,9 +905,11 @@
                     stats.spell_power+= stats.spirit*0.1;
                 if (this.config.wrath_of_air)
                     stats.spell_power+= 102;
-                if (this.config.brilliant_wizard_oil)
+                if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD)
                     stats.spell_power+= 36;
-                if (this.config.spell_dmg_food)
+                if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_WIZARD)
+                    stats.spell_power+= 42;
+                if (this.config.food == this.foods.FOOD_SPELL_POWER)
                     stats.spell_power+= 23;
                 if (this.config.flask == this.flasks.FLASK_SUPREME_POWER)
                     stats.spell_power+= 70;
@@ -909,6 +917,8 @@
                     stats.spell_power_arcane+= 80;
                 if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS)
                     stats.spell_power+= 24;
+                if (this.config.battle_elixir == this.elixirs.ELIXIR_GREATER_ARCANE)
+                    stats.spell_power+= 35;
 
                 // Spell crit
                 var critrating = 0;

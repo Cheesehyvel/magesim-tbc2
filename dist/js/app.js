@@ -4012,7 +4012,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.config.arcane_intellect) stats.intellect += 40;
       if (this.config.divine_spirit) stats.spirit += 40;
 
-      if (this.config.elixir_of_draenic_wisdom) {
+      if (this.config.guardian_elixir == this.elixirs.ELIXIR_DRAENIC_WISDOM) {
         stats.intellect += 30;
         stats.spirit += 30;
       }
@@ -4022,7 +4022,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         stats.spirit += 18;
       }
 
-      if (this.config.spell_dmg_food || this.config.spell_crit_food) stats.spirit += 20; // Attribute multipliers
+      if (this.config.food == this.foods.FOOD_SPELL_POWER || this.config.food == this.foods.FOOD_SPELL_CRIT) stats.spirit += 20; // Attribute multipliers
 
       if (x = this.hasTalent("arcane_mind")) stats.intellect *= 1.0 + x * 0.03;
       if (this.config.race == this.races.RACE_GNOME) stats.intellect *= 1.05;
@@ -4035,7 +4035,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (this.metaGem() && this.metaGem().id == this.items.ids.EMBER_SKYFIRE) stats.intellect *= 1.02;
       stats.intellect = Math.round(stats.intellect);
-      stats.spirit = Math.round(stats.spirit); // Spell power
+      stats.spirit = Math.round(stats.spirit); // Mp5
+
+      if (config.guardian_elixir == this.elixirs.ELIXIR_MAJOR_MAGEBLOOD) stats.mp5 += 16;
+      if (config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_MANA) stats.mp5 += 14; // Spell power
 
       var int_multi = 0;
       if (x = this.hasTalent("mind_mastery")) int_multi += x * 0.05;
@@ -4043,11 +4046,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (int_multi > 0) stats.spell_power += Math.round(stats.intellect * int_multi);
       if (this.config.improved_divine_spirit) stats.spell_power += stats.spirit * 0.1;
       if (this.config.wrath_of_air) stats.spell_power += 102;
-      if (this.config.brilliant_wizard_oil) stats.spell_power += 36;
-      if (this.config.spell_dmg_food) stats.spell_power += 23;
+      if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD) stats.spell_power += 36;
+      if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_WIZARD) stats.spell_power += 42;
+      if (this.config.food == this.foods.FOOD_SPELL_POWER) stats.spell_power += 23;
       if (this.config.flask == this.flasks.FLASK_SUPREME_POWER) stats.spell_power += 70;
       if (this.config.flask == this.flasks.FLASK_BLINDING_LIGHT) stats.spell_power_arcane += 80;
-      if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) stats.spell_power += 24; // Spell crit
+      if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) stats.spell_power += 24;
+      if (this.config.battle_elixir == this.elixirs.ELIXIR_GREATER_ARCANE) stats.spell_power += 35; // Spell crit
 
       var critrating = 0;
       if (this.config.judgement_of_the_crusader) stats.crit += 3;
