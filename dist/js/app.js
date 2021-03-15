@@ -3803,7 +3803,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         "2": false,
         "3": true,
         "4": true,
-        "5": true
+        "5": true,
+        "6": true
       },
       config: {
         iterations: 10000,
