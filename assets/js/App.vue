@@ -1435,6 +1435,8 @@
                     stats.push(item.hit+" hit");
                 if (item.crit)
                     stats.push(item.crit+" crit");
+                if (item.haste)
+                    stats.push(item.haste+" haste");
                 if (item.int)
                     stats.push(item.int+" int");
                 if (item.spi)

@@ -2643,6 +2643,12 @@ var gems = [{
   color: "r",
   sp: 9
 }, {
+  id: 35760,
+  title: "Reckless Pyrestone",
+  color: "o",
+  sp: 6,
+  haste: 5
+}, {
   id: 32221,
   title: "Veiled Pyrestone",
   color: "o",
@@ -2704,6 +2710,11 @@ var gems = [{
   color: "y",
   crit: 12,
   unique: true
+}, {
+  id: 35761,
+  title: "Quick Lionseye",
+  color: "y",
+  haste: 10
 }, {
   id: 32210,
   title: "Great Lionseye",
@@ -4558,6 +4569,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (item.sp) stats.push(item.sp + " sp");
       if (item.hit) stats.push(item.hit + " hit");
       if (item.crit) stats.push(item.crit + " crit");
+      if (item.haste) stats.push(item.haste + " haste");
       if (item["int"]) stats.push(item["int"] + " int");
       if (item.spi) stats.push(item.spi + " spi");
       if (item.desc) stats.push(item.desc);
