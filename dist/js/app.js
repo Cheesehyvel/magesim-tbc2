@@ -4098,7 +4098,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         haste: 0,
         spell_power: 0,
         spell_power_arcane: 0,
-        spell_power_frost: 0
+        spell_power_frost: 0,
+        spell_power_fire: 0
       };
 
       if (this.config.race == "RACE_TROLL") {
@@ -4190,6 +4191,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       stats.spell_power += item_stats.sp;
       stats.spell_power_arcane += item_stats.sp_arcane;
       stats.spell_power_frost += item_stats.sp_frost;
+      stats.spell_power_fire += item_stats.sp_fire;
       stats.crit += this.critRatingToChance(item_stats.crit);
       stats.hit += this.hitRatingToChance(item_stats.hit);
       stats.haste += this.hasteRatingToHaste(item_stats.haste);
