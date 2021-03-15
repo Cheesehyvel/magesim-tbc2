@@ -887,9 +887,9 @@
                 stats.spirit = Math.round(stats.spirit);
 
                 // Mp5
-                if (config.guardian_elixir == this.elixirs.ELIXIR_MAJOR_MAGEBLOOD)
+                if (this.config.guardian_elixir == this.elixirs.ELIXIR_MAJOR_MAGEBLOOD)
                     stats.mp5+= 16;
-                if (config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_MANA)
+                if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_MANA)
                     stats.mp5+= 14;
 
                 // Spell power

@@ -4037,8 +4037,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       stats.intellect = Math.round(stats.intellect);
       stats.spirit = Math.round(stats.spirit); // Mp5
 
-      if (config.guardian_elixir == this.elixirs.ELIXIR_MAJOR_MAGEBLOOD) stats.mp5 += 16;
-      if (config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_MANA) stats.mp5 += 14; // Spell power
+      if (this.config.guardian_elixir == this.elixirs.ELIXIR_MAJOR_MAGEBLOOD) stats.mp5 += 16;
+      if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_MANA) stats.mp5 += 14; // Spell power
 
       var int_multi = 0;
       if (x = this.hasTalent("mind_mastery")) int_multi += x * 0.05;
