@@ -38,6 +38,8 @@ namespace buff
         DRUMS_OF_BATTLE = 35476,
         DRUMS_OF_WAR = 35475,
         DRUMS_OF_RESTORATION = 35478,
+        DESTRUCTION_POTION = 28508,
+        FLAME_CAP = 28714,
     };
 
 
@@ -494,6 +496,32 @@ namespace buff
             id = DRUMS_OF_RESTORATION;
             name = "Drums of Restoration";
             duration = 30;
+        }
+
+    };
+
+    class DestructionPotion : public Buff
+    {
+
+    public:
+        DestructionPotion()
+        {
+            id = DESTRUCTION_POTION;
+            name = "Destruction";
+            duration = 15;
+        }
+
+    };
+
+    class FlameCap : public Buff
+    {
+
+    public:
+        FlameCap()
+        {
+            id = FLAME_CAP;
+            name = "Flame Cap";
+            duration = 60;
         }
 
     };

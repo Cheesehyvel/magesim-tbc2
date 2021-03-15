@@ -5,7 +5,7 @@ namespace cooldown
     {
         NONE = 0,
         POTION = 1,
-        MANA_GEM = 2,
+        CONJURED = 2,
         TRINKET1 = 3,
         TRINKET2 = 4,
         EVOCATION = 12051,
@@ -51,13 +51,13 @@ namespace cooldown
 
     };
 
-    class ManaGem : public Cooldown
+    class Conjured : public Cooldown
     {
 
     public:
-        ManaGem()
+        Conjured()
         {
-            id = MANA_GEM;
+            id = CONJURED;
             duration = 120;
         }
 

@@ -45,6 +45,10 @@ onmessage = (event) => {
                 config.food = m.Food.values[data.config.food];
             if (m.Drums.values.hasOwnProperty(data.config.drums))
                 config.drums = m.Drums.values[data.config.drums];
+            if (m.Potion.values.hasOwnProperty(data.config.potion))
+                config.potion = m.Potion.values[data.config.potion];
+            if (m.Conjured.values.hasOwnProperty(data.config.conjured))
+                config.conjured = m.Conjured.values[data.config.conjured];
 
             var player = m.allocPlayer(config);
             var stats = JSON.parse(JSON.stringify(player.stats));

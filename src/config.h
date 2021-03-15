@@ -30,6 +30,8 @@ struct Config
     Elixir guardian_elixir;
     WeaponOil weapon_oil;
     Drums drums;
+    Potion potion;
+    Conjured conjured;
 
     bool tirisfal_2set = true;
     bool tirisfal_4set = true;
@@ -60,5 +62,7 @@ struct Config
     double presence_of_mind_at = 0;
     double combustion_at = 0;
     double drums_at = 1;
+    double potion_at = 21;
+    double conjured_at = 21;
 
 };

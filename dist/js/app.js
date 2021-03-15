@@ -3693,6 +3693,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3751,6 +3775,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         OIL_SUPERIOR_WIZARD: 22522,
         OIL_SUPERIOR_MANA: 22521
       },
+      potions: {
+        POTION_NONE: 0,
+        POTION_MANA: 22832,
+        POTION_DESTRUCTION: 22839
+      },
+      conjureds: {
+        CONJURED_NONE: 0,
+        CONJURED_MANA_GEM: 22044,
+        CONJURED_FLAME_CAP: 22788
+      },
       items: _items__WEBPACK_IMPORTED_MODULE_2__.default,
       equipped: {},
       enchants: {},
@@ -3801,6 +3835,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         guardian_elixir: 0,
         weapon_oil: 0,
         drums: 0,
+        potion: 22832,
+        conjured: 22044,
         tirisfal_2set: true,
         tirisfal_4set: true,
         tempest_2set: false,
@@ -3827,6 +3863,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         arcane_power_at: 1,
         presence_of_mind_at: 0,
         drums_at: 1,
+        potion_at: 21,
+        conjured_at: 21,
         talents: "2500250300030150330125000000000000000000000000535000310030010000000",
         stats: {
           intellect: 465,
@@ -25489,6 +25527,126 @@ var render = function() {
                         )
                       ]
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Potion")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.potion,
+                            expression: "config.potion"
+                          }
+                        ],
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.config,
+                              "potion",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.potions.POTION_NONE } },
+                          [_vm._v("None")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.potions.POTION_MANA } },
+                          [_vm._v("Mana potion")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            domProps: { value: _vm.potions.POTION_DESTRUCTION }
+                          },
+                          [_vm._v("Destruction potion")]
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Conjured")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.conjured,
+                            expression: "config.conjured"
+                          }
+                        ],
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.config,
+                              "conjured",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.conjureds.CONJURED_NONE } },
+                          [_vm._v("None")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            domProps: { value: _vm.conjureds.CONJURED_MANA_GEM }
+                          },
+                          [_vm._v("Mana Emerald")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            domProps: {
+                              value: _vm.conjureds.CONJURED_FLAME_CAP
+                            }
+                          },
+                          [_vm._v("Flame Cap")]
+                        )
+                      ]
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -25659,6 +25817,78 @@ var render = function() {
                               _vm.$set(
                                 _vm.config,
                                 "combustion_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.config.potion &&
+                  _vm.config.potion != _vm.potions.POTION_MANA
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Potion at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.potion_at,
+                              expression: "config.potion_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.potion_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "potion_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.config.conjured &&
+                  _vm.config.conjured != _vm.conjureds.POTION_MANA
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Conjured at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.conjured_at,
+                              expression: "config.conjured_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.conjured_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "conjured_at",
                                 _vm._n($event.target.value)
                               )
                             },

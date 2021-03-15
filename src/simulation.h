@@ -628,7 +628,7 @@ public:
             mana*= 1.25;
 
         onManaGain(mana, "Mana Gem");
-        onCooldownGain(make_shared<cooldown::ManaGem>());
+        onCooldownGain(make_shared<cooldown::Conjured>());
 
         if (hasTrinket(TRINKET_SERPENT_COIL))
             onBuffGain(make_shared<buff::SerpentCoil>());
@@ -745,6 +745,10 @@ public:
             useTrinket(config->trinket2, cooldown::TRINKET2);
         if (state->t >= config->drums_at && !state->hasCooldown(cooldown::DRUMS))
             useDrums();
+        if (state->t >= config->potion_at && !state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA)
+            usePotion();
+        if (state->t >= config->conjured_at && !state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE && config->conjured != CONJURED_MANA_GEM)
+            useConjured();
     }
 
     void useTrinket(Trinket trinket_id, cooldown::ID cd)
@@ -784,6 +788,26 @@ public:
             onBuffGain(make_shared<buff::DrumsOfWar>());
         else if (config->drums == DRUMS_OF_RESTORATION)
             onBuffGain(make_shared<buff::DrumsOfRestoration>());
+    }
+
+    void usePotion()
+    {
+        if (config->potion == POTION_DESTRUCTION)
+            onBuffGain(make_shared<buff::DestructionPotion>());
+        else
+            return;
+
+        onCooldownGain(make_shared<cooldown::Potion>());
+    }
+
+    void useConjured()
+    {
+        if (config->conjured == CONJURED_FLAME_CAP)
+            onBuffGain(make_shared<buff::FlameCap>());
+        else
+            return;
+
+        onCooldownGain(make_shared<cooldown::Conjured>());
     }
 
     void useArcanePower()
@@ -999,6 +1023,8 @@ public:
             crit+= player->talents.arcane_potency*10.0;
         if (state->hasBuff(buff::COMBUSTION) && spell->school == SCHOOL_FIRE)
             crit+= state->buffStacks(buff::COMBUSTION)*10.0;
+        if (state->hasBuff(buff::DESTRUCTION_POTION))
+            crit+= 2.0;
 
         if (spell->school == SCHOOL_FIRE && player->talents.critical_mass)
             crit+= player->talents.critical_mass*2.0;
@@ -1086,6 +1112,9 @@ public:
             if (spell->school == SCHOOL_FIRE)
                 sp+= player->stats.spell_power_fire;
 
+            if (spell->school == SCHOOL_FIRE && state->hasBuff(buff::FLAME_CAP))
+                sp+= 80.0;
+
             if (state->hasBuff(buff::ARCANE_MADNESS))
                 sp+= 70.0;
             if (state->hasBuff(buff::SILVER_CRESCENT))
@@ -1112,6 +1141,8 @@ public:
                 sp+= 320.0;
             if (state->hasBuff(buff::DRUMS_OF_WAR))
                 sp+= 30.0;
+            if (state->hasBuff(buff::DESTRUCTION_POTION))
+                sp+= 120.0;
 
             if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
                 coeff+= player->talents.empowered_arcane_missiles * 0.15;
@@ -1182,7 +1213,7 @@ public:
         if (!state->innervates || state->hasBuff(buff::INNERVATE))
             return false;
 
-        if (manaPercent() < 70.0 && state->hasCooldown(cooldown::POTION) && state->hasCooldown(cooldown::MANA_GEM))
+        if (manaPercent() < 70.0 && state->hasCooldown(cooldown::POTION) && state->hasCooldown(cooldown::CONJURED))
             return true;
 
         if (manaPercent() < 30.0)
@@ -1207,7 +1238,7 @@ public:
 
     bool shouldUseManaGem()
     {
-        if (state->hasCooldown(cooldown::MANA_GEM) || state->hasBuff(buff::INNERVATE))
+        if (config->conjured != CONJURED_MANA_GEM || state->hasCooldown(cooldown::CONJURED) || state->hasBuff(buff::INNERVATE))
             return false;
 
         double max = 0;
@@ -1229,7 +1260,7 @@ public:
 
     bool shouldUseManaPotion()
     {
-        if (state->hasCooldown(cooldown::POTION) || !state->hasCooldown(cooldown::MANA_GEM) || state->hasBuff(buff::INNERVATE))
+        if (config->potion != POTION_MANA || state->hasCooldown(cooldown::POTION) || !state->hasCooldown(cooldown::CONJURED) || state->hasBuff(buff::INNERVATE))
             return false;
 
         double max = 3000;

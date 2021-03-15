@@ -109,6 +109,16 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("OIL_SUPERIOR_WIZARD", OIL_SUPERIOR_WIZARD)
         .value("OIL_SUPERIOR_MANA", OIL_SUPERIOR_MANA);
 
+    emscripten::enum_<Potion>("Potion")
+        .value("POTION_NONE", POTION_NONE)
+        .value("POTION_MANA", POTION_MANA)
+        .value("POTION_DESTRUCTION", POTION_DESTRUCTION);
+
+    emscripten::enum_<Conjured>("Conjured")
+        .value("CONJURED_NONE", CONJURED_NONE)
+        .value("CONJURED_MANA_GEM", CONJURED_MANA_GEM)
+        .value("CONJURED_FLAME_CAP", CONJURED_FLAME_CAP);
+
     emscripten::enum_<LogType>("LogType")
         .value("LOG_NONE", LOG_NONE)
         .value("LOG_SPELL", LOG_SPELL)
@@ -146,6 +156,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("guardian_elixir", &Config::guardian_elixir)
         .property("weapon_oil", &Config::weapon_oil)
         .property("drums", &Config::drums)
+        .property("potion", &Config::potion)
+        .property("conjured", &Config::conjured)
 
         .property("tirisfal_2set", &Config::tirisfal_2set)
         .property("tirisfal_4set", &Config::tirisfal_4set)
@@ -154,6 +166,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("spellfire_set", &Config::spellfire_set)
         .property("spellstrike_set", &Config::spellstrike_set)
         .property("eternal_sage", &Config::eternal_sage)
+
         .property("trinket1", &Config::trinket1)
         .property("trinket2", &Config::trinket2)
         .property("meta_gem", &Config::meta_gem)
@@ -175,6 +188,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("presence_of_mind_at", &Config::presence_of_mind_at)
         .property("combustion_at", &Config::combustion_at)
         .property("drums_at", &Config::drums_at)
+        .property("potion_at", &Config::potion_at)
+        .property("conjured_at", &Config::conjured_at)
         ;
 
     emscripten::function("allocConfig", &allocConfig);

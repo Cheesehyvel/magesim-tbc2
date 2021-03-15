@@ -103,6 +103,20 @@ enum WeaponOil : int
     OIL_SUPERIOR_MANA = 22521,
 };
 
+enum Potion : int
+{
+    POTION_NONE = 0,
+    POTION_MANA = 22832,
+    POTION_DESTRUCTION = 22839,
+};
+
+enum Conjured : int
+{
+    CONJURED_NONE = 0,
+    CONJURED_MANA_GEM = 22044,
+    CONJURED_FLAME_CAP = 22788,
+};
+
 enum EventType : int
 {
     EVENT_CAST,

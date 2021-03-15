@@ -426,6 +426,22 @@
                                     <option :value="drums.DRUMS_OF_RESTORATION">Drums of Restoration (600 mana)</option>
                                 </select>
                             </div>
+                            <div class="form-item">
+                                <label>Potion</label>
+                                <select v-model="config.potion">
+                                    <option :value="potions.POTION_NONE">None</option>
+                                    <option :value="potions.POTION_MANA">Mana potion</option>
+                                    <option :value="potions.POTION_DESTRUCTION">Destruction potion</option>
+                                </select>
+                            </div>
+                            <div class="form-item">
+                                <label>Conjured</label>
+                                <select v-model="config.conjured">
+                                    <option :value="conjureds.CONJURED_NONE">None</option>
+                                    <option :value="conjureds.CONJURED_MANA_GEM">Mana Emerald</option>
+                                    <option :value="conjureds.CONJURED_FLAME_CAP">Flame Cap</option>
+                                </select>
+                            </div>
                         </fieldset>
                         <fieldset>
                             <legend>Cooldowns</legend>
@@ -448,6 +464,14 @@
                             <div class="form-item" v-if="hasTalent('combustion')">
                                 <label>Combustion at</label>
                                 <input type="text" v-model.number="config.combustion_at">
+                            </div>
+                            <div class="form-item" v-if="config.potion && config.potion != potions.POTION_MANA">
+                                <label>Potion at</label>
+                                <input type="text" v-model.number="config.potion_at">
+                            </div>
+                            <div class="form-item" v-if="config.conjured && config.conjured != conjureds.POTION_MANA">
+                                <label>Conjured at</label>
+                                <input type="text" v-model.number="config.conjured_at">
                             </div>
                             <div class="form-item" v-if="config.race == races.RACE_TROLL">
                                 <label>Berserking at</label>
@@ -551,6 +575,16 @@
                     OIL_SUPERIOR_WIZARD: 22522,
                     OIL_SUPERIOR_MANA: 22521,
                 },
+                potions: {
+                    POTION_NONE: 0,
+                    POTION_MANA: 22832,
+                    POTION_DESTRUCTION: 22839,
+                },
+                conjureds: {
+                    CONJURED_NONE: 0,
+                    CONJURED_MANA_GEM: 22044,
+                    CONJURED_FLAME_CAP: 22788,
+                },
                 items: items,
                 equipped: {},
                 enchants: {},
@@ -605,6 +639,8 @@
                     guardian_elixir: 0,
                     weapon_oil: 0,
                     drums: 0,
+                    potion: 22832,
+                    conjured: 22044,
 
                     tirisfal_2set: true,
                     tirisfal_4set: true,
@@ -634,6 +670,8 @@
                     arcane_power_at: 1,
                     presence_of_mind_at: 0,
                     drums_at: 1,
+                    potion_at: 21,
+                    conjured_at: 21,
 
                     talents: "2500250300030150330125000000000000000000000000535000310030010000000",
 
