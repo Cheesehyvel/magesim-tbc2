@@ -423,6 +423,11 @@ var equip = {
     sp: 28,
     crit: 17
   }, {
+    id: 29270,
+    title: "Flametongue Seal",
+    sp_fire: 49,
+    crit: 17
+  }, {
     id: 28734,
     title: "Jewel of Infinite Possibilities",
     "int": 18,
@@ -2872,7 +2877,7 @@ var enchants = {
 };
 var quicksets = {
   t5bis: {
-    title: "T5 All-round",
+    title: "T5 All-round (arcane)",
     equip: {
       weapon: 30095,
       off_hand: 30049,
@@ -2911,6 +2916,7 @@ var quicksets = {
       hands: [null, null, null],
       head: [25901, 30551, null],
       legs: [28123, null, null],
+      neck: [null, null, null],
       shoulder: [30551, 30600, null],
       waist: [30600, 32638, null],
       weapon: [null, null, null],
@@ -2918,7 +2924,7 @@ var quicksets = {
     }
   },
   t4sf: {
-    title: "T4 Spellfire",
+    title: "T4 Spellfire (arcane)",
     equip: {
       back: 30735,
       chest: 21848,
@@ -2959,6 +2965,7 @@ var quicksets = {
       hands: [30551, 30551, null],
       head: [25901, 30600, null],
       legs: [null, null, null],
+      neck: [null, null, null],
       shoulder: [30551, 24030, null],
       waist: [30551, 30551, null],
       weapon: [null, null, null],
@@ -2966,7 +2973,7 @@ var quicksets = {
     }
   },
   spsf: {
-    title: "Spellstrike + Spellfire",
+    title: "Spellstrike + Spellfire (arcane)",
     equip: {
       back: 30735,
       chest: 21848,
@@ -3006,10 +3013,59 @@ var quicksets = {
       hands: [30551, 30551, null],
       head: [30551, 28118, 33133],
       legs: [30551, 30551, 30551],
+      neck: [null, null, null],
       shoulder: [30551, 24030, null],
       waist: [30551, 30551, null],
       weapon: [null, null, null],
       wrist: [24030, null, null]
+    }
+  },
+  spsf_fire: {
+    title: "Spellstrike + Spellfire (fire)",
+    equip: {
+      back: 28766,
+      chest: 21848,
+      feet: 28517,
+      finger1: 28793,
+      finger2: 28753,
+      hands: 21846,
+      head: 24266,
+      legs: 24262,
+      neck: 28762,
+      off_hand: 29270,
+      ranged: 28673,
+      shoulder: 29079,
+      trinket1: 27683,
+      trinket2: 29370,
+      waist: 21847,
+      weapon: 28770,
+      wrist: 28411
+    },
+    enchants: {
+      back: null,
+      chest: 46502,
+      feet: 46470,
+      finger1: 46518,
+      finger2: 46518,
+      hands: 46514,
+      head: 35447,
+      legs: 31372,
+      shoulder: 35406,
+      weapon: 46540,
+      wrist: 46498
+    },
+    gems: {
+      back: [null, null, null],
+      chest: [32221, 32221, null],
+      feet: [24030, 32221, null],
+      hands: [32221, 32221, null],
+      head: [32221, 28118, 33133],
+      legs: [32221, 32221, 32221],
+      neck: [null, null, null],
+      shoulder: [30564, 30564, null],
+      waist: [32221, 32221, null],
+      weapon: [null, null, null],
+      wrist: [32221, null, null]
     }
   }
 };
@@ -4402,7 +4458,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return gems;
     },
     defaultGem: function defaultGem(color) {
-      return color == "m" ? this.items.ids.INSIGHTFUL_EARTHSTORM : this.items.ids.RUNED_LIVING_RUBY;
+      if (this.config.spec == this.specs.SPEC_ARCANE) return color == "m" ? this.items.ids.INSIGHTFUL_EARTHSTORM : this.items.ids.RUNED_LIVING_RUBY;
+      return color == "m" ? this.items.ids.CHAOTIC_SKYFIRE : this.items.ids.RUNED_LIVING_RUBY;
     },
     hasTalent: function hasTalent(talent) {
       var indexes = {

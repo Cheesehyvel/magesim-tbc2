@@ -1324,7 +1324,9 @@
             },
 
             defaultGem(color) {
-                return color == "m" ? this.items.ids.INSIGHTFUL_EARTHSTORM : this.items.ids.RUNED_LIVING_RUBY;
+                if (this.config.spec == this.specs.SPEC_ARCANE)
+                    return color == "m" ? this.items.ids.INSIGHTFUL_EARTHSTORM : this.items.ids.RUNED_LIVING_RUBY;
+                return color == "m" ? this.items.ids.CHAOTIC_SKYFIRE : this.items.ids.RUNED_LIVING_RUBY;
             },
 
             hasTalent(talent) {

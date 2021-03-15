@@ -705,7 +705,7 @@ public:
         if (player->spec == SPEC_FIRE) {
             // Could calculate cast time for fb + scorch and check if we can scorch in time
             // but lets be realstic...
-            if (state->debuffStacks(debuff::FIRE_VULNERABILITY) < 5 || debuffDuration(debuff::FIRE_VULNERABILITY) <= 5.0)
+            if (player->talents.imp_scorch && (state->debuffStacks(debuff::FIRE_VULNERABILITY) < 5 || debuffDuration(debuff::FIRE_VULNERABILITY) <= 5.0))
                 next = make_shared<spell::Scorch>();
         }
 
