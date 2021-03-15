@@ -155,6 +155,10 @@ public:
             stats.spell_power+= 70.0;
         if (config->flask == FLASK_BLINDING_LIGHT)
             stats.spell_power_arcane+= 80.0;
+        if (config->flask == FLASK_PURE_DEATH) {
+            stats.spell_power_fire+= 80.0;
+            stats.spell_power_frost+= 80.0;
+        }
         if (config->battle_elixir == ELIXIR_ADEPTS)
             stats.spell_power+= 24.0;
         if (config->battle_elixir == ELIXIR_GREATER_ARCANE)
@@ -247,6 +251,18 @@ public:
                 else if (t == 19) talents.arcane_power = p;
                 else if (t == 20) talents.spell_power = p;
                 else if (t == 21) talents.mind_mastery = p;
+                else if (t == 23) talents.imp_fireball = p;
+                else if (t == 25) talents.ignite = p;
+                else if (t == 28) talents.incinerate = p;
+                else if (t == 32) talents.imp_scorch = p;
+                else if (t == 34) talents.master_of_elements = p;
+                else if (t == 35) talents.playing_with_fire = p;
+                else if (t == 36) talents.critical_mass = p;
+                else if (t == 39) talents.fire_power = p;
+                else if (t == 40) talents.pyromaniac = p;
+                else if (t == 41) talents.combustion = p;
+                else if (t == 42) talents.molten_fury = p;
+                else if (t == 43) talents.empowered_fireball = p;
                 else if (t == 46) talents.imp_frostbolt = p;
                 else if (t == 47) talents.elemental_precision = p;
                 else if (t == 48) talents.ice_shards = p;

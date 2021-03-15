@@ -129,7 +129,7 @@
                                         <td>{{ $get(item, "crit", "") }}</td>
                                         <td>{{ $get(item, "hit", "") }}</td>
                                         <td>{{ $get(item, "int", "") }}</td>
-                                        <td>{{ $get(item, "spirit", "") }}</td>
+                                        <td>{{ $get(item, "spi", "") }}</td>
                                         <td>{{ $get(item, "mp5", "") }}</td>
                                     </tr>
                                     <tr
@@ -278,6 +278,7 @@
                                 <label>Spec</label>
                                 <select v-model="config.spec">
                                     <option :value="specs.SPEC_ARCANE">Arcane</option>
+                                    <option :value="specs.SPEC_FIRE">Fire</option>
                                 </select>
                             </div>
                             <div class="form-item">
@@ -291,7 +292,7 @@
                                     <option :value="regen_rotations.ROTATION_AMFB">3AB, AM, FrB</option>
                                 </select>
                             </div>
-                            <div class="form-item">
+                            <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE">
                                 <label>Regen rotation at mana %</label>
                                 <input type="text" v-model.number="config.regen_mana_at">
                             </div>
@@ -379,6 +380,7 @@
                                     <option :value="flasks.FLASK_NONE">None</option>
                                     <option :value="flasks.FLASK_SUPREME_POWER">Supreme Power (70 sp)</option>
                                     <option :value="flasks.FLASK_BLINDING_LIGHT">Blinding Light (80 arc)</option>
+                                    <option :value="flasks.FLASK_PURE_DEATH">Pure Death (80 fire/frost)</option>
                                     <option :value="flasks.FLASK_DISTILLED_WISDOM">Distilled Wisdom (65 int)</option>
                                 </select>
                             </div>
@@ -442,6 +444,10 @@
                             <div class="form-item" v-if="hasTalent('cold_snap')">
                                 <label>Cold Snap at</label>
                                 <input type="text" v-model.number="config.cold_snap_at">
+                            </div>
+                            <div class="form-item" v-if="hasTalent('combustion')">
+                                <label>Combustion at</label>
+                                <input type="text" v-model.number="config.combustion_at">
                             </div>
                             <div class="form-item" v-if="config.race == races.RACE_TROLL">
                                 <label>Berserking at</label>
@@ -508,6 +514,7 @@
                 },
                 specs: {
                     SPEC_ARCANE: 0,
+                    SPEC_FIRE: 1,
                 },
                 regen_rotations: {
                     ROTATION_FB: 0,
@@ -522,6 +529,7 @@
                     FLASK_NONE: 0,
                     FLASK_SUPREME_POWER: 13512,
                     FLASK_BLINDING_LIGHT: 22861,
+                    FLASK_PURE_DEATH: 22866,
                     FLASK_DISTILLED_WISDOM: 13511,
                 },
                 elixirs: {
@@ -619,6 +627,7 @@
                     bloodlust_at: 20,
                     icy_veins_at: 1,
                     cold_snap_at: 21,
+                    combustion_at: 1,
                     trinket1_at: 21,
                     trinket2_at: 1,
                     berserking_at: 1,
@@ -919,6 +928,10 @@
                     stats.spell_power+= 70;
                 if (this.config.flask == this.flasks.FLASK_BLINDING_LIGHT)
                     stats.spell_power_arcane+= 80;
+                if (this.config.flask == this.flasks.FLASK_PURE_DEATH) {
+                    stats.spell_power_fire+= 80;
+                    stats.spell_power_frost+= 80;
+                }
                 if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS)
                     stats.spell_power+= 24;
                 if (this.config.battle_elixir == this.elixirs.ELIXIR_GREATER_ARCANE)
@@ -1319,6 +1332,7 @@
                     arcane_instability: 16,
                     arcane_power: 19,
                     mind_mastery: 21,
+                    combustion: 41,
                     icy_veins: 53,
                     cold_snap: 59,
                 };

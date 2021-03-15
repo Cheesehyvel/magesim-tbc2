@@ -87,6 +87,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("FLASK_NONE", FLASK_NONE)
         .value("FLASK_SUPREME_POWER", FLASK_SUPREME_POWER)
         .value("FLASK_BLINDING_LIGHT", FLASK_BLINDING_LIGHT)
+        .value("FLASK_PURE_DEATH", FLASK_PURE_DEATH)
         .value("FLASK_DISTILLED_WISDOM", FLASK_DISTILLED_WISDOM);
 
     emscripten::enum_<Elixir>("Elixir")
@@ -172,6 +173,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("berserking_at", &Config::berserking_at)
         .property("arcane_power_at", &Config::arcane_power_at)
         .property("presence_of_mind_at", &Config::presence_of_mind_at)
+        .property("combustion_at", &Config::combustion_at)
         .property("drums_at", &Config::drums_at)
         ;
 

@@ -7,7 +7,9 @@ namespace spell
     {
         ARCANE_BLAST = 30451,
         ARCANE_MISSILES = 38704,
-        FROSTBOLT = 38670,
+        FROSTBOLT = 38697,
+        FIREBALL = 38692,
+        SCORCH = 27074,
         LIGHTNING_CAPACITOR = 28785,
     };
 
@@ -98,7 +100,44 @@ namespace spell
 
     };
 
-    class LightningCapacitor : public Spell{
+    class Fireball : public Spell
+    {
+
+    public:
+        Fireball()
+        {
+            id = FIREBALL;
+            name = "Fireball";
+            cost = 465;
+            min_dmg = 717;
+            max_dmg = 913;
+            cast_time = 3.5;
+            coeff = 1;
+            school = SCHOOL_FIRE;
+        }
+
+    };
+
+    class Scorch : public Spell
+    {
+
+    public:
+        Scorch()
+        {
+            id = SCORCH;
+            name = "Scorch";
+            cost = 180;
+            min_dmg = 306;
+            max_dmg = 361;
+            cast_time = 1.5;
+            coeff = 1.5/3.5;
+            school = SCHOOL_FIRE;
+        }
+
+    };
+
+    class LightningCapacitor : public Spell
+    {
 
     public:
         LightningCapacitor()

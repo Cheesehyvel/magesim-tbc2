@@ -19,15 +19,16 @@ enum Race : int
 
 enum School : int
 {
+    SCHOOL_NONE,
     SCHOOL_ARCANE,
     SCHOOL_FROST,
     SCHOOL_FIRE,
-    SCHOOL_NONE
 };
 
 enum Spec : int
 {
-    SPEC_ARCANE
+    SPEC_ARCANE,
+    SPEC_FIRE,
 };
 
 enum MetaGem : int {
@@ -73,6 +74,7 @@ enum Flask : int
     FLASK_NONE = 0,
     FLASK_SUPREME_POWER = 13512,
     FLASK_BLINDING_LIGHT = 22861,
+    FLASK_PURE_DEATH = 22866,
     FLASK_DISTILLED_WISDOM = 13511,
 };
 
@@ -109,6 +111,9 @@ enum EventType : int
     EVENT_MANA_GAIN,
     EVENT_BUFF_GAIN,
     EVENT_BUFF_EXPIRE,
+    EVENT_DEBUFF_GAIN,
+    EVENT_DEBUFF_EXPIRE,
+    EVENT_DOT,
     EVENT_CD_EXPIRE,
     EVENT_VAMPIRIC_TOUCH,
     EVENT_WAIT
@@ -120,6 +125,7 @@ enum LogType : int
     LOG_SPELL,
     LOG_MANA,
     LOG_BUFF,
+    LOG_DOT,
     LOG_DEBUG,
     LOG_WAIT
 };

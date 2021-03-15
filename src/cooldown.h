@@ -12,6 +12,7 @@ namespace cooldown
         COLD_SNAP = 11958,
         BERSERKING = 20554,
         ICY_VEINS = 12472,
+        COMBUSTION = 29977,
         ARCANE_POWER = 12042,
         PRESENCE_OF_MIND = 12043,
         QUAGMIRRANS_EYE = 33370,
@@ -93,6 +94,18 @@ namespace cooldown
         PresenceOfMind()
         {
             id = PRESENCE_OF_MIND;
+            duration = 180;
+        }
+
+    };
+
+    class Combustion : public Cooldown
+    {
+
+    public:
+        Combustion()
+        {
+            id = COMBUSTION;
             duration = 180;
         }
 

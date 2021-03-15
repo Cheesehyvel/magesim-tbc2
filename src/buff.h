@@ -10,6 +10,7 @@ namespace buff
         ARCANE_POWER = 12042,
         PRESENCE_OF_MIND = 12043,
         ICY_VEINS = 12472,
+        COMBUSTION = 29977,
         BLOODLUST = 2825,
         INNERVATE = 29166,
         CLEARCAST = 12536,
@@ -125,6 +126,20 @@ namespace buff
             id = ICY_VEINS;
             name = "Icy Veins";
             duration = 20;
+        }
+
+    };
+
+    class Combustion : public Buff
+    {
+
+    public:
+        Combustion()
+        {
+            id = COMBUSTION;
+            name = "Combustion";
+            duration = 2000;
+            max_stacks = 20;
         }
 
     };

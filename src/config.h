@@ -58,6 +58,7 @@ struct Config
     double berserking_at = 1;
     double arcane_power_at = 1;
     double presence_of_mind_at = 0;
+    double combustion_at = 0;
     double drums_at = 1;
 
 };

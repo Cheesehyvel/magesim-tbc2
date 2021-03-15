@@ -17,7 +17,9 @@ public:
     EventType type;
     shared_ptr<spell::Spell> spell;
     shared_ptr<buff::Buff> buff;
+    shared_ptr<debuff::Debuff> debuff;
     shared_ptr<cooldown::Cooldown> cooldown;
+    shared_ptr<dot::Dot> dot;
 
 };
 
@@ -80,7 +82,7 @@ public:
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
 
-        cast(defaultSpell());
+        cast(nextSpell());
 
         work();
 
@@ -130,6 +132,12 @@ public:
             onBuffGain(event->buff);
         else if (event->type == EVENT_BUFF_EXPIRE)
             onBuffExpire(event->buff);
+        else if (event->type == EVENT_DEBUFF_GAIN)
+            onDebuffGain(event->debuff);
+        else if (event->type == EVENT_DEBUFF_EXPIRE)
+            onDebuffExpire(event->debuff);
+        else if (event->type == EVENT_DOT)
+            onDot(event->dot);
         else if (event->type == EVENT_CD_EXPIRE)
             onCooldownExpire(event->cooldown);
         else if (event->type == EVENT_VAMPIRIC_TOUCH)
@@ -217,6 +225,36 @@ public:
         event->type = EVENT_BUFF_EXPIRE;
         event->t = buff->duration;
         event->buff = buff;
+
+        push(event);
+    }
+
+    void pushDebuffGain(shared_ptr<debuff::Debuff> debuff, double t)
+    {
+        shared_ptr<Event> event(new Event());
+        event->type = EVENT_DEBUFF_GAIN;
+        event->t = t;
+        event->debuff = debuff;
+
+        push(event);
+    }
+
+    void pushDebuffExpire(shared_ptr<debuff::Debuff> debuff)
+    {
+        shared_ptr<Event> event(new Event());
+        event->type = EVENT_DEBUFF_EXPIRE;
+        event->t = debuff->duration;
+        event->debuff = debuff;
+
+        push(event);
+    }
+
+    void pushDot(shared_ptr<dot::Dot> dot)
+    {
+        shared_ptr<Event> event(new Event());
+        event->type = EVENT_DOT;
+        event->t = dot->t_interval;
+        event->dot = dot;
 
         push(event);
     }
@@ -351,6 +389,28 @@ public:
                 onBuffGain(make_shared<buff::EyeOfMagtheridon>());
         }
         else {
+            if (spell->school == SCHOOL_FIRE && state->hasBuff(buff::COMBUSTION)) {
+                if (spell->result == spell::CRIT)
+                    state->combustion++;
+                if (state->combustion == 3) {
+                    onCooldownGain(make_shared<cooldown::Combustion>());
+                    onBuffExpire(make_shared<buff::Combustion>());
+                    state->combustion = 0;
+                }
+                else {
+                    onBuffGain(make_shared<buff::Combustion>());
+                }
+            }
+
+            if (spell->id == spell::SCORCH && player->talents.imp_scorch) {
+                if (player->talents.imp_scorch == 3 || random<int>(0, 2) < player->talents.imp_scorch)
+                    onDebuffGain(make_shared<debuff::FireVulnerability>());
+            }
+
+            if (spell->id == spell::FIREBALL) {
+                // TODO: Fireball dot. Do we care?
+            }
+
             // 5% proc rate ?
             if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && !state->hasCooldown(cooldown::QUAGMIRRANS_EYE) && random<int>(0, 19) == 0) {
                 onCooldownGain(make_shared<cooldown::QuagmirransEye>());
@@ -380,6 +440,11 @@ public:
                 // 100% proc rate
                 if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR))
                     onBuffGain(make_shared<buff::LightningCapacitor>());
+
+                if (spell->school == SCHOOL_FIRE && player->talents.ignite)
+                    pushDot(make_shared<dot::Ignite>(round(spell->dmg * 0.04 * player->talents.ignite)));
+                if ((spell->school == SCHOOL_FIRE || spell->school == SCHOOL_FROST) && player->talents.master_of_elements)
+                    onManaGain(spell->cost * 0.1 * player->talents.master_of_elements, "Master of Elements");
             }
         }
 
@@ -412,29 +477,8 @@ public:
         if (shouldInnervate()) {
             innervate();
         }
-        else if (player->spec == SPEC_ARCANE) {
-            double regen_at = config->regen_mana_at;
-            if (state->hasBuff(buff::BLOODLUST))
-                regen_at = min(regen_at, 10.0);
 
-            int end = 3;
-            if (config->regen_rotation == ROTATION_AMFB)
-                end = 2;
-
-            if (state->regen_cycle == end) {
-                state->regen_cycle = 0;
-            }
-            else if (state->regen_cycle || manaPercent() <= regen_at && state->buffStacks(buff::ARCANE_BLAST) == 3) {
-                if (config->regen_rotation == ROTATION_AMFB && state->regen_cycle == 0)
-                    next = make_shared<spell::ArcaneMissiles>();
-                else
-                    next = make_shared<spell::Frostbolt>();
-                state->regen_cycle++;
-            }
-        }
-
-        if (next == NULL)
-            next = defaultSpell();
+        next = nextSpell();
 
         return next;
     }
@@ -455,6 +499,17 @@ public:
     {
         onManaGain(mana, "Vampiric Touch");
         pushVampiricTouch(mana);
+    }
+
+    void onDot(shared_ptr<dot::Dot> dot)
+    {
+        state->dmg+= dot->dmg;
+        dot->tick++;
+
+        logDotDmg(dot);
+
+        if (dot->tick < dot->ticks)
+            pushDot(dot);
     }
 
     void onWait()
@@ -515,6 +570,23 @@ public:
             removeBuffExpiration(make_shared<buff::Enlightenment>());
             state->removeBuff(buff::ENLIGHTENMENT);
         }
+    }
+
+    void onDebuffGain(shared_ptr<debuff::Debuff> debuff)
+    {
+        int stacks = state->addDebuff(debuff);
+        removeDebuffExpiration(debuff);
+        pushDebuffExpire(debuff);
+
+        if (stacks)
+            logDebuffGain(debuff, stacks);
+    }
+
+    void onDebuffExpire(shared_ptr<debuff::Debuff> debuff)
+    {
+        removeDebuffExpiration(debuff);
+        logDebuffExpire(debuff);
+        state->removeDebuff(debuff->id);
     }
 
     void onCooldownGain(shared_ptr<cooldown::Cooldown> cooldown)
@@ -605,10 +677,50 @@ public:
         return totalManaPerSecond() * 2;
     }
 
+    shared_ptr<spell::Spell> nextSpell()
+    {
+        shared_ptr<spell::Spell> next = NULL;
+
+        if (player->spec == SPEC_ARCANE && !state->hasBuff(buff::INNERVATE)) {
+            double regen_at = config->regen_mana_at;
+            if (state->hasBuff(buff::BLOODLUST))
+                regen_at = min(regen_at, 10.0);
+
+            int end = 3;
+            if (config->regen_rotation == ROTATION_AMFB)
+                end = 2;
+
+            if (state->regen_cycle == end) {
+                state->regen_cycle = 0;
+            }
+            else if (state->regen_cycle || manaPercent() <= regen_at && state->buffStacks(buff::ARCANE_BLAST) == 3) {
+                if (config->regen_rotation == ROTATION_AMFB && state->regen_cycle == 0)
+                    next = make_shared<spell::ArcaneMissiles>();
+                else
+                    next = make_shared<spell::Frostbolt>();
+                state->regen_cycle++;
+            }
+        }
+
+        if (player->spec == SPEC_FIRE) {
+            // Could calculate cast time for fb + scorch and check if we can scorch in time
+            // but lets be realstic...
+            if (state->debuffStacks(debuff::FIRE_VULNERABILITY) < 5 || debuffDuration(debuff::FIRE_VULNERABILITY) <= 5.0)
+                next = make_shared<spell::Scorch>();
+        }
+
+        if (next == NULL)
+            next = defaultSpell();
+
+        return next;
+    }
+
     shared_ptr<spell::Spell> defaultSpell()
     {
         if (player->spec == SPEC_ARCANE)
             return make_shared<spell::ArcaneBlast>();
+        if (player->spec == SPEC_FIRE)
+            return make_shared<spell::Fireball>();
 
         return NULL;
     }
@@ -623,6 +735,8 @@ public:
             useIcyVeins();
         if (state->t >= config->cold_snap_at && !state->hasCooldown(cooldown::COLD_SNAP) && player->talents.cold_snap)
             useColdSnap();
+        if (state->t >= config->combustion_at && !state->hasCooldown(cooldown::COMBUSTION) && !state->hasBuff(buff::COMBUSTION) && player->talents.combustion)
+            useCombustion();
         if (state->t >= config->berserking_at && !state->hasCooldown(cooldown::BERSERKING) && player->race == RACE_TROLL)
             useBerserking();
         if (state->t >= config->trinket1_at && !state->hasCooldown(cooldown::TRINKET1))
@@ -699,6 +813,11 @@ public:
             useIcyVeins();
     }
 
+    void useCombustion()
+    {
+        onBuffGain(make_shared<buff::Combustion>());
+    }
+
     void useBerserking()
     {
         onCooldownGain(make_shared<cooldown::Berserking>());
@@ -720,10 +839,30 @@ public:
         }
     }
 
+    void removeDebuffExpiration(shared_ptr<debuff::Debuff> debuff)
+    {
+        for (auto itr = queue.begin(); itr != queue.end(); itr++) {
+            if ((*itr)->type == EVENT_DEBUFF_EXPIRE && (*itr)->debuff->id == debuff->id) {
+                queue.erase(itr);
+                return;
+            }
+        }
+    }
+
     double buffDuration(buff::ID id)
     {
         for (auto itr = queue.begin(); itr != queue.end(); itr++) {
             if ((*itr)->type == EVENT_BUFF_EXPIRE && (*itr)->buff->id == id)
+                return (*itr)->t - state->t;
+        }
+
+        return 0;
+    }
+
+    double debuffDuration(debuff::ID id)
+    {
+        for (auto itr = queue.begin(); itr != queue.end(); itr++) {
+            if ((*itr)->type == EVENT_DEBUFF_EXPIRE && (*itr)->debuff->id == id)
                 return (*itr)->t - state->t;
         }
 
@@ -750,6 +889,9 @@ public:
 
         if (spell->school == SCHOOL_FROST && player->talents.frost_channeling)
             multi-= player->talents.frost_channeling*0.05;
+
+        if (spell->school == SCHOOL_FIRE && player->talents.pyromaniac)
+            multi-= player->talents.pyromaniac*0.01;
 
         if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
             multi+= player->talents.empowered_arcane_missiles * 0.02;
@@ -781,6 +923,9 @@ public:
 
         if (spell->id == spell::FROSTBOLT && player->talents.imp_frostbolt)
             t-= player->talents.imp_frostbolt*0.1;
+
+        if (spell->id == spell::FIREBALL && player->talents.imp_fireball)
+            t-= player->talents.imp_fireball*0.1;
 
         return t * castHaste();
     }
@@ -825,7 +970,7 @@ public:
 
         if (spell->school == SCHOOL_ARCANE && player->talents.arcane_focus)
             hit+= player->talents.arcane_focus*2.0;
-        if (spell->school == SCHOOL_FROST && player->talents.elemental_precision)
+        if ((spell->school == SCHOOL_FROST || spell->school == SCHOOL_FIRE) && player->talents.elemental_precision)
             hit+= player->talents.elemental_precision;
 
         return hit;
@@ -847,9 +992,18 @@ public:
 
         if (spell->id == spell::ARCANE_BLAST && player->talents.arcane_impact)
             crit+= player->talents.arcane_impact*2.0;
+        if (spell->id == spell::SCORCH && player->talents.incinerate)
+            crit+= player->talents.incinerate*2.0;
 
         if (state->hasBuff(buff::CLEARCAST) && player->talents.arcane_potency)
             crit+= player->talents.arcane_potency*10.0;
+        if (state->hasBuff(buff::COMBUSTION) && spell->school == SCHOOL_FIRE)
+            crit+= state->buffStacks(buff::COMBUSTION)*10.0;
+
+        if (spell->school == SCHOOL_FIRE && player->talents.critical_mass)
+            crit+= player->talents.critical_mass*2.0;
+        if (spell->school == SCHOOL_FIRE && player->talents.pyromaniac)
+            crit+= player->talents.pyromaniac*1.0;
 
         if (config->judgement_of_the_crusader)
             crit+= 3;
@@ -892,8 +1046,18 @@ public:
 
         if (player->talents.arcane_instability)
             multi*= 1 + (player->talents.arcane_instability * 0.01);
+        if (player->talents.playing_with_fire)
+            multi*= 1 + (player->talents.playing_with_fire * 0.01);
         if (player->talents.piercing_ice && spell->school == SCHOOL_FROST)
             multi*= 1 + (player->talents.piercing_ice * 0.02);
+        if (player->talents.fire_power && spell->school == SCHOOL_FIRE)
+            multi*= 1 + (player->talents.fire_power * 0.02);
+        // Below 20% - We'll estimate that to last 20% of duration
+        if (player->talents.molten_fury && state->t / config->duration >= 0.8)
+            multi*= 1 + (player->talents.molten_fury * 0.1);
+
+        if (spell->school == SCHOOL_FIRE && state->hasDebuff(debuff::FIRE_VULNERABILITY))
+            multi*= (1 + state->debuffStacks(debuff::FIRE_VULNERABILITY) * 0.03);
 
         if (state->hasBuff(buff::ARCANE_POWER))
             multi*= 1.3;
@@ -901,7 +1065,7 @@ public:
         if (spell->id == spell::ARCANE_BLAST && config->tirisfal_2set)
             multi*= 1.2;
 
-        if ((spell->id == spell::ARCANE_MISSILES || spell->id == spell::FROSTBOLT) && config->tempest_4set)
+        if ((spell->id == spell::ARCANE_MISSILES || spell->id == spell::FROSTBOLT || spell->id == spell::FIREBALL) && config->tempest_4set)
             multi*= 1.05;
 
         return multi;
@@ -951,6 +1115,8 @@ public:
 
             if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
                 coeff+= player->talents.empowered_arcane_missiles * 0.15;
+            if (spell->id == spell::FIREBALL && player->talents.empowered_fireball)
+                coeff+= player->talents.empowered_fireball * 0.03;
 
             if (spell->channeling)
                 coeff/= spell->ticks;
@@ -1092,6 +1258,18 @@ public:
         addLog(LOG_SPELL, s.str());
     }
 
+    void logDotDmg(shared_ptr<dot::Dot> dot)
+    {
+        if (!logging)
+            return;
+
+        ostringstream s;
+
+        s << dot->name << " ticks for " << dot->dmg;
+
+        addLog(LOG_DOT, s.str());
+    }
+
     void logBuffGain(shared_ptr<buff::Buff> buff, int stacks = 1)
     {
         if (!logging || buff->hidden)
@@ -1114,6 +1292,32 @@ public:
         ostringstream s;
 
         s << "Lost " << buff->name;
+
+        addLog(LOG_BUFF, s.str());
+    }
+
+    void logDebuffGain(shared_ptr<debuff::Debuff> debuff, int stacks = 1)
+    {
+        if (!logging || debuff->hidden)
+            return;
+
+        ostringstream s;
+
+        s << "Target gained " << debuff->name;
+        if (debuff->max_stacks > 1)
+            s << " (" << stacks << ")";
+
+        addLog(LOG_BUFF, s.str());
+    }
+
+    void logDebuffExpire(shared_ptr<debuff::Debuff> debuff)
+    {
+        if (!logging || debuff->hidden)
+            return;
+
+        ostringstream s;
+
+        s << "Target lost " << debuff->name;
 
         addLog(LOG_BUFF, s.str());
     }

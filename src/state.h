@@ -17,9 +17,11 @@ public:
     int innervates;
     int mana_emerald;
     int mana_ruby;
+    int combustion = 0;
 
     map<cooldown::ID, shared_ptr<cooldown::Cooldown>> cooldowns;
     map<buff::ID, shared_ptr<buff::Buff>> buffs;
+    map<debuff::ID, shared_ptr<debuff::Debuff>> debuffs;
 
     shared_ptr<Config> config;
 
@@ -41,8 +43,9 @@ public:
         mana_emerald = 3;
         mana_ruby = 1;
 
+        buffs.clear();
+        debuffs.clear();
         cooldowns.clear();
-        clearBuffs();
     }
 
     double dps()
@@ -95,9 +98,31 @@ public:
         buffs.erase(id);
     }
 
-    void clearBuffs()
+    int debuffStacks(debuff::ID id)
     {
-        buffs.clear();
+        if (hasDebuff(id))
+            return debuffs[id]->stacks;
+        return 0;
+    }
+
+    bool hasDebuff(debuff::ID id)
+    {
+        return debuffs.find(id) != debuffs.end();
+    }
+
+    int addDebuff(shared_ptr<debuff::Debuff> debuff)
+    {
+        if (hasDebuff(debuff->id))
+            return debuffs[debuff->id]->addStack();
+        else
+            debuffs[debuff->id] = debuff;
+
+        return 1;
+    }
+
+    void removeDebuff(debuff::ID id)
+    {
+        debuffs.erase(id);
     }
 
 };

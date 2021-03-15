@@ -3631,6 +3631,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3651,7 +3657,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         RACE_UNDEAD: 5
       },
       specs: {
-        SPEC_ARCANE: 0
+        SPEC_ARCANE: 0,
+        SPEC_FIRE: 1
       },
       regen_rotations: {
         ROTATION_FB: 0,
@@ -3666,6 +3673,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         FLASK_NONE: 0,
         FLASK_SUPREME_POWER: 13512,
         FLASK_BLINDING_LIGHT: 22861,
+        FLASK_PURE_DEATH: 22866,
         FLASK_DISTILLED_WISDOM: 13511
       },
       elixirs: {
@@ -3756,6 +3764,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         bloodlust_at: 20,
         icy_veins_at: 1,
         cold_snap_at: 21,
+        combustion_at: 1,
         trinket1_at: 21,
         trinket2_at: 1,
         berserking_at: 1,
@@ -4054,6 +4063,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.config.food == this.foods.FOOD_SPELL_POWER) stats.spell_power += 23;
       if (this.config.flask == this.flasks.FLASK_SUPREME_POWER) stats.spell_power += 70;
       if (this.config.flask == this.flasks.FLASK_BLINDING_LIGHT) stats.spell_power_arcane += 80;
+
+      if (this.config.flask == this.flasks.FLASK_PURE_DEATH) {
+        stats.spell_power_fire += 80;
+        stats.spell_power_frost += 80;
+      }
+
       if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) stats.spell_power += 24;
       if (this.config.battle_elixir == this.elixirs.ELIXIR_GREATER_ARCANE) stats.spell_power += 35; // Spell crit
 
@@ -4394,6 +4409,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         arcane_instability: 16,
         arcane_power: 19,
         mind_mastery: 21,
+        combustion: 41,
         icy_veins: 53,
         cold_snap: 59
       };
@@ -23270,9 +23286,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
                           _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(_vm.$get(item, "spirit", "")))
-                          ]),
+                          _c("td", [_vm._v(_vm._s(_vm.$get(item, "spi", "")))]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(_vm.$get(item, "mp5", "")))])
                         ]
@@ -23755,6 +23769,12 @@ var render = function() {
                           "option",
                           { domProps: { value: _vm.specs.SPEC_ARCANE } },
                           [_vm._v("Arcane")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.specs.SPEC_FIRE } },
+                          [_vm._v("Fire")]
                         )
                       ]
                     )
@@ -23853,38 +23873,40 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Regen rotation at mana %")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.config.regen_mana_at,
-                          expression: "config.regen_mana_at",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.regen_mana_at },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                  _vm.config.spec == _vm.specs.SPEC_ARCANE
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Regen rotation at mana %")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.regen_mana_at,
+                              expression: "config.regen_mana_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.regen_mana_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "regen_mana_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
                           }
-                          _vm.$set(
-                            _vm.config,
-                            "regen_mana_at",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    })
-                  ]),
+                        })
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
                     _c("label", [_vm._v("Fight duration (sec)")]),
@@ -25067,6 +25089,14 @@ var render = function() {
                             _c(
                               "option",
                               {
+                                domProps: { value: _vm.flasks.FLASK_PURE_DEATH }
+                              },
+                              [_vm._v("Pure Death (80 fire/frost)")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
                                 domProps: {
                                   value: _vm.flasks.FLASK_DISTILLED_WISDOM
                                 }
@@ -25535,6 +25565,41 @@ var render = function() {
                               _vm.$set(
                                 _vm.config,
                                 "cold_snap_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hasTalent("combustion")
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Combustion at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.combustion_at,
+                              expression: "config.combustion_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.combustion_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "combustion_at",
                                 _vm._n($event.target.value)
                               )
                             },
