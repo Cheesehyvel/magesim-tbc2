@@ -34,6 +34,9 @@ namespace buff
         SKULL_GULDAN = 40396,
         SHRUNKEN_HEAD = 43712,
         NAARU_SLIVER = 45042,
+        DRUMS_OF_BATTLE = 35476,
+        DRUMS_OF_WAR = 35475,
+        DRUMS_OF_RESTORATION = 35478,
     };
 
 
@@ -437,6 +440,45 @@ namespace buff
             id = NAARU_SLIVER;
             name = "Power Circle";
             duration = 15;
+        }
+
+    };
+
+    class DrumsOfBattle : public Buff
+    {
+
+    public:
+        DrumsOfBattle()
+        {
+            id = DRUMS_OF_BATTLE;
+            name = "Drums of Battle";
+            duration = 30;
+        }
+
+    };
+
+    class DrumsOfWar : public Buff
+    {
+
+    public:
+        DrumsOfWar()
+        {
+            id = DRUMS_OF_WAR;
+            name = "Drums of War";
+            duration = 30;
+        }
+
+    };
+
+    class DrumsOfRestoration : public Buff
+    {
+
+    public:
+        DrumsOfRestoration()
+        {
+            id = DRUMS_OF_RESTORATION;
+            name = "Drums of Restoration";
+            duration = 30;
         }
 
     };

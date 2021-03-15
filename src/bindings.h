@@ -78,6 +78,35 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("META_EMBER_SKYFIRE", META_EMBER_SKYFIRE)
         .value("META_INSIGHTFUL_EARTHSTORM", META_INSIGHTFUL_EARTHSTORM);
 
+    emscripten::enum_<Food>("Food")
+        .value("FOOD_NONE", FOOD_NONE)
+        .value("FOOD_SPELL_POWER", FOOD_SPELL_POWER)
+        .value("FOOD_SPELL_CRIT", FOOD_SPELL_CRIT);
+
+    emscripten::enum_<Flask>("Flask")
+        .value("FLASK_NONE", FLASK_NONE)
+        .value("FLASK_SUPREME_POWER", FLASK_SUPREME_POWER)
+        .value("FLASK_BLINDING_LIGHT", FLASK_BLINDING_LIGHT);
+
+    emscripten::enum_<Elixir>("Elixir")
+        .value("ELIXIR_NONE", ELIXIR_NONE)
+        .value("ELIXIR_MAJOR_MAGEBLOOD", ELIXIR_MAJOR_MAGEBLOOD)
+        .value("ELIXIR_DRAENIC_WISDOM", ELIXIR_DRAENIC_WISDOM)
+        .value("ELIXIR_GREATER_ARCANE", ELIXIR_GREATER_ARCANE)
+        .value("ELIXIR_ADEPTS", ELIXIR_ADEPTS);
+
+    emscripten::enum_<Drums>("Drums")
+        .value("DRUMS_NONE", DRUMS_NONE)
+        .value("DRUMS_OF_WAR", DRUMS_OF_WAR)
+        .value("DRUMS_OF_RESTORATION", DRUMS_OF_RESTORATION)
+        .value("DRUMS_OF_BATTLE", DRUMS_OF_BATTLE);
+
+    emscripten::enum_<WeaponOil>("WeaponOil")
+        .value("OIL_NONE", OIL_NONE)
+        .value("OIL_BRILLIANT_WIZARD", OIL_BRILLIANT_WIZARD)
+        .value("OIL_SUPERIOR_WIZARD", OIL_SUPERIOR_WIZARD)
+        .value("OIL_SUPERIOR_MANA", OIL_SUPERIOR_MANA);
+
     emscripten::enum_<LogType>("LogType")
         .value("LOG_NONE", LOG_NONE)
         .value("LOG_SPELL", LOG_SPELL)
@@ -109,14 +138,11 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("molten_armor", &Config::molten_armor)
         .property("inspiring_presence", &Config::inspiring_presence)
 
-        .property("spell_dmg_food", &Config::spell_dmg_food)
-        .property("spell_crit_food", &Config::spell_crit_food)
-        .property("brilliant_wizard_oil", &Config::brilliant_wizard_oil)
-        .property("superior_wizard_oil", &Config::superior_wizard_oil)
-        .property("flask_of_supreme_power", &Config::flask_of_supreme_power)
-        .property("flask_of_blinding_light", &Config::flask_of_blinding_light)
-        .property("adepts_elixir", &Config::adepts_elixir)
-        .property("elixir_of_draenic_wisdom", &Config::elixir_of_draenic_wisdom)
+        .property("food", &Config::food)
+        .property("flask", &Config::flask)
+        .property("battle_elixir", &Config::battle_elixir)
+        .property("guardian_elixir", &Config::guardian_elixir)
+        .property("weapon_oil", &Config::weapon_oil)
         .property("drums", &Config::drums)
 
         .property("tirisfal_2set", &Config::tirisfal_2set)
@@ -145,6 +171,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("berserking_at", &Config::berserking_at)
         .property("arcane_power_at", &Config::arcane_power_at)
         .property("presence_of_mind_at", &Config::presence_of_mind_at)
+        .property("drums_at", &Config::drums_at)
         ;
 
     emscripten::function("allocConfig", &allocConfig);

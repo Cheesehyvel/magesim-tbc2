@@ -29,6 +29,7 @@ public:
         // Undead default
         stats.intellect = 149;
         stats.spirit = 150;
+        stats.mp5 = 0;
         stats.crit = 0.91;
         stats.hit = 0;
         stats.haste = 0;
@@ -63,6 +64,7 @@ public:
     {
         stats.intellect = 465;
         stats.spirit = 285;
+        stats.mp5 = 0;
         stats.crit = 20;
         stats.hit = 6;
         stats.haste = 0;
@@ -95,7 +97,7 @@ public:
             stats.intellect+= 40;
         if (config->divine_spirit)
             stats.spirit+= 40;
-        if (config->elixir_of_draenic_wisdom) {
+        if (config->guardian_elixir == ELIXIR_DRAENIC_WISDOM) {
             stats.intellect+= 30;
             stats.spirit+= 30;
         }
@@ -103,6 +105,8 @@ public:
             stats.intellect+= 18;
             stats.spirit+= 18;
         }
+        if (config->food == FOOD_SPELL_POWER || config->food == FOOD_SPELL_CRIT)
+            stats.spirit+= 20;
 
         // Attribute multipliers
         if (talents.arcane_mind)
@@ -120,6 +124,12 @@ public:
         stats.intellect = round(stats.intellect);
         stats.spirit = round(stats.spirit);
 
+        // Mp5
+        if (config->guardian_elixir == ELIXIR_MAJOR_MAGEBLOOD)
+            stats.mp5+= 16;
+        if (config->weapon_oil == OIL_SUPERIOR_MANA)
+            stats.mp5+= 14;
+
         // Spell power
         double int_multi = 0;
         if (talents.mind_mastery)
@@ -133,17 +143,17 @@ public:
             stats.spell_power+= stats.spirit*0.1;
         if (config->wrath_of_air)
             stats.spell_power+= 102.0;
-        if (config->brilliant_wizard_oil)
+        if (config->weapon_oil == OIL_BRILLIANT_WIZARD)
             stats.spell_power+= 36.0;
-        if (config->superior_wizard_oil)
+        if (config->weapon_oil == OIL_SUPERIOR_WIZARD)
             stats.spell_power+= 42.0;
-        if (config->spell_dmg_food)
+        if (config->food == FOOD_SPELL_POWER)
             stats.spell_power+= 23.0;
-        if (config->flask_of_supreme_power)
+        if (config->flask == FLASK_SUPREME_POWER)
             stats.spell_power+= 70.0;
-        if (config->flask_of_blinding_light)
+        if (config->flask == FLASK_BLINDING_LIGHT)
             stats.spell_power_arcane+= 80.0;
-        if (config->adepts_elixir)
+        if (config->battle_elixir == ELIXIR_ADEPTS)
             stats.spell_power+= 24.0;
 
         // Spell crit
@@ -156,10 +166,12 @@ public:
             stats.crit+= 3.0;
         if (config->molten_armor)
             stats.crit+= 3.0;
-        if (config->adepts_elixir)
+        if (config->battle_elixir == ELIXIR_ADEPTS)
             critrating+= 24;
-        if (config->brilliant_wizard_oil)
+        if (config->weapon_oil == OIL_BRILLIANT_WIZARD)
             critrating+= 14;
+        if (config->food == FOOD_SPELL_CRIT)
+            critrating+= 20;
         if (critrating > 0)
             stats.crit+= critRatingToChance(critrating);
         if (talents.arcane_instability)

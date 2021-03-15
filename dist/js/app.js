@@ -3603,6 +3603,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3628,6 +3655,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       regen_rotations: {
         ROTATION_FB: 0,
         ROTATION_AMFB: 1
+      },
+      foods: {
+        FOOD_NONE: 0,
+        FOOD_SPELL_POWER: 27657,
+        FOOD_SPELL_CRIT: 33825
+      },
+      flasks: {
+        FLASK_NONE: 0,
+        FLASK_SUPREME_POWER: 13512,
+        FLASK_BLINDING_LIGHT: 22861
+      },
+      elixirs: {
+        ELIXIR_NONE: 0,
+        ELIXIR_GREATER_ARCANE: 13454,
+        ELIXIR_ADEPTS: 28103,
+        ELIXIR_MAJOR_MAGEBLOOD: 22840,
+        ELIXIR_DRAENIC_WISDOM: 32067
+      },
+      drums: {
+        DRUMS_NONE: 0,
+        DRUMS_OF_WAR: 29528,
+        DRUMS_OF_RESTORATION: 29531,
+        DRUMS_OF_BATTLE: 29529
+      },
+      weapon_oils: {
+        OIL_NONE: 0,
+        OIL_BRILLIANT_WIZARD: 20749,
+        OIL_SUPERIOR_WIZARD: 22522,
+        OIL_SUPERIOR_MANA: 22521
       },
       items: _items__WEBPACK_IMPORTED_MODULE_2__.default,
       equipped: {},
@@ -3673,14 +3729,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         mage_armor: true,
         molten_armor: false,
         inspiring_presence: false,
-        spell_dmg_food: true,
-        spell_crit_food: false,
-        brilliant_wizard_oil: true,
-        flask_of_supreme_power: true,
-        flask_of_blinding_light: false,
-        adepts_elixir: false,
-        elixir_of_draenic_wisdom: false,
-        drums: true,
+        food: 0,
+        flask: 0,
+        battle_elixir: 0,
+        guardian_elixir: 0,
+        weapon_oil: 0,
+        drums: 0,
         tirisfal_2set: true,
         tirisfal_4set: true,
         tempest_2set: false,
@@ -3705,6 +3759,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         berserking_at: 1,
         arcane_power_at: 1,
         presence_of_mind_at: 0,
+        drums_at: 1,
         talents: "2500250300030150330125000000000000000000000000535000310030010000000",
         stats: {
           intellect: 465,
@@ -3965,8 +4020,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.config.mark_of_the_wild) {
         stats.intellect += 18;
         stats.spirit += 18;
-      } // Attribute multipliers
+      }
 
+      if (this.config.spell_dmg_food || this.config.spell_crit_food) stats.spirit += 20; // Attribute multipliers
 
       if (x = this.hasTalent("arcane_mind")) stats.intellect *= 1.0 + x * 0.03;
       if (this.config.race == this.races.RACE_GNOME) stats.intellect *= 1.05;
@@ -3989,17 +4045,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.config.wrath_of_air) stats.spell_power += 102;
       if (this.config.brilliant_wizard_oil) stats.spell_power += 36;
       if (this.config.spell_dmg_food) stats.spell_power += 23;
-      if (this.config.flask_of_supreme_power) stats.spell_power += 70;
-      if (this.config.flask_of_blinding_light) stats.spell_power_arcane += 80;
-      if (this.config.adepts_elixir) stats.spell_power += 24; // Spell crit
+      if (this.config.flask == this.flasks.FLASK_SUPREME_POWER) stats.spell_power += 70;
+      if (this.config.flask == this.flasks.FLASK_BLINDING_LIGHT) stats.spell_power_arcane += 80;
+      if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) stats.spell_power += 24; // Spell crit
 
       var critrating = 0;
       if (this.config.judgement_of_the_crusader) stats.crit += 3;
       if (this.config.moonkin_aura) stats.crit += 5;
       if (this.config.totem_of_wrath) stats.crit += 3;
       if (this.config.molten_armor) stats.crit += 3;
-      if (this.config.adepts_elixir) critrating += 24;
-      if (this.config.brilliant_wizard_oil) critrating += 14;
+      if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) critrating += 24;
+      if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD) critrating += 14;
+      if (this.config.food == this.foods.FOOD_SPELL_CRIT) critrating += 20;
       if (critrating > 0) stats.crit += this.critRatingToChance(critrating);
       if (x = this.hasTalent("arcane_instability")) stats.crit += x; // Spell hit
 
@@ -4468,21 +4525,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (str) {
         equipped = JSON.parse(str);
-        if (equipped) _.merge(this.equipped, equipped);
+        if (equipped) _.merge(this.equipped, _.pick(equipped, _.keys(this.equipped)));
       }
 
       var str = window.localStorage.getItem("magesim_tbc_enchants");
 
       if (str) {
         enchants = JSON.parse(str);
-        if (enchants) _.merge(this.enchants, enchants);
+        if (enchants) _.merge(this.enchants, _.pick(enchants, _.keys(this.enchants)));
       }
 
       var str = window.localStorage.getItem("magesim_tbc_gems");
 
       if (str) {
         gems = JSON.parse(str);
-        if (gems) _.merge(this.gems, gems);
+        if (gems) _.merge(this.gems, _.pick(gems, _.keys(this.gems)));
       }
 
       if (!equipped) this.quickset(this.items.quicksets.t5bis);
@@ -24935,6 +24992,400 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("fieldset", [
+                  _c("legend", [_vm._v("Consumes")]),
+                  _vm._v(" "),
+                  !_vm.config.battle_elixir && !_vm.config.guardian_elixir
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Flask")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.flask,
+                                expression: "config.flask"
+                              }
+                            ],
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.config,
+                                  "flask",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { domProps: { value: _vm.flasks.FLASK_NONE } },
+                              [_vm._v("None")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.flasks.FLASK_SUPREME_POWER
+                                }
+                              },
+                              [_vm._v("Supreme Power (70 sp)")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.flasks.FLASK_BLINDING_LIGHT
+                                }
+                              },
+                              [_vm._v("Blinding Light (80 arc)")]
+                            )
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.config.flask
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Battle Elixir")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.battle_elixir,
+                                expression: "config.battle_elixir"
+                              }
+                            ],
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.config,
+                                  "battle_elixir",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { domProps: { value: _vm.elixirs.ELIXIR_NONE } },
+                              [_vm._v("None")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: { value: _vm.elixirs.ELIXIR_ADEPTS }
+                              },
+                              [_vm._v("Adept's Elixir (24 sp / 24 crit)")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.elixirs.ELIXIR_GREATER_ARCANE
+                                }
+                              },
+                              [_vm._v("Greater Arcane (35 sp)")]
+                            )
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.config.flask
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Guardian Elixir")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.guardian_elixir,
+                                expression: "config.guardian_elixir"
+                              }
+                            ],
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.config,
+                                  "guardian_elixir",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { domProps: { value: _vm.elixirs.ELIXIR_NONE } },
+                              [_vm._v("None")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.elixirs.ELIXIR_DRAENIC_WISDOM
+                                }
+                              },
+                              [_vm._v("Draenic Wisdom (30 int / 30 spi)")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.elixirs.ELIXIR_MAJOR_MAGEBLOOD
+                                }
+                              },
+                              [_vm._v("Major Mageblood (16 mp5)")]
+                            )
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Weapon oil")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.weapon_oil,
+                            expression: "config.weapon_oil"
+                          }
+                        ],
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.config,
+                              "weapon_oil",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.weapon_oils.OIL_NONE } },
+                          [_vm._v("None")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            domProps: {
+                              value: _vm.weapon_oils.OIL_BRILLIANT_WIZARD
+                            }
+                          },
+                          [_vm._v("Brilliant Wizard Oil (36 sp / 14 crit)")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            domProps: {
+                              value: _vm.weapon_oils.OIL_SUPERIOR_WIZARD
+                            }
+                          },
+                          [_vm._v("Superior Wizard Oil (42 sp)")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            domProps: {
+                              value: _vm.weapon_oils.OIL_SUPERIOR_MANA
+                            }
+                          },
+                          [_vm._v("Superior Mana Oil (14 mp5)")]
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Food")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.food,
+                            expression: "config.food"
+                          }
+                        ],
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.config,
+                              "food",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.foods.FOOD_NONE } },
+                          [_vm._v("None")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.foods.FOOD_SPELL_POWER } },
+                          [_vm._v("Blackened Basilisk (23 sp / 20 spi)")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.foods.FOOD_SPELL_CRIT } },
+                          [_vm._v("Skullfish Soup (20 crit / 20 spi)")]
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Drums")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.drums,
+                            expression: "config.drums"
+                          }
+                        ],
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.config,
+                              "drums",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.drums.DRUMS_NONE } },
+                          [_vm._v("None")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.drums.DRUMS_OF_BATTLE } },
+                          [_vm._v("Drums of Battle (80 haste)")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.drums.DRUMS_OF_WAR } },
+                          [_vm._v("Drums of War (30 sp)")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            domProps: { value: _vm.drums.DRUMS_OF_RESTORATION }
+                          },
+                          [_vm._v("Drums of Restoration (600 mana)")]
+                        )
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("fieldset", [
                   _c("legend", [_vm._v("Cooldowns")]),
                   _vm._v(" "),
                   _vm.hasTalent("presence_of_mind")
@@ -25182,6 +25633,41 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
+                  _vm.config.drums
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("First drums at")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.drums_at,
+                              expression: "config.drums_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.drums_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "drums_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
                     _c("label", [
                       _c("input", {
@@ -25361,7 +25847,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Innervates")]),
+                    _c("label", [_vm._v("Number of innervates")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -25391,532 +25877,6 @@ var render = function() {
                         }
                       }
                     })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("fieldset", [
-                  _c("legend", [_vm._v("Consumes")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.spell_dmg_food,
-                            expression: "config.spell_dmg_food"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.spell_dmg_food)
-                            ? _vm._i(_vm.config.spell_dmg_food, null) > -1
-                            : _vm.config.spell_dmg_food
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.dontStack($event, "spell_crit_food")
-                          },
-                          change: function($event) {
-                            var $$a = _vm.config.spell_dmg_food,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "spell_dmg_food",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "spell_dmg_food",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.config, "spell_dmg_food", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Spell damage food")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.spell_crit_food,
-                            expression: "config.spell_crit_food"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.spell_crit_food)
-                            ? _vm._i(_vm.config.spell_crit_food, null) > -1
-                            : _vm.config.spell_crit_food
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.dontStack($event, "spell_dmg_food")
-                          },
-                          change: function($event) {
-                            var $$a = _vm.config.spell_crit_food,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "spell_crit_food",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "spell_crit_food",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.config, "spell_crit_food", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Spell crit food")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.brilliant_wizard_oil,
-                            expression: "config.brilliant_wizard_oil"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(
-                            _vm.config.brilliant_wizard_oil
-                          )
-                            ? _vm._i(_vm.config.brilliant_wizard_oil, null) > -1
-                            : _vm.config.brilliant_wizard_oil
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.dontStack($event, "superior_wizard_oil")
-                          },
-                          change: function($event) {
-                            var $$a = _vm.config.brilliant_wizard_oil,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "brilliant_wizard_oil",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "brilliant_wizard_oil",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.config, "brilliant_wizard_oil", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Brilliant Wizard Oil")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.superior_wizard_oil,
-                            expression: "config.superior_wizard_oil"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.superior_wizard_oil)
-                            ? _vm._i(_vm.config.superior_wizard_oil, null) > -1
-                            : _vm.config.superior_wizard_oil
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.dontStack($event, "brilliant_wizard_oil")
-                          },
-                          change: function($event) {
-                            var $$a = _vm.config.superior_wizard_oil,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "superior_wizard_oil",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "superior_wizard_oil",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.config, "superior_wizard_oil", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Superior Wizard Oil")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.flask_of_supreme_power,
-                            expression: "config.flask_of_supreme_power"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(
-                            _vm.config.flask_of_supreme_power
-                          )
-                            ? _vm._i(_vm.config.flask_of_supreme_power, null) >
-                              -1
-                            : _vm.config.flask_of_supreme_power
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.dontStack($event, [
-                              "flask_of_blinding_light",
-                              "adepts_elixir",
-                              "elixir_of_draenic_wisdom"
-                            ])
-                          },
-                          change: function($event) {
-                            var $$a = _vm.config.flask_of_supreme_power,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "flask_of_supreme_power",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "flask_of_supreme_power",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(
-                                _vm.config,
-                                "flask_of_supreme_power",
-                                $$c
-                              )
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Flask of Supreme Power")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.flask_of_blinding_light,
-                            expression: "config.flask_of_blinding_light"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(
-                            _vm.config.flask_of_blinding_light
-                          )
-                            ? _vm._i(_vm.config.flask_of_blinding_light, null) >
-                              -1
-                            : _vm.config.flask_of_blinding_light
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.dontStack($event, [
-                              "flask_of_supreme_power",
-                              "adepts_elixir",
-                              "elixir_of_draenic_wisdom"
-                            ])
-                          },
-                          change: function($event) {
-                            var $$a = _vm.config.flask_of_blinding_light,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "flask_of_blinding_light",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "flask_of_blinding_light",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(
-                                _vm.config,
-                                "flask_of_blinding_light",
-                                $$c
-                              )
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Flask of Blinding Light")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.adepts_elixir,
-                            expression: "config.adepts_elixir"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.adepts_elixir)
-                            ? _vm._i(_vm.config.adepts_elixir, null) > -1
-                            : _vm.config.adepts_elixir
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.dontStack($event, [
-                              "flask_of_supreme_power",
-                              "flask_of_blinding_light"
-                            ])
-                          },
-                          change: function($event) {
-                            var $$a = _vm.config.adepts_elixir,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "adepts_elixir",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "adepts_elixir",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.config, "adepts_elixir", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Adept's Elixir")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.elixir_of_draenic_wisdom,
-                            expression: "config.elixir_of_draenic_wisdom"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(
-                            _vm.config.elixir_of_draenic_wisdom
-                          )
-                            ? _vm._i(
-                                _vm.config.elixir_of_draenic_wisdom,
-                                null
-                              ) > -1
-                            : _vm.config.elixir_of_draenic_wisdom
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.dontStack($event, [
-                              "flask_of_supreme_power",
-                              "flask_of_blinding_light"
-                            ])
-                          },
-                          change: function($event) {
-                            var $$a = _vm.config.elixir_of_draenic_wisdom,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "elixir_of_draenic_wisdom",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "elixir_of_draenic_wisdom",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(
-                                _vm.config,
-                                "elixir_of_draenic_wisdom",
-                                $$c
-                              )
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Elixir of Draenic Wisdom")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.drums,
-                            expression: "config.drums"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.drums)
-                            ? _vm._i(_vm.config.drums, null) > -1
-                            : _vm.config.drums
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.config.drums,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "drums",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "drums",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.config, "drums", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Drums (WIP)")])
-                    ])
                   ])
                 ])
               ]),

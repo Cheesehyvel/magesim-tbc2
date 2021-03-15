@@ -24,15 +24,12 @@ struct Config
     bool molten_armor = false;
     bool inspiring_presence = false;
 
-    bool spell_dmg_food = true;
-    bool spell_crit_food = false;
-    bool brilliant_wizard_oil = true;
-    bool superior_wizard_oil = false;
-    bool flask_of_supreme_power = true;
-    bool flask_of_blinding_light = false;
-    bool adepts_elixir = false;
-    bool elixir_of_draenic_wisdom = false;
-    bool drums = true;
+    Food food;
+    Flask flask;
+    Elixir battle_elixir;
+    Elixir guardian_elixir;
+    WeaponOil weapon_oil;
+    Drums drums;
 
     bool tirisfal_2set = true;
     bool tirisfal_4set = true;
@@ -54,12 +51,13 @@ struct Config
     RegenRotation regen_rotation = ROTATION_FB;
     double mana_tide_at = 10;
     double bloodlust_at = 20;
-    double icy_veins_at = 0;
+    double icy_veins_at = 1;
     double cold_snap_at = 20;
-    double trinket1_at = 0;
+    double trinket1_at = 1;
     double trinket2_at = 20;
-    double berserking_at = 0;
-    double arcane_power_at = 0;
-    double presence_of_mind_at = 19;
+    double berserking_at = 1;
+    double arcane_power_at = 1;
+    double presence_of_mind_at = 0;
+    double drums_at = 1;
 
 };

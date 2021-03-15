@@ -17,6 +17,7 @@ namespace cooldown
         QUAGMIRRANS_EYE = 33370,
         UNSTABLE_CURRENTS = 38348,
         ETERNAL_SAGE = 35084,
+        DRUMS = 35476,
     };
 
 
@@ -165,6 +166,18 @@ namespace cooldown
         {
             id = ETERNAL_SAGE;
             duration = 45;
+        }
+
+    };
+
+    class Drums : public Cooldown
+    {
+
+    public:
+        Drums()
+        {
+            id = DRUMS;
+            duration = 120;
         }
 
     };

@@ -37,6 +37,12 @@ onmessage = function onmessage(event) {
       if (m.Trinket.values.hasOwnProperty(data.config.trinket1)) config.trinket1 = m.Trinket.values[data.config.trinket1];
       if (m.Trinket.values.hasOwnProperty(data.config.trinket2)) config.trinket2 = m.Trinket.values[data.config.trinket2];
       if (m.MetaGem.values.hasOwnProperty(data.config.meta_gem)) config.meta_gem = m.MetaGem.values[data.config.meta_gem];
+      if (m.Flask.values.hasOwnProperty(data.config.flask)) config.flask = m.Flask.values[data.config.flask];
+      if (m.Elixir.values.hasOwnProperty(data.config.battle_elixir)) config.battle_elixir = m.Elixir.values[data.config.battle_elixir];
+      if (m.Elixir.values.hasOwnProperty(data.config.guardian_elixir)) config.guardian_elixir = m.Elixir.values[data.config.guardian_elixir];
+      if (m.WeaponOil.values.hasOwnProperty(data.config.weapon_oil)) config.weapon_oil = m.WeaponOil.values[data.config.weapon_oil];
+      if (m.Food.values.hasOwnProperty(data.config.food)) config.food = m.Food.values[data.config.food];
+      if (m.Drums.values.hasOwnProperty(data.config.drums)) config.drums = m.Drums.values[data.config.drums];
       var player = m.allocPlayer(config);
       var stats = JSON.parse(JSON.stringify(player.stats));
 

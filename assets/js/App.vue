@@ -372,6 +372,59 @@
                             </div>
                         </fieldset>
                         <fieldset>
+                            <legend>Consumes</legend>
+                            <div class="form-item" v-if="!config.battle_elixir && !config.guardian_elixir">
+                                <label>Flask</label>
+                                <select v-model="config.flask">
+                                    <option :value="flasks.FLASK_NONE">None</option>
+                                    <option :value="flasks.FLASK_SUPREME_POWER">Supreme Power (70 sp)</option>
+                                    <option :value="flasks.FLASK_BLINDING_LIGHT">Blinding Light (80 arc)</option>
+                                </select>
+                            </div>
+                            <div class="form-item" v-if="!config.flask">
+                                <label>Battle Elixir</label>
+                                <select v-model="config.battle_elixir">
+                                    <option :value="elixirs.ELIXIR_NONE">None</option>
+                                    <option :value="elixirs.ELIXIR_ADEPTS">Adept's Elixir (24 sp / 24 crit)</option>
+                                    <option :value="elixirs.ELIXIR_GREATER_ARCANE">Greater Arcane (35 sp)</option>
+                                </select>
+                            </div>
+                            <div class="form-item" v-if="!config.flask">
+                                <label>Guardian Elixir</label>
+                                <select v-model="config.guardian_elixir">
+                                    <option :value="elixirs.ELIXIR_NONE">None</option>
+                                    <option :value="elixirs.ELIXIR_DRAENIC_WISDOM">Draenic Wisdom (30 int / 30 spi)</option>
+                                    <option :value="elixirs.ELIXIR_MAJOR_MAGEBLOOD">Major Mageblood (16 mp5)</option>
+                                </select>
+                            </div>
+                            <div class="form-item">
+                                <label>Weapon oil</label>
+                                <select v-model="config.weapon_oil">
+                                    <option :value="weapon_oils.OIL_NONE">None</option>
+                                    <option :value="weapon_oils.OIL_BRILLIANT_WIZARD">Brilliant Wizard Oil (36 sp / 14 crit)</option>
+                                    <option :value="weapon_oils.OIL_SUPERIOR_WIZARD">Superior Wizard Oil (42 sp)</option>
+                                    <option :value="weapon_oils.OIL_SUPERIOR_MANA">Superior Mana Oil (14 mp5)</option>
+                                </select>
+                            </div>
+                            <div class="form-item">
+                                <label>Food</label>
+                                <select v-model="config.food">
+                                    <option :value="foods.FOOD_NONE">None</option>
+                                    <option :value="foods.FOOD_SPELL_POWER">Blackened Basilisk (23 sp / 20 spi)</option>
+                                    <option :value="foods.FOOD_SPELL_CRIT">Skullfish Soup (20 crit / 20 spi)</option>
+                                </select>
+                            </div>
+                            <div class="form-item">
+                                <label>Drums</label>
+                                <select v-model="config.drums">
+                                    <option :value="drums.DRUMS_NONE">None</option>
+                                    <option :value="drums.DRUMS_OF_BATTLE">Drums of Battle (80 haste)</option>
+                                    <option :value="drums.DRUMS_OF_WAR">Drums of War (30 sp)</option>
+                                    <option :value="drums.DRUMS_OF_RESTORATION">Drums of Restoration (600 mana)</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset>
                             <legend>Cooldowns</legend>
                             <div class="form-item" v-if="hasTalent('presence_of_mind')">
                                 <label>Presence of Mind at</label>
@@ -401,6 +454,10 @@
                                 <label>Trinket #2 at</label>
                                 <input type="text" v-model.number="config.trinket2_at">
                             </div>
+                            <div class="form-item" v-if="config.drums">
+                                <label>First drums at</label>
+                                <input type="text" v-model.number="config.drums_at">
+                            </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.bloodlust"> <span>Bloodlust <template v-if="config.bloodlust">at</template></span></label>
                                 <input type="text" v-model.number="config.bloodlust_at" v-if="config.bloodlust">
@@ -410,38 +467,8 @@
                                 <input type="text" v-model.number="config.mana_tide_at" v-if="config.mana_tide">
                             </div>
                             <div class="form-item">
-                                <label>Innervates</label>
+                                <label>Number of innervates</label>
                                 <input type="text" v-model.number="config.innervate">
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend>Consumes</legend>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.spell_dmg_food" @input="dontStack($event, 'spell_crit_food')"> <span>Spell damage food</span></label>
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.spell_crit_food" @input="dontStack($event, 'spell_dmg_food')"> <span>Spell crit food</span></label>
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.brilliant_wizard_oil" @input="dontStack($event, 'superior_wizard_oil')"> <span>Brilliant Wizard Oil</span></label>
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.superior_wizard_oil" @input="dontStack($event, 'brilliant_wizard_oil')"> <span>Superior Wizard Oil</span></label>
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.flask_of_supreme_power" @input="dontStack($event, ['flask_of_blinding_light', 'adepts_elixir', 'elixir_of_draenic_wisdom'])"> <span>Flask of Supreme Power</span></label>
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.flask_of_blinding_light" @input="dontStack($event, ['flask_of_supreme_power', 'adepts_elixir', 'elixir_of_draenic_wisdom'])"> <span>Flask of Blinding Light</span></label>
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.adepts_elixir" @input="dontStack($event, ['flask_of_supreme_power', 'flask_of_blinding_light'])"> <span>Adept's Elixir</span></label>
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.elixir_of_draenic_wisdom" @input="dontStack($event, ['flask_of_supreme_power', 'flask_of_blinding_light'])"> <span>Elixir of Draenic Wisdom</span></label>
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.drums"> <span>Drums (WIP)</span></label>
                             </div>
                         </fieldset>
                     </div>
@@ -484,6 +511,35 @@
                 regen_rotations: {
                     ROTATION_FB: 0,
                     ROTATION_AMFB: 1,
+                },
+                foods: {
+                    FOOD_NONE: 0,
+                    FOOD_SPELL_POWER: 27657,
+                    FOOD_SPELL_CRIT: 33825,
+                },
+                flasks: {
+                    FLASK_NONE: 0,
+                    FLASK_SUPREME_POWER: 13512,
+                    FLASK_BLINDING_LIGHT: 22861,
+                },
+                elixirs: {
+                    ELIXIR_NONE: 0,
+                    ELIXIR_GREATER_ARCANE: 13454,
+                    ELIXIR_ADEPTS: 28103,
+                    ELIXIR_MAJOR_MAGEBLOOD: 22840,
+                    ELIXIR_DRAENIC_WISDOM: 32067,
+                },
+                drums: {
+                    DRUMS_NONE: 0,
+                    DRUMS_OF_WAR: 29528,
+                    DRUMS_OF_RESTORATION: 29531,
+                    DRUMS_OF_BATTLE: 29529,
+                },
+                weapon_oils: {
+                    OIL_NONE: 0,
+                    OIL_BRILLIANT_WIZARD: 20749,
+                    OIL_SUPERIOR_WIZARD: 22522,
+                    OIL_SUPERIOR_MANA: 22521,
                 },
                 items: items,
                 equipped: {},
@@ -533,14 +589,12 @@
                     molten_armor: false,
                     inspiring_presence: false,
 
-                    spell_dmg_food: true,
-                    spell_crit_food: false,
-                    brilliant_wizard_oil: true,
-                    flask_of_supreme_power: true,
-                    flask_of_blinding_light: false,
-                    adepts_elixir: false,
-                    elixir_of_draenic_wisdom: false,
-                    drums: true,
+                    food: 0,
+                    flask: 0,
+                    battle_elixir: 0,
+                    guardian_elixir: 0,
+                    weapon_oil: 0,
+                    drums: 0,
 
                     tirisfal_2set: true,
                     tirisfal_4set: true,
@@ -568,6 +622,7 @@
                     berserking_at: 1,
                     arcane_power_at: 1,
                     presence_of_mind_at: 0,
+                    drums_at: 1,
 
                     talents: "2500250300030150330125000000000000000000000000535000310030010000000",
 
@@ -812,6 +867,8 @@
                     stats.intellect+= 18;
                     stats.spirit+= 18;
                 }
+                if (this.config.spell_dmg_food || this.config.spell_crit_food)
+                    stats.spirit+= 20;
 
                 // Attribute multipliers
                 if (x = this.hasTalent("arcane_mind"))
@@ -846,11 +903,11 @@
                     stats.spell_power+= 36;
                 if (this.config.spell_dmg_food)
                     stats.spell_power+= 23;
-                if (this.config.flask_of_supreme_power)
+                if (this.config.flask == this.flasks.FLASK_SUPREME_POWER)
                     stats.spell_power+= 70;
-                if (this.config.flask_of_blinding_light)
+                if (this.config.flask == this.flasks.FLASK_BLINDING_LIGHT)
                     stats.spell_power_arcane+= 80;
-                if (this.config.adepts_elixir)
+                if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS)
                     stats.spell_power+= 24;
 
                 // Spell crit
@@ -863,10 +920,12 @@
                     stats.crit+= 3;
                 if (this.config.molten_armor)
                     stats.crit+= 3;
-                if (this.config.adepts_elixir)
+                if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS)
                     critrating+= 24;
-                if (this.config.brilliant_wizard_oil)
+                if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD)
                     critrating+= 14;
+                if (this.config.food == this.foods.FOOD_SPELL_CRIT)
+                    critrating+= 20;
                 if (critrating > 0)
                     stats.crit+= this.critRatingToChance(critrating);
                 if (x = this.hasTalent("arcane_instability"))
@@ -1419,21 +1478,21 @@
                 if (str) {
                     equipped = JSON.parse(str);
                     if (equipped)
-                        _.merge(this.equipped, equipped);
+                        _.merge(this.equipped, _.pick(equipped, _.keys(this.equipped)));
                 }
 
                 var str = window.localStorage.getItem("magesim_tbc_enchants");
                 if (str) {
                     enchants = JSON.parse(str);
                     if (enchants)
-                        _.merge(this.enchants, enchants);
+                        _.merge(this.enchants, _.pick(enchants, _.keys(this.enchants)));
                 }
 
                 var str = window.localStorage.getItem("magesim_tbc_gems");
                 if (str) {
                     gems = JSON.parse(str);
                     if (gems)
-                        _.merge(this.gems, gems);
+                        _.merge(this.gems, _.pick(gems, _.keys(this.gems)));
                 }
 
                 if (!equipped)

@@ -491,6 +491,11 @@ public:
                 pushManaGain(t, player->maxMana() * 0.06, "Mana Tide");
         }
 
+        if (buff->id == buff::DRUMS_OF_RESTORATION) {
+            for (double t = 3; t<=15; t+= 3)
+                pushManaGain(t, 120, "Drums of Restoration");
+        }
+
         if (stacks)
             logBuffGain(buff, stacks);
 
@@ -624,6 +629,8 @@ public:
             useTrinket(config->trinket1, cooldown::TRINKET1);
         if (state->t >= config->trinket2_at && !state->hasCooldown(cooldown::TRINKET2))
             useTrinket(config->trinket2, cooldown::TRINKET2);
+        if (state->t >= config->drums_at && !state->hasCooldown(cooldown::DRUMS))
+            useDrums();
     }
 
     void useTrinket(Trinket trinket_id, cooldown::ID cd)
@@ -651,6 +658,18 @@ public:
             onBuffGain(make_shared<buff::ShrunkenHead>());
         if (trinket_id == TRINKET_NAARU_SLIVER)
             onBuffGain(make_shared<buff::NaaruSliver>());
+    }
+
+    void useDrums()
+    {
+        onCooldownGain(make_shared<cooldown::Drums>());
+
+        if (config->drums == DRUMS_OF_BATTLE)
+            onBuffGain(make_shared<buff::DrumsOfBattle>());
+        else if (config->drums == DRUMS_OF_WAR)
+            onBuffGain(make_shared<buff::DrumsOfWar>());
+        else if (config->drums == DRUMS_OF_RESTORATION)
+            onBuffGain(make_shared<buff::DrumsOfRestoration>());
     }
 
     void useArcanePower()
@@ -778,6 +797,8 @@ public:
             rating+= 320;
         if (state->hasBuff(buff::MQG))
             rating+= 330;
+        if (state->hasBuff(buff::DRUMS_OF_BATTLE))
+            rating+= 80;
 
         if (rating)
             phaste+= hasteRatingToHaste(rating);
@@ -925,6 +946,8 @@ public:
                 sp+= 211.0;
             if (state->hasBuff(buff::NAARU_SLIVER))
                 sp+= 320.0;
+            if (state->hasBuff(buff::DRUMS_OF_WAR))
+                sp+= 30.0;
 
             if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
                 coeff+= player->talents.empowered_arcane_missiles * 0.15;

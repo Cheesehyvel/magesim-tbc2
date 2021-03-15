@@ -61,6 +61,45 @@ enum Trinket : int
     TRINKET_NAARU_SLIVER = 34429,
 };
 
+enum Food : int
+{
+    FOOD_NONE = 0,
+    FOOD_SPELL_POWER = 27657,
+    FOOD_SPELL_CRIT = 33825,
+};
+
+enum Flask : int
+{
+    FLASK_NONE = 0,
+    FLASK_SUPREME_POWER = 13512,
+    FLASK_BLINDING_LIGHT = 22861,
+};
+
+enum Elixir : int
+{
+    ELIXIR_NONE = 0,
+    ELIXIR_MAJOR_MAGEBLOOD = 22840,
+    ELIXIR_DRAENIC_WISDOM = 32067,
+    ELIXIR_GREATER_ARCANE = 13454,
+    ELIXIR_ADEPTS = 28103,
+};
+
+enum Drums : int
+{
+    DRUMS_NONE = 0,
+    DRUMS_OF_WAR = 29528,
+    DRUMS_OF_RESTORATION = 29531,
+    DRUMS_OF_BATTLE = 29529,
+};
+
+enum WeaponOil : int
+{
+    OIL_NONE = 0,
+    OIL_BRILLIANT_WIZARD = 20749,
+    OIL_SUPERIOR_WIZARD = 22522,
+    OIL_SUPERIOR_MANA = 22521,
+};
+
 enum EventType : int
 {
     EVENT_CAST,
