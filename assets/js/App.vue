@@ -379,6 +379,7 @@
                                     <option :value="flasks.FLASK_NONE">None</option>
                                     <option :value="flasks.FLASK_SUPREME_POWER">Supreme Power (70 sp)</option>
                                     <option :value="flasks.FLASK_BLINDING_LIGHT">Blinding Light (80 arc)</option>
+                                    <option :value="flasks.FLASK_DISTILLED_WISDOM">Distilled Wisdom (65 int)</option>
                                 </select>
                             </div>
                             <div class="form-item" v-if="!config.flask">
@@ -521,6 +522,7 @@
                     FLASK_NONE: 0,
                     FLASK_SUPREME_POWER: 13512,
                     FLASK_BLINDING_LIGHT: 22861,
+                    FLASK_DISTILLED_WISDOM: 13511,
                 },
                 elixirs: {
                     ELIXIR_NONE: 0,
@@ -867,6 +869,8 @@
                     stats.intellect+= 18;
                     stats.spirit+= 18;
                 }
+                if (this.config.flask == this.flasks.FLASK_DISTILLED_WISDOM)
+                    stats.intellect+= 65;
                 if (this.config.food == this.foods.FOOD_SPELL_POWER || this.config.food == this.foods.FOOD_SPELL_CRIT)
                     stats.spirit+= 20;
 

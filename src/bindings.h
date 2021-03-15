@@ -86,7 +86,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
     emscripten::enum_<Flask>("Flask")
         .value("FLASK_NONE", FLASK_NONE)
         .value("FLASK_SUPREME_POWER", FLASK_SUPREME_POWER)
-        .value("FLASK_BLINDING_LIGHT", FLASK_BLINDING_LIGHT);
+        .value("FLASK_BLINDING_LIGHT", FLASK_BLINDING_LIGHT)
+        .value("FLASK_DISTILLED_WISDOM", FLASK_DISTILLED_WISDOM);
 
     emscripten::enum_<Elixir>("Elixir")
         .value("ELIXIR_NONE", ELIXIR_NONE)

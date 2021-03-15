@@ -3630,6 +3630,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3664,7 +3665,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       flasks: {
         FLASK_NONE: 0,
         FLASK_SUPREME_POWER: 13512,
-        FLASK_BLINDING_LIGHT: 22861
+        FLASK_BLINDING_LIGHT: 22861,
+        FLASK_DISTILLED_WISDOM: 13511
       },
       elixirs: {
         ELIXIR_NONE: 0,
@@ -4022,6 +4024,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         stats.spirit += 18;
       }
 
+      if (this.config.flask == this.flasks.FLASK_DISTILLED_WISDOM) stats.intellect += 65;
       if (this.config.food == this.foods.FOOD_SPELL_POWER || this.config.food == this.foods.FOOD_SPELL_CRIT) stats.spirit += 20; // Attribute multipliers
 
       if (x = this.hasTalent("arcane_mind")) stats.intellect *= 1.0 + x * 0.03;
@@ -25059,6 +25062,16 @@ var render = function() {
                                 }
                               },
                               [_vm._v("Blinding Light (80 arc)")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.flasks.FLASK_DISTILLED_WISDOM
+                                }
+                              },
+                              [_vm._v("Distilled Wisdom (65 int)")]
                             )
                           ]
                         )

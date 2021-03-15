@@ -105,6 +105,8 @@ public:
             stats.intellect+= 18;
             stats.spirit+= 18;
         }
+        if (config->flask == FLASK_DISTILLED_WISDOM)
+            stats.intellect+= 65;
         if (config->food == FOOD_SPELL_POWER || config->food == FOOD_SPELL_CRIT)
             stats.spirit+= 20;
 

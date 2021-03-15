@@ -73,6 +73,7 @@ enum Flask : int
     FLASK_NONE = 0,
     FLASK_SUPREME_POWER = 13512,
     FLASK_BLINDING_LIGHT = 22861,
+    FLASK_DISTILLED_WISDOM = 13511,
 };
 
 enum Elixir : int

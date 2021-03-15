@@ -88,9 +88,9 @@ namespace spell
         {
             id = FROSTBOLT;
             name = "Frostbolt";
-            cost = 330;
-            min_dmg = 600;
-            max_dmg = 647;
+            cost = 345;
+            min_dmg = 630;
+            max_dmg = 681;
             cast_time = 3;
             coeff = 3/3.5 * 0.95;
             school = SCHOOL_FROST;
