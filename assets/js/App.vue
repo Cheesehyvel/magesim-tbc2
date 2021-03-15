@@ -469,7 +469,7 @@
                                 <label>Potion at</label>
                                 <input type="text" v-model.number="config.potion_at">
                             </div>
-                            <div class="form-item" v-if="config.conjured && config.conjured != conjureds.POTION_MANA">
+                            <div class="form-item" v-if="config.conjured && config.conjured != conjureds.CONJURED_MANA_GEM">
                                 <label>Conjured at</label>
                                 <input type="text" v-model.number="config.conjured_at">
                             </div>

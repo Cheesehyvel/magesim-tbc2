@@ -25865,7 +25865,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.config.conjured &&
-                  _vm.config.conjured != _vm.conjureds.POTION_MANA
+                  _vm.config.conjured != _vm.conjureds.CONJURED_MANA_GEM
                     ? _c("div", { staticClass: "form-item" }, [
                         _c("label", [_vm._v("Conjured at")]),
                         _vm._v(" "),
