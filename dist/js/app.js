@@ -497,7 +497,7 @@ var equip = {
     id: 33192,
     title: "Carved Witch Doctor's Stick",
     "int": 15,
-    spt: 18,
+    sp: 18,
     sockets: ["b"],
     bonus: {
       sp: 2
@@ -3069,12 +3069,12 @@ var quicksets = {
       back: [null, null, null],
       chest: [32221, 32221, null],
       feet: [24030, 32221, null],
-      hands: [32221, 32221, null],
+      hands: [24030, 24030, null],
       head: [32221, 28118, 33133],
-      legs: [32221, 32221, 32221],
+      legs: [24030, 24030, 24030],
       neck: [null, null, null],
-      shoulder: [30564, 30564, null],
-      waist: [32221, 32221, null],
+      shoulder: [30564, 24030, null],
+      waist: [24030, 24030, null],
       weapon: [null, null, null],
       wrist: [32221, null, null]
     }
