@@ -1024,7 +1024,7 @@ public:
         if ((spell->school == SCHOOL_FROST || spell->school == SCHOOL_FIRE) && player->talents.elemental_precision)
             hit+= player->talents.elemental_precision;
 
-        return hit;
+        return min(hit, 99.0);
     }
 
     double critChance(shared_ptr<spell::Spell> spell)

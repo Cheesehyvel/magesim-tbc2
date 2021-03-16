@@ -262,7 +262,7 @@
                 <div class="config" v-if="config_open">
                     <div class="fieldsets">
                         <fieldset>
-                            <legend>Basics</legend>
+                            <legend>General</legend>
                             <div class="form-item">
                                 <label>Race</label>
                                 <select v-model="config.race">
@@ -502,6 +502,27 @@
                                 <input type="text" v-model.number="config.innervate">
                             </div>
                         </fieldset>
+                        <fieldset>
+                            <legend>Profiles</legend>
+                            <div class="profiles">
+                                <div class="profile" v-for="profile in profiles" :key="profile.id">
+                                    <div class="name" @click="loadProfile(profile)">{{ profile.name }}</div>
+                                    <div class="actions">
+                                        <div class="save" @click="saveProfile(profile)">
+                                            <span class="material-icons">
+                                                &#xe161;
+                                            </span>
+                                        </div>
+                                        <div class="delete" @click="deleteProfile(profile)">
+                                            <span class="material-icons">
+                                                &#xe872;
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn mt-1" @click="newProfile()">New profile</div>
+                            </div>
+                        </fieldset>
                     </div>
                     <div class="close" @click="configToggle">
                         <span class="material-icons">
@@ -517,80 +538,27 @@
 <script>
     import { SimulationWorker, SimulationWorkers } from "./simulation";
     import items from "./items";
+    import constants from "./constants";
 
     export default {
         mounted() {
             this.loadConfig();
             this.loadGear();
+            this.loadProfiles();
             this.finalStats();
             this.loadTooltips();
         },
 
         data() {
             var data = {
-                races: {
-                    RACE_BLOOD_ELF: 0,
-                    RACE_DRAENEI: 1,
-                    RACE_GNOME: 2,
-                    RACE_HUMAN: 3,
-                    RACE_TROLL: 4,
-                    RACE_UNDEAD: 5
-                },
-                specs: {
-                    SPEC_ARCANE: 0,
-                    SPEC_FIRE: 1,
-                },
-                regen_rotations: {
-                    ROTATION_FB: 0,
-                    ROTATION_AMFB: 1,
-                },
-                foods: {
-                    FOOD_NONE: 0,
-                    FOOD_SPELL_POWER: 27657,
-                    FOOD_SPELL_CRIT: 33825,
-                },
-                flasks: {
-                    FLASK_NONE: 0,
-                    FLASK_SUPREME_POWER: 13512,
-                    FLASK_BLINDING_LIGHT: 22861,
-                    FLASK_PURE_DEATH: 22866,
-                    FLASK_DISTILLED_WISDOM: 13511,
-                },
-                elixirs: {
-                    ELIXIR_NONE: 0,
-                    ELIXIR_GREATER_ARCANE: 13454,
-                    ELIXIR_ADEPTS: 28103,
-                    ELIXIR_MAJOR_MAGEBLOOD: 22840,
-                    ELIXIR_DRAENIC_WISDOM: 32067,
-                },
-                drums: {
-                    DRUMS_NONE: 0,
-                    DRUMS_OF_WAR: 29528,
-                    DRUMS_OF_RESTORATION: 29531,
-                    DRUMS_OF_BATTLE: 29529,
-                },
-                weapon_oils: {
-                    OIL_NONE: 0,
-                    OIL_BRILLIANT_WIZARD: 20749,
-                    OIL_SUPERIOR_WIZARD: 22522,
-                    OIL_SUPERIOR_MANA: 22521,
-                },
-                potions: {
-                    POTION_NONE: 0,
-                    POTION_MANA: 22832,
-                    POTION_DESTRUCTION: 22839,
-                },
-                conjureds: {
-                    CONJURED_NONE: 0,
-                    CONJURED_MANA_GEM: 22044,
-                    CONJURED_FLAME_CAP: 22788,
-                },
+                ...constants,
                 items: items,
                 equipped: {},
                 enchants: {},
                 gems: {},
                 item_gems: {},
                 item_comparison: [],
+                profiles: [],
                 active_slot: "weapon",
                 final_stats: null,
                 result: null,
@@ -1497,6 +1465,62 @@
                 return Math.round(num);
             },
 
+            saveProfile(profile) {
+                profile.equipped = _.cloneDeep(this.equipped);
+                profile.enchants = _.cloneDeep(this.enchants);
+                profile.gems = _.cloneDeep(this.gems);
+                profile.config = _.cloneDeep(this.config);
+
+                var index = _.findIndex(this.profiles, {id: profile.id});
+                if (index != -1)
+                    this.profiles.splice(index, 1, profile);
+                else
+                    this.profiles.push(profile);
+
+                this.saveProfiles();
+            },
+
+            loadProfile(profile) {
+                if (profile.equipped)
+                    _.merge(this.equipped, _.pick(profile.equipped, _.keys(this.equipped)));
+                if (profile.enchants)
+                    _.merge(this.enchants, _.pick(profile.enchants, _.keys(this.enchants)));
+                if (profile.gems)
+                    _.merge(this.gems, _.pick(profile.gems, _.keys(this.gems)));
+                if (profile.config)
+                    _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
+
+                this.finalStats();
+            },
+
+            deleteProfile(profile) {
+                var index = _.findIndex(this.profiles, {id: profile.id});
+                if (index != -1) {
+                    this.profiles.splice(index, 1);
+                    this.saveProfiles();
+                }
+            },
+
+            newProfile() {
+                var profile = {
+                    id: this.uuid(),
+                    name: prompt("Profile name"),
+                    equipped: {},
+                    enchants: {},
+                    gems: {},
+                    config: {},
+                };
+
+                this.saveProfile(profile);
+            },
+
+            uuid() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            },
+
             showLog(log) {
                 return this.log_filter[log.type];
             },
@@ -1581,7 +1605,20 @@
                 if (str) {
                     var config = JSON.parse(str);
                     if (config)
-                        _.merge(this.config, config);
+                        _.merge(this.config, _.pick(config, _.keys(this.config)));
+                }
+            },
+
+            saveProfiles() {
+                window.localStorage.setItem("magesim_tbc_profiles", JSON.stringify(this.profiles));
+            },
+
+            loadProfiles() {
+                var str = window.localStorage.getItem("magesim_tbc_profiles");
+                if (str) {
+                    var profiles = JSON.parse(str);
+                    if (profiles)
+                        this.profiles = profiles;
                 }
             },
         }

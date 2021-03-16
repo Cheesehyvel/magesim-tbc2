@@ -815,9 +815,39 @@ table.simple th:last-child, table.simple td:last-child {
 #app .config .fieldsets {
   display: grid;
   grid-gap: 10px;
+  grid-template-columns: repeat(5, 1fr);
 }
-#app .config .fieldsets fieldset {
-  grid-row: 1;
+#app .profiles .profile {
+  background: #2f2f48;
+  padding: 5px 10px;
+  display: grid;
+  grid-template-columns: auto -webkit-min-content;
+  grid-template-columns: auto min-content;
+}
+#app .profiles .profile:nth-child(n+1) {
+  margin-top: 10px;
+}
+#app .profiles .profile > * {
+  cursor: pointer;
+}
+#app .profiles .profile .name {
+  transition: color 0.2s ease;
+}
+#app .profiles .profile .name:hover {
+  color: #08f;
+}
+#app .profiles .profile .actions {
+  font-size: 16px;
+  white-space: nowrap;
+}
+#app .profiles .profile .actions > * {
+  display: inline-block;
+}
+#app .profiles .profile .save {
+  color: #08f;
+}
+#app .profiles .profile .delete {
+  color: #f00;
 }
 #app .log {
   position: absolute;

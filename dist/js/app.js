@@ -76,6 +76,79 @@ window.app = new AppConstructor({
 
 /***/ }),
 
+/***/ "./assets/js/constants.js":
+/*!********************************!*\
+  !*** ./assets/js/constants.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  races: {
+    RACE_BLOOD_ELF: 0,
+    RACE_DRAENEI: 1,
+    RACE_GNOME: 2,
+    RACE_HUMAN: 3,
+    RACE_TROLL: 4,
+    RACE_UNDEAD: 5
+  },
+  specs: {
+    SPEC_ARCANE: 0,
+    SPEC_FIRE: 1
+  },
+  regen_rotations: {
+    ROTATION_FB: 0,
+    ROTATION_AMFB: 1
+  },
+  foods: {
+    FOOD_NONE: 0,
+    FOOD_SPELL_POWER: 27657,
+    FOOD_SPELL_CRIT: 33825
+  },
+  flasks: {
+    FLASK_NONE: 0,
+    FLASK_SUPREME_POWER: 13512,
+    FLASK_BLINDING_LIGHT: 22861,
+    FLASK_PURE_DEATH: 22866,
+    FLASK_DISTILLED_WISDOM: 13511
+  },
+  elixirs: {
+    ELIXIR_NONE: 0,
+    ELIXIR_GREATER_ARCANE: 13454,
+    ELIXIR_ADEPTS: 28103,
+    ELIXIR_MAJOR_MAGEBLOOD: 22840,
+    ELIXIR_DRAENIC_WISDOM: 32067
+  },
+  drums: {
+    DRUMS_NONE: 0,
+    DRUMS_OF_WAR: 29528,
+    DRUMS_OF_RESTORATION: 29531,
+    DRUMS_OF_BATTLE: 29529
+  },
+  weapon_oils: {
+    OIL_NONE: 0,
+    OIL_BRILLIANT_WIZARD: 20749,
+    OIL_SUPERIOR_WIZARD: 22522,
+    OIL_SUPERIOR_MANA: 22521
+  },
+  potions: {
+    POTION_NONE: 0,
+    POTION_MANA: 22832,
+    POTION_DESTRUCTION: 22839
+  },
+  conjureds: {
+    CONJURED_NONE: 0,
+    CONJURED_MANA_GEM: 22044,
+    CONJURED_FLAME_CAP: 22788
+  }
+});
+
+/***/ }),
+
 /***/ "./assets/js/helpers.js":
 /*!******************************!*\
   !*** ./assets/js/helpers.js ***!
@@ -3206,12 +3279,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _simulation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./simulation */ "./assets/js/simulation.js");
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./items */ "./assets/js/items.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./assets/js/constants.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3728,80 +3808,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     this.loadConfig();
     this.loadGear();
+    this.loadProfiles();
     this.finalStats();
     this.loadTooltips();
   },
   data: function data() {
-    var data = {
-      races: {
-        RACE_BLOOD_ELF: 0,
-        RACE_DRAENEI: 1,
-        RACE_GNOME: 2,
-        RACE_HUMAN: 3,
-        RACE_TROLL: 4,
-        RACE_UNDEAD: 5
-      },
-      specs: {
-        SPEC_ARCANE: 0,
-        SPEC_FIRE: 1
-      },
-      regen_rotations: {
-        ROTATION_FB: 0,
-        ROTATION_AMFB: 1
-      },
-      foods: {
-        FOOD_NONE: 0,
-        FOOD_SPELL_POWER: 27657,
-        FOOD_SPELL_CRIT: 33825
-      },
-      flasks: {
-        FLASK_NONE: 0,
-        FLASK_SUPREME_POWER: 13512,
-        FLASK_BLINDING_LIGHT: 22861,
-        FLASK_PURE_DEATH: 22866,
-        FLASK_DISTILLED_WISDOM: 13511
-      },
-      elixirs: {
-        ELIXIR_NONE: 0,
-        ELIXIR_GREATER_ARCANE: 13454,
-        ELIXIR_ADEPTS: 28103,
-        ELIXIR_MAJOR_MAGEBLOOD: 22840,
-        ELIXIR_DRAENIC_WISDOM: 32067
-      },
-      drums: {
-        DRUMS_NONE: 0,
-        DRUMS_OF_WAR: 29528,
-        DRUMS_OF_RESTORATION: 29531,
-        DRUMS_OF_BATTLE: 29529
-      },
-      weapon_oils: {
-        OIL_NONE: 0,
-        OIL_BRILLIANT_WIZARD: 20749,
-        OIL_SUPERIOR_WIZARD: 22522,
-        OIL_SUPERIOR_MANA: 22521
-      },
-      potions: {
-        POTION_NONE: 0,
-        POTION_MANA: 22832,
-        POTION_DESTRUCTION: 22839
-      },
-      conjureds: {
-        CONJURED_NONE: 0,
-        CONJURED_MANA_GEM: 22044,
-        CONJURED_FLAME_CAP: 22788
-      },
+    var data = _objectSpread(_objectSpread({}, _constants__WEBPACK_IMPORTED_MODULE_3__.default), {}, {
       items: _items__WEBPACK_IMPORTED_MODULE_2__.default,
       equipped: {},
       enchants: {},
       gems: {},
       item_gems: {},
       item_comparison: [],
+      profiles: [],
       active_slot: "weapon",
       final_stats: null,
       result: null,
@@ -3892,7 +3939,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         },
         tooltips: false
       }
-    };
+    });
+
     var slots = ["weapon", "off_hand", "ranged", "head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "finger1", "finger2", "trinket1", "trinket2"];
 
     for (var _i = 0, _slots = slots; _i < _slots.length; _i++) {
@@ -4608,6 +4656,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     round: function round(num) {
       return Math.round(num);
     },
+    saveProfile: function saveProfile(profile) {
+      profile.equipped = _.cloneDeep(this.equipped);
+      profile.enchants = _.cloneDeep(this.enchants);
+      profile.gems = _.cloneDeep(this.gems);
+      profile.config = _.cloneDeep(this.config);
+
+      var index = _.findIndex(this.profiles, {
+        id: profile.id
+      });
+
+      if (index != -1) this.profiles.splice(index, 1, profile);else this.profiles.push(profile);
+      this.saveProfiles();
+    },
+    loadProfile: function loadProfile(profile) {
+      if (profile.equipped) _.merge(this.equipped, _.pick(profile.equipped, _.keys(this.equipped)));
+      if (profile.enchants) _.merge(this.enchants, _.pick(profile.enchants, _.keys(this.enchants)));
+      if (profile.gems) _.merge(this.gems, _.pick(profile.gems, _.keys(this.gems)));
+      if (profile.config) _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
+      this.finalStats();
+    },
+    deleteProfile: function deleteProfile(profile) {
+      var index = _.findIndex(this.profiles, {
+        id: profile.id
+      });
+
+      if (index != -1) {
+        this.profiles.splice(index, 1);
+        this.saveProfiles();
+      }
+    },
+    newProfile: function newProfile() {
+      var profile = {
+        id: this.uuid(),
+        name: prompt("Profile name"),
+        equipped: {},
+        enchants: {},
+        gems: {},
+        config: {}
+      };
+      this.saveProfile(profile);
+    },
+    uuid: function uuid() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : r & 0x3 | 0x8;
+        return v.toString(16);
+      });
+    },
     showLog: function showLog(log) {
       return this.log_filter[log.type];
     },
@@ -4686,7 +4782,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (str) {
         var config = JSON.parse(str);
-        if (config) _.merge(this.config, config);
+        if (config) _.merge(this.config, _.pick(config, _.keys(this.config)));
+      }
+    },
+    saveProfiles: function saveProfiles() {
+      window.localStorage.setItem("magesim_tbc_profiles", JSON.stringify(this.profiles));
+    },
+    loadProfiles: function loadProfiles() {
+      var str = window.localStorage.getItem("magesim_tbc_profiles");
+
+      if (str) {
+        var profiles = JSON.parse(str);
+        if (profiles) this.profiles = profiles;
       }
     }
   }
@@ -23764,7 +23871,7 @@ var render = function() {
           ? _c("div", { staticClass: "config" }, [
               _c("div", { staticClass: "fieldsets" }, [
                 _c("fieldset", [
-                  _c("legend", [_vm._v("Basics")]),
+                  _c("legend", [_vm._v("General")]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
                     _c("label", [_vm._v("Race")]),
@@ -26263,6 +26370,99 @@ var render = function() {
                       }
                     })
                   ])
+                ]),
+                _vm._v(" "),
+                _c("fieldset", [
+                  _c("legend", [_vm._v("Profiles")]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "profiles" },
+                    [
+                      _vm._l(_vm.profiles, function(profile) {
+                        return _c(
+                          "div",
+                          { key: profile.id, staticClass: "profile" },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "name",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.loadProfile(profile)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(profile.name))]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "actions" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "save",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.saveProfile(profile)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "material-icons" },
+                                    [
+                                      _vm._v(
+                                        "\n                                            \n                                        "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "delete",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteProfile(profile)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "material-icons" },
+                                    [
+                                      _vm._v(
+                                        "\n                                            \n                                        "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
+                          ]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn mt-1",
+                          on: {
+                            click: function($event) {
+                              return _vm.newProfile()
+                            }
+                          }
+                        },
+                        [_vm._v("New profile")]
+                      )
+                    ],
+                    2
+                  )
                 ])
               ]),
               _vm._v(" "),

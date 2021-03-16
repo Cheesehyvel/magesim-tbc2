@@ -342,9 +342,48 @@ table {
         .fieldsets {
             display: grid;
             grid-gap: 10px;
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
 
-            fieldset {
-                grid-row: 1;
+    .profiles {
+        .profile {
+            background: #2f2f48;
+            padding: 5px 10px;
+            display: grid;
+            grid-template-columns: auto min-content;
+
+            &:nth-child(n+1) {
+                margin-top: 10px;
+            }
+
+            > * {
+                cursor: pointer;
+            }
+
+            .name {
+                transition: color 0.2s ease;
+
+                &:hover {
+                    color: #08f;
+                }
+            }
+
+            .actions {
+                font-size: 16px;
+                white-space: nowrap;
+
+                > * {
+                    display: inline-block;
+                }
+            }
+
+            .save {
+                color: #08f;
+            }
+
+            .delete {
+                color: #f00;
             }
         }
     }
