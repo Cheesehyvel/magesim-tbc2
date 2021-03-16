@@ -520,7 +520,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="btn mt-1" @click="newProfile()">New profile</div>
+                                <div class="btn mt-1" @click="newProfile()">
+                                    New profile
+                                    <tooltip position="r">Save your items and config</tooltip>
+                                </div>
                             </div>
                         </fieldset>
                     </div>

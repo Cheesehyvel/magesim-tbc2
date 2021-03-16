@@ -3829,6 +3829,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -26458,7 +26461,15 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("New profile")]
+                        [
+                          _vm._v(
+                            "\n                                New profile\n                                "
+                          ),
+                          _c("tooltip", { attrs: { position: "r" } }, [
+                            _vm._v("Save your items and config")
+                          ])
+                        ],
+                        1
                       )
                     ],
                     2
