@@ -512,17 +512,22 @@
                                             <span class="material-icons">
                                                 &#xe161;
                                             </span>
+                                            <tooltip position="t">Save profile</tooltip>
                                         </div>
                                         <div class="delete" @click="deleteProfile(profile)">
                                             <span class="material-icons">
                                                 &#xe872;
                                             </span>
+                                            <tooltip position="t">Delete profile</tooltip>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="btn mt-1" @click="newProfile()">
-                                    New profile
-                                    <tooltip position="r">Save your items and config</tooltip>
+                                <div class="new-profile mt-1">
+                                    <input type="text" v-model="new_profile" @keydown.enter="newProfile()">
+                                    <div class="btn" :class="[new_profile ? '' : 'disabled']" @click="newProfile()">
+                                        New profile
+                                        <tooltip position="r">Save your items and config</tooltip>
+                                    </div>
                                 </div>
                             </div>
                         </fieldset>
@@ -563,6 +568,7 @@
                 item_comparison: [],
                 profiles: [],
                 active_slot: "weapon",
+                new_profile: null,
                 final_stats: null,
                 result: null,
                 is_running: false,
@@ -1505,14 +1511,19 @@
             },
 
             newProfile() {
+                if (!this.new_profile)
+                    return;
+
                 var profile = {
                     id: this.uuid(),
-                    name: prompt("Profile name"),
+                    name: this.new_profile,
                     equipped: {},
                     enchants: {},
                     gems: {},
                     config: {},
                 };
+
+                this.new_profile = null;
 
                 this.saveProfile(profile);
             },

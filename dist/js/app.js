@@ -3832,6 +3832,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -3853,6 +3858,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       item_comparison: [],
       profiles: [],
       active_slot: "weapon",
+      new_profile: null,
       final_stats: null,
       result: null,
       is_running: false,
@@ -4690,14 +4696,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     newProfile: function newProfile() {
+      if (!this.new_profile) return;
       var profile = {
         id: this.uuid(),
-        name: prompt("Profile name"),
+        name: this.new_profile,
         equipped: {},
         enchants: {},
         gems: {},
         config: {}
       };
+      this.new_profile = null;
       this.saveProfile(profile);
     },
     uuid: function uuid() {
@@ -26420,8 +26428,13 @@ var render = function() {
                                         "\n                                            \n                                        "
                                       )
                                     ]
-                                  )
-                                ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("tooltip", { attrs: { position: "t" } }, [
+                                    _vm._v("Save profile")
+                                  ])
+                                ],
+                                1
                               ),
                               _vm._v(" "),
                               _c(
@@ -26443,34 +26456,78 @@ var render = function() {
                                         "\n                                            \n                                        "
                                       )
                                     ]
-                                  )
-                                ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("tooltip", { attrs: { position: "t" } }, [
+                                    _vm._v("Delete profile")
+                                  ])
+                                ],
+                                1
                               )
                             ])
                           ]
                         )
                       }),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "btn mt-1",
+                      _c("div", { staticClass: "new-profile mt-1" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.new_profile,
+                              expression: "new_profile"
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.new_profile },
                           on: {
-                            click: function($event) {
+                            keydown: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
                               return _vm.newProfile()
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.new_profile = $event.target.value
                             }
                           }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                New profile\n                                "
-                          ),
-                          _c("tooltip", { attrs: { position: "r" } }, [
-                            _vm._v("Save your items and config")
-                          ])
-                        ],
-                        1
-                      )
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "btn",
+                            class: [_vm.new_profile ? "" : "disabled"],
+                            on: {
+                              click: function($event) {
+                                return _vm.newProfile()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    New profile\n                                    "
+                            ),
+                            _c("tooltip", { attrs: { position: "r" } }, [
+                              _vm._v("Save your items and config")
+                            ])
+                          ],
+                          1
+                        )
+                      ])
                     ],
                     2
                   )

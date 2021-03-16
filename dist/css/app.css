@@ -501,11 +501,12 @@ a:hover {
       -ms-user-select: none;
           user-select: none;
   font-weight: 700;
-  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, background 0.2s ease;
   text-align: center;
 }
 .btn:hover {
-  opacity: 0.8;
+  background: #05b;
 }
 .btn.block {
   display: block;
@@ -843,11 +844,23 @@ table.simple th:last-child, table.simple td:last-child {
 #app .profiles .profile .actions > * {
   display: inline-block;
 }
+#app .profiles .profile .actions > * .material-icons {
+  transition: opacity 0.2s ease;
+}
+#app .profiles .profile .actions > *:hover .material-icons {
+  opacity: 0.5;
+}
 #app .profiles .profile .save {
   color: #08f;
 }
 #app .profiles .profile .delete {
   color: #f00;
+}
+#app .profiles .new-profile {
+  display: grid;
+  grid-template-columns: 1fr -webkit-min-content;
+  grid-template-columns: 1fr min-content;
+  grid-gap: 15px;
 }
 #app .log {
   position: absolute;

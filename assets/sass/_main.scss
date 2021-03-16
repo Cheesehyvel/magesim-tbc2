@@ -34,11 +34,12 @@ a {
     cursor: pointer;
     user-select: none;
     font-weight: 700;
-    transition: opacity 0.2s ease;
+    white-space: nowrap;
+    transition: opacity 0.2s ease, background 0.2s ease;
     text-align: center;
 
     &:hover {
-        opacity: 0.8;
+        background: #05b;
     }
 
     &.block {
@@ -375,6 +376,14 @@ table {
 
                 > * {
                     display: inline-block;
+
+                    .material-icons {
+                        transition: opacity 0.2s ease;
+                    }
+
+                    &:hover .material-icons {
+                        opacity: 0.5;
+                    }
                 }
             }
 
@@ -385,6 +394,12 @@ table {
             .delete {
                 color: #f00;
             }
+        }
+
+        .new-profile {
+            display: grid;
+            grid-template-columns: 1fr min-content;
+            grid-gap: $spacer*0.25;
         }
     }
 
