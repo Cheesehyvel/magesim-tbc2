@@ -299,7 +299,7 @@ public:
             }
         }
         else {
-            pushWait(1);
+            pushWait(0.5);
         }
     }
 
@@ -677,6 +677,31 @@ public:
         return totalManaPerSecond() * 2;
     }
 
+    bool canBlast(shared_ptr<spell::Spell> spell)
+    {
+        double cast_time = castTime(spell, true);
+        double t_remain = timeRemain();
+        double num_casts = floor(t_remain / cast_time);
+        double mana_cost = manaCost(spell, true);
+        double t_lastcast = cast_time * (num_casts - 1);
+        double mps = totalManaPerSecond();
+        double total_mana_cost = num_casts*mana_cost;
+
+        if (config->vampiric_touch)
+            mps+= config->vampiric_touch_regen;
+        if (state->hasBuff(buff::CLEARCAST))
+            total_mana_cost-= mana_cost;
+
+        double mana_lastcast = state->mana - total_mana_cost + mps*t_lastcast;
+
+        return mana_lastcast >= 0;
+    }
+
+    double timeRemain()
+    {
+        return config->duration - state->t;
+    }
+
     shared_ptr<spell::Spell> nextSpell()
     {
         shared_ptr<spell::Spell> next = NULL;
@@ -692,6 +717,9 @@ public:
 
             if (state->regen_cycle == end) {
                 state->regen_cycle = 0;
+            }
+            else if (state->buffStacks(buff::ARCANE_BLAST) == 3 && canBlast(defaultSpell())) {
+                next = defaultSpell();
             }
             else if (state->regen_cycle || manaPercent() <= regen_at && state->buffStacks(buff::ARCANE_BLAST) == 3) {
                 if (config->regen_rotation == ROTATION_AMFB && state->regen_cycle == 0)
@@ -898,9 +926,9 @@ public:
         return state->mana >= manaCost(spell);
     }
 
-    double manaCost(shared_ptr<spell::Spell> spell)
+    double manaCost(shared_ptr<spell::Spell> spell, bool ignore_clearcast = false)
     {
-        if (state->hasBuff(buff::CLEARCAST))
+        if (state->hasBuff(buff::CLEARCAST) && !ignore_clearcast)
             return 0;
 
         double multi = 1;
@@ -935,9 +963,9 @@ public:
         return t;
     }
 
-    double castTime(shared_ptr<spell::Spell> spell)
+    double castTime(shared_ptr<spell::Spell> spell, bool ignore_pom = false)
     {
-        if (state->hasBuff(buff::PRESENCE_OF_MIND))
+        if (state->hasBuff(buff::PRESENCE_OF_MIND) && !ignore_pom)
             return 0;
 
         double t = spell->cast_time;
@@ -972,17 +1000,16 @@ public:
         if (rating)
             phaste+= hasteRatingToHaste(rating);
 
-        if (phaste)
-            haste*= (100.0 - phaste)/100.0;
+        haste+= phaste/100.0;
 
         if (state->hasBuff(buff::BLOODLUST))
-            haste*= 0.7;
+            haste*= 1.3;
         if (state->hasBuff(buff::ICY_VEINS))
-            haste*= 0.8;
+            haste*= 1.2;
         if (state->hasBuff(buff::BERSERKING))
-            haste*= 0.9;
+            haste*= 1.1;
 
-        return haste;
+        return 1.0 / haste;
     }
 
     double hitChance(shared_ptr<spell::Spell> spell)
