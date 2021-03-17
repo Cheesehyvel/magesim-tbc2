@@ -14,6 +14,8 @@ export default {
     regen_rotations: {
         ROTATION_FB: 0,
         ROTATION_AMFB: 1,
+        ROTATION_SC: 2,
+        ROTATION_SCFB: 3,
     },
     foods: {
         FOOD_NONE: 0,

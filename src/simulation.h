@@ -717,6 +717,8 @@ public:
             int end = 3;
             if (config->regen_rotation == ROTATION_AMFB)
                 end = 2;
+            if (config->regen_rotation == ROTATION_SC)
+                end = 5;
 
             if (state->regen_cycle == end) {
                 state->regen_cycle = 0;
@@ -727,6 +729,12 @@ public:
             else if (state->regen_cycle || manaPercent() <= regen_at && state->buffStacks(buff::ARCANE_BLAST) == 3) {
                 if (config->regen_rotation == ROTATION_AMFB && state->regen_cycle == 0)
                     next = make_shared<spell::ArcaneMissiles>();
+                else if (config->regen_rotation == ROTATION_SC)
+                    next = make_shared<spell::Scorch>();
+                else if (config->regen_rotation == ROTATION_SCFB && state->regen_cycle == 0)
+                    next = make_shared<spell::Scorch>();
+                else if (config->regen_rotation == ROTATION_SCFB)
+                    next = make_shared<spell::Fireball>();
                 else
                     next = make_shared<spell::Frostbolt>();
                 state->regen_cycle++;

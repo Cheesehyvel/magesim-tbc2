@@ -5,6 +5,8 @@ enum RegenRotation : int
 {
     ROTATION_FB,
     ROTATION_AMFB,
+    ROTATION_SC,
+    ROTATION_SCFB,
 };
 
 enum Race : int

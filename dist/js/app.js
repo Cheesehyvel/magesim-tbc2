@@ -102,7 +102,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   regen_rotations: {
     ROTATION_FB: 0,
-    ROTATION_AMFB: 1
+    ROTATION_AMFB: 1,
+    ROTATION_SC: 2,
+    ROTATION_SCFB: 3
   },
   foods: {
     FOOD_NONE: 0,
@@ -3293,6 +3295,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -24105,7 +24109,7 @@ var render = function() {
                                   value: _vm.regen_rotations.ROTATION_FB
                                 }
                               },
-                              [_vm._v("3AB, 3FrB")]
+                              [_vm._v("3xAB, 3xFrB")]
                             ),
                             _vm._v(" "),
                             _c(
@@ -24115,7 +24119,27 @@ var render = function() {
                                   value: _vm.regen_rotations.ROTATION_AMFB
                                 }
                               },
-                              [_vm._v("3AB, AM, FrB")]
+                              [_vm._v("3xAB, 1xAM, 1xFrB")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.regen_rotations.ROTATION_SC
+                                }
+                              },
+                              [_vm._v("3xAB, 5xScorch")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.regen_rotations.ROTATION_SCFB
+                                }
+                              },
+                              [_vm._v("3xAB, 1xScorch, 2xFiB")]
                             )
                           ]
                         )

@@ -294,8 +294,10 @@
                             <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE">
                                 <label>Regen rotation</label>
                                 <select v-model="config.regen_rotation">
-                                    <option :value="regen_rotations.ROTATION_FB">3AB, 3FrB</option>
-                                    <option :value="regen_rotations.ROTATION_AMFB">3AB, AM, FrB</option>
+                                    <option :value="regen_rotations.ROTATION_FB">3xAB, 3xFrB</option>
+                                    <option :value="regen_rotations.ROTATION_AMFB">3xAB, 1xAM, 1xFrB</option>
+                                    <option :value="regen_rotations.ROTATION_SC">3xAB, 5xScorch</option>
+                                    <option :value="regen_rotations.ROTATION_SCFB">3xAB, 1xScorch, 2xFiB</option>
                                 </select>
                             </div>
                             <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE">
