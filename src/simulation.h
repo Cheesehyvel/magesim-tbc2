@@ -1071,21 +1071,22 @@ public:
 
     double critMultiplier(shared_ptr<spell::Spell> spell)
     {
-        double multi = 1.5;
+        double base = 1.5;
+        double talents = 1;
 
         if (spell->proc)
-            return multi;
-
-        if (player->talents.spell_power)
-            multi+= player->talents.spell_power*0.125;
+            return base;
 
         if (config->meta_gem == META_CHAOTIC_SKYFIRE)
-            multi+= 0.03;
+            base*= 1.03;
+
+        if (player->talents.spell_power)
+            talents+= player->talents.spell_power*0.25;
 
         if (spell->school == SCHOOL_FROST && player->talents.ice_shards)
-            multi+= player->talents.ice_shards*0.1;
+            talents+= player->talents.ice_shards*0.2;
 
-        return multi;
+        return (base - 1) * talents + 1;
     }
 
     double dmgMultiplier(shared_ptr<spell::Spell> spell)
