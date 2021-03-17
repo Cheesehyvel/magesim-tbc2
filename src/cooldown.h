@@ -19,6 +19,7 @@ namespace cooldown
         UNSTABLE_CURRENTS = 38348,
         ETERNAL_SAGE = 35084,
         DRUMS = 35476,
+        LIGHTNING_CAPACITOR = 37657,
     };
 
 
@@ -191,6 +192,18 @@ namespace cooldown
         {
             id = DRUMS;
             duration = 120;
+        }
+
+    };
+
+    class LightningCapacitor : public Cooldown
+    {
+
+    public:
+        LightningCapacitor()
+        {
+            id = LIGHTNING_CAPACITOR;
+            duration = 2.5;
         }
 
     };

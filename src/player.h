@@ -254,6 +254,7 @@ public:
                 else if (t == 23) talents.imp_fireball = p;
                 else if (t == 25) talents.ignite = p;
                 else if (t == 28) talents.incinerate = p;
+                else if (t == 30) talents.pyroblast = p;
                 else if (t == 32) talents.imp_scorch = p;
                 else if (t == 34) talents.master_of_elements = p;
                 else if (t == 35) talents.playing_with_fire = p;

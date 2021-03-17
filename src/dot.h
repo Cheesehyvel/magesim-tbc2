@@ -19,7 +19,7 @@ namespace dot
         double dmg;
         double t_interval = 3;
 
-        Dot(double _dmg)
+        Dot(double _dmg = 0)
         {
             dmg = _dmg;
         }
@@ -30,7 +30,7 @@ namespace dot
     {
 
     public:
-        Ignite(double _dmg) : Dot(_dmg)
+        Ignite(double _dmg = 0) : Dot(_dmg)
         {
             name = "Ignite";
             t_interval = 2;
@@ -43,11 +43,26 @@ namespace dot
     {
 
     public:
-        Fireball(double _dmg) : Dot(_dmg)
+        Fireball(double _dmg = 0) : Dot(_dmg)
         {
             name = "Fireball";
             t_interval = 2;
             ticks = 4;
+            dmg = 21;
+        }
+
+    };
+
+    class Pyroblast : public Dot
+    {
+
+    public:
+        Pyroblast(double _dmg = 0) : Dot(_dmg)
+        {
+            name = "Pyroblast";
+            t_interval = 3;
+            ticks = 4;
+            dmg = 89;
         }
 
     };

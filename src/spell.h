@@ -10,6 +10,7 @@ namespace spell
         FROSTBOLT = 38697,
         FIREBALL = 38692,
         SCORCH = 27074,
+        PYROBLAST = 33938,
         LIGHTNING_CAPACITOR = 28785,
     };
 
@@ -131,6 +132,24 @@ namespace spell
             max_dmg = 361;
             cast_time = 1.5;
             coeff = 1.5/3.5;
+            school = SCHOOL_FIRE;
+        }
+
+    };
+
+    class Pyroblast : public Spell
+    {
+
+    public:
+        Pyroblast()
+        {
+            id = PYROBLAST;
+            name = "Pyroblast";
+            cost = 500;
+            min_dmg = 939;
+            max_dmg = 1191;
+            cast_time = 6;
+            coeff = 1.15;
             school = SCHOOL_FIRE;
         }
 

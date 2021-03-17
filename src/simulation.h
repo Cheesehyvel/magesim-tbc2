@@ -411,7 +411,10 @@ public:
             }
 
             if (spell->id == spell::FIREBALL) {
-                // TODO: Fireball dot. Do we care?
+                pushDot(make_shared<dot::Fireball>());
+            }
+            if (spell->id == spell::PYROBLAST) {
+                pushDot(make_shared<dot::Pyroblast>());
             }
 
             // 5% proc rate ?
@@ -441,8 +444,10 @@ public:
                     onBuffGain(make_shared<buff::UnstableCurrents>());
                 }
                 // 100% proc rate
-                if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR))
+                if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR) && !state->hasCooldown(cooldown::LIGHTNING_CAPACITOR)) {
+                    onCooldownGain(make_shared<cooldown::LightningCapacitor>());
                     onBuffGain(make_shared<buff::LightningCapacitor>());
+                }
 
                 if (spell->school == SCHOOL_FIRE && player->talents.ignite)
                     pushDot(make_shared<dot::Ignite>(round(spell->dmg * 0.04 * player->talents.ignite)));
@@ -720,11 +725,16 @@ public:
             if (config->regen_rotation == ROTATION_SC)
                 end = 5;
 
+            bool will_pom = state->t >= config->presence_of_mind_at && !state->hasCooldown(cooldown::PRESENCE_OF_MIND) && player->talents.presence_of_mind;
+
             if (state->regen_cycle == end) {
                 state->regen_cycle = 0;
             }
             else if (state->buffStacks(buff::ARCANE_BLAST) == 3 && canBlast(defaultSpell())) {
                 next = defaultSpell();
+            }
+            else if (will_pom && player->talents.pyroblast) {
+                next = make_shared<spell::Pyroblast>();
             }
             else if (state->regen_cycle || manaPercent() <= regen_at && state->buffStacks(buff::ARCANE_BLAST) == 3) {
                 if (config->regen_rotation == ROTATION_AMFB && state->regen_cycle == 0)
@@ -742,9 +752,7 @@ public:
         }
 
         if (player->spec == SPEC_FIRE) {
-            // Could calculate cast time for fb + scorch and check if we can scorch in time
-            // but lets be realstic...
-            if (player->talents.imp_scorch && (state->debuffStacks(debuff::FIRE_VULNERABILITY) < 5 || debuffDuration(debuff::FIRE_VULNERABILITY) <= 5.0))
+            if (shouldScorch())
                 next = make_shared<spell::Scorch>();
         }
 
@@ -1245,6 +1253,13 @@ public:
     void fireLightningCapacitor()
     {
         cast(make_shared<spell::LightningCapacitor>());
+    }
+
+    bool shouldScorch()
+    {
+        // Could calculate cast time for fb + scorch and check if we can scorch in time
+        // but lets be realstic...
+        return player->talents.imp_scorch && (state->debuffStacks(debuff::FIRE_VULNERABILITY) < 5 || debuffDuration(debuff::FIRE_VULNERABILITY) <= 5.0);
     }
 
     bool shouldInnervate()

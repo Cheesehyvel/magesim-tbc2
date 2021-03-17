@@ -15,6 +15,7 @@ struct Talents
     int imp_fireball = 0;
     int ignite = 0;
     int incinerate = 0;
+    int pyroblast = 0;
     int imp_scorch = 0;
     int master_of_elements = 0;
     int playing_with_fire = 0;
