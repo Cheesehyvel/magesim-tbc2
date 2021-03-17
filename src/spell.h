@@ -167,7 +167,7 @@ namespace spell
             min_dmg = 694;
             max_dmg = 807;
             cast_time = 0;
-            school = SCHOOL_NONE;
+            school = SCHOOL_NATURE;
             coeff = 0;
             proc = true;
         }

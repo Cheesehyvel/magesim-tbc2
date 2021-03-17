@@ -25,6 +25,7 @@ enum School : int
     SCHOOL_ARCANE,
     SCHOOL_FROST,
     SCHOOL_FIRE,
+    SCHOOL_NATURE,
 };
 
 enum Spec : int

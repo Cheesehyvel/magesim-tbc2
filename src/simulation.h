@@ -444,10 +444,8 @@ public:
                     onBuffGain(make_shared<buff::UnstableCurrents>());
                 }
                 // 100% proc rate
-                if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR) && !state->hasCooldown(cooldown::LIGHTNING_CAPACITOR)) {
-                    onCooldownGain(make_shared<cooldown::LightningCapacitor>());
+                if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR) && !state->hasCooldown(cooldown::LIGHTNING_CAPACITOR))
                     onBuffGain(make_shared<buff::LightningCapacitor>());
-                }
 
                 if (spell->school == SCHOOL_FIRE && player->talents.ignite)
                     pushDot(make_shared<dot::Ignite>(round(spell->dmg * 0.04 * player->talents.ignite)));
@@ -1033,9 +1031,6 @@ public:
 
     double hitChance(shared_ptr<spell::Spell> spell)
     {
-        if (spell->proc)
-            return 99.0;
-
         double hit = 83.0 + player->stats.hit;
 
         if (spell->school == SCHOOL_ARCANE && player->talents.arcane_focus)
@@ -1252,6 +1247,7 @@ public:
 
     void fireLightningCapacitor()
     {
+        onCooldownGain(make_shared<cooldown::LightningCapacitor>());
         cast(make_shared<spell::LightningCapacitor>());
     }
 
