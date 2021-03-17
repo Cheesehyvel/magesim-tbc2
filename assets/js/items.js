@@ -375,7 +375,7 @@ var equip = {
         { id: ids.SCRYERS_BLOODGEM, title: "Scryer's Bloodgem", hit: 32, use: true, q: "rare" },
         { id: 12930, title: "Briarwood Reed", sp: 29, q: "rare" },
         { id: ids.CRYSTAL_TALISMAN, title: "Ancient Crystal Talisman", sp: 26, use: true, q: "uncommon" },
-        { id: ids.PENDANT_VIOLET_EYE, title: "Pendant of the Violet Eye", use: true },
+        { id: ids.PENDANT_VIOLET_EYE, title: "Pendant of the Violet Eye", int: 40, use: true },
         { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true, q: "rare" },
     ],
 };

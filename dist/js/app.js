@@ -2651,6 +2651,7 @@ var equip = {
   }, {
     id: ids.PENDANT_VIOLET_EYE,
     title: "Pendant of the Violet Eye",
+    "int": 40,
     use: true
   }, {
     id: ids.VENGEANCE_ILLIDARI,
