@@ -658,7 +658,7 @@ public:
         }
         else if (state->hasBuff(buff::INNERVATE)) {
             while_casting = 1;
-            spi*= 4;
+            spi*= 5;
         }
         else {
             if (player->talents.arcane_meditation)
