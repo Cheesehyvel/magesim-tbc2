@@ -48,6 +48,10 @@
                                 <td>Hit</td>
                                 <td>{{ $round(final_stats.hit, 2) }}%</td>
                             </tr>
+                            <tr>
+                                <td>Haste</td>
+                                <td>{{ $round(final_stats.haste, 2) }}%</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -91,6 +95,7 @@
                                         <th>Spell power</th>
                                         <th>Crit rating</th>
                                         <th>Hit rating</th>
+                                        <th>Haste rating</th>
                                         <th>Intellect</th>
                                         <th>Spirit</th>
                                         <th>Mp5</th>
@@ -128,6 +133,7 @@
                                         <td>{{ formatSP(item) }}</td>
                                         <td>{{ $get(item, "crit", "") }}</td>
                                         <td>{{ $get(item, "hit", "") }}</td>
+                                        <td>{{ $get(item, "haste", "") }}</td>
                                         <td>{{ $get(item, "int", "") }}</td>
                                         <td>{{ $get(item, "spi", "") }}</td>
                                         <td>{{ $get(item, "mp5", "") }}</td>

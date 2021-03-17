@@ -1172,7 +1172,7 @@ var equip = {
     title: "Shroud of the Highborne",
     "int": 23,
     sp: 23,
-    haste: 23
+    haste: 32
   }, {
     id: 33591,
     title: "Shadowcaster's Drape",
@@ -1199,8 +1199,9 @@ var equip = {
   }, {
     id: 28797,
     title: "Brute Cloak of the Ogre-Magi",
-    "int": 18,
-    sp: 36
+    "int": 20,
+    sp: 28,
+    crit: 23
   }, {
     id: 33592,
     title: "Cloak of Ancient Rituals",
@@ -1217,9 +1218,8 @@ var equip = {
   }, {
     id: 28570,
     title: "Shadow-Cloak of Dalaran",
-    "int": 16,
-    sp: 21,
-    crit: 22
+    "int": 18,
+    sp: 36
   }, {
     id: 29369,
     title: "Shawl of Shifting Probabilities",
@@ -1230,6 +1230,7 @@ var equip = {
     id: 25777,
     title: "Ogre Slayer's Cover",
     "int": 18,
+    spi: 11,
     sp: 20,
     crit: 16,
     q: "rare"
@@ -3292,6 +3293,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -23269,6 +23276,14 @@ var render = function() {
                     _c("td", [
                       _vm._v(_vm._s(_vm.$round(_vm.final_stats.hit, 2)) + "%")
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Haste")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm.$round(_vm.final_stats.haste, 2)) + "%")
+                    ])
                   ])
                 ])
               ])
@@ -23379,6 +23394,8 @@ var render = function() {
                     _c("th", [_vm._v("Crit rating")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("Hit rating")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Haste rating")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("Intellect")]),
                     _vm._v(" "),
@@ -23511,6 +23528,10 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(_vm.$get(item, "hit", "")))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm.$get(item, "haste", "")))
+                          ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(_vm.$get(item, "int", "")))]),
                           _vm._v(" "),
