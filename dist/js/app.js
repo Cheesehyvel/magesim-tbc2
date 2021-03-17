@@ -2570,15 +2570,20 @@ var equip = {
     title: "Sextant of Unstable Currents",
     crit: 40
   }, {
-    id: ids.QUAGMIRRANS_EYE,
-    title: "Quagmirran's Eye",
-    sp: 37,
-    q: "rare"
-  }, {
     id: ids.SERPENT_COIL,
     title: "Serpent-Coil Braid",
     crit: 30,
     hit: 12
+  }, {
+    id: ids.ALCHEMIST_STONE,
+    title: "Alchemist Stone",
+    "int": 15,
+    spi: 15
+  }, {
+    id: ids.QUAGMIRRANS_EYE,
+    title: "Quagmirran's Eye",
+    sp: 37,
+    q: "rare"
   }, {
     id: ids.SHRUNKEN_HEAD,
     title: "Hex Shrunken Head",

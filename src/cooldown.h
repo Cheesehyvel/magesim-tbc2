@@ -20,6 +20,7 @@ namespace cooldown
         ETERNAL_SAGE = 35084,
         DRUMS = 35476,
         LIGHTNING_CAPACITOR = 37657,
+        INSIGHTFUL_EARTHSTORM = 27521,
     };
 
 
@@ -204,6 +205,18 @@ namespace cooldown
         {
             id = LIGHTNING_CAPACITOR;
             duration = 2.5;
+        }
+
+    };
+
+    class InsightfulEarthstorm : public Cooldown
+    {
+
+    public:
+        InsightfulEarthstorm()
+        {
+            id = INSIGHTFUL_EARTHSTORM;
+            duration = 15;
         }
 
     };

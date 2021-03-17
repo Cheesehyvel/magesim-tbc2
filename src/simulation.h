@@ -357,8 +357,10 @@ public:
             onBuffGain(make_shared<buff::Enlightenment>());
 
         // 5% proc rate
-        if (config->meta_gem == META_INSIGHTFUL_EARTHSTORM && random<int>(0, 19) == 0)
+        if (config->meta_gem == META_INSIGHTFUL_EARTHSTORM && random<int>(0, 19) == 0 && !state->hasCooldown(cooldown::INSIGHTFUL_EARTHSTORM)) {
+            onCooldownGain(make_shared<cooldown::InsightfulEarthstorm>());
             onManaGain(300, "Mana Restore (meta)");
+        }
         // 2% proc rate
         if (hasTrinket(TRINKET_BLUE_DRAGON) && random<int>(0, 49) == 0)
             onBuffGain(make_shared<buff::BlueDragon>());
