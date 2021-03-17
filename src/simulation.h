@@ -290,8 +290,11 @@ public:
                 pushCast(spell, state->t_gcd - state->t);
             }
             else {
-                state->t_gcd = state->t + gcd();
+                if (!spell->proc)
+                    state->t_gcd = state->t + gcd();
+
                 useCooldowns();
+
                 if (spell->channeling)
                     onCast(spell);
                 else
