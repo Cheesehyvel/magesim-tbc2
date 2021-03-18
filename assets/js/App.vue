@@ -292,17 +292,33 @@
                                 <input type="text" v-model="config.talents">
                             </div>
                             <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE">
-                                <label>Regen rotation</label>
+                                <label>Filler spells</label>
                                 <select v-model="config.regen_rotation">
-                                    <option :value="regen_rotations.ROTATION_FB">3xAB, 3xFrB</option>
-                                    <option :value="regen_rotations.ROTATION_AMFB">3xAB, 1xAM, 1xFrB</option>
-                                    <option :value="regen_rotations.ROTATION_SC">3xAB, 5xScorch</option>
-                                    <option :value="regen_rotations.ROTATION_SCFB">3xAB, 1xScorch, 2xFiB</option>
+                                    <option :value="regen_rotations.ROTATION_FB">3xFrB</option>
+                                    <option :value="regen_rotations.ROTATION_AMFB">1xAM, 1xFrB</option>
+                                    <option :value="regen_rotations.ROTATION_SC">5xScorch</option>
+                                    <option :value="regen_rotations.ROTATION_SCFB">1xScorch, 2xFiB</option>
+                                </select>
+                            </div>
+                            <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE">
+                                <label>Arcane Blasts between fillers</label>
+                                <select v-model="config.regen_ab_count">
+                                    <option :value="1">1x AB</option>
+                                    <option :value="2">2x AB</option>
+                                    <option :value="3">3x AB</option>
+                                    <option :value="4">4x AB</option>
                                 </select>
                             </div>
                             <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE">
                                 <label>Regen rotation at mana %</label>
                                 <input type="text" v-model.number="config.regen_mana_at">
+                            </div>
+                            <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE">
+                                <label>
+                                    <span>Stop regen rotation at mana %</span>
+                                    <help>Regen will always stop if it's possible to spam AB the rest of the fight</help>
+                                </label>
+                                <input type="text" v-model.number="config.regen_stop_at">
                             </div>
                             <div class="form-item">
                                 <label>Fight duration (sec)</label>
@@ -658,20 +674,22 @@
                     bloodlust: true,
 
                     regen_mana_at: 20,
-                    regen_rotation: "ROTATION_FB",
+                    regen_stop_at: 30,
+                    regen_ab_count: 3,
+                    regen_rotation: 0,
                     mana_tide_at: 20,
-                    bloodlust_at: 20,
+                    bloodlust_at: 1,
                     icy_veins_at: 1,
-                    cold_snap_at: 21,
+                    cold_snap_at: 41,
                     combustion_at: 1,
-                    trinket1_at: 21,
-                    trinket2_at: 1,
-                    berserking_at: 1,
+                    trinket1_at: 1,
+                    trinket2_at: 21,
+                    berserking_at: 41,
                     arcane_power_at: 1,
                     presence_of_mind_at: 0,
                     drums_at: 1,
-                    potion_at: 21,
-                    conjured_at: 21,
+                    potion_at: 1,
+                    conjured_at: 1,
 
                     talents: "2500250300030150330125000000000000000000000000535000310030010000000",
 

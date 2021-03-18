@@ -552,7 +552,7 @@ public:
         if (spell->id == spell::ARCANE_BLAST && state->hasBuff(buff::ARCANE_BLAST)) {
             double t = buffDuration(buff::ARCANE_BLAST) - castTime(spell);
             double stacks = state->buffStacks(buff::ARCANE_BLAST);
-            if (stacks > 1 && t > 0.0) {
+            if (stacks > 1 && t > 0.0 && timeRemain() > 5.0) {
                 t+= 0.1;
                 pushCast(spell, t);
 
@@ -710,14 +710,59 @@ public:
         return totalManaPerSecond() * 2;
     }
 
-    bool canBlast(shared_ptr<spell::Spell> spell)
+    bool canBlast()
     {
-        double cast_time = castTime(spell, true);
+        // Use 3 stack AB as measure
+        double cast_time = 1.5;
         double t_remain = timeRemain();
-        double num_casts = floor(t_remain / cast_time);
-        double mana_cost = manaCost(spell, true);
-        double t_lastcast = cast_time * (num_casts - 1);
         double mps = totalManaPerSecond();
+        double mana = state->mana;
+        int stacks = 0;
+
+        double mana_cost_extra = 0;
+        if (config->tirisfal_2set)
+            mana_cost_extra = 39;
+
+        double mana_cost = 633 + mana_cost_extra;
+
+        if (state->hasBuff(buff::ARCANE_BLAST) && buffDuration(buff::ARCANE_BLAST) > 1.5)
+            stacks = state->buffStacks(buff::ARCANE_BLAST);
+
+        if (stacks == 0) {
+            // 1st cast
+            mana-= 195 + mana_cost_extra;
+            if (state->hasBuff(buff::ARCANE_BLAST)) {
+                t_remain-= 1.5;
+                mana+= mps*1.5;
+            }
+            else {
+                t_remain-= 2.5;
+                mana+= mps*2.5;
+            }
+            if (t_remain > 0 && mana < 0)
+                return false;
+        }
+
+        if (stacks < 2) {
+            // 2nd cast
+            mana-= 341 + mana_cost_extra;
+            mana+= mps * (2.5 - 1.0/3.0);
+            t_remain-= 2.5 - 1.0/3.0;
+            if (t_remain > 0 && mana < 0)
+                return false;
+        }
+
+        if (stacks < 3) {
+            // 3rd cast
+            mana-= 487 + mana_cost_extra;
+            mana+= mps * (2.5 - 2.0/3.0);
+            t_remain-= 2.5 - 2.0/3.0;
+            if (t_remain > 0 && mana < 0)
+                return false;
+        }
+
+        double num_casts = floor(t_remain / cast_time);
+        double t_lastcast = cast_time * (num_casts - 1);
         double total_mana_cost = num_casts*mana_cost;
 
         if (config->vampiric_touch)
@@ -725,7 +770,14 @@ public:
         if (state->hasBuff(buff::CLEARCAST))
             total_mana_cost-= mana_cost;
 
-        double mana_lastcast = state->mana - total_mana_cost + mps*t_lastcast;
+        // We subtract an extra mana cost because its better to go oom a little early than use another frostbolt
+        total_mana_cost-= mana_cost;
+
+        // Bet on another cleastcast
+        if (num_casts >= 10)
+            total_mana_cost-= mana_cost;
+
+        double mana_lastcast = mana - total_mana_cost + mps*t_lastcast;
 
         return mana_lastcast >= 0;
     }
@@ -739,44 +791,74 @@ public:
     {
         shared_ptr<spell::Spell> next = NULL;
 
-        if (player->spec == SPEC_ARCANE && !state->hasBuff(buff::INNERVATE)) {
-            double regen_at = config->regen_mana_at;
-            if (state->hasBuff(buff::BLOODLUST))
-                regen_at = min(regen_at, 10.0);
+        if (player->spec == SPEC_ARCANE) {
 
-            int end = 3;
-            if (config->regen_rotation == ROTATION_AMFB)
-                end = 2;
-            if (config->regen_rotation == ROTATION_SC)
-                end = 5;
+            if (canBlast())
+                return defaultSpell();
 
-            bool will_pom = state->t >= config->presence_of_mind_at && !state->hasCooldown(cooldown::PRESENCE_OF_MIND) && player->talents.presence_of_mind;
+            if (state->t >= config->presence_of_mind_at &&
+                !state->hasCooldown(cooldown::PRESENCE_OF_MIND) &&
+                player->talents.presence_of_mind &&
+                player->talents.pyroblast)
+            {
+                return make_shared<spell::Pyroblast>();
+            }
 
-            if (state->regen_cycle == end) {
-                state->regen_cycle = 0;
+            if (!state->regen_active && state->buffStacks(buff::ARCANE_BLAST) >= config->regen_ab_count && !state->hasBuff(buff::INNERVATE)) {
+                double regen_at = config->regen_mana_at;
+                if (state->hasBuff(buff::BLOODLUST))
+                    regen_at = min(regen_at, 10.0);
+
+                if (regen_at >= manaPercent()) {
+                    state->regen_active = true;
+                    state->regen_cycle = 0;
+                }
             }
-            else if (state->buffStacks(buff::ARCANE_BLAST) == 3 && canBlast(defaultSpell())) {
-                next = defaultSpell();
-            }
-            else if (will_pom && player->talents.pyroblast) {
-                next = make_shared<spell::Pyroblast>();
-            }
-            else if (state->regen_cycle || manaPercent() <= regen_at && state->buffStacks(buff::ARCANE_BLAST) == 3) {
-                if (config->regen_rotation == ROTATION_AMFB && state->regen_cycle == 0)
-                    next = make_shared<spell::ArcaneMissiles>();
-                else if (config->regen_rotation == ROTATION_SC)
-                    next = make_shared<spell::Scorch>();
-                else if (config->regen_rotation == ROTATION_SCFB && state->regen_cycle == 0)
-                    next = make_shared<spell::Scorch>();
-                else if (config->regen_rotation == ROTATION_SCFB)
-                    next = make_shared<spell::Fireball>();
-                else
-                    next = make_shared<spell::Frostbolt>();
-                state->regen_cycle++;
+
+            if (state->regen_active) {
+                bool is_done = false;
+
+                if (config->regen_rotation == ROTATION_FB) {
+                    if (state->regen_cycle < 3)
+                        next = make_shared<spell::Frostbolt>();
+                    else if (state->regen_cycle == config->regen_ab_count + 2)
+                        is_done = true;
+                }
+                else if (config->regen_rotation == ROTATION_AMFB) {
+                    if (state->regen_cycle == 0)
+                        next = make_shared<spell::ArcaneMissiles>();
+                    else if (state->regen_cycle == 1)
+                        next = make_shared<spell::Frostbolt>();
+                    else if (state->regen_cycle == config->regen_ab_count + 1)
+                        is_done = true;
+                }
+                else if (config->regen_rotation == ROTATION_SC) {
+                    if (state->regen_cycle < 5)
+                        next = make_shared<spell::Scorch>();
+                    else if (state->regen_cycle == config->regen_ab_count + 4)
+                        is_done = true;
+                }
+                else if (config->regen_rotation == ROTATION_SCFB) {
+                    if (state->regen_cycle == 0)
+                        next = make_shared<spell::Scorch>();
+                    else if (state->regen_cycle < 3)
+                        next = make_shared<spell::Fireball>();
+                    else if (state->regen_cycle == config->regen_ab_count + 2)
+                        is_done = true;
+                }
+
+                if (is_done) {
+                    state->regen_cycle = 0;
+                    if (config->regen_stop_at <= manaPercent())
+                        state->regen_active = false;
+                }
+                else {
+                    state->regen_cycle++;
+                }
             }
         }
 
-        if (player->spec == SPEC_FIRE) {
+        else if (player->spec == SPEC_FIRE) {
             if (shouldScorch())
                 next = make_shared<spell::Scorch>();
         }

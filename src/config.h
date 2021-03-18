@@ -52,7 +52,10 @@ struct Config
     bool bloodlust = true;
 
     double regen_mana_at = 20;
+    double regen_stop_at = 30;
+    int regen_ab_count = 3;
     RegenRotation regen_rotation = ROTATION_FB;
+
     double mana_tide_at = 10;
     double bloodlust_at = 20;
     double icy_veins_at = 1;

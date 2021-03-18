@@ -3866,6 +3866,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3950,20 +3966,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         mana_tide: true,
         bloodlust: true,
         regen_mana_at: 20,
-        regen_rotation: "ROTATION_FB",
+        regen_stop_at: 30,
+        regen_ab_count: 3,
+        regen_rotation: 0,
         mana_tide_at: 20,
-        bloodlust_at: 20,
+        bloodlust_at: 1,
         icy_veins_at: 1,
-        cold_snap_at: 21,
+        cold_snap_at: 41,
         combustion_at: 1,
-        trinket1_at: 21,
-        trinket2_at: 1,
-        berserking_at: 1,
+        trinket1_at: 1,
+        trinket2_at: 21,
+        berserking_at: 41,
         arcane_power_at: 1,
         presence_of_mind_at: 0,
         drums_at: 1,
-        potion_at: 21,
-        conjured_at: 21,
+        potion_at: 1,
+        conjured_at: 1,
         talents: "2500250300030150330125000000000000000000000000535000310030010000000",
         stats: {
           intellect: 465,
@@ -24088,7 +24106,7 @@ var render = function() {
                   _vm._v(" "),
                   _vm.config.spec == _vm.specs.SPEC_ARCANE
                     ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Regen rotation")]),
+                        _c("label", [_vm._v("Filler spells")]),
                         _vm._v(" "),
                         _c(
                           "select",
@@ -24129,7 +24147,7 @@ var render = function() {
                                   value: _vm.regen_rotations.ROTATION_FB
                                 }
                               },
-                              [_vm._v("3xAB, 3xFrB")]
+                              [_vm._v("3xFrB")]
                             ),
                             _vm._v(" "),
                             _c(
@@ -24139,7 +24157,7 @@ var render = function() {
                                   value: _vm.regen_rotations.ROTATION_AMFB
                                 }
                               },
-                              [_vm._v("3xAB, 1xAM, 1xFrB")]
+                              [_vm._v("1xAM, 1xFrB")]
                             ),
                             _vm._v(" "),
                             _c(
@@ -24149,7 +24167,7 @@ var render = function() {
                                   value: _vm.regen_rotations.ROTATION_SC
                                 }
                               },
-                              [_vm._v("3xAB, 5xScorch")]
+                              [_vm._v("5xScorch")]
                             ),
                             _vm._v(" "),
                             _c(
@@ -24159,8 +24177,64 @@ var render = function() {
                                   value: _vm.regen_rotations.ROTATION_SCFB
                                 }
                               },
-                              [_vm._v("3xAB, 1xScorch, 2xFiB")]
+                              [_vm._v("1xScorch, 2xFiB")]
                             )
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.config.spec == _vm.specs.SPEC_ARCANE
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [_vm._v("Arcane Blasts between fillers")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.regen_ab_count,
+                                expression: "config.regen_ab_count"
+                              }
+                            ],
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.config,
+                                  "regen_ab_count",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { domProps: { value: 1 } }, [
+                              _vm._v("1x AB")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { domProps: { value: 2 } }, [
+                              _vm._v("2x AB")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { domProps: { value: 3 } }, [
+                              _vm._v("3x AB")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { domProps: { value: 4 } }, [
+                              _vm._v("4x AB")
+                            ])
                           ]
                         )
                       ])
@@ -24190,6 +24264,55 @@ var render = function() {
                               _vm.$set(
                                 _vm.config,
                                 "regen_mana_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.config.spec == _vm.specs.SPEC_ARCANE
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c(
+                          "label",
+                          [
+                            _c("span", [
+                              _vm._v("Stop regen rotation at mana %")
+                            ]),
+                            _vm._v(" "),
+                            _c("help", [
+                              _vm._v(
+                                "Regen will always stop if it's possible to spam AB the rest of the fight"
+                              )
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.regen_stop_at,
+                              expression: "config.regen_stop_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.regen_stop_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "regen_stop_at",
                                 _vm._n($event.target.value)
                               )
                             },

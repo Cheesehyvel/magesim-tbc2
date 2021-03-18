@@ -14,10 +14,11 @@ public:
     double mana;
     int dmg;
     int regen_cycle;
+    bool regen_active;
     int innervates;
     int mana_emerald;
     int mana_ruby;
-    int combustion = 0;
+    int combustion;
 
     map<cooldown::ID, shared_ptr<cooldown::Cooldown>> cooldowns;
     map<buff::ID, shared_ptr<buff::Buff>> buffs;
@@ -39,9 +40,11 @@ public:
         mana = 0;
         dmg = 0;
         regen_cycle = 0;
+        regen_active = false;
         innervates = config->innervate;
         mana_emerald = 3;
         mana_ruby = 1;
+        combustion = 0;
 
         buffs.clear();
         debuffs.clear();

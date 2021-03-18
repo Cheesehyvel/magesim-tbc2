@@ -181,6 +181,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("bloodlust", &Config::bloodlust)
 
         .property("regen_mana_at", &Config::regen_mana_at)
+        .property("regen_stop_at", &Config::regen_stop_at)
+        .property("regen_ab_count", &Config::regen_ab_count)
         .property("regen_rotation", &Config::regen_rotation)
         .property("mana_tide_at", &Config::mana_tide_at)
         .property("bloodlust_at", &Config::bloodlust_at)
