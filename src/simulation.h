@@ -1074,11 +1074,6 @@ public:
         if (spell->school == SCHOOL_FIRE && player->talents.pyromaniac)
             crit+= player->talents.pyromaniac*1.0;
 
-        if (config->judgement_of_the_crusader)
-            crit+= 3;
-        if (config->moonkin_aura)
-            crit+= 5;
-
         return crit;
     }
 
