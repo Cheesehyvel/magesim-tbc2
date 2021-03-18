@@ -3854,6 +3854,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3914,6 +3926,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         mage_armor: true,
         molten_armor: false,
         inspiring_presence: false,
+        fire_vulnerability: false,
+        winters_chill: false,
         food: 0,
         flask: 0,
         battle_elixir: 0,
@@ -4858,7 +4872,7 @@ __webpack_require__.r(__webpack_exports__);
     icon: {
       type: String,
       "default": function _default() {
-        return "e88e";
+        return "e8fd";
       }
     }
   },
@@ -24524,6 +24538,126 @@ var render = function() {
                       _vm._v(" "),
                       _c("span", [_vm._v("Judgement of Wisdom")])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.fire_vulnerability,
+                              expression: "config.fire_vulnerability"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(
+                              _vm.config.fire_vulnerability
+                            )
+                              ? _vm._i(_vm.config.fire_vulnerability, null) > -1
+                              : _vm.config.fire_vulnerability
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.config.fire_vulnerability,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "fire_vulnerability",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "fire_vulnerability",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.config, "fire_vulnerability", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Fire Vulnerability")]),
+                        _vm._v(" "),
+                        _c("help", [_vm._v("Imp. Scorch from another mage")])
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.winters_chill,
+                              expression: "config.winters_chill"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.config.winters_chill)
+                              ? _vm._i(_vm.config.winters_chill, null) > -1
+                              : _vm.config.winters_chill
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.config.winters_chill,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "winters_chill",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "winters_chill",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.config, "winters_chill", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Winter's Chill")]),
+                        _vm._v(" "),
+                        _c("help", [_vm._v("Winter's Chill from another mage")])
+                      ],
+                      1
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [

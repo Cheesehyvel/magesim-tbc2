@@ -152,6 +152,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("mage_armor", &Config::mage_armor)
         .property("molten_armor", &Config::molten_armor)
         .property("inspiring_presence", &Config::inspiring_presence)
+        .property("fire_vulnerability", &Config::fire_vulnerability)
+        .property("winters_chill", &Config::winters_chill)
 
         .property("food", &Config::food)
         .property("flask", &Config::flask)

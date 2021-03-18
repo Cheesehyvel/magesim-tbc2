@@ -271,6 +271,9 @@ public:
                 else if (t == 53) talents.icy_veins = p;
                 else if (t == 56) talents.frost_channeling = p;
                 else if (t == 59) talents.cold_snap = p;
+                else if (t == 62) talents.winters_chill = p;
+                else if (t == 64) talents.arctic_winds = p;
+                else if (t == 65) talents.empowered_frostbolt = p;
 
                 t++;
             }

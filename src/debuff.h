@@ -6,6 +6,7 @@ namespace debuff
     enum ID : int
     {
         FIRE_VULNERABILITY = 22959,
+        WINTERS_CHILL = 12579,
     };
 
 
@@ -41,6 +42,20 @@ namespace debuff
             id = FIRE_VULNERABILITY;
             name = "Fire Vulnerability";
             duration = 30;
+            max_stacks = 5;
+        }
+
+    };
+
+    class WintersChill : public Debuff
+    {
+
+    public:
+        WintersChill()
+        {
+            id = WINTERS_CHILL;
+            name = "Winter's Chill";
+            duration = 15;
             max_stacks = 5;
         }
 

@@ -32,4 +32,7 @@ struct Talents
     int ice_shards = 0;
     int piercing_ice = 0;
     int frost_channeling = 0;
+    int winters_chill = 0;
+    int arctic_winds = 0;
+    int empowered_frostbolt = 0;
 };

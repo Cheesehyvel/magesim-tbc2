@@ -519,6 +519,13 @@ a:hover {
   opacity: 0.5;
 }
 
+.help {
+  display: inline-block;
+}
+.help .material-icons {
+  color: #08f;
+}
+
 input[type=text],
 textarea,
 select {

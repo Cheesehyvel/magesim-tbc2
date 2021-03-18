@@ -18,7 +18,7 @@
             icon: {
                 type: String,
                 default() {
-                    return "e88e";
+                    return "e8fd";
                 }
             }
         },

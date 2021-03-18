@@ -23,6 +23,8 @@ struct Config
     bool mage_armor = true;
     bool molten_armor = false;
     bool inspiring_presence = false;
+    bool fire_vulnerability = false;
+    bool winters_chill = false;
 
     Food food;
     Flask flask;

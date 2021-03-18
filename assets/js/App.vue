@@ -331,6 +331,18 @@
                                 <label><input type="checkbox" v-model="config.judgement_of_wisdom"> <span>Judgement of Wisdom</span></label>
                             </div>
                             <div class="form-item">
+                                <label><input type="checkbox" v-model="config.fire_vulnerability">
+                                    <span>Fire Vulnerability</span>
+                                    <help>Imp. Scorch from another mage</help>
+                                </label>
+                            </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.winters_chill">
+                                    <span>Winter's Chill</span>
+                                    <help>Winter's Chill from another mage</help>
+                                </label>
+                            </div>
+                            <div class="form-item">
                                 <label><input type="checkbox" v-model="config.vampiric_touch"> <span>Vampiric Touch</span></label>
                             </div>
                             <div class="form-item" v-if="config.vampiric_touch">
@@ -618,6 +630,8 @@
                     mage_armor: true,
                     molten_armor: false,
                     inspiring_presence: false,
+                    fire_vulnerability: false,
+                    winters_chill: false,
 
                     food: 0,
                     flask: 0,

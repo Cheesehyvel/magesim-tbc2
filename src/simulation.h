@@ -82,6 +82,26 @@ public:
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
 
+        if (config->fire_vulnerability) {
+            for (double t=1.5; t<config->duration;) {
+                pushDebuffGain(make_shared<debuff::FireVulnerability>(), t);
+                if (t < 7.5)
+                    t+= 1.5;
+                else
+                    t+= 25;
+            }
+        }
+
+        if (config->winters_chill) {
+            for (double t=2.5; t<config->duration;) {
+                pushDebuffGain(make_shared<debuff::WintersChill>(), t);
+                if (t < 12.5)
+                    t+= 2.5;
+                else
+                    t+= 12;
+            }
+        }
+
         cast(nextSpell());
 
         work();
@@ -410,6 +430,11 @@ public:
             if (spell->id == spell::SCORCH && player->talents.imp_scorch) {
                 if (player->talents.imp_scorch == 3 || random<int>(0, 2) < player->talents.imp_scorch)
                     onDebuffGain(make_shared<debuff::FireVulnerability>());
+            }
+
+            if (spell->school == SCHOOL_FROST && player->talents.winters_chill) {
+                if (player->talents.winters_chill == 5 || random<int>(0, 4) < player->talents.winters_chill)
+                    onDebuffGain(make_shared<debuff::WintersChill>());
             }
 
             if (spell->id == spell::FIREBALL) {
@@ -1061,6 +1086,8 @@ public:
             crit+= player->talents.arcane_impact*2.0;
         if (spell->id == spell::SCORCH && player->talents.incinerate)
             crit+= player->talents.incinerate*2.0;
+        if (spell->id == spell::FROSTBOLT && player->talents.empowered_frostbolt)
+            crit+= player->talents.empowered_frostbolt*1.0;
 
         if (state->hasBuff(buff::CLEARCAST) && player->talents.arcane_potency)
             crit+= player->talents.arcane_potency*10.0;
@@ -1073,6 +1100,8 @@ public:
             crit+= player->talents.critical_mass*2.0;
         if (spell->school == SCHOOL_FIRE && player->talents.pyromaniac)
             crit+= player->talents.pyromaniac*1.0;
+        if (spell->school == SCHOOL_FROST && state->hasDebuff(debuff::WINTERS_CHILL))
+            crit+= state->debuffStacks(debuff::WINTERS_CHILL)*2;
 
         return crit;
     }
@@ -1115,6 +1144,8 @@ public:
             multi*= 1 + (player->talents.playing_with_fire * 0.01);
         if (player->talents.piercing_ice && spell->school == SCHOOL_FROST)
             multi*= 1 + (player->talents.piercing_ice * 0.02);
+        if (player->talents.arctic_winds && spell->school == SCHOOL_FROST)
+            multi*= 1 + (player->talents.arctic_winds * 0.01);
         if (player->talents.fire_power && spell->school == SCHOOL_FIRE)
             multi*= 1 + (player->talents.fire_power * 0.02);
         // Below 20% - We'll estimate that to last 20% of duration
@@ -1187,6 +1218,8 @@ public:
                 coeff+= player->talents.empowered_arcane_missiles * 0.15;
             if (spell->id == spell::FIREBALL && player->talents.empowered_fireball)
                 coeff+= player->talents.empowered_fireball * 0.03;
+            if (spell->id == spell::FROSTBOLT && player->talents.empowered_frostbolt)
+                coeff+= player->talents.empowered_frostbolt * 0.02;
 
             if (spell->channeling)
                 coeff/= spell->ticks;
@@ -1250,9 +1283,20 @@ public:
 
     bool shouldScorch()
     {
+        if (!player->talents.imp_scorch)
+            return false;
+
+        int stacks = state->debuffStacks(debuff::FIRE_VULNERABILITY);
+
+        if (config->fire_vulnerability)
+            return stacks < 4;
+
+        if (stacks < 5)
+            return true;
+
         // Could calculate cast time for fb + scorch and check if we can scorch in time
         // but lets be realstic...
-        return player->talents.imp_scorch && (state->debuffStacks(debuff::FIRE_VULNERABILITY) < 5 || debuffDuration(debuff::FIRE_VULNERABILITY) <= 5.0);
+        return debuffDuration(debuff::FIRE_VULNERABILITY) <= 5.0;
     }
 
     bool shouldInnervate()

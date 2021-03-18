@@ -56,6 +56,14 @@ a {
     }
 }
 
+.help {
+    display: inline-block;
+
+    .material-icons {
+        color: #08f;
+    }
+}
+
 input[type="text"],
 textarea,
 select {
