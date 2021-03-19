@@ -450,8 +450,10 @@ public:
                 onBuffGain(make_shared<buff::QuagmirransEye>());
             }
             // 15% proc rate
-            if (hasTrinket(TRINKET_MARK_OF_DEFIANCE) && random<int>(0, 99) < 15)
+            if (hasTrinket(TRINKET_MARK_OF_DEFIANCE) && !state->hasCooldown(cooldown::MARK_OF_DEFIANCE) && random<int>(0, 99) < 15) {
+                onCooldownGain(make_shared<cooldown::MarkOfDefiance>());
                 onManaGain(random<double>(128, 173), "Mana Restore (Mark of Defiance)");
+            }
             // 5% proc rate ?
             if (config->spellstrike_set && random<int>(0, 19) == 0)
                 onBuffGain(make_shared<buff::Spellstrike>());

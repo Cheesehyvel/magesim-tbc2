@@ -21,6 +21,7 @@ namespace cooldown
         DRUMS = 35476,
         LIGHTNING_CAPACITOR = 37657,
         INSIGHTFUL_EARTHSTORM = 27521,
+        MARK_OF_DEFIANCE = 33511,
     };
 
 
@@ -216,6 +217,18 @@ namespace cooldown
         InsightfulEarthstorm()
         {
             id = INSIGHTFUL_EARTHSTORM;
+            duration = 15;
+        }
+
+    };
+
+    class MarkOfDefiance : public Cooldown
+    {
+
+    public:
+        MarkOfDefiance()
+        {
+            id = MARK_OF_DEFIANCE;
             duration = 15;
         }
 
