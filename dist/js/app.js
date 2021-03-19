@@ -3928,6 +3928,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3950,6 +3984,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       profiles: [],
       active_slot: "weapon",
       new_profile: null,
+      import_open: false,
+      import_string: null,
+      export_open: false,
+      export_string: null,
       final_stats: null,
       result: null,
       is_running: false,
@@ -4761,6 +4799,65 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     round: function round(num) {
       return Math.round(num);
     },
+    exportString: function exportString() {
+      var data = {
+        equipped: _.cloneDeep(this.equipped),
+        enchants: _.cloneDeep(this.enchants),
+        gems: _.cloneDeep(this.gems),
+        config: _.cloneDeep(this.config)
+      };
+      return btoa(JSON.stringify(data));
+    },
+    importString: function importString(str) {
+      var json = atob(str);
+      if (!json) return this.importError("Could not parse import string");
+
+      try {
+        var data = JSON.parse(json);
+      } catch (e) {
+        return this.importError("Could not parse import string");
+      }
+
+      if (!data) return this.importError("Could not parse import string");
+
+      if (!data.hasOwnProperty("equipped") || !data.hasOwnProperty("enchants") || !data.hasOwnProperty("gems") || !data.hasOwnProperty("config")) {
+        return this.importError("Invalid import string");
+      }
+
+      this.loadProfile(data);
+      return true;
+    },
+    importError: function importError(err) {
+      alert(err);
+      this.import_string = null;
+      this.$refs.import_input.focus();
+      return false;
+    },
+    doImport: function doImport() {
+      if (this.import_string && this.importString(this.import_string)) this.closeImport();
+    },
+    openExport: function openExport() {
+      this.export_string = this.exportString();
+      this.export_open = true;
+      this.$nextTick(function () {
+        this.$refs.export_input.select();
+      });
+    },
+    openImport: function openImport() {
+      this.import_string = null;
+      this.import_open = true;
+      this.$nextTick(function () {
+        this.$refs.import_input.focus();
+      });
+    },
+    closeExport: function closeExport() {
+      this.export_open = false;
+      this.export_string = null;
+    },
+    closeImport: function closeImport() {
+      this.import_open = false;
+      this.import_string = null;
+    },
     saveProfile: function saveProfile(profile) {
       profile.equipped = _.cloneDeep(this.equipped);
       profile.enchants = _.cloneDeep(this.enchants);
@@ -4780,6 +4877,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (profile.gems) _.merge(this.gems, _.pick(profile.gems, _.keys(this.gems)));
       if (profile.config) _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
       this.finalStats();
+      this.saveGear();
+      this.saveConfig();
     },
     deleteProfile: function deleteProfile(profile) {
       var index = _.findIndex(this.profiles, {
@@ -26882,6 +26981,34 @@ var render = function() {
                           ],
                           1
                         )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "export-import mt-1" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "btn",
+                            on: {
+                              click: function($event) {
+                                return _vm.openExport()
+                              }
+                            }
+                          },
+                          [_vm._v("Export")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "btn ml-n",
+                            on: {
+                              click: function($event) {
+                                return _vm.openImport()
+                              }
+                            }
+                          },
+                          [_vm._v("Import")]
+                        )
                       ])
                     ],
                     2
@@ -26900,7 +27027,105 @@ var render = function() {
               )
             ])
           : _vm._e()
-      ])
+      ]),
+      _vm._v(" "),
+      _vm.export_open
+        ? _c("div", { staticClass: "lightbox" }, [
+            _c("div", { staticClass: "inner" }, [
+              _c("div", { staticClass: "title" }, [_vm._v("Export")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-item" }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.export_string,
+                      expression: "export_string"
+                    }
+                  ],
+                  ref: "export_input",
+                  domProps: { value: _vm.export_string },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.export_string = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "btn mt-2", on: { click: _vm.closeExport } },
+                [_vm._v("Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "close", on: { click: _vm.closeExport } },
+                [
+                  _c("span", { staticClass: "material-icons" }, [
+                    _vm._v("\n                        \n                    ")
+                  ])
+                ]
+              )
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.import_open
+        ? _c("div", { staticClass: "lightbox" }, [
+            _c("div", { staticClass: "inner" }, [
+              _c("div", { staticClass: "title" }, [_vm._v("Import")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-item" }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.import_string,
+                      expression: "import_string"
+                    }
+                  ],
+                  ref: "import_input",
+                  domProps: { value: _vm.import_string },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.import_string = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "btn mt-2",
+                  class: [_vm.import_string ? "" : "disabled"],
+                  on: { click: _vm.doImport }
+                },
+                [_vm._v("Import")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "close", on: { click: _vm.closeImport } },
+                [
+                  _c("span", { staticClass: "material-icons" }, [
+                    _vm._v("\n                        \n                    ")
+                  ])
+                ]
+              )
+            ])
+          ])
+        : _vm._e()
     ])
   ])
 }

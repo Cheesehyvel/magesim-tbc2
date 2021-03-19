@@ -565,10 +565,44 @@
                                         <tooltip position="r">Save your items and config</tooltip>
                                     </div>
                                 </div>
+                                <div class="export-import mt-1">
+                                    <div class="btn" @click="openExport()">Export</div>
+                                    <div class="btn ml-n" @click="openImport()">Import</div>
+                                </div>
                             </div>
                         </fieldset>
                     </div>
                     <div class="close" @click="configToggle">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lightbox" v-if="export_open">
+                <div class="inner">
+                    <div class="title">Export</div>
+                    <div class="form-item">
+                        <textarea v-model="export_string" ref="export_input"></textarea>
+                    </div>
+                    <div class="btn mt-2" @click="closeExport">Close</div>
+                    <div class="close" @click="closeExport">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lightbox" v-if="import_open">
+                <div class="inner">
+                    <div class="title">Import</div>
+                    <div class="form-item">
+                        <textarea v-model="import_string" ref="import_input"></textarea>
+                    </div>
+                    <div class="btn mt-2" :class="[import_string ? '' : 'disabled']" @click="doImport">Import</div>
+                    <div class="close" @click="closeImport">
                         <span class="material-icons">
                             &#xe5cd;
                         </span>
@@ -605,6 +639,10 @@
                 profiles: [],
                 active_slot: "weapon",
                 new_profile: null,
+                import_open: false,
+                import_string: null,
+                export_open: false,
+                export_string: null,
                 final_stats: null,
                 result: null,
                 is_running: false,
@@ -1516,6 +1554,85 @@
                 return Math.round(num);
             },
 
+            exportString() {
+                var data = {
+                    equipped: _.cloneDeep(this.equipped),
+                    enchants: _.cloneDeep(this.enchants),
+                    gems: _.cloneDeep(this.gems),
+                    config: _.cloneDeep(this.config),
+                };
+
+                return btoa(JSON.stringify(data));
+            },
+
+            importString(str) {
+                var json = atob(str);
+                if (!json)
+                    return this.importError("Could not parse import string");
+
+                try {
+                    var data = JSON.parse(json);
+                }
+                catch (e) {
+                    return this.importError("Could not parse import string");
+                }
+
+                if (!data)
+                    return this.importError("Could not parse import string");
+
+                if (!data.hasOwnProperty("equipped") ||
+                    !data.hasOwnProperty("enchants") ||
+                    !data.hasOwnProperty("gems") ||
+                    !data.hasOwnProperty("config"))
+                {
+                    return this.importError("Invalid import string");
+                }
+
+                this.loadProfile(data);
+
+                return true;
+            },
+
+            importError(err) {
+                alert(err);
+                this.import_string = null;
+                this.$refs.import_input.focus();
+                return false;
+            },
+
+            doImport() {
+                if (this.import_string && this.importString(this.import_string))
+                    this.closeImport();
+            },
+
+            openExport() {
+                this.export_string = this.exportString();
+                this.export_open = true;
+
+                this.$nextTick(function() {
+                    this.$refs.export_input.select();
+                });
+            },
+
+            openImport() {
+                this.import_string = null;
+                this.import_open = true;
+
+                this.$nextTick(function() {
+                    this.$refs.import_input.focus();
+                });
+            },
+
+            closeExport() {
+                this.export_open = false;
+                this.export_string = null;
+            },
+
+            closeImport() {
+                this.import_open = false;
+                this.import_string = null;
+            },
+
             saveProfile(profile) {
                 profile.equipped = _.cloneDeep(this.equipped);
                 profile.enchants = _.cloneDeep(this.enchants);
@@ -1542,6 +1659,8 @@
                     _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
 
                 this.finalStats();
+                this.saveGear();
+                this.saveConfig();
             },
 
             deleteProfile(profile) {
