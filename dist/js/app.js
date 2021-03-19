@@ -473,7 +473,7 @@ var equip = {
     title: "Blind-Seers Icon",
     "int": 16,
     sp: 42,
-    crit: 24
+    hit: 24
   }, {
     id: 33334,
     title: "Fetish of the Primal Gods",
@@ -535,21 +535,21 @@ var equip = {
   }, {
     id: 31978,
     title: "Merciless Gladiator's Endgame",
-    ínt: 19,
+    "int": 19,
     sp: 33
   }, {
     id: 28260,
     title: "Manual of the Nethermancer",
-    ínt: 15,
+    "int": 15,
     sp: 21,
     crit: 19,
     q: "rare"
   }, {
     id: 28187,
     title: "Star-Heart Lamp",
-    ínt: 18,
+    "int": 18,
     sp: 22,
-    hjt: 12,
+    hit: 12,
     q: "rare"
   }],
   ranged: [{
@@ -638,7 +638,7 @@ var equip = {
     hit: 8
   }],
   head: [{
-    id: 33829,
+    id: 34340,
     title: "Dark Conjuror's Collar",
     "int": 42,
     sp: 75,
@@ -773,7 +773,7 @@ var equip = {
     title: "Vengeful Gladiator's Silk Cowl",
     "int": 23,
     sp: 47,
-    crit: 23,
+    crit: 24,
     sockets: ["m", "r"]
   }, {
     id: 32048,
@@ -792,7 +792,8 @@ var equip = {
     sockets: ["b", "b", "y"],
     bonus: {
       sp: 5
-    }
+    },
+    q: "rare"
   }, {
     id: 23828,
     title: "Gnomish Power Goggles",
@@ -825,7 +826,8 @@ var equip = {
     sockets: ["m", "y"],
     bonus: {
       spi: 4
-    }
+    },
+    q: "rare"
   }, {
     id: 28415,
     title: "Hood of Oblivion",
@@ -834,20 +836,22 @@ var equip = {
     sockets: ["m", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    q: "rare"
   }, {
     id: 28169,
     title: "Mag'hari Ritualist's Horns",
     "int": 16,
     sp: 50,
     crit: 15,
-    hit: 12
+    hit: 12,
+    q: "rare"
   }, {
     id: 22498,
     title: "Frostfire Circlet",
     "int": 23,
     sp: 35,
-    crit: 35,
+    crit: 28,
     hit: 8
   }],
   neck: [{
@@ -928,7 +932,8 @@ var equip = {
     title: "Veteran's Pendant of Conquest",
     "int": 12,
     sp: 21,
-    crit: 18
+    crit: 18,
+    sockets: ["y"]
   }, {
     id: 28530,
     title: "Brooch of Unquenchable Fury",
@@ -1036,7 +1041,7 @@ var equip = {
     title: "Blood-cursed Shoulderpads",
     "int": 19,
     sp: 55,
-    crit: 26,
+    crit: 25,
     hit: 18
   }, {
     id: 32587,
@@ -1439,10 +1444,10 @@ var equip = {
     title: "Mana-Etched Vestments",
     "int": 25,
     sp: 29,
-    hit: 17,
+    crit: 17,
     sockets: ["r", "b", "y"],
     bonus: {
-      sp: 4
+      sp: 5
     },
     q: "rare"
   }, {
@@ -1494,7 +1499,7 @@ var equip = {
     haste: 26,
     sockets: ["r"],
     bonus: {
-      sp: 2
+      crit: 2
     }
   }, {
     id: 32586,
@@ -1576,7 +1581,7 @@ var equip = {
     sp: 30,
     sockets: ["y"],
     bonus: {
-      sp: 2
+      crit: 2
     },
     q: "rare"
   }, {
@@ -1679,7 +1684,7 @@ var equip = {
     sp: 41,
     crit: 27
   }, {
-    id: 21846,
+    id: 21847,
     itemset: ids.SPELLFIRE_SET,
     title: "Spellfire Gloves",
     "int": 10,
@@ -1860,7 +1865,7 @@ var equip = {
       sp: 4
     }
   }, {
-    id: 21847,
+    id: 21846,
     itemset: ids.SPELLFIRE_SET,
     title: "Spellfire Belt",
     "int": 18,
@@ -1896,13 +1901,13 @@ var equip = {
     crit: 20,
     sockets: ["r", "y"]
   }, {
-    id: 28799,
+    id: 33912,
     title: "Vindicator's Silk Belt",
     "int": 30,
     sp: 35,
     crit: 28
   }, {
-    id: 33912,
+    id: 28799,
     title: "Belt of Divine Inspiration",
     "int": 26,
     sp: 43,
@@ -2024,7 +2029,7 @@ var equip = {
     hit: 20,
     sockets: ["b"],
     bonus: {
-      hit: 2
+      sp: 2
     }
   }, {
     id: 32367,
@@ -2032,9 +2037,9 @@ var equip = {
     "int": 42,
     sp: 60,
     hit: 26,
-    sockets: ["y", "b"],
+    sockets: ["y", "y", "b"],
     bonus: {
-      sp: 4
+      sp: 5
     }
   }, {
     id: 34937,
@@ -2042,9 +2047,9 @@ var equip = {
     "int": 33,
     sp: 61,
     crit: 43,
-    sockets: ["y", "y", "b"],
+    sockets: ["y", "b"],
     bonus: {
-      sp: 5
+      sp: 4
     }
   }, {
     id: 34918,
@@ -2251,6 +2256,7 @@ var equip = {
     id: 30067,
     title: "Velvet Boots of the Guardian",
     "int": 21,
+    spi: 15,
     sp: 49,
     crit: 24
   }, {
@@ -2437,7 +2443,7 @@ var equip = {
   }, {
     id: 28753,
     title: "Ring of Recurrence",
-    "int": 19,
+    "int": 15,
     sp: 32,
     crit: 19
   }, {
