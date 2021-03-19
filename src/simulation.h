@@ -723,8 +723,6 @@ public:
         if (config->tirisfal_2set)
             mana_cost_extra = 39;
 
-        double mana_cost = 633 + mana_cost_extra;
-
         if (state->hasBuff(buff::ARCANE_BLAST) && buffDuration(buff::ARCANE_BLAST) > 1.5)
             stacks = state->buffStacks(buff::ARCANE_BLAST);
 
@@ -761,6 +759,7 @@ public:
                 return false;
         }
 
+        double mana_cost = 633 + mana_cost_extra;
         double num_casts = floor(t_remain / cast_time);
         double t_lastcast = cast_time * (num_casts - 1);
         double total_mana_cost = num_casts*mana_cost;

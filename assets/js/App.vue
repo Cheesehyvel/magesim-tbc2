@@ -1458,6 +1458,8 @@
                     stats.push(item.int+" int");
                 if (item.spi)
                     stats.push(item.spi+" spi");
+                if (item.mp5)
+                    stats.push(item.mp5+" mp5");
                 if (item.desc)
                     stats.push(item.desc);
 

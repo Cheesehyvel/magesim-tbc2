@@ -693,7 +693,7 @@ table.simple th:last-child, table.simple td:last-child {
   background: #aaa;
 }
 #app .wrapper .main .gear .items .socket-color.color-b {
-  background: #00f;
+  background: #3b9ac7;
 }
 #app .wrapper .main .gear .items .socket-color.color-r {
   background: #f00;
@@ -720,7 +720,7 @@ table.simple th:last-child, table.simple td:last-child {
   color: #aaa;
 }
 #app .wrapper .main .gear .items .gem-color.color-b {
-  color: #00f;
+  color: #3b9ac7;
 }
 #app .wrapper .main .gear .items .gem-color.color-r {
   color: #f00;

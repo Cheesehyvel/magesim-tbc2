@@ -413,6 +413,13 @@ var gems = [
     { id: 30600, title: "Fluorescent Tanzanite", color: "p", spi: 4, sp: 6 },
     { id: 30555, title: "Glowing Tanzanite", color: "p", sp: 6 },
     { id: 24056, title: "Glowing Nightseye", color: "p", sp: 5 },
+    { id: 30586, title: "Seer's Chrysoprase", color: "g", int: 4, spi: 5 },
+    { id: 30606, title: "Lambent Chrysoprase", color: "g", hit: 5, mp5: 2 },
+    { id: 30560, title: "Rune Covered Chrysoprase", color: "g", crit: 5, mp5: 2 },
+    { id: 30589, title: "Dazzling Chrysoprase", color: "g", int: 5, mp5: 2 },
+    { id: 24065, title: "Dazzling Talasite", color: "g", int: 4, mp5: 2 },
+    { id: 24035, title: "Sparkling Star of Elune", color: "b", spi: 8 },
+    { id: 24037, title: "Lustrous Star of Elune", color: "b", mp5: 3 },
 ];
 
 var enchants = {

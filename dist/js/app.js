@@ -2844,6 +2844,46 @@ var gems = [{
   title: "Glowing Nightseye",
   color: "p",
   sp: 5
+}, {
+  id: 30586,
+  title: "Seer's Chrysoprase",
+  color: "g",
+  "int": 4,
+  spi: 5
+}, {
+  id: 30606,
+  title: "Lambent Chrysoprase",
+  color: "g",
+  hit: 5,
+  mp5: 2
+}, {
+  id: 30560,
+  title: "Rune Covered Chrysoprase",
+  color: "g",
+  crit: 5,
+  mp5: 2
+}, {
+  id: 30589,
+  title: "Dazzling Chrysoprase",
+  color: "g",
+  "int": 5,
+  mp5: 2
+}, {
+  id: 24065,
+  title: "Dazzling Talasite",
+  color: "g",
+  "int": 4,
+  mp5: 2
+}, {
+  id: 24035,
+  title: "Sparkling Star of Elune",
+  color: "b",
+  spi: 8
+}, {
+  id: 24037,
+  title: "Lustrous Star of Elune",
+  color: "b",
+  mp5: 3
 }];
 var enchants = {
   weapon: [{
@@ -4678,6 +4718,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (item.haste) stats.push(item.haste + " haste");
       if (item["int"]) stats.push(item["int"] + " int");
       if (item.spi) stats.push(item.spi + " spi");
+      if (item.mp5) stats.push(item.mp5 + " mp5");
       if (item.desc) stats.push(item.desc);
       return stats.join(" / ");
     },
