@@ -522,9 +522,6 @@ a:hover {
 .help {
   display: inline-block;
 }
-.help .material-icons {
-  color: #08f;
-}
 
 input[type=text],
 textarea,
@@ -825,6 +822,9 @@ table.simple th:last-child, table.simple td:last-child {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(5, 1fr);
+}
+#app .config .fieldsets .help .material-icons {
+  color: #08f;
 }
 #app .profiles .profile {
   background: #2f2f48;

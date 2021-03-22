@@ -58,10 +58,6 @@ a {
 
 .help {
     display: inline-block;
-
-    .material-icons {
-        color: #08f;
-    }
 }
 
 input[type="text"],
@@ -353,6 +349,10 @@ table {
             display: grid;
             grid-gap: 10px;
             grid-template-columns: repeat(5, 1fr);
+
+            .help .material-icons {
+                color: #08f;
+            }
         }
     }
 
