@@ -364,6 +364,7 @@ var equip = {
         { id: ids.SHRUNKEN_HEAD, title: "Hex Shrunken Head", sp: 53, use: true },
         { id: ids.SILVER_CRESCENT, title: "Icon of the Silver Crescent", sp: 43, use: true },
         { id: 19379, title: "Neltharion's Tear", sp: 44, hit: 16 },
+        { id: 23207, title: "Mark of the Champion", sp: 85 },
         { id: ids.EYE_OF_MAGTHERIDON, title: "Eye of Magtheridon", sp: 54 },
         { id: ids.RESTRAINED_ESSENCE, title: "The Restrained Essence of Sapphiron", sp: 40, use: true },
         { id: ids.LIGHTNING_CAPACITOR, title: "The Lightning Capacitor" },

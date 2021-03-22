@@ -2606,6 +2606,10 @@ var equip = {
     sp: 44,
     hit: 16
   }, {
+    id: 23207,
+    title: "Mark of the Champion",
+    sp: 85
+  }, {
     id: ids.EYE_OF_MAGTHERIDON,
     title: "Eye of Magtheridon",
     sp: 54
