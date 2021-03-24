@@ -530,6 +530,10 @@
                                 <input type="text" v-model.number="config.bloodlust_at" v-if="config.bloodlust">
                             </div>
                             <div class="form-item">
+                                <label><input type="checkbox" v-model="config.power_infusion"> <span>Power Infusion <template v-if="config.power_infusion">at</template></span></label>
+                                <input type="text" v-model.number="config.power_infusion_at" v-if="config.power_infusion">
+                            </div>
+                            <div class="form-item">
                                 <label><input type="checkbox" v-model="config.mana_tide"> <span>Mana Tide <template v-if="config.mana_tide">at</template></span></label>
                                 <input type="text" v-model.number="config.mana_tide_at" v-if="config.mana_tide">
                             </div>
@@ -710,6 +714,7 @@
                     innervate: 0,
                     mana_tide: true,
                     bloodlust: true,
+                    power_infusion: false,
 
                     regen_mana_at: 20,
                     regen_stop_at: 30,
@@ -717,6 +722,7 @@
                     regen_rotation: 0,
                     mana_tide_at: 20,
                     bloodlust_at: 1,
+                    power_infusion_at: 1,
                     icy_veins_at: 1,
                     cold_snap_at: 41,
                     combustion_at: 1,

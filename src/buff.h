@@ -12,6 +12,7 @@ namespace buff
         ICY_VEINS = 12472,
         COMBUSTION = 29977,
         BLOODLUST = 2825,
+        POWER_INFUSION = 10060,
         INNERVATE = 29166,
         CLEARCAST = 12536,
         SILVER_CRESCENT = 35163,
@@ -194,6 +195,19 @@ namespace buff
             id = BLOODLUST;
             name = "Bloodlust";
             duration = 40;
+        }
+
+    };
+
+    class PowerInfusion : public Buff
+    {
+
+    public:
+        PowerInfusion()
+        {
+            id = POWER_INFUSION;
+            name = "Power Infusion";
+            duration = 15;
         }
 
     };

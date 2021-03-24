@@ -79,6 +79,8 @@ public:
             pushVampiricTouch(config->vampiric_touch_regen);
         if (config->bloodlust)
             pushBuffGain(make_shared<buff::Bloodlust>(), config->bloodlust_at);
+        if (config->power_infusion)
+            pushBuffGain(make_shared<buff::PowerInfusion>(), config->power_infusion_at);
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
 
@@ -1075,6 +1077,9 @@ public:
         if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
             multi+= player->talents.empowered_arcane_missiles * 0.02;
 
+        if (state->hasBuff(buff::POWER_INFUSION))
+            multi-= 0.2;
+
         return round(spell->cost * multi);
     }
 
@@ -1131,6 +1136,8 @@ public:
 
         if (state->hasBuff(buff::BLOODLUST))
             haste*= 1.3;
+        if (state->hasBuff(buff::POWER_INFUSION))
+            haste*= 1.2;
         if (state->hasBuff(buff::ICY_VEINS))
             haste*= 1.2;
         if (state->hasBuff(buff::BERSERKING))

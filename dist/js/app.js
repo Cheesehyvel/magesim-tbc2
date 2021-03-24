@@ -3966,6 +3966,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4053,12 +4057,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         innervate: 0,
         mana_tide: true,
         bloodlust: true,
+        power_infusion: false,
         regen_mana_at: 20,
         regen_stop_at: 30,
         regen_ab_count: 3,
         regen_rotation: 0,
         mana_tide_at: 20,
         bloodlust_at: 1,
+        power_infusion_at: 1,
         icy_veins_at: 1,
         cold_snap_at: 41,
         combustion_at: 1,
@@ -26707,6 +26713,95 @@ var render = function() {
                               _vm.$set(
                                 _vm.config,
                                 "bloodlust_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.power_infusion,
+                            expression: "config.power_infusion"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.power_infusion)
+                            ? _vm._i(_vm.config.power_infusion, null) > -1
+                            : _vm.config.power_infusion
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.power_infusion,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "power_infusion",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "power_infusion",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "power_infusion", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        [
+                          _vm._v("Power Infusion "),
+                          _vm.config.power_infusion ? [_vm._v("at")] : _vm._e()
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.config.power_infusion
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.power_infusion_at,
+                              expression: "config.power_infusion_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.power_infusion_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "power_infusion_at",
                                 _vm._n($event.target.value)
                               )
                             },
