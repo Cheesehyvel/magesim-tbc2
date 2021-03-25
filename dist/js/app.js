@@ -4764,6 +4764,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return cmp && cmp.dps ? _.round(cmp.dps) : null;
     },
+    onSpecInput: function onSpecInput(e) {
+      var talents = null;
+      var spec = null;
+
+      if (e.target.value == this.specs.SPEC_ARCANE) {
+        talents = "https://tbcdb.com/talents/index.html?en&mage&2500250300030150330125000000000000000000000000535000310030010000000";
+        spec = "arcane";
+      } else if (e.target.value == this.specs.SPEC_FIRE) {
+        talents = "https://tbcdb.com/talents/index.html?en&mage&2000000000000000000000050520201230333105312500435000010000000000000";
+        spec = "fire";
+      }
+
+      if (talents && confirm("Do you also wish to change talents to " + spec + "?")) this.config.talents = talents;
+    },
     formatStats: function formatStats(item) {
       var stats = [];
       if (item.sp) stats.push(item.sp + " sp");
@@ -24192,6 +24206,7 @@ var render = function() {
                           }
                         ],
                         on: {
+                          input: _vm.onSpecInput,
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
                               .call($event.target.options, function(o) {

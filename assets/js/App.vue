@@ -282,7 +282,7 @@
                             </div>
                             <div class="form-item">
                                 <label>Spec</label>
-                                <select v-model="config.spec">
+                                <select v-model="config.spec" @input="onSpecInput">
                                     <option :value="specs.SPEC_ARCANE">Arcane</option>
                                     <option :value="specs.SPEC_FIRE">Fire</option>
                                 </select>
@@ -1485,6 +1485,23 @@
             comparisonDps(item) {
                 var cmp = _.find(this.item_comparison, {id: item.id});
                 return cmp && cmp.dps ? _.round(cmp.dps) : null;
+            },
+
+            onSpecInput(e) {
+                var talents = null;
+                var spec = null;
+
+                if (e.target.value == this.specs.SPEC_ARCANE) {
+                    talents = "https://tbcdb.com/talents/index.html?en&mage&2500250300030150330125000000000000000000000000535000310030010000000";
+                    spec = "arcane";
+                }
+                else if (e.target.value == this.specs.SPEC_FIRE) {
+                    talents = "https://tbcdb.com/talents/index.html?en&mage&2000000000000000000000050520201230333105312500435000010000000000000";
+                    spec = "fire";
+                }
+
+                if (talents && confirm("Do you also wish to change talents to "+spec+"?"))
+                    this.config.talents = talents;
             },
 
             formatStats(item) {
