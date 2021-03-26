@@ -4019,6 +4019,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       config_open: false,
       log_open: false,
       histogram_open: false,
+      item_source: "tbcdb",
       log_filter: {
         "0": true,
         "1": true,
@@ -4094,7 +4095,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         drums_at: 1,
         potion_at: 1,
         conjured_at: 1,
-        talents: "2500250300030150330125000000000000000000000000535000310030010000000",
+        talents: "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001",
         stats: {
           intellect: 465,
           spirit: 285,
@@ -4132,11 +4133,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return data;
   },
   computed: {
-    talentsLink: function talentsLink() {
-      if (this.config.talents.match(/^[0-9]+$/)) return "https://tbcdb.com/talents/index.html?en&mage&" + this.config.talents;
-      if (this.config.talents.match(/tbcdb\.com.*mage\&([0-9]+)/i)) return this.config.talents;
-      return null;
-    },
     activeItems: function activeItems() {
       var slot = this.equipSlotToItemSlot(this.active_slot);
       return this.items.equip[slot];
@@ -4544,10 +4540,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.metaGem() && this.isSpecialItem(this.metaGem().id)) this.config.meta_gem = this.metaGem().id;
     },
     itemUrl: function itemUrl(item) {
-      return "https://tbcdb.com/?item=" + item.id;
+      if (this.item_source == "tbcdb") return "http://tbcdb.com/?item=" + item.id;
+      return "https://tbc.wowhead.com/?item=" + item.id;
     },
     spellUrl: function spellUrl(spell) {
-      return "https://tbcdb.com/?spell=" + spell.id;
+      if (this.item_source == "tbcdb") return "http://tbcdb.com/?spell=" + spell.id;
+      return "https://tbc.wowhead.com/?spell=" + spell.id;
     },
     critRatingToChance: function critRatingToChance(rating) {
       return rating / 22.08;
@@ -4732,27 +4730,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     hasTalent: function hasTalent(talent) {
       var indexes = {
-        presence_of_mind: 13,
-        arcane_mind: 14,
-        arcane_instability: 16,
-        arcane_power: 19,
-        mind_mastery: 21,
-        combustion: 41,
-        icy_veins: 53,
-        cold_snap: 59
+        presence_of_mind: [0, 13],
+        arcane_mind: [0, 14],
+        arcane_instability: [0, 16],
+        arcane_power: [0, 19],
+        mind_mastery: [0, 21],
+        combustion: [1, 18],
+        icy_veins: [2, 8],
+        cold_snap: [2, 14]
       };
-      var index = _.isNumber(talent) ? talent : _.get(indexes, talent);
-      if (!index) return;
-      var numbers = null;
+      if (!indexes.hasOwnProperty(talent)) return false;
+      var m = this.config.talents.match(/tbc\.wowhead\.com.*mage\/([0-9\-]+)$/);
 
-      if (this.config.talents.match(/^[0-9]+$/)) {
-        numbers = this.config.talents;
-      } else {
-        var m = this.config.talents.match(/tbcdb\.com.*mage\&([0-9]+)/i);
-        numbers = m[1];
+      if (m) {
+        var str = m[1];
+        var tree = 0,
+            t = 0;
+
+        for (var i = 0; i < str.length; i++) {
+          if (str[i] == '-') {
+            tree++;
+            t = 0;
+          } else {
+            if (tree == indexes[talent][0] && t == indexes[talent][1]) return parseInt(str[i]);
+            t++;
+          }
+        }
       }
 
-      if (numbers && numbers[index]) return parseInt(numbers[index]);
       return false;
     },
     hasUseTrinket: function hasUseTrinket(nr) {
@@ -4788,14 +4793,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var spec = null;
 
       if (e.target.value == this.specs.SPEC_ARCANE) {
-        talents = "https://tbcdb.com/talents/index.html?en&mage&2500250300030150330125000000000000000000000000535000310030010000000";
+        talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
         spec = "arcane";
       } else if (e.target.value == this.specs.SPEC_FIRE) {
-        talents = "https://tbcdb.com/talents/index.html?en&mage&2000000000000000000000050520201230333105312500435000010000000000000";
+        talents = "https://tbc.wowhead.com/talent-calc/mage/2-505202012303331053125-043500001";
         spec = "fire";
       }
 
       if (talents && confirm("Do you also wish to change talents to " + spec + "?")) this.config.talents = talents;
+    },
+    onTalentsInput: function onTalentsInput(e) {
+      this.config.talents = this.conformTalents(e.target.value);
+      e.preventDefault();
+    },
+    conformTalents: function conformTalents(talents) {
+      var m;
+
+      if (m = talents.match(/tbcdb\.com.*mage\&([0-9]+)/i)) {
+        var fn = function fn(str) {
+          return str.replace(/[0]+$/, "");
+        };
+
+        talents = "https://tbc.wowhead.com/talent-calc/mage/" + fn(m[1].substr(0, 23)) + "-" + fn(m[1].substr(23, 22)) + "-" + fn(m[1].substr(45));
+      }
+
+      return talents;
     },
     formatStats: function formatStats(item) {
       var stats = [];
@@ -4918,7 +4940,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (profile.equipped) _.merge(this.equipped, _.pick(profile.equipped, _.keys(this.equipped)));
       if (profile.enchants) _.merge(this.enchants, _.pick(profile.enchants, _.keys(this.enchants)));
       if (profile.gems) _.merge(this.gems, _.pick(profile.gems, _.keys(this.gems)));
-      if (profile.config) _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
+
+      if (profile.config) {
+        _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
+
+        this.config.talents = this.conformTalents(this.config.talents);
+      }
+
       this.finalStats();
       this.saveGear();
       this.saveConfig();
@@ -4977,6 +5005,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.histogram_open = !this.histogram_open;
     },
     loadTooltips: function loadTooltips() {
+      if (this.item_source == "tbcdb") this.loadTbcdbTooltips();else this.loadWowheadTooltips();
+    },
+    loadTbcdbTooltips: function loadTbcdbTooltips() {
       if (!window.aowow_tooltips && this.config.tooltips) {
         window.aowow_tooltips = {
           "colorlinks": true,
@@ -4987,6 +5018,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         script.id = "wowheadpower";
         script.type = "text/javascript";
         script.src = "http://tbcdb.com/tooltips/power.js?vnew";
+        document.body.appendChild(script);
+      }
+    },
+    loadWowheadTooltips: function loadWowheadTooltips() {
+      if (!window.whTooltips && this.config.tooltips) {
+        window.whTooltips = {
+          "colorlinks": true,
+          "iconizelinks": true,
+          "renamelinks": true
+        };
+        var script = document.createElement("script");
+        script.id = "wowheadpower";
+        script.type = "text/javascript";
+        script.src = "https://tbc.wowhead.com/widgets/power.js";
         document.body.appendChild(script);
       }
     },
@@ -5038,7 +5083,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (str) {
         var config = JSON.parse(str);
-        if (config) _.merge(this.config, _.pick(config, _.keys(this.config)));
+
+        if (config) {
+          _.merge(this.config, _.pick(config, _.keys(this.config)));
+
+          this.config.talents = this.conformTalents(this.config.talents);
+        }
       }
     },
     saveProfiles: function saveProfiles() {
@@ -62378,31 +62428,18 @@ var render = function() {
                       _vm._v("Talents ("),
                       _c(
                         "a",
-                        { attrs: { href: _vm.talentsLink, target: "_blank" } },
+                        {
+                          attrs: { href: _vm.config.talents, target: "_blank" }
+                        },
                         [_vm._v("link")]
                       ),
                       _vm._v(")")
                     ]),
                     _vm._v(" "),
                     _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.config.talents,
-                          expression: "config.talents"
-                        }
-                      ],
                       attrs: { type: "text" },
                       domProps: { value: _vm.config.talents },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.config, "talents", $event.target.value)
-                        }
-                      }
+                      on: { input: _vm.onTalentsInput }
                     })
                   ]),
                   _vm._v(" "),

@@ -9,8 +9,8 @@ onmessage = function onmessage(event) {
   var data = event.data;
 
   var parseTalentsLink = function parseTalentsLink(str) {
-    if (str.match(/^[0-9]+$/)) return str;
-    var m = str.match(/tbcdb\.com.*mage\&([0-9]+)/i);
+    if (str.match(/^[0-9\-]+$/)) return str;
+    var m = str.match(/tbc\.wowhead\.com.*mage\/([0-9\-]+)/i);
     if (m) return m[1];
     return "---";
   };

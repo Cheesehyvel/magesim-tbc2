@@ -219,61 +219,51 @@ public:
 
     void loadTalentsFromString(std::string str)
     {
-        int size = 67;
-        int points[size];
-        int fire = 23, frost = 45;
+        int tree = 0, t = 0, p = 0;
 
-        for (int i=0; i<size; i++)
-            points[i] = 0;
-
-        int t = 0, p = 0;
         for (int i=0; i<str.length(); i++) {
             if (str[i] == '-') {
-                if (t < fire)
-                    t = fire;
-                else if (t < frost)
-                    t = frost;
-                else
-                    break;
+                tree++;
+                t = 0;
             }
             else {
                 p = str[i] - '0';
 
-                if (t == 1) talents.arcane_focus = p;
-                else if (t == 5) talents.clearcast = p;
-                else if (t == 7) talents.arcane_impact = p;
-                else if (t == 11) talents.arcane_meditation = p;
-                else if (t == 13) talents.presence_of_mind = p;
-                else if (t == 14) talents.arcane_mind = p;
-                else if (t == 16) talents.arcane_instability = p;
-                else if (t == 17) talents.arcane_potency = p;
-                else if (t == 18) talents.empowered_arcane_missiles = p;
-                else if (t == 19) talents.arcane_power = p;
-                else if (t == 20) talents.spell_power = p;
-                else if (t == 21) talents.mind_mastery = p;
-                else if (t == 23) talents.imp_fireball = p;
-                else if (t == 25) talents.ignite = p;
-                else if (t == 28) talents.incinerate = p;
-                else if (t == 30) talents.pyroblast = p;
-                else if (t == 32) talents.imp_scorch = p;
-                else if (t == 34) talents.master_of_elements = p;
-                else if (t == 35) talents.playing_with_fire = p;
-                else if (t == 36) talents.critical_mass = p;
-                else if (t == 39) talents.fire_power = p;
-                else if (t == 40) talents.pyromaniac = p;
-                else if (t == 41) talents.combustion = p;
-                else if (t == 42) talents.molten_fury = p;
-                else if (t == 43) talents.empowered_fireball = p;
-                else if (t == 46) talents.imp_frostbolt = p;
-                else if (t == 47) talents.elemental_precision = p;
-                else if (t == 48) talents.ice_shards = p;
-                else if (t == 52) talents.piercing_ice = p;
-                else if (t == 53) talents.icy_veins = p;
-                else if (t == 56) talents.frost_channeling = p;
-                else if (t == 59) talents.cold_snap = p;
-                else if (t == 62) talents.winters_chill = p;
-                else if (t == 64) talents.arctic_winds = p;
-                else if (t == 65) talents.empowered_frostbolt = p;
+                if (tree == 0 && t == 1) talents.arcane_focus = p;
+                else if (tree == 0 && t == 5) talents.clearcast = p;
+                else if (tree == 0 && t == 7) talents.arcane_impact = p;
+                else if (tree == 0 && t == 11) talents.arcane_meditation = p;
+                else if (tree == 0 && t == 13) talents.presence_of_mind = p;
+                else if (tree == 0 && t == 14) talents.arcane_mind = p;
+                else if (tree == 0 && t == 16) talents.arcane_instability = p;
+                else if (tree == 0 && t == 17) talents.arcane_potency = p;
+                else if (tree == 0 && t == 18) talents.empowered_arcane_missiles = p;
+                else if (tree == 0 && t == 19) talents.arcane_power = p;
+                else if (tree == 0 && t == 20) talents.spell_power = p;
+                else if (tree == 0 && t == 21) talents.mind_mastery = p;
+                else if (tree == 1 && t == 0) talents.imp_fireball = p;
+                else if (tree == 1 && t == 2) talents.ignite = p;
+                else if (tree == 1 && t == 5) talents.incinerate = p;
+                else if (tree == 1 && t == 7) talents.pyroblast = p;
+                else if (tree == 1 && t == 9) talents.imp_scorch = p;
+                else if (tree == 1 && t == 11) talents.master_of_elements = p;
+                else if (tree == 1 && t == 12) talents.playing_with_fire = p;
+                else if (tree == 1 && t == 13) talents.critical_mass = p;
+                else if (tree == 1 && t == 16) talents.fire_power = p;
+                else if (tree == 1 && t == 17) talents.pyromaniac = p;
+                else if (tree == 1 && t == 18) talents.combustion = p;
+                else if (tree == 1 && t == 19) talents.molten_fury = p;
+                else if (tree == 1 && t == 20) talents.empowered_fireball = p;
+                else if (tree == 2 && t == 1) talents.imp_frostbolt = p;
+                else if (tree == 2 && t == 2) talents.elemental_precision = p;
+                else if (tree == 2 && t == 3) talents.ice_shards = p;
+                else if (tree == 2 && t == 7) talents.piercing_ice = p;
+                else if (tree == 2 && t == 8) talents.icy_veins = p;
+                else if (tree == 2 && t == 11) talents.frost_channeling = p;
+                else if (tree == 2 && t == 14) talents.cold_snap = p;
+                else if (tree == 2 && t == 17) talents.winters_chill = p;
+                else if (tree == 2 && t == 19) talents.arctic_winds = p;
+                else if (tree == 2 && t == 20) talents.empowered_frostbolt = p;
 
                 t++;
             }
