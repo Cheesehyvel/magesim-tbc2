@@ -60,6 +60,7 @@
                         <div>DPS</div>
                         <div>{{ $round(result.avg_dps, 2) }}</div>
                         <div>{{ $round(result.min_dps, 2) }} - {{ $round(result.max_dps, 2) }}</div>
+                        <div class="btn mt-1" v-if="result.histogram" @click="histogramToggle">Histogram</div>
                     </template>
                     <template v-else>
                         <div>DPS</div>
@@ -259,6 +260,15 @@
                         </table>
                     </div>
                     <div class="close" @click="logToggle">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
+                </div>
+
+                <div class="histog" v-if="histogram_open">
+                    <histogram :data="result.histogram"></histogram>
+                    <div class="close" @click="histogramToggle">
                         <span class="material-icons">
                             &#xe5cd;
                         </span>
@@ -652,6 +662,7 @@
                 is_running: false,
                 config_open: false,
                 log_open: false,
+                histogram_open: false,
                 log_filter: {
                     "0": true,
                     "1": true,
@@ -839,6 +850,7 @@
                     console.error(error);
                 });
 
+                this.histogram_open = false;
                 this.prepare();
                 this.is_running = true;
                 sim.start(this.config);
@@ -1724,6 +1736,7 @@
             },
 
             configToggle() {
+                this.histogram_open = false;
                 this.log_open = false;
                 this.config_open = !this.config_open;
                 if (!this.config_open) {
@@ -1733,8 +1746,15 @@
             },
 
             logToggle() {
+                this.histogram_open = false;
                 this.config_open = false;
                 this.log_open = !this.log_open;
+            },
+
+            histogramToggle() {
+                this.log_open = false;
+                this.config_open = false;
+                this.histogram_open = !this.histogram_open;
             },
 
             loadTooltips() {

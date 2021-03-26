@@ -321,6 +321,7 @@ table {
 
     .log,
     .config,
+    .histog,
     .lightbox {
         .close {
             position: absolute;
@@ -466,6 +467,18 @@ table {
                 color: #b88;
             }
         }
+    }
+
+    .histog {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+        background: #1f1f28;
+        z-index: 102;
+        padding: $spacer;
     }
 
     .lightbox {

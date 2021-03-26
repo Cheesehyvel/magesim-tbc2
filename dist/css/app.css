@@ -797,6 +797,7 @@ table.simple th:last-child, table.simple td:last-child {
 }
 #app .log .close,
 #app .config .close,
+#app .histog .close,
 #app .lightbox .close {
   position: absolute;
   top: 0;
@@ -916,6 +917,17 @@ table.simple th:last-child, table.simple td:last-child {
 }
 #app .log table tr.type-6 td:nth-child(4) {
   color: #b88;
+}
+#app .histog {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: #1f1f28;
+  z-index: 102;
+  padding: 60px;
 }
 #app .lightbox {
   position: fixed;

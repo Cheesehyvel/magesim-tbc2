@@ -55,16 +55,37 @@ public:
 
         logging = false;
 
+        int bin_size = 25;
+        int bin;
+        map<int, int> histogram;
+
         for (int i=0; i<iterations; i++) {
             r = run();
+
             if (i == 0 || r.dps < result.min_dps)
                 result.min_dps = r.dps;
             if (i == 0 || r.dps > result.max_dps)
                 result.max_dps = r.dps;
-            result.avg_dps+= ((r.dps - result.avg_dps) / (i+1));
+            result.avg_dps+= (r.dps - result.avg_dps) / (i+1);
+
+            bin = floor(r.dps/bin_size)*bin_size;
+            if (histogram.find(bin) != histogram.end())
+                histogram[bin]++;
+            else
+                histogram[bin] = 1;
         }
 
         result.iterations = iterations;
+
+        ostringstream ss;
+        ss << "{";
+        for (auto itr = histogram.begin(); itr != histogram.end(); itr++) {
+            if (itr != histogram.begin())
+                ss << ",";
+            ss << "\"" << itr->first << "\":" << itr->second;
+        }
+        ss << "}";
+        result.histogram = ss.str();
 
         return result;
     }

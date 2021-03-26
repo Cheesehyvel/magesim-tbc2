@@ -169,6 +169,7 @@ struct SimulationsResult
 {
     double min_dps, avg_dps, max_dps;
     int iterations;
+    std::string histogram;
 };
 
 double critRatingToChance(double rating)

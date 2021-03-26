@@ -74,6 +74,8 @@ onmessage = (event) => {
 
             if (result.log)
                 result.log = JSON.parse(result.log);
+            if (result.histogram)
+                result.histogram = JSON.parse(result.histogram);
 
             postMessage({
                 type: "success",

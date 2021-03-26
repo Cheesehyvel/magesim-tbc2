@@ -237,7 +237,9 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .field("min_dps", &SimulationsResult::min_dps)
         .field("avg_dps", &SimulationsResult::avg_dps)
         .field("max_dps", &SimulationsResult::max_dps)
-        .field("iterations", &SimulationsResult::iterations);
+        .field("iterations", &SimulationsResult::iterations)
+        .field("histogram", &SimulationsResult::histogram)
+        ;
 
     emscripten::function("runSimulation", &runSimulation);
     emscripten::function("runSimulations", &runSimulations);
