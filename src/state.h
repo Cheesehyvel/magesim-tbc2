@@ -19,6 +19,7 @@ public:
     int mana_emerald;
     int mana_ruby;
     int combustion;
+    double duration;
 
     map<cooldown::ID, shared_ptr<cooldown::Cooldown>> cooldowns;
     map<buff::ID, shared_ptr<buff::Buff>> buffs;
@@ -45,6 +46,8 @@ public:
         mana_emerald = 3;
         mana_ruby = 1;
         combustion = 0;
+        duration = config->duration;
+        duration+= -config->durationVariance + random<double>(0, config->durationVariance*2);
 
         buffs.clear();
         debuffs.clear();

@@ -48,12 +48,13 @@ public:
         state->mana = player->maxMana();
     }
 
-    SimulationsResult runMultiple(int iterations)
+    SimulationsResult runMultiple(int iterations, int seed)
     {
         SimulationResult r;
         SimulationsResult result;
 
         logging = false;
+        setSeed(seed);
 
         double bin_size = 20;
         int bin;
@@ -106,7 +107,7 @@ public:
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
 
         if (config->fire_vulnerability) {
-            for (double t=1.5; t<config->duration;) {
+            for (double t=1.5; t<state->duration;) {
                 pushDebuffGain(make_shared<debuff::FireVulnerability>(), t);
                 if (t < 7.5)
                     t+= 1.5;
@@ -116,7 +117,7 @@ public:
         }
 
         if (config->winters_chill) {
-            for (double t=2.5; t<config->duration;) {
+            for (double t=2.5; t<state->duration;) {
                 pushDebuffGain(make_shared<debuff::WintersChill>(), t);
                 if (t < 12.5)
                     t+= 2.5;
@@ -148,8 +149,8 @@ public:
             event = queue.front();
             queue.pop_front();
 
-            if (event->t >= config->duration) {
-                state->t = config->duration;
+            if (event->t >= state->duration) {
+                state->t = state->duration;
                 break;
             }
 
@@ -813,7 +814,7 @@ public:
 
     double timeRemain()
     {
-        return config->duration - state->t;
+        return state->duration - state->t;
     }
 
     shared_ptr<spell::Spell> nextSpell()
@@ -1265,7 +1266,7 @@ public:
         if (player->talents.fire_power && spell->school == SCHOOL_FIRE)
             multi*= 1 + (player->talents.fire_power * 0.02);
         // Below 20% - We'll estimate that to last 20% of duration
-        if (player->talents.molten_fury && state->t / config->duration >= 0.8)
+        if (player->talents.molten_fury && state->t / state->duration >= 0.8)
             multi*= 1 + (player->talents.molten_fury * 0.1);
 
         if (spell->school == SCHOOL_FIRE && state->hasDebuff(debuff::FIRE_VULNERABILITY))
