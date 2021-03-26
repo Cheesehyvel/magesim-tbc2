@@ -55,7 +55,7 @@ public:
 
         logging = false;
 
-        int bin_size = 25;
+        double bin_size = 20;
         int bin;
         map<int, int> histogram;
 

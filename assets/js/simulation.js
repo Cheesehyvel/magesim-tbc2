@@ -35,11 +35,6 @@ class SimulationWorkers {
         var sum = null;
 
         for (var i=0; i<this.threads; i++) {
-            var it = iterations/this.threads;
-            var r = iterations%this.threads;
-            if (r && i < r)
-                it++;
-
             this.workers[i] = new SimulationWorker((result) => {
                 if (!sum) {
                     sum = result;
@@ -51,6 +46,15 @@ class SimulationWorkers {
                         sum.max_dps = result.max_dps;
                     sum.avg_dps = (sum.avg_dps * sum.iterations + result.avg_dps * result.iterations) / (sum.iterations + result.iterations);
                     sum.iterations+= result.iterations;
+
+                    if (result.histogram) {
+                        for (var key in result.histogram) {
+                            if (!sum.histogram.hasOwnProperty(key))
+                                sum.histogram[key] = result.histogram[key];
+                            else
+                                sum.histogram[key]+= result.histogram[key];
+                        }
+                    }
                 }
 
                 if (sum.iterations == iterations)
@@ -58,13 +62,18 @@ class SimulationWorkers {
 
             }, (error) => {
                 console.error(error);
-            }, it);
+            });
         }
     }
 
     start(config) {
-        for (var i=0; i<this.workers.length; i++)
-            this.workers[i].start(config, this.iterations);
+        for (var i=0; i<this.workers.length; i++) {
+            var it = this.iterations/this.threads;
+            var r = this.iterations%this.threads;
+            if (r && i < r)
+                it++;
+            this.workers[i].start(config, it);
+        }
     }
 }
 

@@ -3288,9 +3288,6 @@ var SimulationWorkers = /*#__PURE__*/function () {
     var sum = null;
 
     for (var i = 0; i < this.threads; i++) {
-      var it = iterations / this.threads;
-      var r = iterations % this.threads;
-      if (r && i < r) it++;
       this.workers[i] = new SimulationWorker(function (result) {
         if (!sum) {
           sum = result;
@@ -3299,12 +3296,18 @@ var SimulationWorkers = /*#__PURE__*/function () {
           if (result.max_dps > sum.max_dps) sum.max_dps = result.max_dps;
           sum.avg_dps = (sum.avg_dps * sum.iterations + result.avg_dps * result.iterations) / (sum.iterations + result.iterations);
           sum.iterations += result.iterations;
+
+          if (result.histogram) {
+            for (var key in result.histogram) {
+              if (!sum.histogram.hasOwnProperty(key)) sum.histogram[key] = result.histogram[key];else sum.histogram[key] += result.histogram[key];
+            }
+          }
         }
 
         if (sum.iterations == iterations) onSuccess(sum);
       }, function (error) {
         console.error(error);
-      }, it);
+      });
     }
   }
 
@@ -3312,7 +3315,10 @@ var SimulationWorkers = /*#__PURE__*/function () {
     key: "start",
     value: function start(config) {
       for (var i = 0; i < this.workers.length; i++) {
-        this.workers[i].start(config, this.iterations);
+        var it = this.iterations / this.threads;
+        var r = this.iterations % this.threads;
+        if (r && i < r) it++;
+        this.workers[i].start(config, it);
       }
     }
   }]);
@@ -4023,7 +4029,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "6": true
       },
       config: {
-        iterations: 10000,
+        iterations: 30000,
         race: 5,
         spec: 0,
         duration: 180,
@@ -5125,7 +5131,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['data'],
   methods: {
     draw: function draw() {
-      var bin_size = 25;
+      var bin_size = 20;
       var data = {
         labels: [],
         datasets: [{
@@ -5137,7 +5143,7 @@ __webpack_require__.r(__webpack_exports__);
         }]
       };
 
-      var keys = _.keys(this.data);
+      var keys = _.keys(this.data).sort();
 
       var first = parseInt(keys[0]);
       var last = parseInt(_.last(keys));
@@ -5167,6 +5173,9 @@ __webpack_require__.r(__webpack_exports__);
               display: true,
               labelString: "DPS"
             },
+            gridLines: {
+              color: "rgba(255,255,255,0.05)"
+            },
             ticks: {
               autoSkip: false,
               max: data.labels[data.labels.length - 1]
@@ -5177,7 +5186,11 @@ __webpack_require__.r(__webpack_exports__);
               display: true,
               labelString: "Iterations"
             },
+            gridLines: {
+              color: "rgba(255,255,255,0.05)"
+            },
             ticks: {
+              maxTicksLimit: 20,
               beginAtZero: true
             }
           }]

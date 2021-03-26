@@ -24,7 +24,7 @@
 
         methods: {
             draw() {
-                var bin_size = 25;
+                var bin_size = 20;
 
                 var data = {
                     labels: [],
@@ -37,7 +37,7 @@
                     }],
                 };
 
-                var keys = _.keys(this.data);
+                var keys = _.keys(this.data).sort();
                 var first = parseInt(keys[0]);
                 var last = parseInt(_.last(keys));
                 for (var i=first; i<=last; i+= bin_size) {
@@ -67,6 +67,9 @@
                                     display: true,
                                     labelString: "DPS",
                                 },
+                                gridLines: {
+                                    color: "rgba(255,255,255,0.05)",
+                                },
                                 ticks: {
                                     autoSkip: false,
                                     max: data.labels[data.labels.length-1],
@@ -78,7 +81,11 @@
                                 display: true,
                                 labelString: "Iterations",
                             },
+                            gridLines: {
+                                color: "rgba(255,255,255,0.05)",
+                            },
                             ticks: {
+                                maxTicksLimit: 20,
                                 beginAtZero: true,
                             }
                         }]

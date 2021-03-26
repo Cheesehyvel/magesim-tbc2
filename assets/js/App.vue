@@ -673,7 +673,7 @@
                     "6": true,
                 },
                 config: {
-                    iterations: 10000,
+                    iterations: 30000,
                     race: 5,
                     spec: 0,
 
