@@ -485,6 +485,11 @@ public:
                 onCooldownGain(make_shared<cooldown::EternalSage>());
                 onBuffGain(make_shared<buff::EternalSage>());
             }
+            // 5% proc rate, cannot refresh itself while up
+            if (config->wrath_of_cenarius && !state->hasCooldown(cooldown::SPELL_BLASTING) && random<int>(0, 19) == 0) {
+                onCooldownGain(make_shared<cooldown::SpellBlasting>());
+                onBuffGain(make_shared<buff::SpellBlasting>());
+            }
             // 50% proc rate
             if (config->judgement_of_wisdom && random<int>(0, 1) == 1)
                 onManaGain(74, "Judgement of Wisdom");
@@ -1316,6 +1321,8 @@ public:
                 sp+= 130.0;
             if (state->hasBuff(buff::ETERNAL_SAGE))
                 sp+= 95.0;
+            if (state->hasBuff(buff::SPELL_BLASTING))
+                sp+= 132.0;
             if (state->hasBuff(buff::SHRUNKEN_HEAD))
                 sp+= 211.0;
             if (state->hasBuff(buff::NAARU_SLIVER))

@@ -33,6 +33,7 @@ namespace buff
         ENLIGHTENMENT = 35095,
         VENGEANCE_ILLIDARI = 33662,
         ETERNAL_SAGE = 35084,
+        SPELL_BLASTING = 25906,
         SKULL_GULDAN = 40396,
         SHRUNKEN_HEAD = 43712,
         NAARU_SLIVER = 45042,
@@ -431,6 +432,20 @@ namespace buff
         {
             id = ETERNAL_SAGE;
             name = "Band of Eternal Sage";
+            duration = 10;
+        }
+
+    };
+
+    // Buff associated with Wrath of Cenarius ring
+    class SpellBlasting : public Buff
+    {
+
+    public:
+        SpellBlasting()
+        {
+            id = SPELL_BLASTING;
+            name = "Spell Blasting";
             duration = 10;
         }
 

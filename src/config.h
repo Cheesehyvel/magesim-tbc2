@@ -42,6 +42,7 @@ struct Config
     bool spellfire_set = false;
     bool spellstrike_set = false;
     bool eternal_sage = false;
+    bool wrath_of_cenarius = false;
 
     Trinket trinket1 = TRINKET_NONE;
     Trinket trinket2 = TRINKET_NONE;

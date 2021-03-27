@@ -22,6 +22,7 @@ var ids = {
     PENDANT_VIOLET_EYE: 28727,
     VENGEANCE_ILLIDARI: 28040,
     ETERNAL_SAGE: 29305,
+    WRATH_OF_CENARIUS: 21190,
     SKULL_GULDAN: 32483,
     SHRUNKEN_HEAD: 33829,
     SORCERERS_ALCHEMIST_STONE: 35749,
@@ -352,6 +353,7 @@ var equip = {
         { id: 29126, title: "Seer's Signet", sp: 34, crit: 12 },
         { id: 23031, title: "Band of the Inevitable", sp: 36, hit: 8 },
         { id: 29320, title: "Band of the Guardian", int: 11, sp: 23, crit: 17, q: "rare" },
+        { id: ids.WRATH_OF_CENARIUS, title: "Wrath of Cenarius", },
     ],
     trinket: [
         { id: ids.SORCERERS_ALCHEMIST_STONE, title: "Sorcerer's Alchemist Stone", sp: 63 },
