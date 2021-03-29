@@ -1155,7 +1155,9 @@
                     }
                 };
 
-                var slot, item, has_bonus, get_bonus, enchant, gem, gem_id;
+                var slot, item, has_bonus, get_bonus, enchant, gem, gem_id, set, setbonus;
+                var sets = {};
+
                 for (var key in this.equipped) {
                     slot = this.equipSlotToItemSlot(key);
                     item = _.find(this.items.equip[slot], {id: this.equipped[key]});
@@ -1183,6 +1185,21 @@
 
                             if (has_bonus && get_bonus)
                                 addStats(item.bonus);
+                        }
+
+                        if (item.itemset) {
+                            if (!sets.hasOwnProperty(item.itemset)) {
+                                sets[item.itemset] = 1;
+                            }
+                            else {
+                                sets[item.itemset]++;
+                                set = _.find(this.items.itemsets, {id: item.itemset})
+                                if (set) {
+                                    setbonus = _.get(set, "set"+sets[item.itemset]);
+                                    if (setbonus)
+                                        addStats(setbonus);
+                                }
+                            }
                         }
                     }
                 }

@@ -978,6 +978,13 @@ var equip = {
     crit: 11,
     q: "rare"
   }, {
+    id: 31338,
+    itemset: 667,
+    title: "Charlotte's Ivy",
+    "int": 19,
+    spi: 14,
+    sp: 23
+  }, {
     id: 21608,
     title: "Amulet of Vek'nilash",
     "int": 5,
@@ -2547,6 +2554,13 @@ var equip = {
     sp: 34,
     crit: 12
   }, {
+    id: 31339,
+    itemset: 667,
+    title: "Lola's Eve",
+    "int": 14,
+    spi: 13,
+    sp: 29
+  }, {
     id: 23031,
     title: "Band of the Inevitable",
     sp: 36,
@@ -3068,6 +3082,13 @@ var enchants = {
     sp: 12
   }]
 };
+var itemsets = [{
+  id: 667,
+  title: "The Twin Stars",
+  set2: {
+    sp: 15
+  }
+}];
 var quicksets = {
   t5bis: {
     title: "T5 All-round (arcane)",
@@ -3267,6 +3288,7 @@ var quicksets = {
   equip: equip,
   gems: gems,
   enchants: enchants,
+  itemsets: itemsets,
   quicksets: quicksets
 });
 
@@ -4543,7 +4565,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       };
 
-      var slot, item, has_bonus, get_bonus, enchant, gem, gem_id;
+      var slot, item, has_bonus, get_bonus, enchant, gem, gem_id, set, setbonus;
+      var sets = {};
 
       for (var key in this.equipped) {
         slot = this.equipSlotToItemSlot(key);
@@ -4574,6 +4597,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }
 
             if (has_bonus && get_bonus) addStats(item.bonus);
+          }
+
+          if (item.itemset) {
+            if (!sets.hasOwnProperty(item.itemset)) {
+              sets[item.itemset] = 1;
+            } else {
+              sets[item.itemset]++;
+              set = _.find(this.items.itemsets, {
+                id: item.itemset
+              });
+
+              if (set) {
+                setbonus = _.get(set, "set" + sets[item.itemset]);
+                if (setbonus) addStats(setbonus);
+              }
+            }
           }
         }
       }

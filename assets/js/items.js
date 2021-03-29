@@ -143,6 +143,7 @@ var equip = {
         { id: 31692, title: "Natasha's Ember Necklace", int: 15, sp: 29, crit: 10, q: "rare" },
         { id: 29333, title: "Torc of the Sethekk Prophet", int: 18, sp: 19, crit: 21, q: "rare" },
         { id: 24462, title: "Luminous Pearls of Insight", int: 15, sp: 25, crit: 11, q: "rare" },
+        { id: 31338, itemset: 667, title: "Charlotte's Ivy", int: 19, spi: 14, sp: 23 },
         { id: 21608, title: "Amulet of Vek'nilash", int: 5, sp: 27, crit: 14 },
         { id: 23057, title: "Gem of Trapped Innocents", int: 7, sp: 15, crit: 28 },
         { id: 18814, title: "Choker of the Fire Lord", int: 7, sp: 34 },
@@ -352,6 +353,7 @@ var equip = {
         { id: 31290, title: "Band of Dominion", sp: 28, crit: 21, q: "rare" },
         { id: 27784, title: "Scintillating Coral Band", int: 15, sp: 21, crit: 17, q: "rare" },
         { id: 29126, title: "Seer's Signet", sp: 34, crit: 12 },
+        { id: 31339, itemset: 667, title: "Lola's Eve", int: 14, spi: 13, sp: 29 },
         { id: 23031, title: "Band of the Inevitable", sp: 36, hit: 8 },
         { id: 29320, title: "Band of the Guardian", int: 11, sp: 23, crit: 17, q: "rare" },
         { id: ids.WRATH_OF_CENARIUS, title: "Wrath of Cenarius", },
@@ -483,6 +485,10 @@ var enchants = {
         { id: 46518, title: "Spellpower", sp: 12 },
     ],
 };
+
+var itemsets = [
+    { id: 667, title: "The Twin Stars", set2: { sp: 15 } }
+];
 
 var quicksets = {
     t5bis: {
@@ -679,4 +685,4 @@ var quicksets = {
     }
 };
 
-export default { ids, equip, gems, enchants, quicksets };
+export default { ids, equip, gems, enchants, itemsets, quicksets };
