@@ -203,6 +203,7 @@ var ids = {
   PENDANT_VIOLET_EYE: 28727,
   VENGEANCE_ILLIDARI: 28040,
   ETERNAL_SAGE: 29305,
+  WRATH_OF_CENARIUS: 21190,
   SKULL_GULDAN: 32483,
   SHRUNKEN_HEAD: 33829,
   SORCERERS_ALCHEMIST_STONE: 35749,
@@ -2556,6 +2557,9 @@ var equip = {
     sp: 23,
     crit: 17,
     q: "rare"
+  }, {
+    id: ids.WRATH_OF_CENARIUS,
+    title: "Wrath of Cenarius"
   }],
   trinket: [{
     id: ids.SORCERERS_ALCHEMIST_STONE,
@@ -4070,6 +4074,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         spellfire_set: false,
         spellstrike_set: false,
         eternal_sage: false,
+        wrath_of_cenarius: false,
         meta_gem: 0,
         trinket1: 0,
         trinket2: 0,
@@ -4532,6 +4537,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.config.spellstrike_set = this.numEquippedSet(this.items.ids.SPELLSTRIKE_SET) > 1;
       this.config.spellfire_set = this.numEquippedSet(this.items.ids.SPELLFIRE_SET) > 2;
       this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
+      this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
       this.config.trinket1 = 0;
       this.config.trinket2 = 0;
       this.config.meta_gem = 0;
