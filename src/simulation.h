@@ -60,6 +60,9 @@ public:
         map<int, int> histogram;
 
         for (int i=0; i<iterations; i++) {
+            if (config->rng_seed)
+                setRNGSeed(config->rng_seed+i);
+
             r = run();
 
             if (i == 0 || r.dps < result.min_dps)

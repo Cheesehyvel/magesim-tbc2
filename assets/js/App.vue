@@ -343,6 +343,17 @@
                                 <input type="text" v-model.number="config.iterations">
                             </div>
                             <div class="form-item">
+                                <label>
+                                    <span>RNG seed</span>
+                                    <help>
+                                        A number above 0 will give all runs the same random seed.<br>
+                                        All iterations in the same run will still have different seeds.<br>
+                                        This might be useful for certain analysis.
+                                    </help>
+                                </label>
+                                <input type="text" v-model.number="config.rng_seed">
+                            </div>
+                            <div class="form-item">
                                 <label><input type="checkbox" v-model="config.tooltips" @input="refreshTooltips(true)"> <span>Use item tooltips (requires reload)</span></label>
                             </div>
                         </fieldset>
@@ -684,6 +695,7 @@
 
                     duration: 180,
                     duration_variance: 0,
+                    rng_seed: 0,
                     vampiric_touch_regen: 40,
 
                     misery: true,

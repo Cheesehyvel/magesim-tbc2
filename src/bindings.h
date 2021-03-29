@@ -133,6 +133,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .smart_ptr<std::shared_ptr<Config>>("Config")
         .property("duration", &Config::duration)
         .property("duration_variance", &Config::duration_variance)
+        .property("rng_seed", &Config::rng_seed)
         .property("vampiric_touch_regen", &Config::vampiric_touch_regen)
         .property("misery", &Config::misery)
         .property("curse_of_elements", &Config::curse_of_elements)

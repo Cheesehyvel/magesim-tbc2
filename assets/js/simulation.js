@@ -67,13 +67,17 @@ class SimulationWorkers {
     }
 
     start(config) {
+        var seed = config.rng_seed;
         for (var i=0; i<this.workers.length; i++) {
             var it = this.iterations/this.threads;
             var r = this.iterations%this.threads;
             if (r && i < r)
                 it++;
+            if (config.rng_seed > 0)
+                config.rng_seed+= it;
             this.workers[i].start(config, it);
         }
+        config.rng_seed = seed;
     }
 }
 

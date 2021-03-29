@@ -187,11 +187,12 @@ double hasteRatingToHaste(double rating)
     return rating / 15.75;
 }
 
-template<typename Numeric, typename Generator = std::mt19937>
+// Global rng generator
+thread_local static std::mt19937 g_rng(std::random_device{}());
+
+template<typename Numeric>
 Numeric random(Numeric from, Numeric to)
 {
-    thread_local static Generator gen(std::random_device{}());
-
     using dist_type = typename std::conditional
     <
         std::is_integral<Numeric>::value
@@ -201,5 +202,10 @@ Numeric random(Numeric from, Numeric to)
 
     thread_local static dist_type dist;
 
-    return dist(gen, typename dist_type::param_type{from, to});
+    return dist(g_rng, typename dist_type::param_type{from, to});
+}
+
+void setRNGSeed(int seed)
+{
+    g_rng.seed(seed);
 }

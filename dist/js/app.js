@@ -3363,12 +3363,17 @@ var SimulationWorkers = /*#__PURE__*/function () {
   _createClass(SimulationWorkers, [{
     key: "start",
     value: function start(config) {
+      var seed = config.rng_seed;
+
       for (var i = 0; i < this.workers.length; i++) {
         var it = this.iterations / this.threads;
         var r = this.iterations % this.threads;
         if (r && i < r) it++;
+        if (config.rng_seed > 0) config.rng_seed += it;
         this.workers[i].start(config, it);
       }
+
+      config.rng_seed = seed;
     }
   }]);
 
@@ -3407,6 +3412,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4088,6 +4104,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         spec: 0,
         duration: 180,
         duration_variance: 0,
+        rng_seed: 0,
         vampiric_touch_regen: 40,
         misery: true,
         curse_of_elements: true,
@@ -62823,6 +62840,59 @@ var render = function() {
                           _vm.$set(
                             _vm.config,
                             "iterations",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("span", [_vm._v("RNG seed")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v(
+                            "\n                                    A number above 0 will give all runs the same random seed."
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                                    All iterations in the same run will still have different seeds."
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                                    This might be useful for certain analysis.\n                                "
+                          )
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.config.rng_seed,
+                          expression: "config.rng_seed",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.config.rng_seed },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.config,
+                            "rng_seed",
                             _vm._n($event.target.value)
                           )
                         },
