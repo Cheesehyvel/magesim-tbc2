@@ -335,12 +335,8 @@
                                 <input type="text" v-model.number="config.duration">
                             </div>
                             <div class="form-item">
-                                <label>+/- (sec)</label>
-                                <input type="text" v-model.number="config.durationVariance">
-                            </div>
-                            <div class="form-item">
-                                <label>seed</label>
-                                <input type="text" v-model.number="config.seed">
+                                <label>Duration +/- (sec)</label>
+                                <input type="text" v-model.number="config.duration_variance">
                             </div>
                             <div class="form-item">
                                 <label>Number of sims</label>
@@ -687,8 +683,7 @@
                     spec: 0,
 
                     duration: 180,
-                    durationVariance: 1.5,
-                    seed: 0,
+                    duration_variance: 1.5,
                     vampiric_touch_regen: 40,
 
                     misery: true,
@@ -1510,10 +1505,10 @@
 
             comparisonDps(item) {
                 var cmp = _.find(this.item_comparison, {id: item.id});
-                var cmp2= _.find(this.item_comparison, {id: 99990});
-                if ((cmp2 && cmp2.dps) && item.id !== 99990)
-                    return cmp && cmp.dps ? "+".concat(_.round((cmp.dps-cmp2.dps)*100)/100) : null;
-                return cmp && cmp.dps ? _.round(cmp.dps*100)/100 : null;
+                var cmp2 = _.find(this.item_comparison, {id: 99990});
+                if (cmp2 && cmp2.dps && item.id !== 99990)
+                    return cmp && cmp.dps ? "+"+_.round(cmp.dps-cmp2.dps, 2) : null;
+                return cmp && cmp.dps ? _.round(cmp.dps, 2) : null;
             },
 
             onSpecInput(e) {

@@ -47,7 +47,7 @@ public:
         mana_ruby = 1;
         combustion = 0;
         duration = config->duration;
-        duration+= -config->durationVariance + random<double>(0, config->durationVariance*2);
+        duration+= -config->duration_variance + random<double>(0, config->duration_variance*2);
 
         buffs.clear();
         debuffs.clear();

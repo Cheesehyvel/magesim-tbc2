@@ -2685,43 +2685,43 @@ var equip = {
     title: "Base"
   }, {
     id: 99991,
-    title: "+10 int",
+    title: "+10 Intellect",
     "int": 10
   }, {
     id: 99992,
-    title: "+10 spellpower",
+    title: "+10 Spell power",
     sp: 10
   }, {
     id: 99993,
-    title: "+10 crit rating",
+    title: "+10 Crit rating",
     crit: 10
   }, {
     id: 99994,
-    title: "+10 hit rating",
+    title: "+10 Hit rating",
     hit: 10
   }, {
     id: 99995,
-    title: "+10 haste rating",
+    title: "+10 Haste rating",
     haste: 10
   }, {
     id: 99996,
-    title: "+10 spirit",
+    title: "+10 Spirit",
     spi: 10
   }, {
     id: 99997,
-    title: "+10 mp5",
+    title: "+10 Mp5",
     mp5: 10
   }, {
     id: 99998,
-    title: "+10 sp_arcane",
+    title: "+10 Arcane spell power",
     sp_arcane: 10
   }, {
     id: 99999,
-    title: "+10 sp_fire",
+    title: "+10 Fire spell power",
     sp_fire: 10
   }, {
     id: 99900,
-    title: "+10 sp_frost",
+    title: "+10 Frost spell power",
     sp_frost: 10
   }]
 };
@@ -3366,11 +3366,8 @@ var SimulationWorkers = /*#__PURE__*/function () {
         var it = this.iterations / this.threads;
         var r = this.iterations % this.threads;
         if (r && i < r) it++;
-        config.seed += 1;
         this.workers[i].start(config, it);
       }
-
-      config.seed -= this.workers.length;
     }
   }]);
 
@@ -3409,10 +3406,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -4093,8 +4086,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         race: 5,
         spec: 0,
         duration: 180,
-        durationVariance: 1.5,
-        seed: 0,
+        duration_variance: 1.5,
         vampiric_touch_regen: 40,
         misery: true,
         curse_of_elements: true,
@@ -4853,8 +4845,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         id: 99990
       });
 
-      if (cmp2 && cmp2.dps && item.id !== 99990) return cmp && cmp.dps ? "+".concat(_.round((cmp.dps - cmp2.dps) * 100) / 100) : null;
-      return cmp && cmp.dps ? _.round(cmp.dps * 100) / 100 : null;
+      if (cmp2 && cmp2.dps && item.id !== 99990) return cmp && cmp.dps ? "+" + _.round(cmp.dps - cmp2.dps, 2) : null;
+      return cmp && cmp.dps ? _.round(cmp.dps, 2) : null;
     },
     onSpecInput: function onSpecInput(e) {
       var talents = null;
@@ -62765,20 +62757,20 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("+/- (sec)")]),
+                    _c("label", [_vm._v("Duration +/- (sec)")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model.number",
-                          value: _vm.config.durationVariance,
-                          expression: "config.durationVariance",
+                          value: _vm.config.duration_variance,
+                          expression: "config.duration_variance",
                           modifiers: { number: true }
                         }
                       ],
                       attrs: { type: "text" },
-                      domProps: { value: _vm.config.durationVariance },
+                      domProps: { value: _vm.config.duration_variance },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -62786,40 +62778,7 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.config,
-                            "durationVariance",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("seed")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.config.seed,
-                          expression: "config.seed",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.seed },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.config,
-                            "seed",
+                            "duration_variance",
                             _vm._n($event.target.value)
                           )
                         },
@@ -77818,9 +77777,8 @@ Vue.compile = compileToFunctions;
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
+/******/ 		if(__webpack_module_cache__[moduleId]) {
+/******/ 			return __webpack_module_cache__[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -77842,38 +77800,10 @@ Vue.compile = compileToFunctions;
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = __webpack_modules__;
 /******/ 	
+/******/ 	// the startup function
+/******/ 	// It's empty as some runtime module handles the default behavior
+/******/ 	__webpack_require__.x = x => {};
 /************************************************************************/
-/******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	(() => {
-/******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
-/******/ 			if(chunkIds) {
-/******/ 				priority = priority || 0;
-/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
-/******/ 				deferred[i] = [chunkIds, fn, priority];
-/******/ 				return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferred.splice(i--, 1)
-/******/ 					result = fn();
-/******/ 				}
-/******/ 			}
-/******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
@@ -77941,12 +77871,15 @@ Vue.compile = compileToFunctions;
 /******/ 		
 /******/ 		// object to store loaded and loading chunks
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		// Promise = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"/js/app": 0,
-/******/ 			"css/app": 0
+/******/ 			"/js/app": 0
 /******/ 		};
 /******/ 		
+/******/ 		var deferredModules = [
+/******/ 			["./assets/js/app.js"],
+/******/ 			["./assets/sass/app.scss"]
+/******/ 		];
 /******/ 		// no chunk on demand loading
 /******/ 		
 /******/ 		// no prefetching
@@ -77957,14 +77890,21 @@ Vue.compile = compileToFunctions;
 /******/ 		
 /******/ 		// no HMR manifest
 /******/ 		
-/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+/******/ 		var checkDeferredModules = x => {};
 /******/ 		
 /******/ 		// install a JSONP callback for chunk loading
 /******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			var [chunkIds, moreModules, runtime, executeModules] = data;
 /******/ 			// add "moreModules" to the modules object,
 /******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			var moduleId, chunkId, i = 0, resolves = [];
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					resolves.push(installedChunks[chunkId][0]);
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
 /******/ 			for(moduleId in moreModules) {
 /******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
 /******/ 					__webpack_require__.m[moduleId] = moreModules[moduleId];
@@ -77972,29 +77912,53 @@ Vue.compile = compileToFunctions;
 /******/ 			}
 /******/ 			if(runtime) runtime(__webpack_require__);
 /******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkIds[i]] = 0;
+/******/ 			while(resolves.length) {
+/******/ 				resolves.shift()();
 /******/ 			}
-/******/ 			__webpack_require__.O();
+/******/ 		
+/******/ 			// add entry modules from loaded chunk to deferred list
+/******/ 			if(executeModules) deferredModules.push.apply(deferredModules, executeModules);
+/******/ 		
+/******/ 			// run deferred modules when all chunks ready
+/******/ 			return checkDeferredModules();
 /******/ 		}
 /******/ 		
 /******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 		
+/******/ 		function checkDeferredModulesImpl() {
+/******/ 			var result;
+/******/ 			for(var i = 0; i < deferredModules.length; i++) {
+/******/ 				var deferredModule = deferredModules[i];
+/******/ 				var fulfilled = true;
+/******/ 				for(var j = 1; j < deferredModule.length; j++) {
+/******/ 					var depId = deferredModule[j];
+/******/ 					if(installedChunks[depId] !== 0) fulfilled = false;
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferredModules.splice(i--, 1);
+/******/ 					result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
+/******/ 				}
+/******/ 			}
+/******/ 			if(deferredModules.length === 0) {
+/******/ 				__webpack_require__.x();
+/******/ 				__webpack_require__.x = x => {};
+/******/ 			}
+/******/ 			return result;
+/******/ 		}
+/******/ 		var startup = __webpack_require__.x;
+/******/ 		__webpack_require__.x = () => {
+/******/ 			// reset startup function so it can be called again when more startup code is added
+/******/ 			__webpack_require__.x = startup || (x => {});
+/******/ 			return (checkDeferredModules = checkDeferredModulesImpl)();
+/******/ 		};
 /******/ 	})();
 /******/ 	
 /************************************************************************/
 /******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./assets/js/app.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./assets/sass/app.scss")))
-/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	// run startup
+/******/ 	var __webpack_exports__ = __webpack_require__.x();
 /******/ 	
 /******/ })()
 ;

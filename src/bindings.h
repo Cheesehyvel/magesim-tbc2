@@ -29,7 +29,7 @@ SimulationsResult runSimulations(std::shared_ptr<Config> config, std::shared_ptr
     std::shared_ptr<Simulation> sim(new Simulation(config, player));
     player->ready();
 
-    return sim->runMultiple(iterations, config->seed);
+    return sim->runMultiple(iterations);
 }
 
 EMSCRIPTEN_BINDINGS(my_module) {
@@ -132,8 +132,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
     emscripten::class_<Config>("Config")
         .smart_ptr<std::shared_ptr<Config>>("Config")
         .property("duration", &Config::duration)
-        .property("durationVariance", &Config::durationVariance)
-        .property("seed", &Config::seed)
+        .property("duration_variance", &Config::duration_variance)
         .property("vampiric_touch_regen", &Config::vampiric_touch_regen)
         .property("misery", &Config::misery)
         .property("curse_of_elements", &Config::curse_of_elements)

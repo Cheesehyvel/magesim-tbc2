@@ -48,7 +48,7 @@ public:
         state->mana = player->maxMana();
     }
 
-    SimulationsResult runMultiple(int iterations, int seed)
+    SimulationsResult runMultiple(int iterations)
     {
         SimulationResult r;
         SimulationsResult result;
@@ -58,10 +58,8 @@ public:
         double bin_size = 20;
         int bin;
         map<int, int> histogram;
-        setSeed(seed);
-        seed += random<int>(0, INT_MAX);
+
         for (int i=0; i<iterations; i++) {
-            setSeed(seed+i);
             r = run();
 
             if (i == 0 || r.dps < result.min_dps)
@@ -1442,6 +1440,9 @@ public:
             return false;
 
         if (state->hasBuff(buff::BLOODLUST) && manaPercent() > 10.0)
+            return false;
+
+        if (player->spec == SPEC_ARCANE && canBlast())
             return false;
 
         return true;

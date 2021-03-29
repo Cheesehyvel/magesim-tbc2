@@ -72,10 +72,8 @@ class SimulationWorkers {
             var r = this.iterations%this.threads;
             if (r && i < r)
                 it++;
-            config.seed += 1
             this.workers[i].start(config, it);
         }
-        config.seed -= this.workers.length
     }
 }
 
