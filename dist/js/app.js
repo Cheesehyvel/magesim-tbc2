@@ -3366,8 +3366,11 @@ var SimulationWorkers = /*#__PURE__*/function () {
         var it = this.iterations / this.threads;
         var r = this.iterations % this.threads;
         if (r && i < r) it++;
+        config.seed += 1;
         this.workers[i].start(config, it);
       }
+
+      config.seed -= this.workers.length;
     }
   }]);
 

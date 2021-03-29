@@ -54,13 +54,14 @@ public:
         SimulationsResult result;
 
         logging = false;
-        setSeed(seed);
 
         double bin_size = 20;
         int bin;
         map<int, int> histogram;
-
+        setSeed(seed);
+        seed += random<int>(0, INT_MAX);
         for (int i=0; i<iterations; i++) {
+            setSeed(seed+i);
             r = run();
 
             if (i == 0 || r.dps < result.min_dps)
