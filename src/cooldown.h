@@ -18,6 +18,7 @@ namespace cooldown
         QUAGMIRRANS_EYE = 33370,
         UNSTABLE_CURRENTS = 38348,
         ETERNAL_SAGE = 35084,
+        SPELL_BLASTING = 25906,
         DRUMS = 35476,
         LIGHTNING_CAPACITOR = 37657,
         INSIGHTFUL_EARTHSTORM = 27521,
@@ -182,6 +183,20 @@ namespace cooldown
         {
             id = ETERNAL_SAGE;
             duration = 45;
+        }
+
+    };
+
+    /* Wrath of Cenarius ring.
+    Set cooldown = buff duration because it is unable to refresh itself */
+    class SpellBlasting : public Cooldown
+    {
+
+    public:
+        SpellBlasting()
+        {
+            id = SPELL_BLASTING;
+            duration = 10;
         }
 
     };

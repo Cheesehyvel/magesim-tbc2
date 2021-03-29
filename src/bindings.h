@@ -171,6 +171,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("spellfire_set", &Config::spellfire_set)
         .property("spellstrike_set", &Config::spellstrike_set)
         .property("eternal_sage", &Config::eternal_sage)
+        .property("wrath_of_cenarius", &Config::wrath_of_cenarius)
 
         .property("trinket1", &Config::trinket1)
         .property("trinket2", &Config::trinket2)
