@@ -683,7 +683,7 @@
                     spec: 0,
 
                     duration: 180,
-                    duration_variance: 1.5,
+                    duration_variance: 0,
                     vampiric_touch_regen: 40,
 
                     misery: true,
@@ -896,7 +896,10 @@
                     }
                 }
 
-                this.equip(this.active_slot, best_item_id);
+                if (this.active_slot == "stat_weight")
+                    this.unequip(this.active_slot);
+                else
+                    this.equip(this.active_slot, best_item_id);
             },
 
             prepare() {
@@ -1266,11 +1269,11 @@
             },
 
             equip(slot, item, save) {
-                if (this.equipped[slot] == item.id)
-                    return;
-
                 if (!_.isObject(item))
                     item = this.getItem(slot, item);
+
+                if (this.equipped[slot] == item.id)
+                    return;
 
                 if (slot == "weapon") {
                     if (item.twohand)
@@ -1497,16 +1500,20 @@
 
             compareItem(item) {
                 var index = _.findIndex(this.item_comparison, {id: item.id});
-                if (index == -1)
+                if (index == -1) {
+                    if (item.id != this.items.ids.STAT_WEIGHT_BASE && _.findIndex(this.item_comparison, {id: this.items.ids.STAT_WEIGHT_BASE}) == -1)
+                        this.item_comparison.push({id: this.items.ids.STAT_WEIGHT_BASE, dps: null});
                     this.item_comparison.push({id: item.id, dps: null});
-                else
+                }
+                else {
                     this.item_comparison.splice(index, 1);
+                }
             },
 
             comparisonDps(item) {
                 var cmp = _.find(this.item_comparison, {id: item.id});
-                var cmp2 = _.find(this.item_comparison, {id: 99990});
-                if (cmp2 && cmp2.dps && item.id !== 99990)
+                var cmp2 = _.find(this.item_comparison, {id: this.items.ids.STAT_WEIGHT_BASE});
+                if (cmp2 && cmp2.dps && item.id !== this.items.ids.STAT_WEIGHT_BASE)
                     return cmp && cmp.dps ? "+"+_.round(cmp.dps-cmp2.dps, 2) : null;
                 return cmp && cmp.dps ? _.round(cmp.dps, 2) : null;
             },

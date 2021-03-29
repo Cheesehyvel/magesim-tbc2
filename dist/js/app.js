@@ -208,7 +208,8 @@ var ids = {
   SHRUNKEN_HEAD: 33829,
   SORCERERS_ALCHEMIST_STONE: 35749,
   ALCHEMIST_STONE: 13503,
-  NAARU_SLIVER: 34429
+  NAARU_SLIVER: 34429,
+  STAT_WEIGHT_BASE: 99990
 };
 var equip = {
   weapon: [{
@@ -2681,7 +2682,7 @@ var equip = {
     q: "rare"
   }],
   stat_weight: [{
-    id: 99990,
+    id: ids.STAT_WEIGHT_BASE,
     title: "Base"
   }, {
     id: 99991,
@@ -4086,7 +4087,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         race: 5,
         spec: 0,
         duration: 180,
-        duration_variance: 1.5,
+        duration_variance: 0,
         vampiric_touch_regen: 40,
         misery: true,
         curse_of_elements: true,
@@ -4318,7 +4319,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 break;
 
               case 16:
-                _this2.equip(_this2.active_slot, best_item_id);
+                if (_this2.active_slot == "stat_weight") _this2.unequip(_this2.active_slot);else _this2.equip(_this2.active_slot, best_item_id);
 
               case 17:
               case "end":
@@ -4628,8 +4629,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (typeof save == "undefined" || save) this.saveGear();
     },
     equip: function equip(slot, item, save) {
-      if (this.equipped[slot] == item.id) return;
       if (!_.isObject(item)) item = this.getItem(slot, item);
+      if (this.equipped[slot] == item.id) return;
 
       if (slot == "weapon") {
         if (item.twohand) this.equipped.off_hand = null;
@@ -4831,10 +4832,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         id: item.id
       });
 
-      if (index == -1) this.item_comparison.push({
-        id: item.id,
-        dps: null
-      });else this.item_comparison.splice(index, 1);
+      if (index == -1) {
+        if (item.id != this.items.ids.STAT_WEIGHT_BASE && _.findIndex(this.item_comparison, {
+          id: this.items.ids.STAT_WEIGHT_BASE
+        }) == -1) this.item_comparison.push({
+          id: this.items.ids.STAT_WEIGHT_BASE,
+          dps: null
+        });
+        this.item_comparison.push({
+          id: item.id,
+          dps: null
+        });
+      } else {
+        this.item_comparison.splice(index, 1);
+      }
     },
     comparisonDps: function comparisonDps(item) {
       var cmp = _.find(this.item_comparison, {
@@ -4842,10 +4853,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
 
       var cmp2 = _.find(this.item_comparison, {
-        id: 99990
+        id: this.items.ids.STAT_WEIGHT_BASE
       });
 
-      if (cmp2 && cmp2.dps && item.id !== 99990) return cmp && cmp.dps ? "+" + _.round(cmp.dps - cmp2.dps, 2) : null;
+      if (cmp2 && cmp2.dps && item.id !== this.items.ids.STAT_WEIGHT_BASE) return cmp && cmp.dps ? "+" + _.round(cmp.dps - cmp2.dps, 2) : null;
       return cmp && cmp.dps ? _.round(cmp.dps, 2) : null;
     },
     onSpecInput: function onSpecInput(e) {

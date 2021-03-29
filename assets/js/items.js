@@ -28,6 +28,7 @@ var ids = {
     SORCERERS_ALCHEMIST_STONE: 35749,
     ALCHEMIST_STONE: 13503,
     NAARU_SLIVER: 34429,
+    STAT_WEIGHT_BASE: 99990,
 };
 
 var equip = {
@@ -383,7 +384,7 @@ var equip = {
         { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true, q: "rare" },
     ],
     stat_weight: [
-        { id: 99990, title: "Base"},
+        { id: ids.STAT_WEIGHT_BASE, title: "Base"},
         { id: 99991, title: "+10 Intellect", int: 10},
         { id: 99992, title: "+10 Spell power", sp: 10},
         { id: 99993, title: "+10 Crit rating", crit: 10},
