@@ -382,6 +382,19 @@ var equip = {
         { id: ids.PENDANT_VIOLET_EYE, title: "Pendant of the Violet Eye", int: 40, use: true },
         { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true, q: "rare" },
     ],
+    stat_weight: [
+        { id: 99990, title: "Base"},
+        { id: 99991, title: "+10 int", int: 10},
+        { id: 99992, title: "+10 spellpower", sp: 10},
+        { id: 99993, title: "+10 crit rating", crit: 10},
+        { id: 99994, title: "+10 hit rating", hit: 10},
+        { id: 99995, title: "+10 haste rating", haste: 10},
+        { id: 99996, title: "+10 spirit", spi: 10},
+        { id: 99997, title: "+10 mp5", mp5: 10},
+        { id: 99998, title: "+10 sp_arcane", sp_arcane: 10},
+        { id: 99999, title: "+10 sp_fire", sp_fire: 10},
+        { id: 99900, title: "+10 sp_frost", sp_frost: 10},
+    ],
 };
 
 var gems = [

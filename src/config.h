@@ -2,6 +2,8 @@ struct Config
 {
 
     int duration = 200;
+    double durationVariance = 1.5;
+    int seed = 0;
     int vampiric_touch_regen = 50;
 
     bool misery = true;
