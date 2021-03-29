@@ -1501,7 +1501,7 @@
             compareItem(item) {
                 var index = _.findIndex(this.item_comparison, {id: item.id});
                 if (index == -1) {
-                    if (item.id != this.items.ids.STAT_WEIGHT_BASE && _.findIndex(this.item_comparison, {id: this.items.ids.STAT_WEIGHT_BASE}) == -1)
+                    if (this.active_slot == "stat_weight" && item.id != this.items.ids.STAT_WEIGHT_BASE && _.findIndex(this.item_comparison, {id: this.items.ids.STAT_WEIGHT_BASE}) == -1)
                         this.item_comparison.push({id: this.items.ids.STAT_WEIGHT_BASE, dps: null});
                     this.item_comparison.push({id: item.id, dps: null});
                 }
