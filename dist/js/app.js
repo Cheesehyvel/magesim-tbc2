@@ -4652,11 +4652,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.metaGem() && this.isSpecialItem(this.metaGem().id)) this.config.meta_gem = this.metaGem().id;
     },
     itemUrl: function itemUrl(item) {
-      if (this.item_source == "tbcdb") return "http://tbcdb.com/?item=" + item.id;
+      if (this.item_source == "tbcdb") return "https://tbcdb.com/?item=" + item.id;
       return "https://tbc.wowhead.com/?item=" + item.id;
     },
     spellUrl: function spellUrl(spell) {
-      if (this.item_source == "tbcdb") return "http://tbcdb.com/?spell=" + spell.id;
+      if (this.item_source == "tbcdb") return "https://tbcdb.com/?spell=" + spell.id;
       return "https://tbc.wowhead.com/?spell=" + spell.id;
     },
     critRatingToChance: function critRatingToChance(rating) {
@@ -5144,7 +5144,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var script = document.createElement("script");
         script.id = "wowheadpower";
         script.type = "text/javascript";
-        script.src = "http://tbcdb.com/tooltips/power.js?vnew";
+        script.src = "https://tbcdb.com/tooltips/power.js?vnew";
         document.body.appendChild(script);
       }
     },

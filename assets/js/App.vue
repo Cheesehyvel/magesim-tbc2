@@ -1251,13 +1251,13 @@
 
             itemUrl(item) {
                 if (this.item_source == "tbcdb")
-                    return "http://tbcdb.com/?item="+item.id;
+                    return "https://tbcdb.com/?item="+item.id;
                 return "https://tbc.wowhead.com/?item="+item.id;
             },
 
             spellUrl(spell) {
                 if (this.item_source == "tbcdb")
-                    return "http://tbcdb.com/?spell="+spell.id;
+                    return "https://tbcdb.com/?spell="+spell.id;
                 return "https://tbc.wowhead.com/?spell="+spell.id;
             },
 
@@ -1836,7 +1836,7 @@
                     var script = document.createElement("script");
                     script.id = "wowheadpower";
                     script.type = "text/javascript";
-                    script.src = "http://tbcdb.com/tooltips/power.js?vnew";
+                    script.src = "https://tbcdb.com/tooltips/power.js?vnew";
                     document.body.appendChild(script);
                 }
             },
