@@ -4653,10 +4653,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     itemUrl: function itemUrl(item) {
       if (this.item_source == "tbcdb") return "https://tbcdb.com/?item=" + item.id;
+      if (this.item_source == "endless") return "https://db.endless.gg/?item=" + item.id;
       return "https://tbc.wowhead.com/?item=" + item.id;
     },
     spellUrl: function spellUrl(spell) {
       if (this.item_source == "tbcdb") return "https://tbcdb.com/?spell=" + spell.id;
+      if (this.item_source == "endless") return "https://db.endless.gg/?spell=" + spell.id;
       return "https://tbc.wowhead.com/?spell=" + spell.id;
     },
     critRatingToChance: function critRatingToChance(rating) {
