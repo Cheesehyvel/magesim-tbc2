@@ -223,7 +223,8 @@ var equip = {
     sockets: ["y", "y", "y"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 5
   }, {
     id: 32374,
     title: "Zhar'doom, Greatstaff of the Devourer",
@@ -231,7 +232,8 @@ var equip = {
     sp: 259,
     crit: 36,
     haste: 55,
-    twohand: true
+    twohand: true,
+    phase: 3
   }, {
     id: 34987,
     title: "Brutal Gladiator's Battle Staff",
@@ -239,14 +241,16 @@ var equip = {
     sp: 266,
     crit: 50,
     hit: 32,
-    twohand: true
+    twohand: true,
+    phase: 4
   }, {
     id: 34336,
     title: "Sunflare",
     "int": 20,
     sp: 292,
     crit: 30,
-    haste: 23
+    haste: 23,
+    phase: 5
   }, {
     id: 34540,
     title: "Vengeful Gladiator's Battle Staff",
@@ -254,14 +258,16 @@ var equip = {
     sp: 247,
     crit: 46,
     hit: 28,
-    twohand: true
+    twohand: true,
+    phase: 3
   }, {
     id: 30910,
     title: "Tempest of Chaos",
     "int": 22,
     sp: 259,
     crit: 24,
-    hit: 17
+    hit: 17,
+    phase: 3
   }, {
     id: 33494,
     title: "Amani Divining Staff",
@@ -272,20 +278,23 @@ var equip = {
     sockets: ["r", "y", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 4
   }, {
     id: 32237,
     title: "The Maelstrom's Fury",
     "int": 21,
     sp: 236,
-    crit: 22
+    crit: 22,
+    phase: 3
   }, {
     id: 29988,
     title: "The Nexus Key",
     twohand: true,
     "int": 52,
     sp: 236,
-    crit: 51
+    crit: 51,
+    phase: 2
   }, {
     id: 32055,
     title: "Merciless Gladiator's War Staff",
@@ -293,13 +302,15 @@ var equip = {
     "int": 42,
     sp: 225,
     crit: 42,
-    hit: 24
+    hit: 24,
+    phase: 2
   }, {
     id: 33763,
     title: "Vengeful Gladiator's Spellblade",
     "int": 20,
     sp: 247,
-    hit: 17
+    hit: 17,
+    phase: 3
   }, {
     id: 24557,
     title: "Gladiator's War Staff",
@@ -313,7 +324,8 @@ var equip = {
     title: "Blade of Twisted Visions",
     "int": 21,
     sp: 229,
-    haste: 21
+    haste: 21,
+    phase: 4
   }, {
     id: 33354,
     title: "Wub's Cursed Hexblade",
@@ -321,19 +333,22 @@ var equip = {
     sp: 217,
     crit: 20,
     hit: 13,
-    mp5: 6
+    mp5: 6,
+    phase: 4
   }, {
     id: 30095,
     title: "Fang of the Leviathan",
     "int": 20,
     sp: 221,
-    crit: 21
+    crit: 21,
+    phase: 2
   }, {
     id: 32053,
     title: "Merciless Gladiator's Spellblade",
     "int": 18,
     sp: 225,
-    hit: 15
+    hit: 15,
+    phase: 2
   }, {
     id: 30723,
     title: "Talon of the Tempest",
@@ -463,32 +478,37 @@ var equip = {
     title: "Heart of the Pit",
     "int": 21,
     sp: 39,
-    haste: 32
+    haste: 32,
+    phase: 5
   }, {
     id: 30872,
     title: "Chronicle of Dark Secrets",
     "int": 12,
     sp: 42,
     crit: 23,
-    hit: 17
+    hit: 17,
+    phase: 3
   }, {
     id: 32361,
     title: "Blind-Seers Icon",
     "int": 16,
     sp: 42,
-    hit: 24
+    hit: 24,
+    phase: 3
   }, {
     id: 33334,
     title: "Fetish of the Primal Gods",
     "int": 17,
     sp: 37,
-    haste: 17
+    haste: 17,
+    phase: 4
   }, {
     id: 30049,
     title: "Fathomstone",
     "int": 12,
     sp: 36,
-    crit: 23
+    crit: 23,
+    phase: 2
   }, {
     id: 29271,
     title: "Talisman of Kalecgos",
@@ -539,7 +559,8 @@ var equip = {
     id: 31978,
     title: "Merciless Gladiator's Endgame",
     "int": 19,
-    sp: 33
+    sp: 33,
+    phase: 2
   }, {
     id: 28260,
     title: "Manual of the Nethermancer",
@@ -564,13 +585,15 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 5
   }, {
     id: 29982,
     title: "Wand of the Forgotten Star",
     sp: 23,
     crit: 14,
-    hit: 11
+    hit: 11,
+    phase: 2
   }, {
     id: 33192,
     title: "Carved Witch Doctor's Stick",
@@ -579,12 +602,14 @@ var equip = {
     sockets: ["b"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 4
   }, {
     id: 32343,
     title: "Wand of Prismatic Focus",
     sp: 25,
-    hit: 13
+    hit: 13,
+    phase: 3
   }, {
     id: 28783,
     title: "Eredar Wand of Obliteration",
@@ -632,7 +657,8 @@ var equip = {
     id: 32962,
     title: "Merciless Gladiator's Touch of Defeat",
     "int": 13,
-    sp: 16
+    sp: 16,
+    phase: 2
   }, {
     id: 22820,
     title: "Wand of Fates",
@@ -650,7 +676,8 @@ var equip = {
     sockets: ["m", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 5
   }, {
     id: 34847,
     title: "Annihilator Holo-Gogs",
@@ -660,7 +687,8 @@ var equip = {
     sockets: ["m", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 5
   }, {
     id: 32525,
     title: "Cowl of the Illidari High Lord",
@@ -671,7 +699,8 @@ var equip = {
     sockets: ["m", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 3
   }, {
     id: 34405,
     title: "Helm of Arcane Purity",
@@ -682,7 +711,8 @@ var equip = {
     sockets: ["m", "r"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 5
   }, {
     id: 33453,
     title: "Hood of Hexing",
@@ -693,7 +723,8 @@ var equip = {
     sockets: ["r", "y", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 4
   }, {
     id: 31056,
     itemset: ids.TEMPEST_SET,
@@ -703,7 +734,8 @@ var equip = {
     sp: 62,
     crit: 29,
     hit: 13,
-    sockets: ["m", "y"]
+    sockets: ["m", "y"],
+    phase: 3
   }, {
     id: 30206,
     itemset: ids.TIRISFAL_SET,
@@ -715,7 +747,8 @@ var equip = {
     sockets: ["m", "y"],
     bonus: {
       hit: 4
-    }
+    },
+    phase: 2
   }, {
     id: 24266,
     itemset: ids.SPELLSTRIKE_SET,
@@ -745,14 +778,16 @@ var equip = {
     sockets: ["m", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 3
   }, {
     id: 35097,
     title: "Brutal Gladiator's Silk Cowl",
     "int": 29,
     sp: 54,
     crit: 30,
-    sockets: ["m", "r"]
+    sockets: ["m", "r"],
+    phase: 5
   }, {
     id: 29076,
     title: "Collar of the Aldor",
@@ -777,14 +812,16 @@ var equip = {
     "int": 23,
     sp: 47,
     crit: 24,
-    sockets: ["m", "r"]
+    sockets: ["m", "r"],
+    phase: 3
   }, {
     id: 32048,
     title: "Merciless Gladiator's Silk Cowl",
     "int": 26,
     sp: 42,
     crit: 20,
-    sockets: ["m", "r"]
+    sockets: ["m", "r"],
+    phase: 2
   }, {
     id: 31104,
     title: "Evoker's Helmet of Second Sight",
@@ -867,34 +904,39 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 5
   }, {
     id: 34204,
     title: "Amulet of Unfettered Magics",
     "int": 17,
     sp: 39,
     hit: 15,
-    haste: 32
+    haste: 32,
+    phase: 5
   }, {
     id: 32349,
     title: "Translucent Spellthread Necklace",
     sp: 46,
     crit: 24,
-    hit: 15
+    hit: 15,
+    phase: 3
   }, {
     id: 33281,
     title: "Brooch of Nature's Mercy",
     "int": 24,
     spi: 19,
     sp: 25,
-    haste: 33
+    haste: 33,
+    phase: 4
   }, {
     id: 37928,
     title: "Guardian's Pendant of Subjugation",
     "int": 18,
     sp: 28,
     haste: 24,
-    sockets: ["y"]
+    sockets: ["y"],
+    phase: 5
   }, {
     id: 35290,
     title: "Sin'dorei Pendant of Conquest",
@@ -904,26 +946,30 @@ var equip = {
     sockets: ["b"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 5
   }, {
     id: 33466,
     title: "Loop of Cursed Bones",
     "int": 20,
     sp: 32,
-    haste: 27
+    haste: 27,
+    phase: 4
   }, {
     id: 30015,
     title: "The Sun King's Talisman",
     "int": 16,
     sp: 41,
-    crit: 24
+    crit: 24,
+    phase: 2
   }, {
     id: 33920,
     title: "Vindicator's Pendant of Conquest",
     "int": 15,
     sp: 25,
     crit: 21,
-    sockets: ["y"]
+    sockets: ["y"],
+    phase: 3
   }, {
     id: 28762,
     title: "Adornment of Stolen Souls",
@@ -936,7 +982,8 @@ var equip = {
     "int": 12,
     sp: 21,
     crit: 18,
-    sockets: ["y"]
+    sockets: ["y"],
+    phase: 2
   }, {
     id: 28530,
     title: "Brooch of Unquenchable Fury",
@@ -955,7 +1002,8 @@ var equip = {
     id: 30008,
     title: "Pendant of the Lost Ages",
     "int": 17,
-    sp: 36
+    sp: 36,
+    phase: 2
   }, {
     id: 31692,
     title: "Natasha's Ember Necklace",
@@ -983,7 +1031,8 @@ var equip = {
     title: "Charlotte's Ivy",
     "int": 19,
     spi: 14,
-    sp: 23
+    sp: 23,
+    phase: 2
   }, {
     id: 21608,
     title: "Amulet of Vek'nilash",
@@ -1012,7 +1061,8 @@ var equip = {
     sockets: ["r", "y"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 5
   }, {
     id: 34393,
     title: "Shoulderpads of Knowledge's Pursuit",
@@ -1023,7 +1073,8 @@ var equip = {
     sockets: ["r", "y"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 5
   }, {
     id: 30884,
     title: "Hatefury Mantle",
@@ -1033,7 +1084,8 @@ var equip = {
     sockets: ["b", "y"],
     bonus: {
       crit: 3
-    }
+    },
+    phase: 3
   }, {
     id: 31059,
     itemset: ids.TEMPEST_SET,
@@ -1045,20 +1097,23 @@ var equip = {
     sockets: ["y", "b"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 3
   }, {
     id: 32338,
     title: "Blood-cursed Shoulderpads",
     "int": 19,
     sp: 55,
     crit: 25,
-    hit: 18
+    hit: 18,
+    phase: 3
   }, {
     id: 32587,
     title: "Mantle of Nimble Thought",
     "int": 26,
     sp: 44,
-    haste: 38
+    haste: 38,
+    phase: 3
   }, {
     id: 30210,
     itemset: ids.TIRISFAL_SET,
@@ -1070,14 +1125,16 @@ var equip = {
     sockets: ["y", "b"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 2
   }, {
     id: 35096,
     title: "Brutal Gladiator's Silk Amice",
     "int": 18,
     sp: 44,
     crit: 21,
-    sockets: ["b", "y"]
+    sockets: ["b", "y"],
+    phase: 5
   }, {
     id: 30079,
     title: "Illidari Shoulderpads",
@@ -1087,7 +1144,8 @@ var equip = {
     sockets: ["y", "y"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 2
   }, {
     id: 30024,
     title: "Mantle of the Elven Kings",
@@ -1095,20 +1153,23 @@ var equip = {
     spi: 17,
     sp: 39,
     crit: 25,
-    hit: 18
+    hit: 18,
+    phase: 2
   }, {
     id: 33489,
     title: "Mantle of Ill Intent",
     "int": 24,
     sp: 40,
-    haste: 33
+    haste: 33,
+    phase: 4
   }, {
     id: 33757,
     title: "Vengeful Gladiator's Silk Amice",
     "int": 13,
     sp: 40,
     crit: 17,
-    sockets: ["b", "y"]
+    sockets: ["b", "y"],
+    phase: 3
   }, {
     id: 29079,
     title: "Pauldrons of the Aldor",
@@ -1126,7 +1187,8 @@ var equip = {
     "int": 15,
     sp: 36,
     crit: 14,
-    sockets: ["b", "y"]
+    sockets: ["b", "y"],
+    phase: 2
   }, {
     id: 27796,
     title: "Mana-Etched Spaulders",
@@ -1177,30 +1239,35 @@ var equip = {
     sockets: ["r"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 5
   }, {
     id: 32331,
     title: "Cloak of the Illidari Council",
     "int": 16,
     sp: 42,
-    crit: 25
+    crit: 25,
+    phase: 3
   }, {
     id: 32524,
     title: "Shroud of the Highborne",
     "int": 23,
     sp: 23,
-    haste: 32
+    haste: 32,
+    phase: 3
   }, {
     id: 33591,
     title: "Shadowcaster's Drape",
     "int": 20,
     sp: 27,
-    haste: 25
+    haste: 25,
+    phase: 4
   }, {
     id: 29992,
     title: "Royal Cloak of the Sunstriders",
     "int": 22,
-    sp: 44
+    sp: 44,
+    phase: 2
   }, {
     id: 30735,
     title: "Ancient Spellcloak of the Highborne",
@@ -1224,7 +1291,8 @@ var equip = {
     title: "Cloak of Ancient Rituals",
     "int": 20,
     sp: 17,
-    haste: 25
+    haste: 25,
+    phase: 4
   }, {
     id: 23050,
     title: "Cloak of the Necropolis",
@@ -1283,7 +1351,8 @@ var equip = {
     sockets: ["r", "r", "r"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 5
   }, {
     id: 34399,
     title: "Robes of Ghostly Hatred",
@@ -1295,7 +1364,8 @@ var equip = {
     sockets: ["r", "r", "y"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 5
   }, {
     id: 34232,
     title: "Fel Conquerer Raiments",
@@ -1306,7 +1376,8 @@ var equip = {
     sockets: ["r", "y", "y"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 5
   }, {
     id: 31057,
     itemset: ids.TEMPEST_SET,
@@ -1319,7 +1390,8 @@ var equip = {
     sockets: ["y", "y", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 3
   }, {
     id: 30196,
     itemset: ids.TIRISFAL_SET,
@@ -1331,7 +1403,8 @@ var equip = {
     sockets: ["y", "y", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 2
   }, {
     id: 21848,
     itemset: ids.SPELLFIRE_SET,
@@ -1351,35 +1424,40 @@ var equip = {
     sockets: ["y", "y", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 2
   }, {
     id: 30913,
     title: "Robes of Rhonin",
     "int": 38,
     sp: 81,
     crit: 24,
-    hit: 27
+    hit: 27,
+    phase: 3
   }, {
     id: 30056,
     title: "Robe of Hateful Echoes",
     "int": 36,
     sp: 50,
     crit: 25,
-    sockets: ["r", "y", "y"]
+    sockets: ["r", "y", "y"],
+    phase: 2
   }, {
     id: 32327,
     title: "Robe of the Shadow Council",
     "int": 36,
     spi: 26,
     sp: 73,
-    crit: 28
+    crit: 28,
+    phase: 3
   }, {
     id: 33317,
     title: "Robe of Departed Spirits",
     "int": 31,
     spi: 30,
     sp: 54,
-    haste: 35
+    haste: 35,
+    phase: 4
   }, {
     id: 33760,
     title: "Vengeful Gladiator's Silk Raiment",
@@ -1389,7 +1467,8 @@ var equip = {
     sockets: ["r", "y", "y"],
     bonus: {
       crit: 4
-    }
+    },
+    phase: 3
   }, {
     id: 29077,
     title: "Vestments of the Aldor",
@@ -1410,7 +1489,8 @@ var equip = {
     sockets: ["r", "y", "y"],
     bonus: {
       crit: 4
-    }
+    },
+    phase: 2
   }, {
     id: 29341,
     title: "Auchenai Anchorite's Robe",
@@ -1510,13 +1590,15 @@ var equip = {
     sockets: ["r"],
     bonus: {
       crit: 2
-    }
+    },
+    phase: 5
   }, {
     id: 32586,
     title: "Bracers of Nimble Thought",
     "int": 20,
     sp: 34,
-    haste: 28
+    haste: 28,
+    phase: 3
   }, {
     id: 30870,
     title: "Cuffs of Devastation",
@@ -1524,13 +1606,15 @@ var equip = {
     spi: 19,
     sp: 34,
     crit: 14,
-    sockets: ["y"]
+    sockets: ["y"],
+    phase: 3
   }, {
     id: 32270,
     title: "Focused Mana Bindings",
     "int": 20,
     sp: 42,
-    hit: 19
+    hit: 19,
+    phase: 3
   }, {
     id: 33285,
     title: "Fury of the Ursine",
@@ -1541,7 +1625,8 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 4
   }, {
     id: 33913,
     title: "Vindicator's Silk Cuffs",
@@ -1551,19 +1636,22 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 3
   }, {
     id: 33588,
     title: "Runed Spell-cuffs",
     "int": 18,
     sp: 29,
-    haste: 25
+    haste: 25,
+    phase: 4
   }, {
     id: 29918,
     title: "Mindstorm Wristbands",
     "int": 13,
     sp: 36,
-    crit: 23
+    crit: 23,
+    phase: 2
   }, {
     id: 32820,
     title: "Veteran's Silk Cuffs",
@@ -1573,7 +1661,8 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 2
   }, {
     id: 28411,
     title: "General's Silk Cuffs",
@@ -1602,7 +1691,8 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 2
   }, {
     id: 28515,
     title: "Bands of Nefarious Deeds",
@@ -1650,7 +1740,8 @@ var equip = {
     sockets: ["y", "r"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 5
   }, {
     id: 34406,
     title: "Gloves of Tyri's Power",
@@ -1661,7 +1752,8 @@ var equip = {
     sockets: ["y", "r"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 5
   }, {
     id: 34366,
     title: "Sunfire Handwraps",
@@ -1671,7 +1763,8 @@ var equip = {
     sockets: ["r", "r"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 5
   }, {
     id: 31055,
     itemset: ids.TEMPEST_SET,
@@ -1684,7 +1777,8 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 3
   }, {
     id: 30205,
     itemset: ids.TIRISFAL_SET,
@@ -1692,7 +1786,8 @@ var equip = {
     "int": 27,
     spi: 18,
     sp: 41,
-    crit: 27
+    crit: 27,
+    phase: 2
   }, {
     id: 21847,
     itemset: ids.SPELLFIRE_SET,
@@ -1711,14 +1806,16 @@ var equip = {
     sockets: ["r", "b"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 4
   }, {
     id: 29987,
     title: "Gauntlets of the Sun King",
     "int": 29,
     spi: 20,
     sp: 42,
-    crit: 28
+    crit: 28,
+    phase: 2
   }, {
     id: 34808,
     title: "Gloves of Arcane Acuity",
@@ -1728,7 +1825,8 @@ var equip = {
     sockets: ["b", "r"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 2
   }, {
     id: 28780,
     title: "Soul-Eater's Handwraps",
@@ -1772,13 +1870,15 @@ var equip = {
     title: "Brutal Gladiator's Silk Handguards",
     "int": 23,
     sp: 44,
-    crit: 26
+    crit: 26,
+    phase: 5
   }, {
     id: 33759,
     title: "Vengeful Gladiator's Silk Handguards",
     "int": 18,
     sp: 40,
-    crit: 22
+    crit: 22,
+    phase: 3
   }, {
     id: 27465,
     title: "Mana-Etched Gloves",
@@ -1803,7 +1903,8 @@ var equip = {
     title: "Merciless Gladiator's Silk Handguards",
     "int": 20,
     sp: 36,
-    crit: 19
+    crit: 19,
+    phase: 2
   }, {
     id: 24450,
     title: "Manaspark Gloves",
@@ -1853,7 +1954,8 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 5
   }, {
     id: 30038,
     title: "Belt of Blasting",
@@ -1863,7 +1965,8 @@ var equip = {
     sockets: ["b", "y"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 2
   }, {
     id: 30888,
     title: "Anetheron's Noose",
@@ -1873,7 +1976,8 @@ var equip = {
     sockets: ["y", "b"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 3
   }, {
     id: 21846,
     itemset: ids.SPELLFIRE_SET,
@@ -1889,20 +1993,23 @@ var equip = {
     "int": 15,
     sp: 50,
     hit: 24,
-    sockets: ["y", "y"]
+    sockets: ["y", "y"],
+    phase: 2
   }, {
     id: 32256,
     title: "Waistwrap of Infinity",
     "int": 22,
     sp: 56,
-    haste: 32
+    haste: 32,
+    phase: 3
   }, {
     id: 33291,
     title: "Voodoo-woven Belt",
     "int": 22,
     sp: 40,
     crit: 33,
-    hit: 17
+    hit: 17,
+    phase: 4
   }, {
     id: 24256,
     title: "Girdle of Ruination",
@@ -1915,7 +2022,8 @@ var equip = {
     title: "Vindicator's Silk Belt",
     "int": 30,
     sp: 35,
-    crit: 28
+    crit: 28,
+    phase: 3
   }, {
     id: 28799,
     title: "Belt of Divine Inspiration",
@@ -1941,7 +2049,8 @@ var equip = {
     title: "Veteran's Silk Belt",
     "int": 27,
     sp: 32,
-    crit: 27
+    crit: 27,
+    phase: 2
   }, {
     id: 28654,
     title: "Malefic Girdle",
@@ -2004,7 +2113,8 @@ var equip = {
     sockets: ["r", "r", "y"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 5
   }, {
     id: 34386,
     title: "Pantaloons of Growing Strife",
@@ -2015,7 +2125,8 @@ var equip = {
     sockets: ["r", "y", "y"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 5
   }, {
     id: 30916,
     title: "Leggings of Channeled Elements",
@@ -2027,7 +2138,8 @@ var equip = {
     sockets: ["y", "y", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 3
   }, {
     id: 31058,
     itemset: ids.TEMPEST_SET,
@@ -2040,7 +2152,8 @@ var equip = {
     sockets: ["b"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 3
   }, {
     id: 32367,
     title: "Leggings of Devastation",
@@ -2050,7 +2163,8 @@ var equip = {
     sockets: ["y", "y", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 3
   }, {
     id: 34937,
     title: "Corrupted Soulcloth Pantaloons",
@@ -2060,7 +2174,8 @@ var equip = {
     sockets: ["y", "b"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 5
   }, {
     id: 34918,
     title: "Legwraps of Sweltering Flame",
@@ -2071,7 +2186,8 @@ var equip = {
     sockets: ["y", "b"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 5
   }, {
     id: 30207,
     itemset: ids.TIRISFAL_SET,
@@ -2084,7 +2200,8 @@ var equip = {
     sockets: ["y"],
     bonus: {
       hit: 2
-    }
+    },
+    phase: 2
   }, {
     id: 24262,
     itemset: ids.SPELLSTRIKE_SET,
@@ -2110,7 +2227,8 @@ var equip = {
     title: "Pantaloons of Arcane Annihilation",
     "int": 35,
     sp: 54,
-    haste: 45
+    haste: 45,
+    phase: 4
   }, {
     id: 29972,
     title: "Trousers of the Astromancer",
@@ -2120,7 +2238,8 @@ var equip = {
     sockets: ["b", "y", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 2
   }, {
     id: 28594,
     title: "Trial-Fire Trousers",
@@ -2162,7 +2281,8 @@ var equip = {
     title: "Merciless Gladiator's Silk Trousers",
     "int": 36,
     sp: 49,
-    crit: 29
+    crit: 29,
+    phase: 2
   }, {
     id: 28212,
     title: "Aran's Sorcerous Slacks",
@@ -2233,7 +2353,8 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 5
   }, {
     id: 32239,
     title: "Slippers of the Seacaller",
@@ -2244,7 +2365,8 @@ var equip = {
     sockets: ["y", "b"],
     bonus: {
       sp: 4
-    }
+    },
+    phase: 3
   }, {
     id: 34919,
     title: "Boots of Incantations",
@@ -2255,33 +2377,38 @@ var equip = {
     sockets: ["y"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 5
   }, {
     id: 30894,
     title: "Blue Suede Shoes",
     "int": 32,
     sp: 56,
-    hit: 18
+    hit: 18,
+    phase: 3
   }, {
     id: 30067,
     title: "Velvet Boots of the Guardian",
     "int": 21,
     spi: 15,
     sp: 49,
-    crit: 24
+    crit: 24,
+    phase: 2
   }, {
     id: 30037,
     title: "Boots of Blasting",
     "int": 25,
     sp: 39,
     crit: 25,
-    hit: 18
+    hit: 18,
+    phase: 2
   }, {
     id: 33357,
     title: "Footpads of Madness",
     "int": 22,
     sp: 50,
-    haste: 25
+    haste: 25,
+    phase: 4
   }, {
     id: 28517,
     title: "Boots of Foretelling",
@@ -2297,7 +2424,8 @@ var equip = {
     title: "Veteran's Silk Footguards",
     "int": 27,
     sp: 32,
-    crit: 27
+    crit: 27,
+    phase: 2
   }, {
     id: 28406,
     title: "Sigil-Laced Boots",
@@ -2319,7 +2447,8 @@ var equip = {
     id: 32787,
     title: "Veteran's Dreadweave Stalkers",
     "int": 30,
-    sp: 36
+    sp: 36,
+    phase: 2
   }, {
     id: 29242,
     title: "Boots of Blasphemy",
@@ -2388,52 +2517,60 @@ var equip = {
     "int": 28,
     sp: 34,
     hit: 19,
-    haste: 30
+    haste: 30,
+    phase: 5
   }, {
     id: 34230,
     title: "Ring of Omnipotence",
     "int": 14,
     sp: 40,
     crit: 22,
-    haste: 31
+    haste: 31,
+    phase: 5
   }, {
     id: 33497,
     title: "Mana Attuned Band",
     "int": 19,
     sp: 34,
     hit: 18,
-    haste: 29
+    haste: 29,
+    phase: 4
   }, {
     id: 32527,
     title: "Ring of Ancient Knowledge",
     "int": 20,
     sp: 39,
-    haste: 31
+    haste: 31,
+    phase: 3
   }, {
     id: 32247,
     title: "Ring of Captured Storms",
     sp: 42,
     crit: 29,
-    hit: 19
+    hit: 19,
+    phase: 3
   }, {
     id: 34889,
     title: "Fused Nethergon Band",
     "int": 19,
     sp: 35,
-    hit: 28
+    hit: 28,
+    phase: 5
   }, {
     id: ids.ETERNAL_SAGE,
     title: "Band of the Eternal Sage",
     "int": 25,
     sp: 34,
-    crit: 24
+    crit: 24,
+    phase: 3
   }, {
     id: 33498,
     title: "Signet of the Quiet Forest",
     "int": 17,
     sp: 21,
     haste: 30,
-    mp5: 8
+    mp5: 8,
+    phase: 4
   }, {
     id: 29287,
     title: "Violet Signet of the Archmage",
@@ -2449,7 +2586,8 @@ var equip = {
     sockets: ["b"],
     bonus: {
       sp: 2
-    }
+    },
+    phase: 4
   }, {
     id: 28753,
     title: "Ring of Recurrence",
@@ -2472,12 +2610,14 @@ var equip = {
     id: 30109,
     title: "Ring of Endless Coils",
     sp: 37,
-    crit: 22
+    crit: 22,
+    phase: 2
   }, {
     id: 29922,
     title: "Band of Al'ar",
     "int": 23,
-    sp: 37
+    sp: 37,
+    phase: 2
   }, {
     id: 28227,
     title: "Sparking Arcanite Ring",
@@ -2579,27 +2719,32 @@ var equip = {
   trinket: [{
     id: ids.SORCERERS_ALCHEMIST_STONE,
     title: "Sorcerer's Alchemist Stone",
-    sp: 63
+    sp: 63,
+    phase: 5
   }, {
     id: ids.NAARU_SLIVER,
     title: "Shifting Naaru Sliver",
     haste: 54,
-    use: true
+    use: true,
+    phase: 5
   }, {
     id: ids.SKULL_GULDAN,
     title: "The Skull of Gul'dan",
     sp: 55,
     hit: 25,
-    use: true
+    use: true,
+    phase: 3
   }, {
     id: ids.UNSTABLE_CURRENTS,
     title: "Sextant of Unstable Currents",
-    crit: 40
+    crit: 40,
+    phase: 2
   }, {
     id: ids.SERPENT_COIL,
     title: "Serpent-Coil Braid",
     crit: 30,
-    hit: 12
+    hit: 12,
+    phase: 2
   }, {
     id: ids.ALCHEMIST_STONE,
     title: "Alchemist Stone",
@@ -2614,7 +2759,8 @@ var equip = {
     id: ids.SHRUNKEN_HEAD,
     title: "Hex Shrunken Head",
     sp: 53,
-    use: true
+    use: true,
+    phase: 4
   }, {
     id: ids.SILVER_CRESCENT,
     title: "Icon of the Silver Crescent",
@@ -2644,11 +2790,13 @@ var equip = {
   }, {
     id: 35327,
     title: "Battlemaster's Alacrity",
-    haste: 40
+    haste: 40,
+    phase: 5
   }, {
     id: 34579,
     title: "Battlemaster's Audacity",
-    sp: 47
+    sp: 47,
+    phase: 5
   }, {
     id: ids.MQG,
     title: "Mind Quickening Gem",
@@ -2745,7 +2893,8 @@ var gems = [{
   title: "Chaotic Skyfire Diamond",
   color: "m",
   crit: 12,
-  desc: "+3% crit dmg"
+  desc: "+3% crit dmg",
+  phase: 4
 }, {
   id: ids.EMBER_SKYFIRE,
   title: "Ember Skyfire Diamond",
@@ -2781,7 +2930,8 @@ var gems = [{
   title: "Don Julio's Heart",
   color: "r",
   sp: 14,
-  unique: true
+  unique: true,
+  phase: 3
 }, {
   id: 28118,
   title: "Runed Ornate Ruby",
@@ -2792,7 +2942,8 @@ var gems = [{
   id: 32196,
   title: "Runed Crimson Spinel",
   color: "r",
-  sp: 12
+  sp: 12,
+  phase: 3
 }, {
   id: ids.RUNED_LIVING_RUBY,
   title: "Runed Living Ruby",
@@ -2803,19 +2954,22 @@ var gems = [{
   title: "Reckless Pyrestone",
   color: "o",
   sp: 6,
-  haste: 5
+  haste: 5,
+  phase: 5
 }, {
   id: 32221,
   title: "Veiled Pyrestone",
   color: "o",
   sp: 6,
-  hit: 5
+  hit: 5,
+  phase: 3
 }, {
   id: 32218,
   title: "Potent Pyrestone",
   color: "o",
   sp: 6,
-  crit: 5
+  crit: 5,
+  phase: 3
 }, {
   id: 30551,
   title: "Infused Fire Opal",
@@ -2865,22 +3019,26 @@ var gems = [{
   title: "Blood of Amber",
   color: "y",
   crit: 12,
-  unique: true
+  unique: true,
+  phase: 3
 }, {
   id: 35761,
   title: "Quick Lionseye",
   color: "y",
-  haste: 10
+  haste: 10,
+  phase: 5
 }, {
   id: 32210,
   title: "Great Lionseye",
   color: "y",
-  hit: 10
+  hit: 10,
+  phase: 3
 }, {
   id: 32207,
   title: "Gleaming Lionseye",
   color: "y",
-  crit: 10
+  crit: 10,
+  phase: 3
 }, {
   id: 28120,
   title: "Gleaming Ornate Dawnstone",
@@ -4078,6 +4236,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4111,6 +4283,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       log_open: false,
       histogram_open: false,
       item_source: "tbcdb",
+      phase_filter: 0,
       log_filter: {
         "0": true,
         "1": true,
@@ -4228,8 +4401,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     activeItems: function activeItems() {
+      var _this = this;
+
       var slot = this.equipSlotToItemSlot(this.active_slot);
-      return this.items.equip[slot];
+      var items = this.items.equip[slot];
+      if (!this.phase_filter) return items;
+      return items.filter(function (item) {
+        return _.get(item, "phase", 1) <= _this.phase_filter;
+      });
     },
     activeEnchants: function activeEnchants() {
       var slot = this.equipSlotToEnchantSlot(this.active_slot);
@@ -4274,7 +4453,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       sim.start(this.config);
     },
     runComparisonFor: function runComparisonFor(item_id) {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var self;
@@ -4282,9 +4461,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                self = _this;
+                self = _this2;
 
-                _this.equip(_this.active_slot, item_id, false);
+                _this2.equip(_this2.active_slot, item_id, false);
 
                 return _context.abrupt("return", new Promise(function (resolve, reject) {
                   var sim = new _simulation__WEBPACK_IMPORTED_MODULE_1__.SimulationWorkers(self.config.iterations, function (result) {
@@ -4310,7 +4489,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     runComparison: function runComparison() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var i, max_dps, best_item_id, result, cmp;
@@ -4318,7 +4497,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(!_this2.hasComparisons || _this2.is_running)) {
+                if (!(!_this3.hasComparisons || _this3.is_running)) {
                   _context2.next = 2;
                   break;
                 }
@@ -4326,13 +4505,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _context2.abrupt("return");
 
               case 2:
-                for (i in _this2.item_comparison) {
-                  _this2.item_comparison[i].dps = null;
+                for (i in _this3.item_comparison) {
+                  _this3.item_comparison[i].dps = null;
                 }
 
                 max_dps = 0;
                 best_item_id = 0;
-                _context2.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this2.item_comparison);
+                _context2.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this3.item_comparison);
 
               case 6:
                 if ((_context2.t1 = _context2.t0()).done) {
@@ -4341,13 +4520,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
 
                 i = _context2.t1.value;
-                cmp = _this2.item_comparison[i];
+                cmp = _this3.item_comparison[i];
                 _context2.next = 11;
-                return _this2.runComparisonFor(cmp.id);
+                return _this3.runComparisonFor(cmp.id);
 
               case 11:
                 result = _context2.sent;
-                _this2.item_comparison[i].dps = result.avg_dps;
+                _this3.item_comparison[i].dps = result.avg_dps;
 
                 if (result.avg_dps > max_dps) {
                   max_dps = result.avg_dps;
@@ -4358,7 +4537,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 break;
 
               case 16:
-                if (_this2.active_slot == "stat_weight") _this2.unequip(_this2.active_slot);else _this2.equip(_this2.active_slot, best_item_id);
+                if (_this3.active_slot == "stat_weight") _this3.unequip(_this3.active_slot);else _this3.equip(_this3.active_slot, best_item_id);
 
               case 17:
               case "end":
@@ -4419,12 +4598,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.getItem(slot, id);
     },
     activeGems: function activeGems(index) {
+      var _this4 = this;
+
       if (this.activeSockets.length < index) return [];
-      if (this.activeSockets[index] == "m") return this.items.gems.filter(function (g) {
+      if (this.activeSockets[index] == "m") var gems = this.items.gems.filter(function (g) {
         return g.color == "m";
-      });
-      return this.items.gems.filter(function (g) {
+      });else var gems = this.items.gems.filter(function (g) {
         return g.color != "m";
+      });
+      if (!this.phase_filter) return gems;
+      return gems.filter(function (g) {
+        return _.get(g, "phase", 1) <= _this4.phase_filter;
       });
     },
     finalStats: function finalStats() {
@@ -4654,11 +4838,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     itemUrl: function itemUrl(item) {
       if (this.item_source == "tbcdb") return "https://tbcdb.com/?item=" + item.id;
       if (this.item_source == "endless") return "https://db.endless.gg/?item=" + item.id;
+      if (this.item_source == "twinstar") return "https://tbc-twinhead.twinstar.cz/?item=" + item.id;
       return "https://tbc.wowhead.com/?item=" + item.id;
     },
     spellUrl: function spellUrl(spell) {
       if (this.item_source == "tbcdb") return "https://tbcdb.com/?spell=" + spell.id;
       if (this.item_source == "endless") return "https://db.endless.gg/?spell=" + spell.id;
+      if (this.item_source == "twinstar") return "https://tbc-twinhead.twinstar.cz/?spell=" + spell.id;
       return "https://tbc.wowhead.com/?spell=" + spell.id;
     },
     critRatingToChance: function critRatingToChance(rating) {
@@ -61861,21 +62047,79 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "items" }, [
             _c("div", { staticClass: "items-wrapper" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "btn",
-                  class: [
-                    !_vm.hasComparisons || _vm.is_running ? "disabled" : ""
-                  ],
-                  on: { click: _vm.runComparison }
-                },
-                [
-                  _vm._v(
-                    "\n                            Run item comparison\n                        "
+              _c("div", { staticClass: "top" }, [
+                _c("div", { staticClass: "form-item" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.phase_filter,
+                          expression: "phase_filter"
+                        }
+                      ],
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.phase_filter = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { domProps: { value: 0 } }, [
+                        _vm._v("- Filter by content phase -")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { domProps: { value: 1 } }, [
+                        _vm._v("Phase 1 - KZ, Gruul, Mag, Arena S1")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { domProps: { value: 2 } }, [
+                        _vm._v("Phase 2 - SSC, TK, Arena S2")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { domProps: { value: 3 } }, [
+                        _vm._v("Phase 3 - MH, BT, Arena S3")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { domProps: { value: 4 } }, [
+                        _vm._v("Phase 4 - Zul'Aman")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { domProps: { value: 5 } }, [
+                        _vm._v("Phase 5 - SWP, Arena S4")
+                      ])
+                    ]
                   )
-                ]
-              ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "btn",
+                    class: [
+                      !_vm.hasComparisons || _vm.is_running ? "disabled" : ""
+                    ],
+                    on: { click: _vm.runComparison }
+                  },
+                  [
+                    _vm._v(
+                      "\n                                Run item comparison\n                            "
+                    )
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c("table", { staticClass: "mt-2" }, [
                 _c("thead", [
@@ -61885,6 +62129,8 @@ var render = function() {
                     _c("th", { staticClass: "title" }, [_vm._v("Name")]),
                     _vm._v(" "),
                     _vm.hasComparisons ? _c("th", [_vm._v("DPS")]) : _vm._e(),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Phase")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("Sockets")]),
                     _vm._v(" "),
@@ -61983,6 +62229,10 @@ var render = function() {
                                 )
                               ])
                             : _vm._e(),
+                          _vm._v(" "),
+                          _c("th", [
+                            _vm._v(_vm._s(_vm.$get(item, "phase", 1)))
+                          ]),
                           _vm._v(" "),
                           _c(
                             "td",

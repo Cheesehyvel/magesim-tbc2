@@ -82,8 +82,20 @@
                     </div>
                     <div class="items">
                         <div class="items-wrapper">
-                            <div class="btn" :class="[!hasComparisons || is_running ? 'disabled' : '']" @click="runComparison">
-                                Run item comparison
+                            <div class="top">
+                                <div class="form-item">
+                                    <select v-model="phase_filter">
+                                        <option :value="0">- Filter by content phase -</option>
+                                        <option :value="1">Phase 1 - KZ, Gruul, Mag, Arena S1</option>
+                                        <option :value="2">Phase 2 - SSC, TK, Arena S2</option>
+                                        <option :value="3">Phase 3 - MH, BT, Arena S3</option>
+                                        <option :value="4">Phase 4 - Zul'Aman</option>
+                                        <option :value="5">Phase 5 - SWP, Arena S4</option>
+                                    </select>
+                                </div>
+                                <div class="btn" :class="[!hasComparisons || is_running ? 'disabled' : '']" @click="runComparison">
+                                    Run item comparison
+                                </div>
                             </div>
 
                             <table class="mt-2">
@@ -92,6 +104,7 @@
                                         <th class="min"></th>
                                         <th class="title">Name</th>
                                         <th v-if="hasComparisons">DPS</th>
+                                        <th>Phase</th>
                                         <th>Sockets</th>
                                         <th>Spell power</th>
                                         <th>Crit rating</th>
@@ -123,6 +136,7 @@
                                         <th v-if="hasComparisons">
                                             {{ comparisonDps(item) }}
                                         </th>
+                                        <th>{{ $get(item, "phase", 1) }}</th>
                                         <td>
                                             <template v-if="item.sockets">
                                                 <div class="socket-color" :class="['color-'+socket]" v-for="socket in item.sockets"></div>
@@ -679,6 +693,7 @@
                 log_open: false,
                 histogram_open: false,
                 item_source: "tbcdb",
+                phase_filter: 0,
                 log_filter: {
                     "0": true,
                     "1": true,
@@ -812,7 +827,11 @@
             activeItems() {
                 var slot = this.equipSlotToItemSlot(this.active_slot);
 
-                return this.items.equip[slot];
+                var items = this.items.equip[slot];
+                if (!this.phase_filter)
+                    return items;
+
+                return items.filter(item => _.get(item, "phase", 1) <= this.phase_filter);
             },
 
             activeEnchants() {
@@ -980,8 +999,14 @@
                 if (this.activeSockets.length < index)
                     return [];
                 if (this.activeSockets[index] == "m")
-                    return this.items.gems.filter(g => g.color == "m");
-                return this.items.gems.filter(g => g.color != "m");
+                    var gems = this.items.gems.filter(g => g.color == "m");
+                else
+                    var gems = this.items.gems.filter(g => g.color != "m");
+
+                if (!this.phase_filter)
+                    return gems;
+
+                return gems.filter(g => _.get(g, "phase", 1) <= this.phase_filter);
             },
 
             finalStats() {
@@ -1254,6 +1279,8 @@
                     return "https://tbcdb.com/?item="+item.id;
                 if (this.item_source == "endless")
                     return "https://db.endless.gg/?item="+item.id;
+                if (this.item_source == "twinstar")
+                    return "https://tbc-twinhead.twinstar.cz/?item="+item.id;
                 return "https://tbc.wowhead.com/?item="+item.id;
             },
 
@@ -1262,6 +1289,8 @@
                     return "https://tbcdb.com/?spell="+spell.id;
                 if (this.item_source == "endless")
                     return "https://db.endless.gg/?spell="+spell.id;
+                if (this.item_source == "twinstar")
+                    return "https://tbc-twinhead.twinstar.cz/?spell="+spell.id;
                 return "https://tbc.wowhead.com/?spell="+spell.id;
             },
 

@@ -679,6 +679,18 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .main .gear .items .items-wrapper {
   padding: 30px;
 }
+#app .wrapper .main .gear .items .items-wrapper > .top:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+#app .wrapper .main .gear .items .items-wrapper > .top > * {
+  float: left;
+  margin-right: 15px;
+}
+#app .wrapper .main .gear .items .items-wrapper > .top select {
+  padding: 7px 8px;
+}
 #app .wrapper .main .gear .items .socket-color {
   display: inline-block;
   width: 10px;
@@ -791,9 +803,10 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .main .gear .items .sockets .socket:nth-child(n+2) {
   margin-left: 2%;
 }
-#app .wrapper .main .gear .items table th:nth-child(n+2), #app .wrapper .main .gear .items table td:nth-child(n+2) {
-  width: 8%;
+#app .wrapper .main .gear .items table th:nth-child(n+3), #app .wrapper .main .gear .items table td:nth-child(n+3) {
+  width: 7%;
   white-space: nowrap;
+  text-align: center;
 }
 #app .log .close,
 #app .config .close,
