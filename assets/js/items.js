@@ -143,7 +143,7 @@ var equip = {
         { id: 31692, title: "Natasha's Ember Necklace", int: 15, sp: 29, crit: 10, q: "rare" },
         { id: 29333, title: "Torc of the Sethekk Prophet", int: 18, sp: 19, crit: 21, q: "rare" },
         { id: 24462, title: "Luminous Pearls of Insight", int: 15, sp: 25, crit: 11, q: "rare" },
-        { id: 31338, itemset: 667, title: "Charlotte's Ivy", int: 19, spi: 14, sp: 23, phase: 2 },
+        { id: 31338, itemset: 667, title: "Charlotte's Ivy", int: 19, spi: 14, sp: 23 },
         { id: 21608, title: "Amulet of Vek'nilash", int: 5, sp: 27, crit: 14 },
         { id: 23057, title: "Gem of Trapped Innocents", int: 7, sp: 15, crit: 28 },
         { id: 18814, title: "Choker of the Fire Lord", int: 7, sp: 34 },

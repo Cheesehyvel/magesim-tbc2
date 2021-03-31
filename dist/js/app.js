@@ -1031,8 +1031,7 @@ var equip = {
     title: "Charlotte's Ivy",
     "int": 19,
     spi: 14,
-    sp: 23,
-    phase: 2
+    sp: 23
   }, {
     id: 21608,
     title: "Amulet of Vek'nilash",
@@ -4854,7 +4853,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return rating / 12.62;
     },
     hasteRatingToHaste: function hasteRatingToHaste(rating) {
-      return rating / 15.75;
+      return rating / 15.77;
     },
     isSpecialItem: function isSpecialItem(item_id) {
       for (var key in this.items.ids) {

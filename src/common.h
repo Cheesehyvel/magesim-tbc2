@@ -184,7 +184,7 @@ double hitRatingToChance(double rating)
 
 double hasteRatingToHaste(double rating)
 {
-    return rating / 15.75;
+    return rating / 15.77;
 }
 
 // Global rng generator

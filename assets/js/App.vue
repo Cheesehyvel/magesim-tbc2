@@ -1303,7 +1303,7 @@
             },
 
             hasteRatingToHaste(rating) {
-                return rating / 15.75;
+                return rating / 15.77;
             },
 
             isSpecialItem(item_id) {
