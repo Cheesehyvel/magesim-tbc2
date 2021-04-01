@@ -1570,9 +1570,15 @@
             },
 
             defaultGem(color) {
+                if (color == "m") {
+                    if (this.phase_filter && this.phase_filter < 4)
+                        return this.items.ids.INSIGHTFUL_EARTHSTORM;
+                    return this.items.ids.CHAOTIC_SKYFIRE;
+                }
+
                 if (this.config.spec == this.specs.SPEC_ARCANE)
-                    return color == "m" ? this.items.ids.INSIGHTFUL_EARTHSTORM : this.items.ids.RUNED_LIVING_RUBY;
-                return color == "m" ? this.items.ids.CHAOTIC_SKYFIRE : this.items.ids.RUNED_LIVING_RUBY;
+                    return this.items.ids.BRILLIANT_DAWNSTONE;
+                return this.items.ids.RUNED_LIVING_RUBY;
             },
 
             hasTalent(talent) {

@@ -197,6 +197,7 @@ var ids = {
   MQG: 19339,
   BLUE_DRAGON: 19288,
   RUNED_LIVING_RUBY: 24030,
+  BRILLIANT_DAWNSTONE: 24047,
   MARK_OF_DEFIANCE: 27924,
   SCRYERS_BLOODGEM: 29132,
   CRYSTAL_TALISMAN: 25620,
@@ -3055,7 +3056,7 @@ var gems = [{
   color: "y",
   crit: 8
 }, {
-  id: 24047,
+  id: ids.BRILLIANT_DAWNSTONE,
   title: "Brilliant Dawnstone",
   color: "y",
   "int": 8
@@ -5084,8 +5085,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return gems;
     },
     defaultGem: function defaultGem(color) {
-      if (this.config.spec == this.specs.SPEC_ARCANE) return color == "m" ? this.items.ids.INSIGHTFUL_EARTHSTORM : this.items.ids.RUNED_LIVING_RUBY;
-      return color == "m" ? this.items.ids.CHAOTIC_SKYFIRE : this.items.ids.RUNED_LIVING_RUBY;
+      if (color == "m") {
+        if (this.phase_filter && this.phase_filter < 4) return this.items.ids.INSIGHTFUL_EARTHSTORM;
+        return this.items.ids.CHAOTIC_SKYFIRE;
+      }
+
+      if (this.config.spec == this.specs.SPEC_ARCANE) return this.items.ids.BRILLIANT_DAWNSTONE;
+      return this.items.ids.RUNED_LIVING_RUBY;
     },
     hasTalent: function hasTalent(talent) {
       var indexes = {
