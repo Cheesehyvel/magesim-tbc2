@@ -1046,3 +1046,30 @@ table.simple th:last-child, table.simple td:last-child {
 .fools > .inner .text b {
   font-weight: 700;
 }
+
+.fools2 {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  max-width: 350px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-animation: fade 0.4s ease forwards, moveInFromBelow 0.4s ease forwards;
+          animation: fade 0.4s ease forwards, moveInFromBelow 0.4s ease forwards;
+}
+.fools2 > .inner {
+  background: #161620;
+  padding: 15px;
+  text-align: center;
+}
+.fools2 > .inner .title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+.fools2 > .inner .text {
+  margin-bottom: 15px;
+}
+.fools2 > .inner .text b {
+  font-weight: 700;
+}

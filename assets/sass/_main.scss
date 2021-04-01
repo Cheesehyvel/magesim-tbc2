@@ -575,3 +575,33 @@ table {
         }
     }
 }
+
+.fools2 {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    max-width: 350px;
+    z-index: 1000;
+    background: rgba(0,0,0,0.5);
+    animation: fade 0.4s ease forwards, moveInFromBelow 0.4s ease forwards;
+
+    > .inner {
+        background: #161620;
+        padding: $spacer*0.25;
+        text-align: center;
+
+        .title {
+            font-size: 24px;
+            margin-bottom: $spacer*0.25;
+            font-weight: 700;
+        }
+
+        .text {
+            margin-bottom: $spacer*0.25;
+
+            b {
+                font-weight: 700;
+            }
+        }
+    }
+}

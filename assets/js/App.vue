@@ -2,7 +2,7 @@
     <div id="app">
         <a class="github" href="https://github.com/Cheesehyvel/magesim-tbc2" target="_blank"></a>
 
-        <div class="fools" v-if="fools_open">
+        <div class="fools" v-if="fools_open == 1">
             <div class="inner">
                 <div class="title">Buy premium</div>
                 <div class="text mt-2">
@@ -12,6 +12,32 @@
                 <div class="btn large mt-2" @click="foolsBuy">Buy premium 19.99€</div>
                 <div></div>
                 <div class="btn-text mt-1" @click="foolsClose">No thanks, not right now</div>
+            </div>
+        </div>
+
+        <div class="fools2" v-if="fools_open == 2">
+            <div class="inner">
+                <div class="title">Please buy premium</div>
+                <div class="text mt-2">
+                    Come on man! I've got dust bunnies to feed!<br>
+                    For just 16.99€ I'll even toss in a free
+                    <a href="https://www.ikea.com/se/sv/images/products/hjalpreda-osthyvel-svart__0392887_PE560396_S4.JPG" target="_blank">osthyvel</a>
+                </div>
+                <div class="btn mt-2" @click="foolsBuy">Buy premium 14.99€</div>
+                <div></div>
+                <div class="btn-text mt-1" @click="foolsClose">I don't care about you</div>
+            </div>
+        </div>
+
+        <div class="fools2" v-if="fools_open == 3">
+            <div class="inner">
+                <div class="title">Premium or else</div>
+                <div class="text mt-2">
+                    You know what? If you don't buy premium I'm just gonna mine Bitcoins in the background.
+                </div>
+                <div class="btn mt-2" @click="foolsBuy">Buy premium 9.99€</div>
+                <div></div>
+                <div class="btn-text mt-1" @click="foolsClose">Dude wtf, stop it</div>
             </div>
         </div>
 
@@ -686,7 +712,7 @@
         data() {
             var data = {
                 ...constants,
-                fools_open: false,
+                fools_open: 0,
                 fools_remaining: 3,
                 items: items,
                 equipped: {},
@@ -879,14 +905,14 @@
             },
 
             foolsClose() {
-                this.fools_open = false;
+                this.fools_open = (this.fools_open+1)%4;
             },
 
             foolsOpen() {
                 if (!this.foolsActive || !this.fools_remaining)
                     return;
                 this.fools_remaining = Math.max(this.fools_remaining-1, 0);
-                this.fools_open = true;
+                this.fools_open = 1;
             },
 
             runMultiple() {

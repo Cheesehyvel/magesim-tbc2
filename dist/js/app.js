@@ -4262,6 +4262,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4275,7 +4301,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     var data = _objectSpread(_objectSpread({}, _constants__WEBPACK_IMPORTED_MODULE_3__.default), {}, {
-      fools_open: false,
+      fools_open: 0,
       fools_remaining: 3,
       items: _items__WEBPACK_IMPORTED_MODULE_2__.default,
       equipped: {},
@@ -4446,12 +4472,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     },
     foolsClose: function foolsClose() {
-      this.fools_open = false;
+      this.fools_open = (this.fools_open + 1) % 4;
     },
     foolsOpen: function foolsOpen() {
       if (!this.foolsActive || !this.fools_remaining) return;
       this.fools_remaining = Math.max(this.fools_remaining - 1, 0);
-      this.fools_open = true;
+      this.fools_open = 1;
     },
     runMultiple: function runMultiple() {
       var self = this;
@@ -61873,7 +61899,7 @@ var render = function() {
       }
     }),
     _vm._v(" "),
-    _vm.fools_open
+    _vm.fools_open == 1
       ? _c("div", { staticClass: "fools" }, [
           _c("div", { staticClass: "inner" }, [
             _c("div", { staticClass: "title" }, [_vm._v("Buy premium")]),
@@ -61902,6 +61928,58 @@ var render = function() {
               "div",
               { staticClass: "btn-text mt-1", on: { click: _vm.foolsClose } },
               [_vm._v("No thanks, not right now")]
+            )
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.fools_open == 2
+      ? _c("div", { staticClass: "fools2" }, [
+          _c("div", { staticClass: "inner" }, [
+            _c("div", { staticClass: "title" }, [_vm._v("Please buy premium")]),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "btn mt-2", on: { click: _vm.foolsBuy } },
+              [_vm._v("Buy premium 14.99€")]
+            ),
+            _vm._v(" "),
+            _c("div"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "btn-text mt-1", on: { click: _vm.foolsClose } },
+              [_vm._v("I don't care about you")]
+            )
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.fools_open == 3
+      ? _c("div", { staticClass: "fools2" }, [
+          _c("div", { staticClass: "inner" }, [
+            _c("div", { staticClass: "title" }, [_vm._v("Premium or else")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "text mt-2" }, [
+              _vm._v(
+                "\n                You know what? If you don't buy premium I'm just gonna mine Bitcoins in the background.\n            "
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "btn mt-2", on: { click: _vm.foolsBuy } },
+              [_vm._v("Buy premium 9.99€")]
+            ),
+            _vm._v(" "),
+            _c("div"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "btn-text mt-1", on: { click: _vm.foolsClose } },
+              [_vm._v("Dude wtf, stop it")]
             )
           ])
         ])
@@ -62399,7 +62477,7 @@ var render = function() {
               _vm._v(" "),
               _vm.activeEnchants.length
                 ? _c("table", { staticClass: "mt-4" }, [
-                    _vm._m(0),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -62492,7 +62570,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("table", [
-                          _vm._m(1, true),
+                          _vm._m(2, true),
                           _vm._v(" "),
                           _c(
                             "tbody",
@@ -62670,7 +62748,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("table", [
-                  _vm._m(2),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -65944,6 +66022,29 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text mt-2" }, [
+      _vm._v("\n                Come on man! I've got dust bunnies to feed!"),
+      _c("br"),
+      _vm._v(
+        "\n                For just 16.99€ I'll even toss in a free\n                "
+      ),
+      _c(
+        "a",
+        {
+          attrs: {
+            href:
+              "https://www.ikea.com/se/sv/images/products/hjalpreda-osthyvel-svart__0392887_PE560396_S4.JPG",
+            target: "_blank"
+          }
+        },
+        [_vm._v("osthyvel")]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
