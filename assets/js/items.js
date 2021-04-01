@@ -30,6 +30,7 @@ var ids = {
     ALCHEMIST_STONE: 13503,
     NAARU_SLIVER: 34429,
     STAT_WEIGHT_BASE: 99990,
+    DARKMOON_CRUSADE: 31856,
 };
 
 var equip = {
@@ -385,6 +386,7 @@ var equip = {
         { id: ids.CRYSTAL_TALISMAN, title: "Ancient Crystal Talisman", sp: 26, use: true, q: "uncommon" },
         { id: ids.PENDANT_VIOLET_EYE, title: "Pendant of the Violet Eye", int: 40, use: true },
         { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true, q: "rare" },
+        { id: ids.DARKMOON_CRUSADE, title: "Darkmoon Card: Crusade", phase: 3 },
     ],
     stat_weight: [
         { id: ids.STAT_WEIGHT_BASE, title: "Base"},

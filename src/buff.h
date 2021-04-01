@@ -42,6 +42,7 @@ namespace buff
         DRUMS_OF_RESTORATION = 35478,
         DESTRUCTION_POTION = 28508,
         FLAME_CAP = 28714,
+        DARKMOON_CRUSADE = 39438,
     };
 
 
@@ -551,6 +552,20 @@ namespace buff
             id = FLAME_CAP;
             name = "Flame Cap";
             duration = 60;
+        }
+
+    };
+
+    class DarkmoonCrusade : public Buff
+    {
+
+    public:
+        DarkmoonCrusade()
+        {
+            id = DARKMOON_CRUSADE;
+            name = "Aura of the Crusade";
+            duration = 10;
+            max_stacks = 10;
         }
 
     };
