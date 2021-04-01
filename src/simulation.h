@@ -497,6 +497,10 @@ public:
             if (config->judgement_of_wisdom && random<int>(0, 1) == 1)
                 onManaGain(74, "Judgement of Wisdom");
 
+            if (hasTrinket(TRINKET_DARKMOON_CRUSADE)) {
+                onBuffGain(make_shared<buff::DarkmoonCrusade>());
+            }
+
             if (spell->result == spell::CRIT) {
                 // 20% proc rate
                 if (hasTrinket(TRINKET_UNSTABLE_CURRENTS) && !state->hasCooldown(cooldown::UNSTABLE_CURRENTS) && random<int>(0, 4) == 0) {
@@ -1334,6 +1338,8 @@ public:
                 sp+= 30.0;
             if (state->hasBuff(buff::DESTRUCTION_POTION))
                 sp+= 120.0;
+            if (state->hasBuff(buff::DARKMOON_CRUSADE))
+                sp+= state->buffStacks(buff::DARKMOON_CRUSADE) * 8;
 
             if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
                 coeff+= player->talents.empowered_arcane_missiles * 0.15;
