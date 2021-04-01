@@ -4249,6 +4249,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4262,6 +4275,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     var data = _objectSpread(_objectSpread({}, _constants__WEBPACK_IMPORTED_MODULE_3__.default), {}, {
+      fools_open: false,
+      fools_remaining: 3,
       items: _items__WEBPACK_IMPORTED_MODULE_2__.default,
       equipped: {},
       enchants: {},
@@ -4399,6 +4414,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return data;
   },
   computed: {
+    foolsActive: function foolsActive() {
+      var d = new Date();
+      return d.getMonth() == 3 && d.getDate() == 1;
+    },
     activeItems: function activeItems() {
       var _this = this;
 
@@ -4423,11 +4442,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    foolsBuy: function foolsBuy() {
+      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    },
+    foolsClose: function foolsClose() {
+      this.fools_open = false;
+    },
+    foolsOpen: function foolsOpen() {
+      if (!this.foolsActive || !this.fools_remaining) return;
+      this.fools_remaining = Math.max(this.fools_remaining - 1, 0);
+      this.fools_open = true;
+    },
     runMultiple: function runMultiple() {
       var self = this;
       var sim = new _simulation__WEBPACK_IMPORTED_MODULE_1__.SimulationWorkers(this.config.iterations, function (result) {
         self.is_running = false;
         self.result = result;
+        self.foolsOpen();
       }, function (error) {
         self.is_running = false;
         console.error(error);
@@ -4442,6 +4473,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var sim = new _simulation__WEBPACK_IMPORTED_MODULE_1__.SimulationWorker(function (result) {
         self.is_running = false;
         self.result = result;
+        self.foolsOpen();
       }, function (error) {
         self.is_running = false;
         console.error(error);
@@ -4538,7 +4570,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 16:
                 if (_this3.active_slot == "stat_weight") _this3.unequip(_this3.active_slot);else _this3.equip(_this3.active_slot, best_item_id);
 
-              case 17:
+                _this3.foolsOpen();
+
+              case 18:
               case "end":
                 return _context2.stop();
             }
@@ -61838,6 +61872,40 @@ var render = function() {
         target: "_blank"
       }
     }),
+    _vm._v(" "),
+    _vm.fools_open
+      ? _c("div", { staticClass: "fools" }, [
+          _c("div", { staticClass: "inner" }, [
+            _c("div", { staticClass: "title" }, [_vm._v("Buy premium")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "text mt-2" }, [
+              _vm._v("\n                You currently have "),
+              _c("b", [_vm._v(_vm._s(_vm.fools_remaining))]),
+              _vm._v(" free sim(s) remaining!"),
+              _c("br"),
+              _vm._v(
+                "\n                To get more sims sign up for our premium subscription of only "
+              ),
+              _c("b", [_vm._v("19.99€/month")]),
+              _vm._v("!\n            ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "btn large mt-2", on: { click: _vm.foolsBuy } },
+              [_vm._v("Buy premium 19.99€")]
+            ),
+            _vm._v(" "),
+            _c("div"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "btn-text mt-1", on: { click: _vm.foolsClose } },
+              [_vm._v("No thanks, not right now")]
+            )
+          ])
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "wrapper" }, [
       _c("div", { staticClass: "sidebar" }, [

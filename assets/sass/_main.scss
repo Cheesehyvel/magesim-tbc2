@@ -46,6 +46,11 @@ a {
         display: block;
     }
 
+    &.large {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
     &.danger {
         background: #f00;
     }
@@ -53,6 +58,19 @@ a {
     &.disabled {
         pointer-events: none;
         opacity: 0.5;
+    }
+}
+
+.btn-text {
+    display: inline-block;
+    padding: 5px 12px;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    transition: opacity 0.2s ease, background 0.2s ease;
+
+    &:hover {
+        background: #05b;
     }
 }
 
@@ -516,6 +534,43 @@ table {
 
             textarea {
                 height: 350px;
+            }
+        }
+    }
+}
+
+.fools {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.5);
+    animation: fade 0.4s ease forwards, moveInFromBelow 0.4s ease forwards;
+
+    > .inner {
+        position: absolute;
+        background: #161620;
+        padding: $spacer;
+        top: calc(50vh - 200px);
+        left: 50%;
+        margin-left: -300px;
+        width: 600px;
+        text-align: center;
+
+        .title {
+            font-size: 30px;
+            margin-bottom: $spacer*0.5;
+            font-weight: 700;
+        }
+
+        .text {
+            font-size: 18px;
+            margin-bottom: $spacer*0.5;
+
+            b {
+                font-weight: 700;
             }
         }
     }

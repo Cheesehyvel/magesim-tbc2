@@ -2,6 +2,19 @@
     <div id="app">
         <a class="github" href="https://github.com/Cheesehyvel/magesim-tbc2" target="_blank"></a>
 
+        <div class="fools" v-if="fools_open">
+            <div class="inner">
+                <div class="title">Buy premium</div>
+                <div class="text mt-2">
+                    You currently have <b>{{ fools_remaining }}</b> free sim(s) remaining!<br>
+                    To get more sims sign up for our premium subscription of only <b>19.99€/month</b>!
+                </div>
+                <div class="btn large mt-2" @click="foolsBuy">Buy premium 19.99€</div>
+                <div></div>
+                <div class="btn-text mt-1" @click="foolsClose">No thanks, not right now</div>
+            </div>
+        </div>
+
         <div class="wrapper">
             <div class="sidebar">
                 <div class="actions">
@@ -673,6 +686,8 @@
         data() {
             var data = {
                 ...constants,
+                fools_open: false,
+                fools_remaining: 3,
                 items: items,
                 equipped: {},
                 enchants: {},
@@ -824,6 +839,11 @@
         },
 
         computed: {
+            foolsActive() {
+                var d = new Date;
+                return d.getMonth() == 3 && d.getDate() == 1;
+            },
+
             activeItems() {
                 var slot = this.equipSlotToItemSlot(this.active_slot);
 
@@ -854,11 +874,27 @@
         },
 
         methods: {
+            foolsBuy() {
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            },
+
+            foolsClose() {
+                this.fools_open = false;
+            },
+
+            foolsOpen() {
+                if (!this.foolsActive || !this.fools_remaining)
+                    return;
+                this.fools_remaining = Math.max(this.fools_remaining-1, 0);
+                this.fools_open = true;
+            },
+
             runMultiple() {
                 var self = this;
                 var sim = new SimulationWorkers(this.config.iterations, (result) => {
                     self.is_running = false;
                     self.result = result;
+                    self.foolsOpen();
                 }, (error) => {
                     self.is_running = false;
                     console.error(error);
@@ -875,6 +911,7 @@
                 var sim = new SimulationWorker((result) => {
                     self.is_running = false;
                     self.result = result;
+                    self.foolsOpen();
                 }, (error) => {
                     self.is_running = false;
                     console.error(error);
@@ -931,6 +968,8 @@
                     this.unequip(this.active_slot);
                 else
                     this.equip(this.active_slot, best_item_id);
+
+                this.foolsOpen();
             },
 
             prepare() {

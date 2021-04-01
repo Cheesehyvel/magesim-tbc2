@@ -1,3 +1,35 @@
+@-webkit-keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes moveInFromBelow {
+  0% {
+    transform: translate3d(0, 50px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes moveInFromBelow {
+  0% {
+    transform: translate3d(0, 50px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
 /**
  * Margins
  */
@@ -511,12 +543,28 @@ a:hover {
 .btn.block {
   display: block;
 }
+.btn.large {
+  padding: 10px 20px;
+  font-size: 18px;
+}
 .btn.danger {
   background: #f00;
 }
 .btn.disabled {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.btn-text {
+  display: inline-block;
+  padding: 5px 12px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+.btn-text:hover {
+  background: #05b;
 }
 
 .help {
@@ -963,4 +1011,38 @@ table.simple th:last-child, table.simple td:last-child {
 }
 #app .lightbox > .inner textarea {
   height: 350px;
+}
+
+.fools {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-animation: fade 0.4s ease forwards, moveInFromBelow 0.4s ease forwards;
+          animation: fade 0.4s ease forwards, moveInFromBelow 0.4s ease forwards;
+}
+.fools > .inner {
+  position: absolute;
+  background: #161620;
+  padding: 60px;
+  top: calc(50vh - 200px);
+  left: 50%;
+  margin-left: -300px;
+  width: 600px;
+  text-align: center;
+}
+.fools > .inner .title {
+  font-size: 30px;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+.fools > .inner .text {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+.fools > .inner .text b {
+  font-weight: 700;
 }
