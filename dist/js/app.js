@@ -210,7 +210,8 @@ var ids = {
   SORCERERS_ALCHEMIST_STONE: 35749,
   ALCHEMIST_STONE: 13503,
   NAARU_SLIVER: 34429,
-  STAT_WEIGHT_BASE: 99990
+  STAT_WEIGHT_BASE: 99990,
+  DARKMOON_CRUSADE: 31856
 };
 var equip = {
   weapon: [{
@@ -2746,16 +2747,6 @@ var equip = {
     hit: 12,
     phase: 2
   }, {
-    id: ids.ALCHEMIST_STONE,
-    title: "Alchemist Stone",
-    "int": 15,
-    spi: 15
-  }, {
-    id: ids.QUAGMIRRANS_EYE,
-    title: "Quagmirran's Eye",
-    sp: 37,
-    q: "rare"
-  }, {
     id: ids.SHRUNKEN_HEAD,
     title: "Hex Shrunken Head",
     sp: 53,
@@ -2766,6 +2757,20 @@ var equip = {
     title: "Icon of the Silver Crescent",
     sp: 43,
     use: true
+  }, {
+    id: ids.DARKMOON_CRUSADE,
+    title: "Darkmoon Card: Crusade",
+    phase: 3
+  }, {
+    id: ids.QUAGMIRRANS_EYE,
+    title: "Quagmirran's Eye",
+    sp: 37,
+    q: "rare"
+  }, {
+    id: ids.ALCHEMIST_STONE,
+    title: "Alchemist Stone",
+    "int": 15,
+    spi: 15
   }, {
     id: 19379,
     title: "Neltharion's Tear",

@@ -454,8 +454,13 @@ public:
             }
 
             if (spell->id == spell::SCORCH && player->talents.imp_scorch) {
-                if (player->talents.imp_scorch == 3 || random<int>(0, 2) < player->talents.imp_scorch)
+                if (player->talents.imp_scorch == 3 || random<int>(0, 2) < player->talents.imp_scorch) {
                     onDebuffGain(make_shared<debuff::FireVulnerability>());
+
+                    // Sources say scorch procs trinket twice, I think it's because of fire vuln.
+                    if (hasTrinket(TRINKET_DARKMOON_CRUSADE))
+                        onBuffGain(make_shared<buff::DarkmoonCrusade>());
+                }
             }
 
             if (spell->school == SCHOOL_FROST && player->talents.winters_chill) {
@@ -463,12 +468,10 @@ public:
                     onDebuffGain(make_shared<debuff::WintersChill>());
             }
 
-            if (spell->id == spell::FIREBALL) {
+            if (spell->id == spell::FIREBALL)
                 pushDot(make_shared<dot::Fireball>());
-            }
-            if (spell->id == spell::PYROBLAST) {
+            if (spell->id == spell::PYROBLAST)
                 pushDot(make_shared<dot::Pyroblast>());
-            }
 
             // 5% proc rate ?
             if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && !state->hasCooldown(cooldown::QUAGMIRRANS_EYE) && random<int>(0, 19) == 0) {
@@ -497,9 +500,8 @@ public:
             if (config->judgement_of_wisdom && random<int>(0, 1) == 1)
                 onManaGain(74, "Judgement of Wisdom");
 
-            if (hasTrinket(TRINKET_DARKMOON_CRUSADE)) {
+            if (hasTrinket(TRINKET_DARKMOON_CRUSADE))
                 onBuffGain(make_shared<buff::DarkmoonCrusade>());
-            }
 
             if (spell->result == spell::CRIT) {
                 // 20% proc rate
@@ -1339,7 +1341,7 @@ public:
             if (state->hasBuff(buff::DESTRUCTION_POTION))
                 sp+= 120.0;
             if (state->hasBuff(buff::DARKMOON_CRUSADE))
-                sp+= state->buffStacks(buff::DARKMOON_CRUSADE) * 8;
+                sp+= state->buffStacks(buff::DARKMOON_CRUSADE) * 8.0;
 
             if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
                 coeff+= player->talents.empowered_arcane_missiles * 0.15;
