@@ -4328,7 +4328,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       config_open: false,
       log_open: false,
       histogram_open: false,
-      item_source: "tbcdb",
+      item_source: "wowhead",
       phase_filter: 0,
       log_filter: {
         "0": true,
