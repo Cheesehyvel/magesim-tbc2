@@ -5619,7 +5619,9 @@ __webpack_require__.r(__webpack_exports__);
         }]
       };
 
-      var keys = _.keys(this.data).sort();
+      var keys = _.keys(this.data).sort(function (a, b) {
+        return a - b;
+      });
 
       var first = parseInt(keys[0]);
       var last = parseInt(_.last(keys));
