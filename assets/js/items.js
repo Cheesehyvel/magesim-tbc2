@@ -78,6 +78,7 @@ var equip = {
         { id: 29271, title: "Talisman of Kalecgos", int: 14, sp_arcane: 50 },
         { id: 28603, title: "Talisman of Nightbane", int: 19, sp: 28, crit: 17 },
         { id: 29270, title: "Flametongue Seal", sp_fire: 49, crit: 17 },
+        { id: 29269, title: "Sapphiron's Wing Bone", sp_frost: 51, hit: 12 },
         { id: 28734, title: "Jewel of Infinite Possibilities", int: 18, sp: 23, hit: 21 },
         { id: 28781, title: "Karaborian Talisman", int: 23, sp: 35 },
         { id: 28412, title: "Lamp of Peaceful Radiance", int: 14, sp: 21, crit: 13, hit: 12, q: "rare" },
@@ -162,6 +163,7 @@ var equip = {
         { id: 30079, title: "Illidari Shoulderpads", int: 23, sp: 39, crit: 16, sockets: ["y", "y"], bonus: { sp: 4 }, phase: 2 },
         { id: 30024, title: "Mantle of the Elven Kings", int: 18, spi: 17, sp: 39, crit: 25, hit: 18, phase: 2 },
         { id: 33489, title: "Mantle of Ill Intent", int: 24, sp: 40, haste: 33, phase: 4 },
+        { id: 21869, title: "Frozen Shadoweave Shoulders", int: 15, sp_frost: 50, sockets: ["y", "b"], bonus: { hit: 3 } },
         { id: 33757, title: "Vengeful Gladiator's Silk Amice", int: 13, sp: 40, crit: 17, sockets: ["b", "y"], phase: 3 },
         { id: 29079, title: "Pauldrons of the Aldor", int: 26, spi: 16, sp: 27, crit: 15, sockets: ["y", "r"], bonus: { sp: 4 } },
         { id: 32047, title: "Merciless Gladiator's Silk Amice", int: 15, sp: 36, crit: 14, sockets: ["b", "y"], phase: 2 },
@@ -196,6 +198,7 @@ var equip = {
         { id: 31057, itemset: ids.TEMPEST_SET, title: "Robes of the Tempest", int: 39, spi: 31, sp: 62, crit: 23, hit: 13, sockets: ["y", "y", "b"], bonus: { sp: 5 }, phase: 3 },
         { id: 30196, itemset: ids.TIRISFAL_SET, title: "Robes of Tirisfal", int: 35, spi: 20, sp: 55, crit: 19, sockets: ["y", "y", "b"], bonus: { sp: 5 }, phase: 2 },
         { id: 21848, itemset: ids.SPELLFIRE_SET, title: "Spellfire Robe", int: 17, sp_arcane: 72, sp_fire: 72, crit: 28, sockets: ["y", "b"] },
+        { id: 21871, title: "Frozen Shadoweave Robe", int: 20, sp_frost: 72, sockets: ["y", "b"], bonus: { hit: 3 } },
         { id: 30107, title: "Vestments of the Sea-Witch", int: 28, sp: 57, crit: 31, hit: 27, sockets: ["y", "y", "b"], bonus: { sp: 5 }, phase: 2 },
         { id: 30913, title: "Robes of Rhonin", int: 38, sp: 81, crit: 24, hit: 27, phase: 3 },
         { id: 30056, title: "Robe of Hateful Echoes", int: 36, sp: 50, crit: 25, sockets: ["r", "y", "y"], phase: 2 },
@@ -318,6 +321,7 @@ var equip = {
         { id: 28585, title: "Ruby Slippers", int: 29, sp: 35, hit: 16 },
         { id: 32787, title: "Veteran's Dreadweave Stalkers", int: 30, sp: 36, phase: 2 },
         { id: 29242, title: "Boots of Blasphemy", int: 29, sp: 36 },
+        { id: 21870, title: "Frozen Shadoweave Boots", int: 9, sp_frost: 57, sockets: ["y", "b"], bonus: { hit: 3 } },
         { id: 27848, title: "Embroidered Spellpyre Boots", int: 21, sp: 41, q: "rare" },
         { id: 29258, title: "Boots of Ethereal Manipulation", int: 27, spi: 21, sp: 33 },
         { id: 25957, title: "Ethereal Boots of the Skystrider", int: 19, spi: 12, sp: 26, crit: 17, q: "rare" },
@@ -447,6 +451,7 @@ var gems = [
 var enchants = {
     weapon: [
         { id: 46540, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
+        { id: 46538, title: "Soulfrost", sp_frost: 54 },
         { id: 46533, title: "Major Spellpower", sp: 40 },
     ],
     head: [

@@ -42,7 +42,10 @@ EMSCRIPTEN_BINDINGS(my_module) {
         ;
 
     emscripten::enum_<Spec>("Spec")
-        .value("SPEC_ARCANE", SPEC_ARCANE);
+        .value("SPEC_ARCANE", SPEC_ARCANE)
+        .value("SPEC_FIRE", SPEC_FIRE)
+        .value("SPEC_FROST", SPEC_FROST)
+        ;
 
     emscripten::enum_<Race>("Race")
         .value("RACE_BLOOD_ELF", RACE_BLOOD_ELF)

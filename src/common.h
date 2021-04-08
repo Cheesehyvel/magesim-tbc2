@@ -32,6 +32,7 @@ enum Spec : int
 {
     SPEC_ARCANE,
     SPEC_FIRE,
+    SPEC_FROST,
 };
 
 enum MetaGem : int {

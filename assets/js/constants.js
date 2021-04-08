@@ -10,6 +10,7 @@ export default {
     specs: {
         SPEC_ARCANE: 0,
         SPEC_FIRE: 1,
+        SPEC_FROST: 2,
     },
     regen_rotations: {
         ROTATION_FB: 0,

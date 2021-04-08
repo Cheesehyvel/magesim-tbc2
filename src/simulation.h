@@ -913,6 +913,8 @@ public:
             return make_shared<spell::ArcaneBlast>();
         if (player->spec == SPEC_FIRE)
             return make_shared<spell::Fireball>();
+        if (player->spec == SPEC_FROST)
+            return make_shared<spell::Frostbolt>();
 
         return NULL;
     }
@@ -1187,8 +1189,12 @@ public:
 
         if (spell->school == SCHOOL_ARCANE && player->talents.arcane_focus)
             hit+= player->talents.arcane_focus*2.0;
-        if ((spell->school == SCHOOL_FROST || spell->school == SCHOOL_FIRE) && player->talents.elemental_precision)
+        if (spell->school == SCHOOL_FIRE && player->talents.elemental_precision)
             hit+= player->talents.elemental_precision;
+        // This is supposedly bugged for frost spells to give 2% hit each point
+        // They say it was actually that way in TBC so we'll keep it like this for now
+        if (spell->school == SCHOOL_FROST && player->talents.elemental_precision)
+            hit+= player->talents.elemental_precision*2.0;
 
         return min(hit, 99.0);
     }

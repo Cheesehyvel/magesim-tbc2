@@ -99,7 +99,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   specs: {
     SPEC_ARCANE: 0,
-    SPEC_FIRE: 1
+    SPEC_FIRE: 1,
+    SPEC_FROST: 2
   },
   regen_rotations: {
     ROTATION_FB: 0,
@@ -527,6 +528,11 @@ var equip = {
     title: "Flametongue Seal",
     sp_fire: 49,
     crit: 17
+  }, {
+    id: 29269,
+    title: "Sapphiron's Wing Bone",
+    sp_frost: 51,
+    hit: 12
   }, {
     id: 28734,
     title: "Jewel of Infinite Possibilities",
@@ -1164,6 +1170,15 @@ var equip = {
     haste: 33,
     phase: 4
   }, {
+    id: 21869,
+    title: "Frozen Shadoweave Shoulders",
+    "int": 15,
+    sp_frost: 50,
+    sockets: ["y", "b"],
+    bonus: {
+      hit: 3
+    }
+  }, {
     id: 33757,
     title: "Vengeful Gladiator's Silk Amice",
     "int": 13,
@@ -1415,6 +1430,15 @@ var equip = {
     sp_fire: 72,
     crit: 28,
     sockets: ["y", "b"]
+  }, {
+    id: 21871,
+    title: "Frozen Shadoweave Robe",
+    "int": 20,
+    sp_frost: 72,
+    sockets: ["y", "b"],
+    bonus: {
+      hit: 3
+    }
   }, {
     id: 30107,
     title: "Vestments of the Sea-Witch",
@@ -2456,6 +2480,15 @@ var equip = {
     "int": 29,
     sp: 36
   }, {
+    id: 21870,
+    title: "Frozen Shadoweave Boots",
+    "int": 9,
+    sp_frost: 57,
+    sockets: ["y", "b"],
+    bonus: {
+      hit: 3
+    }
+  }, {
     id: 27848,
     title: "Embroidered Spellpyre Boots",
     "int": 21,
@@ -3129,6 +3162,10 @@ var enchants = {
     sp_arcane: 50,
     sp_fire: 50
   }, {
+    id: 46538,
+    title: "Soulfrost",
+    sp_frost: 54
+  }, {
     id: 46533,
     title: "Major Spellpower",
     sp: 40
@@ -3597,6 +3634,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -5180,6 +5218,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (e.target.value == this.specs.SPEC_ARCANE) {
         talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
         spec = "arcane";
+      } else if (e.target.value == this.specs.SPEC_FROST) {
+        talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
+        spec = "frost";
       } else if (e.target.value == this.specs.SPEC_FIRE) {
         talents = "https://tbc.wowhead.com/talent-calc/mage/2-505202012303331053125-043500001";
         spec = "fire";
@@ -62953,6 +62994,12 @@ var render = function() {
                           "option",
                           { domProps: { value: _vm.specs.SPEC_FIRE } },
                           [_vm._v("Fire")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.specs.SPEC_FROST } },
+                          [_vm._v("Frost")]
                         )
                       ]
                     )
