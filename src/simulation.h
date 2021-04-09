@@ -950,7 +950,7 @@ public:
             }
         }
 
-        if (state->t >= config->trinket2_at && !state->hasCooldown(cooldown::TRINKET2)) {
+        if (!state->hasCooldown(cooldown::TRINKET2)) {
             if (state->t >= config->trinket2_at && (state->t < config->trinket2_at + 20 || !config->trinket2_reuse_at) ||
                 state->t >= config->trinket2_reuse_at && config->trinket2_reuse_at > config->trinket2_at)
             {
