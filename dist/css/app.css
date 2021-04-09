@@ -651,6 +651,62 @@ table.simple th:last-child, table.simple td:last-child {
   text-align: right;
 }
 
+.gem-color.color-m {
+  color: #aaa;
+}
+.gem-color.color-b {
+  color: #3b9ac7;
+}
+.gem-color.color-r {
+  color: #f00;
+}
+.gem-color.color-y {
+  color: #ff0;
+}
+.gem-color.color-o {
+  color: #f80;
+}
+.gem-color.color-p {
+  color: #f0f;
+}
+.gem-color.color-g {
+  color: #0f0;
+}
+.gem-color a {
+  color: inherit;
+}
+
+.quality-epic {
+  color: #a335ee;
+}
+.quality-epic a {
+  color: inherit;
+}
+.quality-rare {
+  color: #0070dd;
+}
+.quality-rare a {
+  color: inherit;
+}
+.quality-legendary {
+  color: #ff8000;
+}
+.quality-legendary a {
+  color: inherit;
+}
+.quality-uncommon {
+  color: #1eff00;
+}
+.quality-uncommon a {
+  color: inherit;
+}
+.quality-common {
+  color: #fff;
+}
+.quality-common a {
+  color: inherit;
+}
+
 #app .github {
   display: block;
   width: 64px;
@@ -771,60 +827,6 @@ table.simple th:last-child, table.simple td:last-child {
   margin-left: 5px;
 }
 #app .wrapper .main .gear .items .socket-color a {
-  color: inherit;
-}
-#app .wrapper .main .gear .items .gem-color.color-m {
-  color: #aaa;
-}
-#app .wrapper .main .gear .items .gem-color.color-b {
-  color: #3b9ac7;
-}
-#app .wrapper .main .gear .items .gem-color.color-r {
-  color: #f00;
-}
-#app .wrapper .main .gear .items .gem-color.color-y {
-  color: #ff0;
-}
-#app .wrapper .main .gear .items .gem-color.color-o {
-  color: #f80;
-}
-#app .wrapper .main .gear .items .gem-color.color-p {
-  color: #f0f;
-}
-#app .wrapper .main .gear .items .gem-color.color-g {
-  color: #0f0;
-}
-#app .wrapper .main .gear .items .gem-color a {
-  color: inherit;
-}
-#app .wrapper .main .gear .items .quality-epic {
-  color: #a335ee;
-}
-#app .wrapper .main .gear .items .quality-epic a {
-  color: inherit;
-}
-#app .wrapper .main .gear .items .quality-rare {
-  color: #0070dd;
-}
-#app .wrapper .main .gear .items .quality-rare a {
-  color: inherit;
-}
-#app .wrapper .main .gear .items .quality-legendary {
-  color: #ff8000;
-}
-#app .wrapper .main .gear .items .quality-legendary a {
-  color: inherit;
-}
-#app .wrapper .main .gear .items .quality-uncommon {
-  color: #1eff00;
-}
-#app .wrapper .main .gear .items .quality-uncommon a {
-  color: inherit;
-}
-#app .wrapper .main .gear .items .quality-common {
-  color: #fff;
-}
-#app .wrapper .main .gear .items .quality-common a {
   color: inherit;
 }
 #app .wrapper .main .gear .items .compare {
@@ -998,6 +1000,8 @@ table.simple th:last-child, table.simple td:last-child {
   right: 0;
   background: rgba(0, 0, 0, 0.6);
   z-index: 200;
+  -webkit-animation: fade 0.4s ease forwards;
+          animation: fade 0.4s ease forwards;
 }
 #app .lightbox > .inner {
   position: absolute;
@@ -1008,6 +1012,14 @@ table.simple th:last-child, table.simple td:last-child {
   width: 80vw;
   background: #161620;
   padding: 30px;
+  overflow: auto;
+  -webkit-animation: moveInFromBelow 0.4s ease forwards;
+          animation: moveInFromBelow 0.4s ease forwards;
+}
+#app .lightbox > .inner > .title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: 700;
 }
 #app .lightbox > .inner textarea {
   height: 350px;

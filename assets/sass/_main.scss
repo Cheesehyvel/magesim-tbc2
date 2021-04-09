@@ -168,6 +168,26 @@ table {
     }
 }
 
+.gem-color {
+    &.color-m { color: #aaa; }
+    &.color-b { color: #3b9ac7; }
+    &.color-r { color: #f00; }
+    &.color-y { color: #ff0; }
+    &.color-o { color: #f80; }
+    &.color-p { color: #f0f; }
+    &.color-g { color: #0f0; }
+
+    a { color: inherit; }
+}
+
+.quality {
+    &-epic { color: #a335ee; a { color: inherit; } }
+    &-rare { color: #0070dd; a { color: inherit; } }
+    &-legendary { color: #ff8000; a { color: inherit; } }
+    &-uncommon { color: #1eff00; a { color: inherit; } }
+    &-common { color: #fff; a { color: inherit; } }
+}
+
 #app {
     .github {
         display: block;
@@ -286,26 +306,6 @@ table {
                         }
 
                         a { color: inherit; }
-                    }
-
-                    .gem-color {
-                        &.color-m { color: #aaa; }
-                        &.color-b { color: #3b9ac7; }
-                        &.color-r { color: #f00; }
-                        &.color-y { color: #ff0; }
-                        &.color-o { color: #f80; }
-                        &.color-p { color: #f0f; }
-                        &.color-g { color: #0f0; }
-
-                        a { color: inherit; }
-                    }
-
-                    .quality {
-                        &-epic { color: #a335ee; a { color: inherit; } }
-                        &-rare { color: #0070dd; a { color: inherit; } }
-                        &-legendary { color: #ff8000; a { color: inherit; } }
-                        &-uncommon { color: #1eff00; a { color: inherit; } }
-                        &-common { color: #fff; a { color: inherit; } }
                     }
 
                     .compare {
@@ -521,6 +521,7 @@ table {
         right: 0;
         background: rgba(0,0,0,0.6);
         z-index: 200;
+        animation: fade 0.4s ease forwards;
 
         > .inner {
             position: absolute;
@@ -531,6 +532,14 @@ table {
             width: 80vw;
             background: #161620;
             padding: $spacer*0.5;
+            overflow: auto;
+            animation: moveInFromBelow 0.4s ease forwards;
+
+            > .title {
+                font-size: 18px;
+                margin-bottom: $spacer*0.25;
+                font-weight: 700;
+            }
 
             textarea {
                 height: 350px;

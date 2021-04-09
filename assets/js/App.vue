@@ -135,6 +135,9 @@
                                 <div class="btn" :class="[!hasComparisons || is_running ? 'disabled' : '']" @click="runComparison">
                                     Run item comparison
                                 </div>
+                                <div class="btn" @click="openEquiplist">
+                                    Equipped items overview
+                                </div>
                             </div>
 
                             <table class="mt-2">
@@ -692,6 +695,62 @@
                     </div>
                 </div>
             </div>
+
+            <div class="lightbox" v-if="equiplist_open">
+                <div class="inner">
+                    <div class="title">Equipped items</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Slot</th>
+                                <th>Item</th>
+                                <th>Enchant</th>
+                                <th>Gems</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                class="equipped-item"
+                                v-for="(item_id, slot) in equipped"
+                                v-if="item_id"
+                            >
+                                <td>{{ formatKey(slot) }}</td>
+                                <td>
+                                    <a :href="itemUrl(item_id)" target="_blank" :class="['quality-'+$get(getItem(slot, item_id), 'q', 'epic')]">
+                                        {{ getItem(slot, item_id).title }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <template v-if="$get(enchants, slot)">
+                                        <a :href="spellUrl(enchants[slot])" target="_blank" :class="['quality-'+$get(getEnchant(slot, enchants[slot]), 'q', 'uncommon')]">
+                                            {{ getEnchant(slot, enchants[slot]).title }}
+                                        </a>
+                                    </template>
+                                </td>
+                                <td>
+                                    <template v-if="gems.hasOwnProperty(slot)">
+                                        <template v-for="(gem_id, index) in gems[slot]" v-if="gem_id">
+                                            <span v-if="index > 0">,</span>
+                                            <a :href="itemUrl(gem_id)" target="_blank" :class="['gem-color', 'color-'+getGem(gem_id).color]">
+                                                {{ getGem(gem_id).title }}
+                                            </a>
+                                        </template>
+                                    </template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-2">
+                        <div class="btn" @click="copyEquiplist">Copy</div>
+                        <div class="btn" @click="closeEquiplist">Close</div>
+                    </div>
+                    <div class="close" @click="closeEquiplist">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -728,6 +787,8 @@
                 import_string: null,
                 export_open: false,
                 export_string: null,
+                equiplist_open: false,
+                equiplist_string: null,
                 final_stats: null,
                 result: null,
                 is_running: false,
@@ -1053,6 +1114,15 @@
                 return _.find(this.items.equip[eslot], {id: id}, null);
             },
 
+            getGem(id) {
+                return _.find(this.items.gems, {id: id}, null);
+            },
+
+            getEnchant(slot, id) {
+                var eslot = this.equipSlotToItemSlot(slot);
+                return _.find(this.items.enchants[eslot], {id: id}, null);
+            },
+
             equippedItem(slot) {
                 var id = this.equipped[slot];
                 if (!id)
@@ -1340,24 +1410,28 @@
                     this.config.meta_gem = this.metaGem().id;
             },
 
-            itemUrl(item) {
+            itemUrl(id) {
+                if (typeof(id) == "object")
+                    id = id.id;
                 if (this.item_source == "tbcdb")
-                    return "https://tbcdb.com/?item="+item.id;
+                    return "https://tbcdb.com/?item="+id;
                 if (this.item_source == "endless")
-                    return "https://db.endless.gg/?item="+item.id;
+                    return "https://db.endless.gg/?item="+id;
                 if (this.item_source == "twinstar")
-                    return "https://tbc-twinhead.twinstar.cz/?item="+item.id;
-                return "https://tbc.wowhead.com/?item="+item.id;
+                    return "https://tbc-twinhead.twinstar.cz/?item="+id;
+                return "https://tbc.wowhead.com/?item="+id;
             },
 
-            spellUrl(spell) {
+            spellUrl(id) {
+                if (typeof(id) == "object")
+                    id = id.id;
                 if (this.item_source == "tbcdb")
-                    return "https://tbcdb.com/?spell="+spell.id;
+                    return "https://tbcdb.com/?spell="+id;
                 if (this.item_source == "endless")
-                    return "https://db.endless.gg/?spell="+spell.id;
+                    return "https://db.endless.gg/?spell="+id;
                 if (this.item_source == "twinstar")
-                    return "https://tbc-twinhead.twinstar.cz/?spell="+spell.id;
-                return "https://tbc.wowhead.com/?spell="+spell.id;
+                    return "https://tbc-twinhead.twinstar.cz/?spell="+id;
+                return "https://tbc.wowhead.com/?spell="+id;
             },
 
             critRatingToChance(rating) {
@@ -1839,6 +1913,45 @@
             closeImport() {
                 this.import_open = false;
                 this.import_string = null;
+            },
+
+            copyEquiplist() {
+                var arr = [];
+
+                var str, item, enchant, gem;
+                for (var slot in this.equipped) {
+                    if (!this.equipped[slot])
+                        continue;
+                    item = this.getItem(slot, this.equipped[slot]);
+                    str = this.formatKey(slot)+": "+item.title;
+
+                    if (_.get(this.enchants, slot)) {
+                        enchant = this.getEnchant(slot, this.enchants[slot]);
+                        str+= " ("+enchant.title+")";
+                    }
+
+                    if (_.get(this.gems, slot)) {
+                        for (var i in this.gems[slot]) {
+                            if (this.gems[slot][i]) {
+                                gem = this.getGem(this.gems[slot][i]);
+                                str+= " ["+gem.title+"]";
+                            }
+                        }
+                    }
+
+                    arr.push(str);
+                }
+
+                str = arr.join("\r\n");
+                this.$copyToClipboard(str);
+            },
+
+            openEquiplist() {
+                this.equiplist_open = true;
+            },
+
+            closeEquiplist() {
+                this.equiplist_open = false;
             },
 
             saveProfile(profile) {

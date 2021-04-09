@@ -167,6 +167,18 @@ vue__WEBPACK_IMPORTED_MODULE_0__.default.prototype.$get = _.get;
 vue__WEBPACK_IMPORTED_MODULE_0__.default.prototype.$set = _.set;
 vue__WEBPACK_IMPORTED_MODULE_0__.default.prototype.$round = _.round;
 
+vue__WEBPACK_IMPORTED_MODULE_0__.default.prototype.$copyToClipboard = function (str) {
+  var el = document.createElement("textarea");
+  el.value = str;
+  el.style.opacity = 0;
+  el.style.position = "absolute";
+  el.style.top = 0;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
 /***/ }),
 
 /***/ "./assets/js/items.js":
@@ -3622,6 +3634,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _simulation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./simulation */ "./assets/js/simulation.js");
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./items */ "./assets/js/items.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./assets/js/constants.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3634,6 +3648,65 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4360,6 +4433,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       import_string: null,
       export_open: false,
       export_string: null,
+      equiplist_open: false,
+      equiplist_string: null,
       final_stats: null,
       result: null,
       is_running: false,
@@ -4695,6 +4770,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         id: id
       }, null);
     },
+    getGem: function getGem(id) {
+      return _.find(this.items.gems, {
+        id: id
+      }, null);
+    },
+    getEnchant: function getEnchant(slot, id) {
+      var eslot = this.equipSlotToItemSlot(slot);
+      return _.find(this.items.enchants[eslot], {
+        id: id
+      }, null);
+    },
     equippedItem: function equippedItem(slot) {
       var id = this.equipped[slot];
       if (!id) return null;
@@ -4938,17 +5024,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.isSpecialItem(this.equipped.trinket2)) this.config.trinket2 = this.equipped.trinket2;
       if (this.metaGem() && this.isSpecialItem(this.metaGem().id)) this.config.meta_gem = this.metaGem().id;
     },
-    itemUrl: function itemUrl(item) {
-      if (this.item_source == "tbcdb") return "https://tbcdb.com/?item=" + item.id;
-      if (this.item_source == "endless") return "https://db.endless.gg/?item=" + item.id;
-      if (this.item_source == "twinstar") return "https://tbc-twinhead.twinstar.cz/?item=" + item.id;
-      return "https://tbc.wowhead.com/?item=" + item.id;
+    itemUrl: function itemUrl(id) {
+      if (_typeof(id) == "object") id = id.id;
+      if (this.item_source == "tbcdb") return "https://tbcdb.com/?item=" + id;
+      if (this.item_source == "endless") return "https://db.endless.gg/?item=" + id;
+      if (this.item_source == "twinstar") return "https://tbc-twinhead.twinstar.cz/?item=" + id;
+      return "https://tbc.wowhead.com/?item=" + id;
     },
-    spellUrl: function spellUrl(spell) {
-      if (this.item_source == "tbcdb") return "https://tbcdb.com/?spell=" + spell.id;
-      if (this.item_source == "endless") return "https://db.endless.gg/?spell=" + spell.id;
-      if (this.item_source == "twinstar") return "https://tbc-twinhead.twinstar.cz/?spell=" + spell.id;
-      return "https://tbc.wowhead.com/?spell=" + spell.id;
+    spellUrl: function spellUrl(id) {
+      if (_typeof(id) == "object") id = id.id;
+      if (this.item_source == "tbcdb") return "https://tbcdb.com/?spell=" + id;
+      if (this.item_source == "endless") return "https://db.endless.gg/?spell=" + id;
+      if (this.item_source == "twinstar") return "https://tbc-twinhead.twinstar.cz/?spell=" + id;
+      return "https://tbc.wowhead.com/?spell=" + id;
     },
     critRatingToChance: function critRatingToChance(rating) {
       return rating / 22.08;
@@ -5348,6 +5436,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     closeImport: function closeImport() {
       this.import_open = false;
       this.import_string = null;
+    },
+    copyEquiplist: function copyEquiplist() {
+      var arr = [];
+      var str, item, enchant, gem;
+
+      for (var slot in this.equipped) {
+        if (!this.equipped[slot]) continue;
+        item = this.getItem(slot, this.equipped[slot]);
+        str = this.formatKey(slot) + ": " + item.title;
+
+        if (_.get(this.enchants, slot)) {
+          enchant = this.getEnchant(slot, this.enchants[slot]);
+          str += " (" + enchant.title + ")";
+        }
+
+        if (_.get(this.gems, slot)) {
+          for (var i in this.gems[slot]) {
+            if (this.gems[slot][i]) {
+              gem = this.getGem(this.gems[slot][i]);
+              str += " [" + gem.title + "]";
+            }
+          }
+        }
+
+        arr.push(str);
+      }
+
+      str = arr.join("\r\n");
+      this.$copyToClipboard(str);
+    },
+    openEquiplist: function openEquiplist() {
+      this.equiplist_open = true;
+    },
+    closeEquiplist: function closeEquiplist() {
+      this.equiplist_open = false;
     },
     saveProfile: function saveProfile(profile) {
       profile.equipped = _.cloneDeep(this.equipped);
@@ -62317,6 +62440,16 @@ var render = function() {
                       "\n                                Run item comparison\n                            "
                     )
                   ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "btn", on: { click: _vm.openEquiplist } },
+                  [
+                    _vm._v(
+                      "\n                                Equipped items overview\n                            "
+                    )
+                  ]
                 )
               ]),
               _vm._v(" "),
@@ -66077,6 +66210,173 @@ var render = function() {
               )
             ])
           ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.equiplist_open
+        ? _c("div", { staticClass: "lightbox" }, [
+            _c("div", { staticClass: "inner" }, [
+              _c("div", { staticClass: "title" }, [_vm._v("Equipped items")]),
+              _vm._v(" "),
+              _c("table", [
+                _vm._m(4),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.equipped, function(item_id, slot) {
+                    return item_id
+                      ? _c("tr", { staticClass: "equipped-item" }, [
+                          _c("td", [_vm._v(_vm._s(_vm.formatKey(slot)))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "a",
+                              {
+                                class: [
+                                  "quality-" +
+                                    _vm.$get(
+                                      _vm.getItem(slot, item_id),
+                                      "q",
+                                      "epic"
+                                    )
+                                ],
+                                attrs: {
+                                  href: _vm.itemUrl(item_id),
+                                  target: "_blank"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(_vm.getItem(slot, item_id).title) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _vm.$get(_vm.enchants, slot)
+                                ? [
+                                    _c(
+                                      "a",
+                                      {
+                                        class: [
+                                          "quality-" +
+                                            _vm.$get(
+                                              _vm.getEnchant(
+                                                slot,
+                                                _vm.enchants[slot]
+                                              ),
+                                              "q",
+                                              "uncommon"
+                                            )
+                                        ],
+                                        attrs: {
+                                          href: _vm.spellUrl(
+                                            _vm.enchants[slot]
+                                          ),
+                                          target: "_blank"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(
+                                              _vm.getEnchant(
+                                                slot,
+                                                _vm.enchants[slot]
+                                              ).title
+                                            ) +
+                                            "\n                                    "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                : _vm._e()
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _vm.gems.hasOwnProperty(slot)
+                                ? [
+                                    _vm._l(_vm.gems[slot], function(
+                                      gem_id,
+                                      index
+                                    ) {
+                                      return gem_id
+                                        ? [
+                                            index > 0
+                                              ? _c("span", [_vm._v(",")])
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            _c(
+                                              "a",
+                                              {
+                                                class: [
+                                                  "gem-color",
+                                                  "color-" +
+                                                    _vm.getGem(gem_id).color
+                                                ],
+                                                attrs: {
+                                                  href: _vm.itemUrl(gem_id),
+                                                  target: "_blank"
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.getGem(gem_id).title
+                                                    ) +
+                                                    "\n                                        "
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        : _vm._e()
+                                    })
+                                  ]
+                                : _vm._e()
+                            ],
+                            2
+                          )
+                        ])
+                      : _vm._e()
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-2" }, [
+                _c(
+                  "div",
+                  { staticClass: "btn", on: { click: _vm.copyEquiplist } },
+                  [_vm._v("Copy")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "btn", on: { click: _vm.closeEquiplist } },
+                  [_vm._v("Close")]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "close", on: { click: _vm.closeEquiplist } },
+                [
+                  _c("span", { staticClass: "material-icons" }, [
+                    _vm._v("\n                        \n                    ")
+                  ])
+                ]
+              )
+            ])
+          ])
         : _vm._e()
     ])
   ])
@@ -66153,6 +66453,22 @@ var staticRenderFns = [
       _c("th", [_vm._v("DPS")]),
       _vm._v(" "),
       _c("th", [_vm._v("Event")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Slot")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Item")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Enchant")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Gems")])
+      ])
     ])
   }
 ]
