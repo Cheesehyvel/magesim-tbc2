@@ -544,6 +544,12 @@
                                     <option :value="drums.DRUMS_OF_RESTORATION">Drums of Restoration (600 mana)</option>
                                 </select>
                             </div>
+                            <div class="form-item" v-if="config.drums">
+                                <label><input type="checkbox" v-model="config.drums_perma">
+                                    <span>Permanent drums</span>
+                                    <help>This simulates having 4+ players in your party using drums</help>
+                                </label>
+                            </div>
                             <div class="form-item">
                                 <label>Potion</label>
                                 <select v-model="config.potion">
@@ -591,6 +597,13 @@
                                 <label>Conjured at</label>
                                 <input type="text" v-model.number="config.conjured_at">
                             </div>
+                            <div class="form-item">
+                                <label>
+                                    <span>Evocation at</span>
+                                    <help>Setting this to 0 will evocate when mana is low</help>
+                                </label>
+                                <input type="text" v-model.number="config.evocation_at">
+                            </div>
                             <div class="form-item" v-if="config.race == races.RACE_TROLL">
                                 <label>Berserking at</label>
                                 <input type="text" v-model.number="config.berserking_at">
@@ -599,11 +612,25 @@
                                 <label>Trinket #1 at</label>
                                 <input type="text" v-model.number="config.trinket1_at">
                             </div>
+                            <div class="form-item" v-if="hasUseTrinket(1)">
+                                <label>
+                                    <span>Trinket #1 reuse at</span>
+                                    <help>Settings this to 0 will reuse trinket on CD</help>
+                                </label>
+                                <input type="text" v-model.number="config.trinket1_reuse_at">
+                            </div>
                             <div class="form-item" v-if="hasUseTrinket(2)">
                                 <label>Trinket #2 at</label>
                                 <input type="text" v-model.number="config.trinket2_at">
                             </div>
-                            <div class="form-item" v-if="config.drums">
+                            <div class="form-item" v-if="hasUseTrinket(2)">
+                                <label>
+                                    <span>Trinket #2 reuse at</span>
+                                    <help>Settings this to 0 will reuse trinket on CD</help>
+                                </label>
+                                <input type="text" v-model.number="config.trinket2_reuse_at">
+                            </div>
+                            <div class="form-item" v-if="config.drums && !config.drums_perma">
                                 <label>First drums at</label>
                                 <input type="text" v-model.number="config.drums_at">
                             </div>
@@ -844,6 +871,7 @@
                     guardian_elixir: 0,
                     weapon_oil: 0,
                     drums: 0,
+                    drums_perma: false,
                     potion: 22832,
                     conjured: 22044,
 
@@ -875,11 +903,14 @@
                     cold_snap_at: 41,
                     combustion_at: 1,
                     trinket1_at: 1,
+                    trinket1_reuse_at: 0,
                     trinket2_at: 21,
+                    trinket2_reuse_at: 0,
                     berserking_at: 41,
                     arcane_power_at: 1,
                     presence_of_mind_at: 0,
                     drums_at: 1,
+                    evocation_at: 0,
                     potion_at: 1,
                     conjured_at: 1,
 

@@ -4405,6 +4405,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4486,6 +4513,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         guardian_elixir: 0,
         weapon_oil: 0,
         drums: 0,
+        drums_perma: false,
         potion: 22832,
         conjured: 22044,
         tirisfal_2set: true,
@@ -4514,11 +4542,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cold_snap_at: 41,
         combustion_at: 1,
         trinket1_at: 1,
+        trinket1_reuse_at: 0,
         trinket2_at: 21,
+        trinket2_reuse_at: 0,
         berserking_at: 41,
         arcane_power_at: 1,
         presence_of_mind_at: 0,
         drums_at: 1,
+        evocation_at: 0,
         potion_at: 1,
         conjured_at: 1,
         talents: "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001",
@@ -65110,6 +65141,71 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
+                  _vm.config.drums
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c(
+                          "label",
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.config.drums_perma,
+                                  expression: "config.drums_perma"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(_vm.config.drums_perma)
+                                  ? _vm._i(_vm.config.drums_perma, null) > -1
+                                  : _vm.config.drums_perma
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.config.drums_perma,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.config,
+                                          "drums_perma",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.config,
+                                          "drums_perma",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.config, "drums_perma", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", [_vm._v("Permanent drums")]),
+                            _vm._v(" "),
+                            _c("help", [
+                              _vm._v(
+                                "This simulates having 4+ players in your party using drums"
+                              )
+                            ])
+                          ],
+                          1
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
                     _c("label", [_vm._v("Potion")]),
                     _vm._v(" "),
@@ -65481,6 +65577,51 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("span", [_vm._v("Evocation at")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v(
+                            "Setting this to 0 will evocate when mana is low"
+                          )
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.config.evocation_at,
+                          expression: "config.evocation_at",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.config.evocation_at },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.config,
+                            "evocation_at",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
                   _vm.config.race == _vm.races.RACE_TROLL
                     ? _c("div", { staticClass: "form-item" }, [
                         _c("label", [_vm._v("Berserking at")]),
@@ -65551,6 +65692,53 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
+                  _vm.hasUseTrinket(1)
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c(
+                          "label",
+                          [
+                            _c("span", [_vm._v("Trinket #1 reuse at")]),
+                            _vm._v(" "),
+                            _c("help", [
+                              _vm._v(
+                                "Settings this to 0 will reuse trinket on CD"
+                              )
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.trinket1_reuse_at,
+                              expression: "config.trinket1_reuse_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.trinket1_reuse_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "trinket1_reuse_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
                   _vm.hasUseTrinket(2)
                     ? _c("div", { staticClass: "form-item" }, [
                         _c("label", [_vm._v("Trinket #2 at")]),
@@ -65586,7 +65774,54 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.config.drums
+                  _vm.hasUseTrinket(2)
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c(
+                          "label",
+                          [
+                            _c("span", [_vm._v("Trinket #2 reuse at")]),
+                            _vm._v(" "),
+                            _c("help", [
+                              _vm._v(
+                                "Settings this to 0 will reuse trinket on CD"
+                              )
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.trinket2_reuse_at,
+                              expression: "config.trinket2_reuse_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.trinket2_reuse_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "trinket2_reuse_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.config.drums && !_vm.config.drums_perma
                     ? _c("div", { staticClass: "form-item" }, [
                         _c("label", [_vm._v("First drums at")]),
                         _vm._v(" "),

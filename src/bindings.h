@@ -160,6 +160,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("inspiring_presence", &Config::inspiring_presence)
         .property("fire_vulnerability", &Config::fire_vulnerability)
         .property("winters_chill", &Config::winters_chill)
+        .property("drums_perma", &Config::drums_perma)
 
         .property("food", &Config::food)
         .property("flask", &Config::flask)
@@ -198,7 +199,10 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("icy_veins_at", &Config::icy_veins_at)
         .property("cold_snap_at", &Config::cold_snap_at)
         .property("trinket1_at", &Config::trinket1_at)
+        .property("trinket1_reuse_at", &Config::trinket1_reuse_at)
         .property("trinket2_at", &Config::trinket2_at)
+        .property("trinket2_reuse_at", &Config::trinket2_reuse_at)
+        .property("evocation_at", &Config::evocation_at)
         .property("berserking_at", &Config::berserking_at)
         .property("arcane_power_at", &Config::arcane_power_at)
         .property("presence_of_mind_at", &Config::presence_of_mind_at)

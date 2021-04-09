@@ -107,6 +107,8 @@ public:
             pushBuffGain(make_shared<buff::PowerInfusion>(), config->power_infusion_at);
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
+        if (config->drums && config->drums_perma)
+            useDrums(true);
 
         if (config->fire_vulnerability) {
             for (double t=1.5; t<state->duration;) {
@@ -933,55 +935,88 @@ public:
             useCombustion();
         if (state->t >= config->berserking_at && !state->hasCooldown(cooldown::BERSERKING) && player->race == RACE_TROLL)
             useBerserking();
-        if (state->t >= config->trinket1_at && !state->hasCooldown(cooldown::TRINKET1))
-            useTrinket(config->trinket1, cooldown::TRINKET1);
-        if (state->t >= config->trinket2_at && !state->hasCooldown(cooldown::TRINKET2))
-            useTrinket(config->trinket2, cooldown::TRINKET2);
-        if (state->t >= config->drums_at && !state->hasCooldown(cooldown::DRUMS))
+        if (state->t >= config->drums_at && !state->hasCooldown(cooldown::DRUMS) && !config->drums_perma)
             useDrums();
         if (state->t >= config->potion_at && !state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA)
             usePotion();
         if (state->t >= config->conjured_at && !state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE && config->conjured != CONJURED_MANA_GEM)
             useConjured();
+
+        if (!state->hasCooldown(cooldown::TRINKET1)) {
+            if (state->t >= config->trinket1_at && (state->t < config->trinket1_at + 20 || !config->trinket1_reuse_at) ||
+                state->t >= config->trinket1_reuse_at && config->trinket1_reuse_at > config->trinket1_at)
+            {
+                useTrinket(config->trinket1, cooldown::TRINKET1);
+            }
+        }
+
+        if (state->t >= config->trinket2_at && !state->hasCooldown(cooldown::TRINKET2)) {
+            if (state->t >= config->trinket2_at && (state->t < config->trinket2_at + 20 || !config->trinket2_reuse_at) ||
+                state->t >= config->trinket2_reuse_at && config->trinket2_reuse_at > config->trinket2_at)
+            {
+                useTrinket(config->trinket2, cooldown::TRINKET2);
+            }
+        }
     }
 
     void useTrinket(Trinket trinket_id, cooldown::ID cd)
     {
-        // TODO: Get correct trinket CD when implenting double trinket usage
-        onCooldownGain(make_shared<cooldown::Cooldown>(cd, 180));
+        double duration = 120; // Most trinkets are 2 min
 
-        if (trinket_id == TRINKET_MQG)
-            onBuffGain(make_shared<buff::MindQuickening>());
         if (trinket_id == TRINKET_RESTRAINED_ESSENCE)
             onBuffGain(make_shared<buff::RestrainedEssence>());
         if (trinket_id == TRINKET_SILVER_CRESCENT)
             onBuffGain(make_shared<buff::SilverCrescent>());
-        if (trinket_id == TRINKET_SCRYERS_BLOODGEM)
-            onBuffGain(make_shared<buff::ScryersBloodgem>());
         if (trinket_id == TRINKET_CRYSTAL_TALISMAN)
             onBuffGain(make_shared<buff::CrystalTalisman>());
-        if (trinket_id == TRINKET_VENGEANCE_ILLIDARI)
-            onBuffGain(make_shared<buff::VengeanceIllidari>());
         if (trinket_id == TRINKET_PENDANT_VIOLET_EYE)
             onBuffGain(make_shared<buff::PendantVioletEye>());
         if (trinket_id == TRINKET_SKULL_GULDAN)
             onBuffGain(make_shared<buff::SkullGuldan>());
         if (trinket_id == TRINKET_SHRUNKEN_HEAD)
             onBuffGain(make_shared<buff::ShrunkenHead>());
-        if (trinket_id == TRINKET_NAARU_SLIVER)
+
+        if (trinket_id == TRINKET_SCRYERS_BLOODGEM) {
+            onBuffGain(make_shared<buff::ScryersBloodgem>());
+            duration = 90;
+        }
+        if (trinket_id == TRINKET_MQG) {
+            onBuffGain(make_shared<buff::MindQuickening>());
+            duration = 300;
+        }
+        if (trinket_id == TRINKET_VENGEANCE_ILLIDARI) {
+            onBuffGain(make_shared<buff::VengeanceIllidari>());
+            duration = 90;
+        }
+        if (trinket_id == TRINKET_NAARU_SLIVER) {
             onBuffGain(make_shared<buff::NaaruSliver>());
+            duration = 90;
+        }
+
+        onCooldownGain(make_shared<cooldown::Cooldown>(cd, duration));
     }
 
-    void useDrums()
+    void useDrums(bool perma = false)
     {
-        onCooldownGain(make_shared<cooldown::Drums>());
+        shared_ptr<buff::Buff> buff = NULL;
 
         if (config->drums == DRUMS_OF_BATTLE)
-            onBuffGain(make_shared<buff::DrumsOfBattle>());
+            buff = make_shared<buff::DrumsOfBattle>();
         else if (config->drums == DRUMS_OF_WAR)
-            onBuffGain(make_shared<buff::DrumsOfWar>());
+            buff = make_shared<buff::DrumsOfWar>();
         else if (config->drums == DRUMS_OF_RESTORATION)
-            onBuffGain(make_shared<buff::DrumsOfRestoration>());
+            buff = make_shared<buff::DrumsOfRestoration>();
+        else
+            return;
+
+        if (perma) {
+            state->addBuff(buff);
+            logBuffGain(buff);
+        }
+        else {
+            onCooldownGain(make_shared<cooldown::Drums>());
+            onBuffGain(buff);
+        }
     }
 
     void usePotion()
@@ -1450,7 +1485,13 @@ public:
 
     bool shouldEvocate()
     {
-        if (state->hasCooldown(cooldown::EVOCATION) || state->hasBuff(buff::INNERVATE) || state->hasBuff(buff::MANA_TIDE))
+        if (state->hasCooldown(cooldown::EVOCATION))
+            return false;
+
+        if (config->evocation_at)
+           return config->evocation_at <= state->t;
+
+        if (state->hasBuff(buff::INNERVATE) || state->hasBuff(buff::MANA_TIDE))
             return false;
 
         if (manaPercent() > 20.0)

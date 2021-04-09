@@ -27,6 +27,7 @@ struct Config
     bool inspiring_presence = false;
     bool fire_vulnerability = false;
     bool winters_chill = false;
+    bool drums_perma = false;
 
     Food food;
     Flask flask;
@@ -66,7 +67,10 @@ struct Config
     double icy_veins_at = 1;
     double cold_snap_at = 20;
     double trinket1_at = 1;
+    double trinket1_reuse_at = 0;
     double trinket2_at = 20;
+    double trinket2_reuse_at = 0;
+    double evocation_at = 0;
     double berserking_at = 1;
     double arcane_power_at = 1;
     double presence_of_mind_at = 0;
