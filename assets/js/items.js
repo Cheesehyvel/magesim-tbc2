@@ -51,6 +51,7 @@ var equip = {
         { id: 33354, title: "Wub's Cursed Hexblade", int: 21, sp: 217, crit: 20, hit: 13, mp5: 6, phase: 4 },
         { id: 30095, title: "Fang of the Leviathan", int: 20, sp: 221, crit: 21, phase: 2 },
         { id: 32053, title: "Merciless Gladiator's Spellblade", int: 18, sp: 225, hit: 15, phase: 2 },
+        { id: 28297, title: "Gladiator's Spellblade", int: 18, sp: 199 },
         { id: 30723, title: "Talon of the Tempest", int: 10, sp: 194, crit: 19, hit: 9, sockets: ["y", "y"], bonus: { int: 3 } },
         { id: 28633, title: "Staff of Infinite Mysteries", twohand: true, int: 51, sp: 185, hit: 23 },
         { id: 28770, title: "Nathrezim Mindblade", int: 18, sp: 203, crit: 23 },
@@ -85,6 +86,7 @@ var equip = {
         { id: 29273, title: "Khadgar's Knapsack", sp: 49 },
         { id: 23049, title: "Sapphiron's Left Eye", ínt: 8, sp: 26, crit: 14, hit: 8 },
         { id: 31978, title: "Merciless Gladiator's Endgame", int: 19, sp: 33, phase: 2 },
+        { id: 28346, title: "Gladiator's Endgame", int: 14, sp: 19 },
         { id: 28260, title: "Manual of the Nethermancer", int: 15, sp: 21, crit: 19, q: "rare" },
         { id: 28187, title: "Star-Heart Lamp", int: 18, sp: 22, hit: 12, q: "rare" },
     ],
@@ -101,6 +103,8 @@ var equip = {
         { id: 25806, title: "Nethekurse's Rod of Torment", int: 10, sp: 11, crit: 10, q: "rare" },
         { id: 25808, title: "Rod of Dire Shadows", int: 10, sp: 11, crit: 10, q: "rare" },
         { id: 32962, title: "Merciless Gladiator's Touch of Defeat", int: 13, sp: 16, phase: 2 },
+        { id: 28320, title: "Gladiator's Touch of Defeat", int: 11, sp: 14 },
+        { id: 30859, title: "Wand of the Seer", int: 8, spi: 5, sp: 18, q: "rare" },
         { id: 22820, title: "Wand of Fates", int: 7, sp: 12, hit: 8 },
     ],
     head: [
@@ -171,6 +175,7 @@ var equip = {
         { id: 28866, title: "High Warlord's Silk Amice", int: 16, sp: 25, crit: 8, sockets: ["b", "y"], q: "rare" },
         { id: 27778, title: "Spaulders of Oblivion", int: 17, sp: 29, sockets: ["b", "y"], bonus: { hit: 3 }, q: "rare" },
         { id: 30925, title: "Spaulders of the Torn-heart", int: 7, spi: 8, sp: 40, crit: 18, q: "rare" },
+        { id: 27994, title: "Mantle of Three Terrors", int: 25, sp: 29, hit: 12, q: "rare" },
         { id: 22983, title: "Rime Covered Mantle", int: 12, sp: 39, crit: 14 },
     ],
     back: [
