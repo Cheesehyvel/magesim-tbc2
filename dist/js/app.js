@@ -1288,6 +1288,12 @@ var equip = {
     "int": 12,
     sp: 39,
     crit: 14
+  }, {
+    id: 22499,
+    title: "Frostfire Shoulderpads",
+    "int": 18,
+    spi: 9,
+    sp: 36
   }],
   back: [{
     id: 34242,
@@ -1798,6 +1804,11 @@ var equip = {
     "int": 11,
     sp: 21,
     crit: 14
+  }, {
+    id: 21186,
+    title: "Rockfury Bracers",
+    sp: 27,
+    hit: 8
   }],
   hands: [{
     id: 34344,
@@ -2010,6 +2021,18 @@ var equip = {
     sp: 29,
     crit: 14,
     q: "rare"
+  }, {
+    id: 21585,
+    title: "Dark Storm Gauntlets",
+    "int": 15,
+    sp: 37,
+    hit: 8
+  }, {
+    id: 22501,
+    title: "Frostfire Gloves",
+    "int": 19,
+    spi: 10,
+    sp: 36
   }],
   waist: [{
     id: 34557,
@@ -2172,6 +2195,13 @@ var equip = {
     "int": 9,
     sp: 41,
     crit: 14
+  }, {
+    id: 22502,
+    title: "Frostfire Belt",
+    "int": 21,
+    spi: 10,
+    sp: 28,
+    hit: 8
   }],
   legs: [{
     id: 34181,
@@ -2415,6 +2445,13 @@ var equip = {
     "int": 14,
     sp: 44,
     crit: 28
+  }, {
+    id: 22497,
+    title: "Frostfire Leggings",
+    "int": 26,
+    spi: 10,
+    sp: 46,
+    hit: 8
   }],
   feet: [{
     id: 34574,
@@ -2560,13 +2597,6 @@ var equip = {
     crit: 17,
     q: "rare"
   }, {
-    id: 22500,
-    title: "Frostfire Sandals",
-    "int": 18,
-    spi: 10,
-    sp: 28,
-    crit: 14
-  }, {
     id: 28179,
     title: "Shattrath Jumpers",
     "int": 17,
@@ -2595,6 +2625,21 @@ var equip = {
     "int": 27,
     spi: 23,
     sp: 34
+  }, {
+    id: 22500,
+    title: "Frostfire Sandals",
+    "int": 18,
+    spi: 10,
+    sp: 28,
+    crit: 14
+  }, {
+    id: 21344,
+    title: "Enigma Boots",
+    "int": 15,
+    spi: 6,
+    sp: 28,
+    hit: 8,
+    mp5: 4
   }],
   finger: [{
     id: 34362,
@@ -2712,18 +2757,6 @@ var equip = {
     hit: 10,
     q: "rare"
   }, {
-    id: 21709,
-    title: "Ring of the Fallen God",
-    "int": 6,
-    sp: 37,
-    hit: 8
-  }, {
-    id: 23062,
-    title: "Frostfire Ring",
-    "int": 10,
-    sp: 30,
-    crit: 14
-  }, {
     id: 29367,
     title: "Ring of Cryptic Dreams",
     "int": 17,
@@ -2786,11 +2819,6 @@ var equip = {
     spi: 13,
     sp: 29
   }, {
-    id: 23031,
-    title: "Band of the Inevitable",
-    sp: 36,
-    hit: 8
-  }, {
     id: 29320,
     title: "Band of the Guardian",
     "int": 11,
@@ -2800,6 +2828,23 @@ var equip = {
   }, {
     id: ids.WRATH_OF_CENARIUS,
     title: "Wrath of Cenarius"
+  }, {
+    id: 21709,
+    title: "Ring of the Fallen God",
+    "int": 6,
+    sp: 37,
+    hit: 8
+  }, {
+    id: 23062,
+    title: "Frostfire Ring",
+    "int": 10,
+    sp: 30,
+    crit: 14
+  }, {
+    id: 23031,
+    title: "Band of the Inevitable",
+    sp: 36,
+    hit: 8
   }],
   trinket: [{
     id: ids.SORCERERS_ALCHEMIST_STONE,
@@ -4500,6 +4545,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -5128,6 +5174,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     itemUrl: function itemUrl(id) {
       if (_typeof(id) == "object") id = id.id;
+      if (id > 99900) return null;
       if (this.item_source == "tbcdb") return "https://tbcdb.com/?item=" + id;
       if (this.item_source == "endless") return "https://db.endless.gg/?item=" + id;
       if (this.item_source == "twinstar") return "https://tbc-twinhead.twinstar.cz/?item=" + id;
@@ -62739,6 +62786,8 @@ var render = function() {
                               }
                             },
                             [
+                              _c("td"),
+                              _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(set.title))]),
                               _vm._v(" "),
                               _c("td"),

@@ -177,6 +177,7 @@ var equip = {
         { id: 30925, title: "Spaulders of the Torn-heart", int: 7, spi: 8, sp: 40, crit: 18, q: "rare" },
         { id: 27994, title: "Mantle of Three Terrors", int: 25, sp: 29, hit: 12, q: "rare" },
         { id: 22983, title: "Rime Covered Mantle", int: 12, sp: 39, crit: 14 },
+        { id: 22499, title: "Frostfire Shoulderpads", int: 18, spi: 9, sp: 36 },
     ],
     back: [
         { id: 34242, title: "Tattered Cape of Antonidas", int: 26, sp: 42, haste: 32, sockets: ["r"], bonus: { sp: 2 }, phase: 5 },
@@ -241,6 +242,7 @@ var equip = {
         { id: 28174, title: "Shattrath Wraps", int: 15, sp: 21, sockets: ["r"], q: "rare" },
         { id: 28477, title: "Harbinger Bands", int: 21, spi: 14, sp: 26 },
         { id: 23021, title: "The Soul Harvester's Bindings", int: 11, sp: 21, crit: 14 },
+        { id: 21186, title: "Rockfury Bracers", sp: 27, hit: 8 },
     ],
     hands: [
         { id: 34344, title: "Handguards of Defiled Worlds", int: 32, sp: 47, hit: 27, haste: 36, sockets: ["y", "r"], bonus: { sp: 4 }, phase: 5 },
@@ -265,6 +267,8 @@ var equip = {
         { id: 27493, title: "Gloves of the Deadwatcher", int: 24, sp: 29, hit: 18, q: "rare" },
         { id: 31149, title: "Gloves of Pandemonium", int: 15, sp: 25, crit: 22, hit: 10, q: "rare" },
         { id: 27508, title: "Incanter's Gloves", int: 24, spi: 12, sp: 29, crit: 14, q: "rare" },
+        { id: 21585, title: "Dark Storm Gauntlets", int: 15, sp: 37, hit: 8 },
+        { id: 22501, title: "Frostfire Gloves", int: 19, spi: 10, sp: 36 },
     ],
     waist: [
         { id: 34557, itemset: ids.TEMPEST_SET, title: "Belt of the Tempest", int: 29, spi: 20, sp: 50, crit: 17, hit: 14, haste: 29, sockets: ["y"], bonus: { sp: 2 }, phase: 5 },
@@ -286,6 +290,7 @@ var equip = {
         { id: 29257, title: "Sash of Arcane Visions", int: 23, spi: 19, sp: 28, crit: 22 },
         { id: 31283, title: "Sash of Sealed Fate", int: 15, sp: 35, crit: 23, q: "rare" },
         { id: 22730, title: "Eyestalk Waist Cord", int: 9, sp: 41, crit: 14 },
+        { id: 22502, title: "Frostfire Belt", int: 21, spi: 10, sp: 28, hit: 8 },
     ],
     legs: [
         { id: 34181, title: "Leggings of Calamity", int: 41, sp: 71, crit: 33, haste: 32, sockets: ["r", "r", "y"], bonus: { sp: 5 }, phase: 5 },
@@ -312,6 +317,7 @@ var equip = {
         { id: 28338, title: "Devil-Stitched Leggings", int: 28, sp: 29, sockets: ["r", "y", "b"], bonus: { sp: 5 }, q: "rare" },
         { id: 27838, title: "Incanter's Trousers", int: 30, spi: 17, sp: 42, crit: 18, q: "rare" },
         { id: 23070, title: "Leggings of Polarity", int: 14, sp: 44, crit: 28 },
+        { id: 22497, title: "Frostfire Leggings", int: 26, spi: 10, sp: 46, hit: 8 },
     ],
     feet: [
         { id: 34574, itemset: ids.TEMPEST_SET, title: "Boots of the Tempest", int: 29, spi: 20, sp: 50, crit: 20, hit: 15, haste: 25, sockets: ["y"], bonus: { sp: 2 }, phase: 5 },
@@ -331,11 +337,12 @@ var equip = {
         { id: 27848, title: "Embroidered Spellpyre Boots", int: 21, sp: 41, q: "rare" },
         { id: 29258, title: "Boots of Ethereal Manipulation", int: 27, spi: 21, sp: 33 },
         { id: 25957, title: "Ethereal Boots of the Skystrider", int: 19, spi: 12, sp: 26, crit: 17, q: "rare" },
-        { id: 22500, title: "Frostfire Sandals", int: 18, spi: 10, sp: 28, crit: 14 },
         { id: 28179, title: "Shattrath Jumpers", int: 17, sp: 29, sockets: ["b", "y"], bonus: { int: 3 }, q: "rare" },
         { id: 28410, title: "General's Silk Footguards", int: 23, sp: 28, crit: 24 },
         { id: 27821, title: "Extravagant Boots of Malice", int: 24, sp: 30, hit: 14, q: "rare" },
         { id: 28670, title: "Boots of the Infernal Coven", int: 27, spi: 23, sp: 34 },
+        { id: 22500, title: "Frostfire Sandals", int: 18, spi: 10, sp: 28, crit: 14 },
+        { id: 21344, title: "Enigma Boots", int: 15, spi: 6, sp: 28, hit: 8, mp5: 4 },
     ],
     finger: [
         { id: 34362, title: "Loop of Forged Power", int: 28, sp: 34, hit: 19, haste: 30, phase: 5 },
@@ -354,8 +361,6 @@ var equip = {
         { id: 30109, title: "Ring of Endless Coils", sp: 37, crit: 22, phase: 2 },
         { id: 29922, title: "Band of Al'ar", int: 23, sp: 37, phase: 2 },
         { id: 28227, title: "Sparking Arcanite Ring", int: 14, sp: 22, crit: 14, hit: 10, q: "rare" },
-        { id: 21709, title: "Ring of the Fallen God", int: 6, sp: 37, hit: 8 },
-        { id: 23062, title: "Frostfire Ring", int: 10, sp: 30, crit: 14 },
         { id: 29367, title: "Ring of Cryptic Dreams", int: 17, sp: 23, crit: 20 },
         { id: 29352, title: "Cobalt Band of Tyrigosa", int: 17, sp: 35 },
         { id: 31075, title: "Evoker's Mark of the Redemption", int: 15, sp: 29, crit: 10, q: "rare" },
@@ -366,9 +371,11 @@ var equip = {
         { id: 27784, title: "Scintillating Coral Band", int: 15, sp: 21, crit: 17, q: "rare" },
         { id: 29126, title: "Seer's Signet", sp: 34, crit: 12 },
         { id: 31339, itemset: 667, title: "Lola's Eve", int: 14, spi: 13, sp: 29 },
-        { id: 23031, title: "Band of the Inevitable", sp: 36, hit: 8 },
         { id: 29320, title: "Band of the Guardian", int: 11, sp: 23, crit: 17, q: "rare" },
         { id: ids.WRATH_OF_CENARIUS, title: "Wrath of Cenarius", },
+        { id: 21709, title: "Ring of the Fallen God", int: 6, sp: 37, hit: 8 },
+        { id: 23062, title: "Frostfire Ring", int: 10, sp: 30, crit: 14 },
+        { id: 23031, title: "Band of the Inevitable", sp: 36, hit: 8 },
     ],
     trinket: [
         { id: ids.SORCERERS_ALCHEMIST_STONE, title: "Sorcerer's Alchemist Stone", sp: 63, phase: 5 },

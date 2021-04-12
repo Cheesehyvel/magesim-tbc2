@@ -201,6 +201,7 @@
                                         v-for="(set, key) in items.quicksets"
                                         v-if="active_slot == 'quicksets'"
                                     >
+                                        <td></td>
                                         <td>{{ set.title }}</td>
                                         <td></td>
                                         <td></td>
@@ -1471,6 +1472,8 @@
             itemUrl(id) {
                 if (typeof(id) == "object")
                     id = id.id;
+                if (id > 99900)
+                    return null;
                 if (this.item_source == "tbcdb")
                     return "https://tbcdb.com/?item="+id;
                 if (this.item_source == "endless")
