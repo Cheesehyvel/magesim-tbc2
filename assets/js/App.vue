@@ -589,14 +589,6 @@
                                 <label>Combustion at</label>
                                 <input type="text" v-model.number="config.combustion_at">
                             </div>
-                            <div class="form-item" v-if="config.potion && config.potion != potions.POTION_MANA">
-                                <label>Potion at</label>
-                                <input type="text" v-model.number="config.potion_at">
-                            </div>
-                            <div class="form-item" v-if="config.conjured && config.conjured != conjureds.CONJURED_MANA_GEM">
-                                <label>Conjured at</label>
-                                <input type="text" v-model.number="config.conjured_at">
-                            </div>
                             <div class="form-item">
                                 <label>
                                     <span>Evocation at</span>
@@ -608,27 +600,57 @@
                                 <label>Berserking at</label>
                                 <input type="text" v-model.number="config.berserking_at">
                             </div>
-                            <div class="form-item" v-if="hasUseTrinket(1)">
-                                <label>Trinket #1 at</label>
-                                <input type="text" v-model.number="config.trinket1_at">
+                            <div class="form-row" v-if="config.potion && config.potion != potions.POTION_MANA">
+                                <div class="form-item">
+                                    <label>Potion at</label>
+                                    <input type="text" v-model.number="config.potion_at">
+                                </div>
+                                <div class="form-item">
+                                    <label>
+                                        <span>Reuse at</span>
+                                        <help>Settings this to 0 will reuse potion on CD</help>
+                                    </label>
+                                    <input type="text" v-model.number="config.potion_reuse_at">
+                                </div>
                             </div>
-                            <div class="form-item" v-if="hasUseTrinket(1)">
-                                <label>
-                                    <span>Trinket #1 reuse at</span>
-                                    <help>Settings this to 0 will reuse trinket on CD</help>
-                                </label>
-                                <input type="text" v-model.number="config.trinket1_reuse_at">
+                            <div class="form-row" v-if="config.conjured && config.conjured != conjureds.CONJURED_MANA_GEM">
+                                <div class="form-item">
+                                    <label>Conjured at</label>
+                                    <input type="text" v-model.number="config.conjured_at">
+                                </div>
+                                <div class="form-item">
+                                    <label>
+                                        <span>Reuse at</span>
+                                        <help>Settings this to 0 will reuse conjured on CD</help>
+                                    </label>
+                                    <input type="text" v-model.number="config.conjured_reuse_at">
+                                </div>
                             </div>
-                            <div class="form-item" v-if="hasUseTrinket(2)">
-                                <label>Trinket #2 at</label>
-                                <input type="text" v-model.number="config.trinket2_at">
+                            <div class="form-row" v-if="hasUseTrinket(1)">
+                                <div class="form-item"">
+                                    <label>Trinket #1 at</label>
+                                    <input type="text" v-model.number="config.trinket1_at">
+                                </div>
+                                <div class="form-item">
+                                    <label>
+                                        <span>Reuse at</span>
+                                        <help>Settings this to 0 will reuse trinket on CD</help>
+                                    </label>
+                                    <input type="text" v-model.number="config.trinket1_reuse_at">
+                                </div>
                             </div>
-                            <div class="form-item" v-if="hasUseTrinket(2)">
-                                <label>
-                                    <span>Trinket #2 reuse at</span>
-                                    <help>Settings this to 0 will reuse trinket on CD</help>
-                                </label>
-                                <input type="text" v-model.number="config.trinket2_reuse_at">
+                            <div class="form-row" v-if="hasUseTrinket(2)">
+                                <div class="form-item">
+                                    <label>Trinket #2 at</label>
+                                    <input type="text" v-model.number="config.trinket2_at">
+                                </div>
+                                <div class="form-item">
+                                    <label>
+                                        <span>Reuse at</span>
+                                        <help>Settings this to 0 will reuse trinket on CD</help>
+                                    </label>
+                                    <input type="text" v-model.number="config.trinket2_reuse_at">
+                                </div>
                             </div>
                             <div class="form-item" v-if="config.drums && !config.drums_perma">
                                 <label>First drums at</label>
@@ -912,7 +934,9 @@
                     drums_at: 1,
                     evocation_at: 0,
                     potion_at: 1,
+                    potion_reuse_at: 0,
                     conjured_at: 1,
+                    conjured_reuse_at: 0,
 
                     talents: "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001",
 

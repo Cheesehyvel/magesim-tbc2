@@ -116,8 +116,25 @@ fieldset {
         color: #aaa;
         user-select: none;
     }
+
     input:checked + span {
         color: #fff;
+    }
+}
+
+.form-row {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+
+    &:nth-child(n+2) {
+        margin-top: 10px;
+    }
+
+    > .form-item {
+        grid-row: 1;
+        grid-column-width: 1fr;
+        margin-top: 0 !important;
     }
 }
 

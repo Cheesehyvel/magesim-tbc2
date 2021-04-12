@@ -937,10 +937,22 @@ public:
             useBerserking();
         if (state->t >= config->drums_at && !state->hasCooldown(cooldown::DRUMS) && !config->drums_perma)
             useDrums();
-        if (state->t >= config->potion_at && !state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA)
-            usePotion();
-        if (state->t >= config->conjured_at && !state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE && config->conjured != CONJURED_MANA_GEM)
-            useConjured();
+
+        if (!state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA) {
+            if (state->t >= config->potion_at && (state->t < config->potion_at + 20 || !config->potion_reuse_at) ||
+                state->t >= config->potion_reuse_at && config->potion_reuse_at > config->potion_at)
+            {
+                usePotion();
+            }
+        }
+
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE && config->conjured != CONJURED_MANA_GEM) {
+            if (state->t >= config->conjured_at && (state->t < config->conjured_at + 20 || !config->conjured_reuse_at) ||
+                state->t >= config->conjured_reuse_at && config->conjured_reuse_at > config->conjured_at)
+            {
+                useConjured();
+            }
+        }
 
         if (!state->hasCooldown(cooldown::TRINKET1)) {
             if (state->t >= config->trinket1_at && (state->t < config->trinket1_at + 20 || !config->trinket1_reuse_at) ||

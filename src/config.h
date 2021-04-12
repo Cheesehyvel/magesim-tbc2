@@ -77,6 +77,8 @@ struct Config
     double combustion_at = 0;
     double drums_at = 1;
     double potion_at = 21;
+    double potion_reuse_at = 0;
     double conjured_at = 21;
+    double conjured_reuse_at = 0;
 
 };

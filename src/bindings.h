@@ -209,7 +209,9 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("combustion_at", &Config::combustion_at)
         .property("drums_at", &Config::drums_at)
         .property("potion_at", &Config::potion_at)
+        .property("potion_reuse_at", &Config::potion_reuse_at)
         .property("conjured_at", &Config::conjured_at)
+        .property("conjured_reuse_at", &Config::conjured_reuse_at)
         ;
 
     emscripten::function("allocConfig", &allocConfig);
