@@ -421,7 +421,7 @@ var equip = {
 };
 
 var gems = [
-    { id: ids.CHAOTIC_SKYFIRE, title: "Chaotic Skyfire Diamond", color: "m", crit: 12, desc: "+3% crit dmg", phase: 4 },
+    { id: ids.CHAOTIC_SKYFIRE, title: "Chaotic Skyfire Diamond", color: "m", crit: 12, desc: "+3% crit dmg" },
     { id: ids.EMBER_SKYFIRE, title: "Ember Skyfire Diamond", color: "m", sp: 14, desc: "+2% int" },
     { id: ids.INSIGHTFUL_EARTHSTORM, title: "Insightful Earthstorm Diamond", color: "m", int: 12, desc: "Chance to restore mana" },
     { id: 25890, title: "Destructive Skyfire Diamond", color: "m", sp: 14, desc: "1% Spell reflect" },

@@ -3027,8 +3027,7 @@ var gems = [{
   title: "Chaotic Skyfire Diamond",
   color: "m",
   crit: 12,
-  desc: "+3% crit dmg",
-  phase: 4
+  desc: "+3% crit dmg"
 }, {
   id: ids.EMBER_SKYFIRE,
   title: "Ember Skyfire Diamond",
