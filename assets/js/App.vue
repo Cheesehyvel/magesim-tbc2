@@ -508,6 +508,7 @@
                                     <option :value="elixirs.ELIXIR_NONE">None</option>
                                     <option :value="elixirs.ELIXIR_ADEPTS">Adept's Elixir (24 sp / 24 crit)</option>
                                     <option :value="elixirs.ELIXIR_GREATER_ARCANE">Greater Arcane (35 sp)</option>
+                                    <option :value="elixirs.ELIXIR_MAJOR_FIREPOWER">Major Firepower (55 fire)</option>
                                 </select>
                             </div>
                             <div class="form-item" v-if="!config.flask">
@@ -1278,6 +1279,8 @@
                     stats.spell_power+= 24;
                 if (this.config.battle_elixir == this.elixirs.ELIXIR_GREATER_ARCANE)
                     stats.spell_power+= 35;
+                if (this.config.battle_elixir == this.elixirs.ELIXIR_MAJOR_FIREPOWER)
+                    stats.spell_power_fire+= 55;
 
                 // Spell crit
                 var critrating = 0;

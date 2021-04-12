@@ -102,7 +102,9 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("ELIXIR_MAJOR_MAGEBLOOD", ELIXIR_MAJOR_MAGEBLOOD)
         .value("ELIXIR_DRAENIC_WISDOM", ELIXIR_DRAENIC_WISDOM)
         .value("ELIXIR_GREATER_ARCANE", ELIXIR_GREATER_ARCANE)
-        .value("ELIXIR_ADEPTS", ELIXIR_ADEPTS);
+        .value("ELIXIR_ADEPTS", ELIXIR_ADEPTS)
+        .value("ELIXIR_MAJOR_FIREPOWER", ELIXIR_MAJOR_FIREPOWER)
+        ;
 
     emscripten::enum_<Drums>("Drums")
         .value("DRUMS_NONE", DRUMS_NONE)

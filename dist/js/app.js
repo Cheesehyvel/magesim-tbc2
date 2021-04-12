@@ -125,7 +125,8 @@ __webpack_require__.r(__webpack_exports__);
     ELIXIR_GREATER_ARCANE: 13454,
     ELIXIR_ADEPTS: 28103,
     ELIXIR_MAJOR_MAGEBLOOD: 22840,
-    ELIXIR_DRAENIC_WISDOM: 32067
+    ELIXIR_DRAENIC_WISDOM: 32067,
+    ELIXIR_MAJOR_FIREPOWER: 22833
   },
   drums: {
     DRUMS_NONE: 0,
@@ -4498,6 +4499,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -4957,7 +4959,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) stats.spell_power += 24;
-      if (this.config.battle_elixir == this.elixirs.ELIXIR_GREATER_ARCANE) stats.spell_power += 35; // Spell crit
+      if (this.config.battle_elixir == this.elixirs.ELIXIR_GREATER_ARCANE) stats.spell_power += 35;
+      if (this.config.battle_elixir == this.elixirs.ELIXIR_MAJOR_FIREPOWER) stats.spell_power_fire += 55; // Spell crit
 
       var critrating = 0;
       if (this.config.judgement_of_the_crusader) stats.crit += 3;
@@ -64944,6 +64947,16 @@ var render = function() {
                                 }
                               },
                               [_vm._v("Greater Arcane (35 sp)")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.elixirs.ELIXIR_MAJOR_FIREPOWER
+                                }
+                              },
+                              [_vm._v("Major Firepower (55 fire)")]
                             )
                           ]
                         )

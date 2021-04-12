@@ -36,6 +36,7 @@ export default {
         ELIXIR_ADEPTS: 28103,
         ELIXIR_MAJOR_MAGEBLOOD: 22840,
         ELIXIR_DRAENIC_WISDOM: 32067,
+        ELIXIR_MAJOR_FIREPOWER: 22833,
     },
     drums: {
         DRUMS_NONE: 0,

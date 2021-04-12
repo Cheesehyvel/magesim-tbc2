@@ -90,6 +90,7 @@ enum Elixir : int
     ELIXIR_DRAENIC_WISDOM = 32067,
     ELIXIR_GREATER_ARCANE = 13454,
     ELIXIR_ADEPTS = 28103,
+    ELIXIR_MAJOR_FIREPOWER = 22833,
 };
 
 enum Drums : int

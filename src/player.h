@@ -163,6 +163,8 @@ public:
             stats.spell_power+= 24.0;
         if (config->battle_elixir == ELIXIR_GREATER_ARCANE)
             stats.spell_power+= 35.0;
+        if (config->battle_elixir == ELIXIR_MAJOR_FIREPOWER)
+            stats.spell_power_fire+= 55.0;
 
         // Spell crit
         double critrating = 0;
