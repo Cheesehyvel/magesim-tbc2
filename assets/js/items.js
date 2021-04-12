@@ -171,7 +171,7 @@ var equip = {
         { id: 33757, title: "Vengeful Gladiator's Silk Amice", int: 13, sp: 40, crit: 17, sockets: ["b", "y"], phase: 3 },
         { id: 29079, title: "Pauldrons of the Aldor", int: 26, spi: 16, sp: 27, crit: 15, sockets: ["y", "r"], bonus: { sp: 4 } },
         { id: 32047, title: "Merciless Gladiator's Silk Amice", int: 15, sp: 36, crit: 14, sockets: ["b", "y"], phase: 2 },
-        { id: 27796, title: "Mana-Etched Spaulders", int: 17, sp: 20, crit: 16, sockets: ["y", "r"], q: "rare" },
+        { id: 27796, itemset: 658, title: "Mana-Etched Spaulders", int: 17, sp: 20, crit: 16, sockets: ["y", "r"], q: "rare" },
         { id: 28866, title: "High Warlord's Silk Amice", int: 16, sp: 25, crit: 8, sockets: ["b", "y"], q: "rare" },
         { id: 27778, title: "Spaulders of Oblivion", int: 17, sp: 29, sockets: ["b", "y"], bonus: { hit: 3 }, q: "rare" },
         { id: 30925, title: "Spaulders of the Torn-heart", int: 7, spi: 8, sp: 40, crit: 18, q: "rare" },
@@ -216,7 +216,7 @@ var equip = {
         { id: 25856, title: "Gladiator's Silk Raiment", int: 18, sp: 32, crit: 25, sockets: ["y", "y", "r"], bonus: { crit: 4 } },
         { id: 31340, title: "Will of Edward the Odd", int: 30, sp: 53, crit: 30 },
         { id: 28342, title: "Warp Infused Drape", int: 28, sp: 30, hit: 12, sockets: ["r", "b", "y"], bonus: { crit: 4 }, q: "rare" },
-        { id: 28191, title: "Mana-Etched Vestments", int: 25, sp: 29, crit: 17, sockets: ["r", "b", "y"], bonus: { sp: 5 }, q: "rare" },
+        { id: 28191, itemset: 658, title: "Mana-Etched Vestments", int: 25, sp: 29, crit: 17, sockets: ["r", "b", "y"], bonus: { sp: 5 }, q: "rare" },
         { id: 29129, title: "Anchorite's Robes", int: 38, spi: 18, sp: 29, sockets: ["y", "b", "y"], bonus: { mp5: 2 }, q: "rare" },
         { id: 28229, title: "Incanter's Robe", int: 22, spi: 22, sp: 29, crit: 8, sockets: ["y", "y", "r"], bonus: { int: 4 }, q: "rare" },
         { id: 28232, title: "Robe of Oblivion", int: 20, sp: 40, sockets: ["r", "y", "b"], q: "rare" },
@@ -258,7 +258,7 @@ var equip = {
         { id: 29080, title: "Gloves of the Aldor", int: 22, spi: 19, sp: 35, crit: 19, hit: 17 },
         { id: 35098, title: "Brutal Gladiator's Silk Handguards", int: 23, sp: 44, crit: 26, phase: 5 },
         { id: 33759, title: "Vengeful Gladiator's Silk Handguards", int: 18, sp: 40, crit: 22, phase: 3 },
-        { id: 27465, title: "Mana-Etched Gloves", int: 17, sp: 20, crit: 16, sockets: ["r", "y"], q: "rare" },
+        { id: 27465, itemset: 658, title: "Mana-Etched Gloves", int: 17, sp: 20, crit: 16, sockets: ["r", "y"], q: "rare" },
         { id: 29317, title: "Tempest's Touch", int: 20, spi: 6, sp: 27, sockets: ["b", "b"], bonus: { crit: 3 }, q: "rare" },
         { id: 32049, title: "Merciless Gladiator's Silk Handguards", int: 20, sp: 36, crit: 19, phase: 2 },
         { id: 24450, title: "Manaspark Gloves", int: 14, spi: 10, sp: 16, hit: 15, sockets: ["r", "y"], bonus: { crit: 3 }, q: "rare" },
@@ -311,6 +311,7 @@ var equip = {
         { id: 30709, title: "Pantaloons of Flaming Wrath", int: 28, sp: 33, crit: 42, q: "rare" },
         { id: 28338, title: "Devil-Stitched Leggings", int: 28, sp: 29, sockets: ["r", "y", "b"], bonus: { sp: 5 }, q: "rare" },
         { id: 27838, title: "Incanter's Trousers", int: 30, spi: 17, sp: 42, crit: 18, q: "rare" },
+        { id: 23070, title: "Leggings of Polarity", int: 14, sp: 44, crit: 28 },
     ],
     feet: [
         { id: 34574, itemset: ids.TEMPEST_SET, title: "Boots of the Tempest", int: 29, spi: 20, sp: 50, crit: 20, hit: 15, haste: 25, sockets: ["y"], bonus: { sp: 2 }, phase: 5 },
@@ -500,7 +501,8 @@ var enchants = {
 };
 
 var itemsets = [
-    { id: 667, title: "The Twin Stars", set2: { sp: 15 } }
+    { id: 667, title: "The Twin Stars", set2: { sp: 15 } },
+    { id: 658, title: "Mana-Etched Regalia", set2: { hit: 35 } },
 ];
 
 var quicksets = {

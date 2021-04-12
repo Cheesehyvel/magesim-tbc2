@@ -1241,6 +1241,7 @@ var equip = {
     phase: 2
   }, {
     id: 27796,
+    itemset: 658,
     title: "Mana-Etched Spaulders",
     "int": 17,
     sp: 20,
@@ -1597,6 +1598,7 @@ var equip = {
     q: "rare"
   }, {
     id: 28191,
+    itemset: 658,
     title: "Mana-Etched Vestments",
     "int": 25,
     sp: 29,
@@ -1947,6 +1949,7 @@ var equip = {
     phase: 3
   }, {
     id: 27465,
+    itemset: 658,
     title: "Mana-Etched Gloves",
     "int": 17,
     sp: 20,
@@ -2405,6 +2408,12 @@ var equip = {
     sp: 42,
     crit: 18,
     q: "rare"
+  }, {
+    id: 23070,
+    title: "Leggings of Polarity",
+    "int": 14,
+    sp: 44,
+    crit: 28
   }],
   feet: [{
     id: 34574,
@@ -3328,6 +3337,12 @@ var itemsets = [{
   title: "The Twin Stars",
   set2: {
     sp: 15
+  }
+}, {
+  id: 658,
+  title: "Mana-Etched Regalia",
+  set2: {
+    hit: 35
   }
 }];
 var quicksets = {
@@ -5175,6 +5190,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.finalStats();
       if (typeof save == "undefined" || save) this.saveGear();
+      this.refreshTooltips();
     },
     isEquipped: function isEquipped(slot, id) {
       if (slot == "trinket" || slot == "finger") return this.isEquipped(slot + "1", id) || this.isEquipped(slot + "2", id);

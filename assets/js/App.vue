@@ -1558,6 +1558,8 @@
                 this.finalStats();
                 if (typeof(save) == "undefined" || save)
                     this.saveGear();
+
+                this.refreshTooltips();
             },
 
             isEquipped(slot, id) {
