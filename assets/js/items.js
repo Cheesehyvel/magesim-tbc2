@@ -445,6 +445,7 @@ var gems = [
     { id: 35761, title: "Quick Lionseye", color: "y", haste: 10, phase: 5 },
     { id: 32210, title: "Great Lionseye", color: "y", hit: 10, phase: 3 },
     { id: 32207, title: "Gleaming Lionseye", color: "y", crit: 10, phase: 3 },
+    { id: 32204, title: "Brilliant Lionseye", color: "y", int: 10, phase: 3 },
     { id: 28120, title: "Gleaming Ornate Dawnstone", color: "y", crit: 10, unique: true },
     { id: 31861, title: "Great Dawnstone", color: "y", hit: 8 },
     { id: 24050, title: "Gleaming Dawnstone", color: "y", crit: 8 },

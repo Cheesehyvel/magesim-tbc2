@@ -3173,6 +3173,12 @@ var gems = [{
   crit: 10,
   phase: 3
 }, {
+  id: 32204,
+  title: "Brilliant Lionseye",
+  color: "y",
+  "int": 10,
+  phase: 3
+}, {
   id: 28120,
   title: "Gleaming Ornate Dawnstone",
   color: "y",
