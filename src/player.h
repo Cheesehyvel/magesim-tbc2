@@ -8,7 +8,7 @@ class Player
 {
 
 public:
-    const double base_mana = 1961;
+    const double base_mana = 2241;
 
     Stats stats;
     Talents talents;

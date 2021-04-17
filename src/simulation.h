@@ -1065,6 +1065,7 @@ public:
 
     void useIcyVeins()
     {
+        state->mana-= player->base_mana * 0.03;
         onCooldownGain(make_shared<cooldown::IcyVeins>());
         onBuffGain(make_shared<buff::IcyVeins>());
     }
@@ -1085,6 +1086,7 @@ public:
 
     void useBerserking()
     {
+        state->mana-= player->base_mana * 0.06;
         onCooldownGain(make_shared<cooldown::Berserking>());
         onBuffGain(make_shared<buff::Berserking>());
     }
