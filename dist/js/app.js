@@ -4580,6 +4580,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4638,12 +4644,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         duration: 180,
         duration_variance: 0,
         rng_seed: 0,
-        vampiric_touch_regen: 40,
+        gcd_unlocked: false,
         misery: true,
         curse_of_elements: true,
         judgement_of_the_crusader: false,
         judgement_of_wisdom: true,
         vampiric_touch: true,
+        vampiric_touch_regen: 40,
         totem_of_wrath: true,
         wrath_of_air: true,
         mana_spring: true,
@@ -64108,6 +64115,67 @@ var render = function() {
                         }
                       }
                     })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.gcd_unlocked,
+                              expression: "config.gcd_unlocked"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.config.gcd_unlocked)
+                              ? _vm._i(_vm.config.gcd_unlocked, null) > -1
+                              : _vm.config.gcd_unlocked
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.config.gcd_unlocked,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "gcd_unlocked",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "gcd_unlocked",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.config, "gcd_unlocked", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Unlock GCD")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v("Enables the GCD to go below 1.0s with haste")
+                        ])
+                      ],
+                      1
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [

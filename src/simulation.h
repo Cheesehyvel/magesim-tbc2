@@ -1184,7 +1184,7 @@ public:
 
         t*= castHaste();
 
-        if (t < 1.0)
+        if (t < 1.0 && !config->gcd_unlocked)
             t = 1.0;
 
         return t;

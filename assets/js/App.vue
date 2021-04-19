@@ -432,6 +432,12 @@
                                 <input type="text" v-model.number="config.rng_seed">
                             </div>
                             <div class="form-item">
+                                <label><input type="checkbox" v-model="config.gcd_unlocked">
+                                    <span>Unlock GCD</span>
+                                    <help>Enables the GCD to go below 1.0s with haste</help>
+                                </label>
+                            </div>
+                            <div class="form-item">
                                 <label><input type="checkbox" v-model="config.tooltips" @input="refreshTooltips(true)"> <span>Use item tooltips (requires reload)</span></label>
                             </div>
                         </fieldset>
@@ -889,13 +895,14 @@
                     duration: 180,
                     duration_variance: 0,
                     rng_seed: 0,
-                    vampiric_touch_regen: 40,
+                    gcd_unlocked: false,
 
                     misery: true,
                     curse_of_elements: true,
                     judgement_of_the_crusader: false,
                     judgement_of_wisdom: true,
                     vampiric_touch: true,
+                    vampiric_touch_regen: 40,
 
                     totem_of_wrath: true,
                     wrath_of_air: true,

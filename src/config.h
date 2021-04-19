@@ -4,6 +4,7 @@ struct Config
     int duration = 200;
     double duration_variance = 1.5;
     int rng_seed = 0;
+    bool gcd_unlocked = false;
     int vampiric_touch_regen = 50;
 
     bool misery = true;
