@@ -64861,7 +64861,8 @@ var render = function() {
                               }
                             }
                           }),
-                          _vm._v(" Imp. Divine Spirit")
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Imp. Divine Spirit")])
                         ])
                       ])
                     : _vm._e(),

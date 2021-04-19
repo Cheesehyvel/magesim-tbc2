@@ -484,7 +484,7 @@
                                 <label><input type="checkbox" v-model="config.divine_spirit"> <span>Divine Spirit</span></label>
                             </div>
                             <div class="form-item" v-if="config.divine_spirit">
-                                <label><input type="checkbox" v-model="config.improved_divine_spirit"> Imp. Divine Spirit</label>
+                                <label><input type="checkbox" v-model="config.improved_divine_spirit"> <span>Imp. Divine Spirit</span></label>
                             </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.mark_of_the_wild"> <span>Mark of the Wild</span></label>
