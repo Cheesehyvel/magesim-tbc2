@@ -141,6 +141,7 @@ var equip = {
         { id: 35290, title: "Sin'dorei Pendant of Conquest", int: 19, sp: 34, crit: 19, sockets: ["b"], bonus: { sp: 2 }, phase: 5 },
         { id: 33466, title: "Loop of Cursed Bones", int: 20, sp: 32, haste: 27, phase: 4 },
         { id: 30015, title: "The Sun King's Talisman", int: 16, sp: 41, crit: 24, phase: 2 },
+        { id: 32589, title: "Hellfire-Encased Pendant", int: 17, spi: 12, sp_fire: 51, crit: 24, phase: 3 },
         { id: 33920, title: "Vindicator's Pendant of Conquest", int: 15, sp: 25, crit: 21, sockets: ["y"], phase: 3 },
         { id: 28762, title: "Adornment of Stolen Souls", int: 20, sp: 28, crit: 23 },
         { id: 33067, title: "Veteran's Pendant of Conquest", int: 12, sp: 21, crit: 18, sockets: ["y"], phase: 2 },

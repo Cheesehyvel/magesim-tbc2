@@ -1006,6 +1006,14 @@ var equip = {
     crit: 24,
     phase: 2
   }, {
+    id: 32589,
+    title: "Hellfire-Encased Pendant",
+    "int": 17,
+    spi: 12,
+    sp_fire: 51,
+    crit: 24,
+    phase: 3
+  }, {
     id: 33920,
     title: "Vindicator's Pendant of Conquest",
     "int": 15,
