@@ -899,6 +899,15 @@ public:
         }
 
         else if (player->spec == SPEC_FIRE) {
+
+            if (state->t >= config->presence_of_mind_at &&
+                !state->hasCooldown(cooldown::PRESENCE_OF_MIND) &&
+                player->talents.presence_of_mind &&
+                player->talents.pyroblast)
+            {
+                return make_shared<spell::Pyroblast>();
+            }
+
             if (shouldScorch())
                 next = make_shared<spell::Scorch>();
         }

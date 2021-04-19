@@ -522,6 +522,20 @@ a:hover {
   font-size: inherit;
   vertical-align: middle;
 }
+.material-icons.flip-v {
+  transform: rotateX(180deg);
+}
+
+.sort-link {
+  cursor: pointer;
+}
+.sort-link .material-icons {
+  font-size: 18px;
+  color: #888;
+}
+.sort-link.active .material-icons {
+  color: #08f;
+}
 
 .btn {
   display: inline-block;

@@ -25,6 +25,25 @@ a {
 .material-icons {
     font-size: inherit;
     vertical-align: middle;
+
+    &.flip-v {
+        transform: rotateX(180deg);
+    }
+}
+
+.sort-link {
+    cursor: pointer;
+
+    .material-icons {
+        font-size: 18px;
+        color: #888;
+    }
+
+    &.active {
+        .material-icons {
+            color: #08f;
+        }
+    }
 }
 
 .btn {

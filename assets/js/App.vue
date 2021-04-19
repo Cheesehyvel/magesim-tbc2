@@ -144,17 +144,37 @@
                                 <thead>
                                     <tr>
                                         <th class="min"></th>
-                                        <th class="title">Name</th>
+                                        <th class="title">
+                                            <sort-link v-model="item_sort" name="title">Name</sort-link>
+                                        </th>
                                         <th v-if="hasComparisons">DPS</th>
-                                        <th>Phase</th>
-                                        <th>Sockets</th>
-                                        <th>Spell power</th>
-                                        <th>Crit rating</th>
-                                        <th>Hit rating</th>
-                                        <th>Haste rating</th>
-                                        <th>Intellect</th>
-                                        <th>Spirit</th>
-                                        <th>Mp5</th>
+                                        <th>
+                                            <sort-link v-model="item_sort" name="phase">Phase</sort-link>
+                                        </th>
+                                        <th>
+                                            <sort-link v-model="item_sort" name="sockets" order="desc">Sockets</sort-link>
+                                        </th>
+                                        <th>
+                                            <sort-link v-model="item_sort" name="sp" order="desc">Spell power</sort-link>
+                                        </th>
+                                        <th>
+                                            <sort-link v-model="item_sort" name="crit" order="desc">Crit rating</sort-link>
+                                        </th>
+                                        <th>
+                                            <sort-link v-model="item_sort" name="hit" order="desc">Hit rating</sort-link>
+                                        </th>
+                                        <th>
+                                            <sort-link v-model="item_sort" name="haste" order="desc">Haste rating</sort-link>
+                                        </th>
+                                        <th>
+                                            <sort-link v-model="item_sort" name="int" order="desc">Intellect</sort-link>
+                                        </th>
+                                        <th>
+                                            <sort-link v-model="item_sort" name="spi" order="desc">Spirit</sort-link>
+                                        </th>
+                                        <th>
+                                            <sort-link v-model="item_sort" name="mp5" order="desc">Mp5</sort-link>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -831,6 +851,10 @@
                 gems: {},
                 item_gems: {},
                 item_comparison: [],
+                item_sort: {
+                    name: null,
+                    order: null,
+                },
                 profiles: [],
                 active_slot: "weapon",
                 new_profile: null,
@@ -993,10 +1017,10 @@
                 var slot = this.equipSlotToItemSlot(this.active_slot);
 
                 var items = this.items.equip[slot];
-                if (!this.phase_filter)
-                    return items;
+                if (this.phase_filter)
+                    items = items.filter(item => _.get(item, "phase", 1) <= this.phase_filter);
 
-                return items.filter(item => _.get(item, "phase", 1) <= this.phase_filter);
+                return this.sort(items, this.item_sort);
             },
 
             activeEnchants() {
@@ -1019,6 +1043,68 @@
         },
 
         methods: {
+            sort(items, sorting) {
+                if (!sorting || !sorting.name)
+                    return items;
+
+                var type = null;
+                for (var i=0; i<items.length; i++) {
+                    var value = _.get(items[i], sorting.name, null);
+                    if (value !== null) {
+                        type = typeof(value);
+                        if (type == "object") {
+                            if (_.isArray(value))
+                                type = "array";
+                            else
+                                continue;
+                        }
+                        break;
+                    }
+                }
+
+                if (type === null)
+                    return items;
+
+                return items.sort(function(a, b) {
+                    var av = _.get(a, sorting.name, null);
+                    var bv = _.get(b, sorting.name, null);
+
+                    if (sorting.name == "phase") {
+                        if (!av) av = 1;
+                        if (!bv) bv = 1;
+                    }
+
+                    if (sorting.name == "sp") {
+                        av = Math.max(_.get(a, "sp", 0), _.get(a, "sp_fire", 0), _.get(a, "sp_frost", 0), _.get(a, "sp_arcane", 0));
+                        bv = Math.max(_.get(b, "sp", 0), _.get(b, "sp_fire", 0), _.get(b, "sp_frost", 0), _.get(b, "sp_arcane", 0));
+                    }
+
+                    var result = 0;
+                    if (type == "string") {
+                        try { av = av.toString(); } catch(e) { av = ""; };
+                        try { bv = bv.toString(); } catch(e) { bv = ""; };
+                        result = av.localeCompare(bv);
+                    }
+                    else if (type == "number") {
+                        av = parseFloat(av);
+                        bv = parseFloat(bv);
+                        if (isNaN(av)) av = 0;
+                        if (isNaN(bv)) bv = 0;
+                        result = av - bv;
+                    }
+                    else if (type == "array") {
+                        av = _.get(av, "length", 0);
+                        bv = _.get(bv, "length", 0);
+                        result = av - bv;
+                    }
+
+                    if (sorting.order == "desc" && result != 0)
+                        result = result < 0 ? 1 : -1;
+
+                    return result;
+                });
+            },
+
             foolsBuy() {
                 window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
             },

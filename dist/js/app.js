@@ -10,6 +10,7 @@
 var map = {
 	"./Help.vue": "./assets/js/components/Help.vue",
 	"./Histogram.vue": "./assets/js/components/Histogram.vue",
+	"./SortLink.vue": "./assets/js/components/SortLink.vue",
 	"./Tooltip.vue": "./assets/js/components/Tooltip.vue"
 };
 
@@ -3737,13 +3738,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _simulation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./simulation */ "./assets/js/simulation.js");
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./items */ "./assets/js/items.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./assets/js/constants.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -3751,6 +3752,26 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4580,6 +4601,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       gems: {},
       item_gems: {},
       item_comparison: [],
+      item_sort: {
+        name: null,
+        order: null
+      },
       profiles: [],
       active_slot: "weapon",
       new_profile: null,
@@ -4728,10 +4753,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       var slot = this.equipSlotToItemSlot(this.active_slot);
       var items = this.items.equip[slot];
-      if (!this.phase_filter) return items;
-      return items.filter(function (item) {
+      if (this.phase_filter) items = items.filter(function (item) {
         return _.get(item, "phase", 1) <= _this.phase_filter;
       });
+      return this.sort(items, this.item_sort);
     },
     activeEnchants: function activeEnchants() {
       var slot = this.equipSlotToEnchantSlot(this.active_slot);
@@ -4747,6 +4772,75 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    sort: function sort(items, sorting) {
+      if (!sorting || !sorting.name) return items;
+      var type = null;
+
+      for (var i = 0; i < items.length; i++) {
+        var value = _.get(items[i], sorting.name, null);
+
+        if (value !== null) {
+          type = _typeof(value);
+
+          if (type == "object") {
+            if (_.isArray(value)) type = "array";else continue;
+          }
+
+          break;
+        }
+      }
+
+      if (type === null) return items;
+      return items.sort(function (a, b) {
+        var av = _.get(a, sorting.name, null);
+
+        var bv = _.get(b, sorting.name, null);
+
+        if (sorting.name == "phase") {
+          if (!av) av = 1;
+          if (!bv) bv = 1;
+        }
+
+        if (sorting.name == "sp") {
+          av = Math.max(_.get(a, "sp", 0), _.get(a, "sp_fire", 0), _.get(a, "sp_frost", 0), _.get(a, "sp_arcane", 0));
+          bv = Math.max(_.get(b, "sp", 0), _.get(b, "sp_fire", 0), _.get(b, "sp_frost", 0), _.get(b, "sp_arcane", 0));
+        }
+
+        var result = 0;
+
+        if (type == "string") {
+          try {
+            av = av.toString();
+          } catch (e) {
+            av = "";
+          }
+
+          ;
+
+          try {
+            bv = bv.toString();
+          } catch (e) {
+            bv = "";
+          }
+
+          ;
+          result = av.localeCompare(bv);
+        } else if (type == "number") {
+          av = parseFloat(av);
+          bv = parseFloat(bv);
+          if (isNaN(av)) av = 0;
+          if (isNaN(bv)) bv = 0;
+          result = av - bv;
+        } else if (type == "array") {
+          av = _.get(av, "length", 0);
+          bv = _.get(bv, "length", 0);
+          result = av - bv;
+        }
+
+        if (sorting.order == "desc" && result != 0) result = result < 0 ? 1 : -1;
+        return result;
+      });
+    },
     foolsBuy: function foolsBuy() {
       window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     },
@@ -5961,6 +6055,62 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       this.renderChart(data, options);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    value: {
+      "default": null
+    },
+    name: {
+      type: String
+    },
+    order: {
+      type: String,
+      "default": "asc"
+    }
+  },
+  computed: {
+    active: function active() {
+      return this.name == _.get(this.value, "name");
+    },
+    desc: function desc() {
+      return this.active && _.get(this.value, "order", this.order) == "desc";
+    }
+  },
+  methods: {
+    onClick: function onClick() {
+      var value = {
+        name: this.name,
+        order: this.order
+      };
+      if (_.get(this.value, "name") == this.name) value.order = this.flipOrder(_.get(this.value, "order", this.order));
+      this.$emit("input", value);
+    },
+    flipOrder: function flipOrder(order) {
+      return order == "asc" ? "desc" : "asc";
     }
   }
 });
@@ -62043,6 +62193,45 @@ component.options.__file = "assets/js/components/Histogram.vue"
 
 /***/ }),
 
+/***/ "./assets/js/components/SortLink.vue":
+/*!*******************************************!*\
+  !*** ./assets/js/components/SortLink.vue ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SortLink.vue?vue&type=template&id=e5d8144e& */ "./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e&");
+/* harmony import */ var _SortLink_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SortLink.vue?vue&type=script&lang=js& */ "./assets/js/components/SortLink.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _SortLink_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__.render,
+  _SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/js/components/SortLink.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./assets/js/components/Tooltip.vue":
 /*!******************************************!*\
   !*** ./assets/js/components/Tooltip.vue ***!
@@ -62130,6 +62319,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/components/SortLink.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./assets/js/components/SortLink.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SortLink.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./assets/js/components/Tooltip.vue?vue&type=script&lang=js&":
 /*!*******************************************************************!*\
   !*** ./assets/js/components/Tooltip.vue?vue&type=script&lang=js& ***!
@@ -62193,6 +62398,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Histogram_vue_vue_type_template_id_77fcae93___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Histogram_vue_vue_type_template_id_77fcae93___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Histogram.vue?vue&type=template&id=77fcae93& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Histogram.vue?vue&type=template&id=77fcae93&");
+
+
+/***/ }),
+
+/***/ "./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e&":
+/*!**************************************************************************!*\
+  !*** ./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SortLink.vue?vue&type=template&id=e5d8144e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e&");
 
 
 /***/ }),
@@ -62621,27 +62843,218 @@ var render = function() {
                   _c("tr", [
                     _c("th", { staticClass: "min" }),
                     _vm._v(" "),
-                    _c("th", { staticClass: "title" }, [_vm._v("Name")]),
+                    _c(
+                      "th",
+                      { staticClass: "title" },
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "title" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Name")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _vm.hasComparisons ? _c("th", [_vm._v("DPS")]) : _vm._e(),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Phase")]),
+                    _c(
+                      "th",
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "phase" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Phase")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Sockets")]),
+                    _c(
+                      "th",
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "sockets", order: "desc" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Sockets")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Spell power")]),
+                    _c(
+                      "th",
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "sp", order: "desc" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Spell power")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Crit rating")]),
+                    _c(
+                      "th",
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "crit", order: "desc" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Crit rating")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Hit rating")]),
+                    _c(
+                      "th",
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "hit", order: "desc" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Hit rating")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Haste rating")]),
+                    _c(
+                      "th",
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "haste", order: "desc" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Haste rating")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Intellect")]),
+                    _c(
+                      "th",
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "int", order: "desc" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Intellect")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Spirit")]),
+                    _c(
+                      "th",
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "spi", order: "desc" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Spirit")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("th", [_vm._v("Mp5")])
+                    _c(
+                      "th",
+                      [
+                        _c(
+                          "sort-link",
+                          {
+                            attrs: { name: "mp5", order: "desc" },
+                            model: {
+                              value: _vm.item_sort,
+                              callback: function($$v) {
+                                _vm.item_sort = $$v
+                              },
+                              expression: "item_sort"
+                            }
+                          },
+                          [_vm._v("Mp5")]
+                        )
+                      ],
+                      1
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -67012,6 +67425,47 @@ var render = function() {
   return _c("div", { staticClass: "histogram" }, [
     _c("canvas", { ref: "canvas" })
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    {
+      staticClass: "sort-link",
+      class: [_vm.active ? "active" : ""],
+      on: { click: _vm.onClick }
+    },
+    [
+      _c("span", [_vm._t("default")], 2),
+      _vm._v(" "),
+      _c(
+        "span",
+        { staticClass: "material-icons", class: [_vm.desc ? "flip-v" : ""] },
+        [_vm._v("")]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
