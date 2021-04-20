@@ -1175,6 +1175,9 @@ public:
         if (state->hasBuff(buff::POWER_INFUSION))
             multi-= 0.2;
 
+        if (state->hasBuff(buff::ARCANE_POWER))
+            multi+= 0.3;
+
         return round(spell->cost * multi);
     }
 
