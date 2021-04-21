@@ -162,6 +162,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("molten_armor", &Config::molten_armor)
         .property("inspiring_presence", &Config::inspiring_presence)
         .property("fire_vulnerability", &Config::fire_vulnerability)
+        .property("maintain_fire_vulnerability", &Config::maintain_fire_vulnerability)
         .property("winters_chill", &Config::winters_chill)
         .property("drums_perma", &Config::drums_perma)
 

@@ -833,6 +833,9 @@ public:
 
         if (player->spec == SPEC_ARCANE) {
 
+            if (config->maintain_fire_vulnerability && player->talents.imp_scorch && shouldScorch())
+                return make_shared<spell::Scorch>();
+
             if (canBlast())
                 return defaultSpell();
 

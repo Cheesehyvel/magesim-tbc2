@@ -455,6 +455,12 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.judgement_of_wisdom"> <span>Judgement of Wisdom</span></label>
                             </div>
+                            <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE && hasTalent('imp_scorch')">
+                                <label><input type="checkbox" v-model="config.maintain_fire_vulnerability">
+                                    <span>Keep up Fire Vulnerability</span>
+                                    <help>Imp. Scorch from you</help>
+                                </label>
+                            </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.fire_vulnerability">
                                     <span>Fire Vulnerability</span>
@@ -918,6 +924,7 @@
                     molten_armor: false,
                     inspiring_presence: false,
                     fire_vulnerability: false,
+                    maintain_fire_vulnerability: false,
                     winters_chill: false,
 
                     food: 0,
@@ -1819,6 +1826,7 @@
                     arcane_instability: [0, 16],
                     arcane_power: [0, 19],
                     mind_mastery: [0, 21],
+                    imp_scorch: [1, 9],
                     combustion: [1, 18],
                     icy_veins: [2, 8],
                     cold_snap: [2, 14],
