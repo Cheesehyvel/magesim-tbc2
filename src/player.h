@@ -144,7 +144,7 @@ public:
         if (config->improved_divine_spirit)
             stats.spell_power+= stats.spirit*0.1;
         if (config->wrath_of_air)
-            stats.spell_power+= 102.0;
+            stats.spell_power+= 101.0;
         if (config->weapon_oil == OIL_BRILLIANT_WIZARD)
             stats.spell_power+= 36.0;
         if (config->weapon_oil == OIL_SUPERIOR_WIZARD)
