@@ -1428,23 +1428,23 @@
                     spell_power_fire: 0,
                 };
 
-                if (this.config.race == "RACE_TROLL") {
+                if (this.config.race == this.races.RACE_TROLL) {
                     stats.intellect = 147;
                     stats.spirit = 146;
                 }
-                if (this.config.race == "RACE_BLOOD_ELF") {
+                if (this.config.race == this.races.RACE_BLOOD_ELF) {
                     stats.intellect = 155;
                     stats.spirit = 144;
                 }
-                if (this.config.race == "RACE_DRAENEI") {
+                if (this.config.race == this.races.RACE_DRAENEI) {
                     stats.intellect = 152;
                     stats.spirit = 147;
                 }
-                if (this.config.race == "RACE_GNOME") {
+                if (this.config.race == this.races.RACE_GNOME) {
                     stats.intellect = 155;
                     stats.spirit = 145;
                 }
-                if (this.config.race == "RACE_HUMAN") {
+                if (this.config.race == this.races.RACE_HUMAN) {
                     stats.intellect = 151;
                     stats.spirit = 145;
                 }
