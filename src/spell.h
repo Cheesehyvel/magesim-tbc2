@@ -128,7 +128,7 @@ namespace spell
             id = SCORCH;
             name = "Scorch";
             cost = 180;
-            min_dmg = 306;
+            min_dmg = 305;
             max_dmg = 361;
             cast_time = 1.5;
             coeff = 1.5/3.5;
