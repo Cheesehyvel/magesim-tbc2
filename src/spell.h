@@ -7,8 +7,8 @@ namespace spell
     {
         ARCANE_BLAST = 30451,
         ARCANE_MISSILES = 38704,
-        FROSTBOLT = 38697,
-        FIREBALL = 38692,
+        FROSTBOLT = 27072,
+        FIREBALL = 27070,
         SCORCH = 27074,
         PYROBLAST = 33938,
         LIGHTNING_CAPACITOR = 28785,
@@ -54,8 +54,8 @@ namespace spell
             id = ARCANE_BLAST;
             name = "Arcane Blast";
             cost = 195;
-            min_dmg = 648;
-            max_dmg = 752;
+            min_dmg = 668;
+            max_dmg = 772;
             cast_time = 2.5;
             coeff = 2.5/3.5;
             school = SCHOOL_ARCANE;
@@ -91,9 +91,9 @@ namespace spell
         {
             id = FROSTBOLT;
             name = "Frostbolt";
-            cost = 345;
-            min_dmg = 630;
-            max_dmg = 681;
+            cost = 330;
+            min_dmg = 600;
+            max_dmg = 647;
             cast_time = 3;
             coeff = 3/3.5 * 0.95;
             school = SCHOOL_FROST;
@@ -109,9 +109,9 @@ namespace spell
         {
             id = FIREBALL;
             name = "Fireball";
-            cost = 465;
-            min_dmg = 717;
-            max_dmg = 913;
+            cost = 425;
+            min_dmg = 649;
+            max_dmg = 821;
             cast_time = 3.5;
             coeff = 1;
             school = SCHOOL_FIRE;
