@@ -795,7 +795,7 @@
                             <tr
                                 class="equipped-item"
                                 v-for="(item_id, slot) in equipped"
-                                v-if="item_id"
+                                v-if="item_id && slot != 'stat_weight'"
                             >
                                 <td>{{ formatKey(slot) }}</td>
                                 <td>
@@ -1001,7 +1001,7 @@
                 "weapon", "off_hand", "ranged",
                 "head", "neck", "shoulder", "back", "chest", "wrist",
                 "hands", "waist", "legs", "feet",
-                "finger1", "finger2", "trinket1", "trinket2","stat_weight",
+                "finger1", "finger2", "trinket1", "trinket2", "stat_weight",
             ];
 
             for (var slot of slots) {

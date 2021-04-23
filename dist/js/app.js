@@ -67259,7 +67259,7 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.equipped, function(item_id, slot) {
-                    return item_id
+                    return item_id && slot != "stat_weight"
                       ? _c("tr", { staticClass: "equipped-item" }, [
                           _c("td", [_vm._v(_vm._s(_vm.formatKey(slot)))]),
                           _vm._v(" "),
