@@ -6,7 +6,7 @@ namespace spell
     enum ID : int
     {
         ARCANE_BLAST = 30451,
-        ARCANE_MISSILES = 38704,
+        ARCANE_MISSILES = 38699,
         FROSTBOLT = 27072,
         FIREBALL = 27070,
         SCORCH = 27074,
@@ -71,9 +71,9 @@ namespace spell
         {
             id = ARCANE_MISSILES;
             name = "Arcane Missiles";
-            cost = 785;
-            min_dmg = 280;
-            max_dmg = 280;
+            cost = 740;
+            min_dmg = 265;
+            max_dmg = 265;
             cast_time = 5;
             coeff = 5/3.5;
             school = SCHOOL_ARCANE;
