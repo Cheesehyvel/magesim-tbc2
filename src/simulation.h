@@ -186,6 +186,8 @@ public:
             onDebuffExpire(event->debuff);
         else if (event->type == EVENT_DOT)
             onDot(event->dot);
+        else if (event->type == EVENT_CD_GAIN)
+            onCooldownGain(event->cooldown);
         else if (event->type == EVENT_CD_EXPIRE)
             onCooldownExpire(event->cooldown);
         else if (event->type == EVENT_VAMPIRIC_TOUCH)
@@ -307,6 +309,16 @@ public:
         push(event);
     }
 
+    void pushCooldownGain(shared_ptr<cooldown::Cooldown> cooldown, double t)
+    {
+        shared_ptr<Event> event(new Event());
+        event->type = EVENT_CD_GAIN;
+        event->t = t;
+        event->cooldown = cooldown;
+
+        push(event);
+    }
+
     void pushCooldownExpire(shared_ptr<cooldown::Cooldown> cooldown)
     {
         shared_ptr<Event> event(new Event());
@@ -380,8 +392,16 @@ public:
             next = defaultSpell();
         }
 
-        if (next != NULL)
-            cast(next);
+        if (next != NULL) {
+            // Drums 1 sec cast
+            if (state->t >= config->drums_at && !state->hasCooldown(cooldown::DRUMS) && !config->drums_perma) {
+                useDrums();
+                pushCast(spell, 1.0);
+            }
+            else {
+                cast(next);
+            }
+        }
     }
 
     void onCastSuccess(shared_ptr<spell::Spell> spell)
@@ -947,8 +967,6 @@ public:
             useCombustion();
         if (state->t >= config->berserking_at && !state->hasCooldown(cooldown::BERSERKING) && player->race == RACE_TROLL)
             useBerserking();
-        if (state->t >= config->drums_at && !state->hasCooldown(cooldown::DRUMS) && !config->drums_perma)
-            useDrums();
 
         if (!state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA) {
             if (state->t >= config->potion_at && (state->t < config->potion_at + 20 || !config->potion_reuse_at) ||
@@ -1038,8 +1056,8 @@ public:
             logBuffGain(buff);
         }
         else {
-            onCooldownGain(make_shared<cooldown::Drums>());
-            onBuffGain(buff);
+            pushCooldownGain(make_shared<cooldown::Drums>(), 1.0);
+            pushBuffGain(buff, 1.0);
         }
     }
 
