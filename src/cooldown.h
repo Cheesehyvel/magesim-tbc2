@@ -59,10 +59,10 @@ namespace cooldown
     {
 
     public:
-        Conjured()
+        Conjured(double _duration = 120)
         {
             id = CONJURED;
-            duration = 120;
+            duration = _duration;
         }
 
     };

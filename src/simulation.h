@@ -1055,12 +1055,17 @@ public:
 
     void useConjured()
     {
-        if (config->conjured == CONJURED_FLAME_CAP)
-            onBuffGain(make_shared<buff::FlameCap>());
-        else
-            return;
+        double cd = 120;
 
-        onCooldownGain(make_shared<cooldown::Conjured>());
+        if (config->conjured == CONJURED_FLAME_CAP) {
+            cd = 180;
+            onBuffGain(make_shared<buff::FlameCap>());
+        }
+        else {
+            return;
+        }
+
+        onCooldownGain(make_shared<cooldown::Conjured>(cd));
     }
 
     void useArcanePower()
