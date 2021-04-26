@@ -143,11 +143,17 @@
                             <table class="mt-2">
                                 <thead>
                                     <tr>
-                                        <th class="min"></th>
+                                        <th class="min">
+                                            <span class="compare" @click.stop="compareAll()">
+                                                <help icon="e915">Compare all items</help>
+                                            </span>
+                                        </th>
                                         <th class="title">
                                             <sort-link v-model="item_sort" name="title">Name</sort-link>
                                         </th>
-                                        <th v-if="hasComparisons">DPS</th>
+                                        <th v-if="hasComparisons">
+                                            <sort-link v-model="item_sort" name="dps" order="desc">DPS</sort-link>
+                                        </th>
                                         <th>
                                             <sort-link v-model="item_sort" name="phase">Phase</sort-link>
                                         </th>
@@ -1076,8 +1082,13 @@
                     }
                 }
 
+                if (sorting.name == "dps")
+                    type = "number";
+
                 if (type === null)
                     return items;
+
+                var self = this;
 
                 return items.sort(function(a, b) {
                     var av = _.get(a, sorting.name, null);
@@ -1091,6 +1102,11 @@
                     if (sorting.name == "sp") {
                         av = Math.max(_.get(a, "sp", 0), _.get(a, "sp_fire", 0), _.get(a, "sp_frost", 0), _.get(a, "sp_arcane", 0));
                         bv = Math.max(_.get(b, "sp", 0), _.get(b, "sp_fire", 0), _.get(b, "sp_frost", 0), _.get(b, "sp_arcane", 0));
+                    }
+
+                    if (sorting.name == "dps") {
+                        av = _.get(_.find(self.item_comparison, {id: a.id}), "dps", 0);
+                        bv = _.get(_.find(self.item_comparison, {id: b.id}), "dps", 0);
                     }
 
                     var result = 0;
@@ -1868,6 +1884,17 @@
 
             isComparing(item) {
                 return _.findIndex(this.item_comparison, {id: item.id}) != -1;
+            },
+
+            compareAll() {
+                if (this.item_comparison.length == this.activeItems.length && _.find(this.item_comparison, {id: this.activeItems[0].id})) {
+                    this.item_comparison = [];
+                }
+                else {
+                    this.item_comparison = [];
+                    for (var i in this.activeItems)
+                        this.item_comparison.push({id: this.activeItems[i].id, dps: null});
+                }
             },
 
             compareItem(item) {

@@ -506,6 +506,10 @@ body {
   line-height: 1.5;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 label {
   display: block;
 }
@@ -858,6 +862,7 @@ table.simple th:last-child, table.simple td:last-child {
   color: inherit;
 }
 #app .wrapper .main .gear .items .compare {
+  cursor: pointer;
   color: #aaa;
 }
 #app .wrapper .main .gear .items .compare.active {

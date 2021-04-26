@@ -4592,6 +4592,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4804,7 +4810,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
 
+      if (sorting.name == "dps") type = "number";
       if (type === null) return items;
+      var self = this;
       return items.sort(function (a, b) {
         var av = _.get(a, sorting.name, null);
 
@@ -4818,6 +4826,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (sorting.name == "sp") {
           av = Math.max(_.get(a, "sp", 0), _.get(a, "sp_fire", 0), _.get(a, "sp_frost", 0), _.get(a, "sp_arcane", 0));
           bv = Math.max(_.get(b, "sp", 0), _.get(b, "sp_fire", 0), _.get(b, "sp_frost", 0), _.get(b, "sp_arcane", 0));
+        }
+
+        if (sorting.name == "dps") {
+          av = _.get(_.find(self.item_comparison, {
+            id: a.id
+          }), "dps", 0);
+          bv = _.get(_.find(self.item_comparison, {
+            id: b.id
+          }), "dps", 0);
         }
 
         var result = 0;
@@ -5538,6 +5555,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return _.findIndex(this.item_comparison, {
         id: item.id
       }) != -1;
+    },
+    compareAll: function compareAll() {
+      if (this.item_comparison.length == this.activeItems.length && _.find(this.item_comparison, {
+        id: this.activeItems[0].id
+      })) {
+        this.item_comparison = [];
+      } else {
+        this.item_comparison = [];
+
+        for (var i in this.activeItems) {
+          this.item_comparison.push({
+            id: this.activeItems[i].id,
+            dps: null
+          });
+        }
+      }
     },
     compareItem: function compareItem(item) {
       var index = _.findIndex(this.item_comparison, {
@@ -62856,7 +62889,26 @@ var render = function() {
               _c("table", { staticClass: "mt-2" }, [
                 _c("thead", [
                   _c("tr", [
-                    _c("th", { staticClass: "min" }),
+                    _c("th", { staticClass: "min" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "compare",
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              return _vm.compareAll()
+                            }
+                          }
+                        },
+                        [
+                          _c("help", { attrs: { icon: "e915" } }, [
+                            _vm._v("Compare all items")
+                          ])
+                        ],
+                        1
+                      )
+                    ]),
                     _vm._v(" "),
                     _c(
                       "th",
@@ -62880,7 +62932,28 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _vm.hasComparisons ? _c("th", [_vm._v("DPS")]) : _vm._e(),
+                    _vm.hasComparisons
+                      ? _c(
+                          "th",
+                          [
+                            _c(
+                              "sort-link",
+                              {
+                                attrs: { name: "dps", order: "desc" },
+                                model: {
+                                  value: _vm.item_sort,
+                                  callback: function($$v) {
+                                    _vm.item_sort = $$v
+                                  },
+                                  expression: "item_sort"
+                                }
+                              },
+                              [_vm._v("DPS")]
+                            )
+                          ],
+                          1
+                        )
+                      : _vm._e(),
                     _vm._v(" "),
                     _c(
                       "th",

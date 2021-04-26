@@ -9,6 +9,10 @@ body {
     line-height: 1.5;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 label {
     display: block;
 }
@@ -345,6 +349,7 @@ table {
                     }
 
                     .compare {
+                        cursor: pointer;
                         color: #aaa;
 
                         &.active {
