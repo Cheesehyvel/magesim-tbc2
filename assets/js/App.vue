@@ -144,7 +144,7 @@
                                 <thead>
                                     <tr>
                                         <th class="min">
-                                            <span class="compare" @click.stop="compareAll()">
+                                            <span class="compare" @click.stop="compareAll()" v-if="activeItems">
                                                 <help icon="e915">Compare all items</help>
                                             </span>
                                         </th>
@@ -1037,6 +1037,10 @@
                 var slot = this.equipSlotToItemSlot(this.active_slot);
 
                 var items = this.items.equip[slot];
+
+                if (!items)
+                    return [];
+
                 if (this.phase_filter)
                     items = items.filter(item => _.get(item, "phase", 1) <= this.phase_filter);
 

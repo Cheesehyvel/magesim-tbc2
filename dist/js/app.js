@@ -4773,6 +4773,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       var slot = this.equipSlotToItemSlot(this.active_slot);
       var items = this.items.equip[slot];
+      if (!items) return [];
       if (this.phase_filter) items = items.filter(function (item) {
         return _.get(item, "phase", 1) <= _this.phase_filter;
       });
@@ -62890,24 +62891,26 @@ var render = function() {
                 _c("thead", [
                   _c("tr", [
                     _c("th", { staticClass: "min" }, [
-                      _c(
-                        "span",
-                        {
-                          staticClass: "compare",
-                          on: {
-                            click: function($event) {
-                              $event.stopPropagation()
-                              return _vm.compareAll()
-                            }
-                          }
-                        },
-                        [
-                          _c("help", { attrs: { icon: "e915" } }, [
-                            _vm._v("Compare all items")
-                          ])
-                        ],
-                        1
-                      )
+                      _vm.activeItems
+                        ? _c(
+                            "span",
+                            {
+                              staticClass: "compare",
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                  return _vm.compareAll()
+                                }
+                              }
+                            },
+                            [
+                              _c("help", { attrs: { icon: "e915" } }, [
+                                _vm._v("Compare all items")
+                              ])
+                            ],
+                            1
+                          )
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c(
