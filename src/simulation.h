@@ -396,7 +396,7 @@ public:
             // Drums 1 sec cast
             if (state->t >= config->drums_at && !state->hasCooldown(cooldown::DRUMS) && !config->drums_perma) {
                 useDrums();
-                pushCast(spell, 1.0);
+                pushCast(next, 1.0);
             }
             else {
                 cast(next);
