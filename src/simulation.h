@@ -301,6 +301,9 @@ public:
 
     void pushDot(shared_ptr<dot::Dot> dot)
     {
+        if (!dot->stackable && dot->tick == 0)
+            removeDot(dot);
+
         shared_ptr<Event> event(new Event());
         event->type = EVENT_DOT;
         event->t = dot->t_interval;
@@ -536,7 +539,7 @@ public:
                     onBuffGain(make_shared<buff::LightningCapacitor>());
 
                 if (spell->school == SCHOOL_FIRE && player->talents.ignite)
-                    pushDot(make_shared<dot::Ignite>(round(spell->dmg * 0.04 * player->talents.ignite)));
+                    addIgnite(spell);
                 if ((spell->school == SCHOOL_FIRE || spell->school == SCHOOL_FROST) && player->talents.master_of_elements)
                     onManaGain(spell->cost * 0.1 * player->talents.master_of_elements, "Master of Elements");
             }
@@ -598,9 +601,9 @@ public:
     void onDot(shared_ptr<dot::Dot> dot)
     {
         state->dmg+= dot->dmg;
-        dot->tick++;
-
         logDotDmg(dot);
+
+        dot->onTick();
 
         if (dot->tick < dot->ticks)
             pushDot(dot);
@@ -953,6 +956,21 @@ public:
         return NULL;
     }
 
+    void addIgnite(shared_ptr<spell::Spell> spell)
+    {
+        double dmg = round(spell->dmg * 0.04 * player->talents.ignite);
+
+        for (auto itr = queue.begin(); itr != queue.end(); itr++) {
+            if ((*itr)->type == EVENT_DOT && (*itr)->dot->id == dot::IGNITE) {
+                (*itr)->dot->stack(dmg);
+                (*itr)->t = state->t + (*itr)->dot->t_interval;
+                return;
+            }
+        }
+
+        pushDot(make_shared<dot::Ignite>(dmg));
+    }
+
     void useCooldowns()
     {
         if (state->t >= config->arcane_power_at && !state->hasCooldown(cooldown::ARCANE_POWER) && player->talents.arcane_power)
@@ -1145,6 +1163,16 @@ public:
     {
         for (auto itr = queue.begin(); itr != queue.end(); itr++) {
             if ((*itr)->type == EVENT_DEBUFF_EXPIRE && (*itr)->debuff->id == debuff->id) {
+                queue.erase(itr);
+                return;
+            }
+        }
+    }
+
+    void removeDot(shared_ptr<dot::Dot> dot)
+    {
+        for (auto itr = queue.begin(); itr != queue.end(); itr++) {
+            if ((*itr)->type == EVENT_DOT && (*itr)->dot->id == dot->id) {
                 queue.erase(itr);
                 return;
             }
