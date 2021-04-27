@@ -41,8 +41,6 @@ namespace dot
     {
 
     public:
-        double next_dmg = 0;
-
         Ignite(double _dmg = 0) : Dot(_dmg)
         {
             id = IGNITE;
@@ -50,21 +48,18 @@ namespace dot
             t_interval = 2;
             ticks = 2;
             stackable = true;
-            next_dmg = _dmg;
-        }
-
-        void onTick()
-        {
-            Dot::onTick();
-            dmg = next_dmg;
-            next_dmg = 0;
         }
 
         void stack(double _dmg)
         {
+            if (tick == 0)
+                dmg+= _dmg;
+            else if (tick == 1)
+                dmg = _dmg + round(dmg/2);
+            else
+                dmg = _dmg;
+
             tick = 0;
-            dmg+= _dmg;
-            next_dmg+= _dmg;
         }
 
     };
