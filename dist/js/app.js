@@ -3407,11 +3407,11 @@ var itemsets = [{
 }];
 var quicksets = {
   t5bis: {
-    title: "T5 All-round (arcane)",
+    title: "T5 Arcane",
     equip: {
       weapon: 30095,
       off_hand: 30049,
-      ranged: 29982,
+      ranged: 28783,
       head: 30206,
       neck: 30015,
       shoulder: 30210,
@@ -3424,7 +3424,7 @@ var quicksets = {
       feet: 30067,
       finger1: 29287,
       finger2: 28753,
-      trinket1: 27683,
+      trinket1: 29370,
       trinket2: 30720
     },
     enchants: {
@@ -3441,161 +3441,63 @@ var quicksets = {
     },
     gems: {
       back: [null, null, null],
-      chest: [30551, 30551, 30600],
+      chest: [24047, 24047, 30586],
       feet: [null, null, null],
       hands: [null, null, null],
-      head: [25901, 30551, null],
-      legs: [28123, null, null],
+      head: [34220, 24047, null],
+      legs: [24047, null, null],
       neck: [null, null, null],
-      shoulder: [30551, 30600, null],
-      waist: [30600, 32638, null],
+      shoulder: [24047, 30586, null],
+      waist: [30586, 24047, null],
       weapon: [null, null, null],
       wrist: [null, null, null]
     }
   },
-  t4sf: {
-    title: "T4 Spellfire (arcane)",
-    equip: {
-      back: 30735,
-      chest: 21848,
-      feet: 28517,
-      finger1: 29287,
-      finger2: 28753,
-      hands: 21846,
-      head: 29076,
-      legs: 29078,
-      neck: 28762,
+  t4sfsp: {
+    title: "T4 Fire spellstrike + spellfire",
+    items: {
+      weapon: 28770,
       off_hand: 28734,
       ranged: 28673,
-      shoulder: 29079,
-      trinket1: 27683,
-      trinket2: 29370,
-      waist: 21847,
-      weapon: 28770,
-      wrist: 28411
-    },
-    enchants: {
-      back: null,
-      chest: 46502,
-      feet: 46470,
-      finger1: 46518,
-      finger2: 46518,
-      hands: 46514,
-      head: 35447,
-      legs: 31372,
-      main_hand: 27891,
-      shoulder: 35406,
-      weapon: 46540,
-      wrist: 46498
-    },
-    gems: {
-      back: [null, null, null],
-      chest: [30551, 30551, null],
-      feet: [30551, 30551, null],
-      hands: [30551, 30551, null],
-      head: [25901, 30600, null],
-      legs: [null, null, null],
-      neck: [null, null, null],
-      shoulder: [30551, 24030, null],
-      waist: [30551, 30551, null],
-      weapon: [null, null, null],
-      wrist: [30551, null, null]
-    }
-  },
-  spsf: {
-    title: "Spellstrike + Spellfire (arcane)",
-    equip: {
-      back: 30735,
-      chest: 21848,
-      feet: 28517,
-      finger1: 29287,
-      finger2: 28753,
-      hands: 21846,
       head: 24266,
-      legs: 24262,
       neck: 28762,
-      off_hand: 28734,
-      ranged: 28783,
       shoulder: 29079,
-      trinket1: 27683,
-      trinket2: 29370,
-      waist: 21847,
-      weapon: 28770,
-      wrist: 28411
-    },
-    enchants: {
-      back: null,
-      chest: 46502,
-      feet: 46470,
-      finger1: 46518,
-      finger2: 46518,
-      hands: 46514,
-      head: 35447,
-      legs: 31372,
-      shoulder: 35406,
-      weapon: 46540,
-      wrist: 46498
-    },
-    gems: {
-      back: [null, null, null],
-      chest: [24030, 24030, null],
-      feet: [30551, 30551, null],
-      hands: [30551, 30551, null],
-      head: [30551, 28118, 33133],
-      legs: [30551, 30551, 30551],
-      neck: [null, null, null],
-      shoulder: [30551, 24030, null],
-      waist: [30551, 30551, null],
-      weapon: [null, null, null],
-      wrist: [24030, null, null]
-    }
-  },
-  spsf_fire: {
-    title: "Spellstrike + Spellfire (fire)",
-    equip: {
       back: 28766,
       chest: 21848,
+      wrist: 28411,
+      hands: 21847,
+      waist: 21846,
+      legs: 24262,
       feet: 28517,
       finger1: 28793,
       finger2: 28753,
-      hands: 21846,
-      head: 24266,
-      legs: 24262,
-      neck: 28762,
-      off_hand: 29270,
-      ranged: 28673,
-      shoulder: 29079,
-      trinket1: 27683,
-      trinket2: 29370,
-      waist: 21847,
-      weapon: 28770,
-      wrist: 28411
+      trinket1: 29370,
+      trinket2: 19379
     },
     enchants: {
-      back: null,
+      weapon: 46540,
+      head: 35447,
+      shoulder: 35406,
       chest: 46502,
+      wrist: 46498,
+      hands: 46514,
+      legs: 31372,
       feet: 46470,
       finger1: 46518,
-      finger2: 46518,
-      hands: 46514,
-      head: 35447,
-      legs: 31372,
-      shoulder: 35406,
-      weapon: 46540,
-      wrist: 46498
+      finger2: 46518
     },
     gems: {
-      back: [null, null, null],
-      chest: [32221, 32221, null],
-      feet: [24030, 32221, null],
-      hands: [24030, 24030, null],
-      head: [32221, 28118, 33133],
-      legs: [24030, 24030, 24030],
-      neck: [null, null, null],
-      shoulder: [30564, 24030, null],
-      waist: [24030, 24030, null],
       weapon: [null, null, null],
-      wrist: [32221, null, null]
+      head: [28118, 24030, 24030],
+      neck: [null, null, null],
+      shoulder: [30564, 30564, null],
+      back: [null, null, null],
+      chest: [30564, 30564, null],
+      wrist: [30564, null, null],
+      hands: [24030, 24030, null],
+      waist: [24030, 24030, null],
+      legs: [24030, 24030, 24030],
+      feet: [24030, 30564, null]
     }
   }
 };
