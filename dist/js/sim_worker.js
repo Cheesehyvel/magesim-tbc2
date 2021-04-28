@@ -30,7 +30,9 @@ onmessage = function onmessage(event) {
       var config = m.allocConfig();
 
       for (var key in data.config) {
-        if (typeof config[key] != "undefined") config[key] = data.config[key];
+        if (typeof config[key] != "undefined") {
+          if (key.indexOf("_at") > 0 && data.config[key] < 0) config[key] = data.config.duration + data.config[key];else config[key] = data.config[key];
+        }
       }
 
       if (m.RegenRotation.values.hasOwnProperty(data.config.regen_rotation)) config.regen_rotation = m.RegenRotation.values[data.config.regen_rotation];
