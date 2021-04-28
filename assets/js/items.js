@@ -475,7 +475,7 @@ var enchants = {
     ],
     shoulder: [
         { id: 35406, title: "Greater Inscription of Discipline (Aldor)", sp: 18, crit: 10, q: "rare" },
-        { id: 35437, title: "Greater Inscription of the Orb (Scryer)", sp: 15, crit: 12, q: "rare" },
+        { id: 35437, title: "Greater Inscription of the Orb (Scryer)", sp: 12, crit: 15, q: "rare" },
         { id: 29467, title: "Power of the Scourge", sp: 15, crit: 14, q: "epic" },
         { id: 35405, title: "Inscription of the Orb (Aldor)", sp: 15 },
         { id: 35436, title: "Inscription of the Orb (Scryer)", crit: 13 },

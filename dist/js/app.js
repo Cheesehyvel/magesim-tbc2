@@ -3301,8 +3301,8 @@ var enchants = {
   }, {
     id: 35437,
     title: "Greater Inscription of the Orb (Scryer)",
-    sp: 15,
-    crit: 12,
+    sp: 12,
+    crit: 15,
     q: "rare"
   }, {
     id: 29467,
