@@ -164,7 +164,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("fire_vulnerability", &Config::fire_vulnerability)
         .property("maintain_fire_vulnerability", &Config::maintain_fire_vulnerability)
         .property("winters_chill", &Config::winters_chill)
-        .property("drums_perma", &Config::drums_perma)
+        .property("drums_friend", &Config::drums_friend)
 
         .property("food", &Config::food)
         .property("flask", &Config::flask)

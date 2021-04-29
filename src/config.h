@@ -29,7 +29,7 @@ struct Config
     bool fire_vulnerability = false;
     bool maintain_fire_vulnerability = false;
     bool winters_chill = false;
-    bool drums_perma = false;
+    bool drums_friend = false;
 
     Food food;
     Flask flask;

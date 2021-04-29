@@ -585,9 +585,9 @@
                                 </select>
                             </div>
                             <div class="form-item" v-if="config.drums">
-                                <label><input type="checkbox" v-model="config.drums_perma">
-                                    <span>Permanent drums</span>
-                                    <help>This simulates having 4+ players in your party using drums</help>
+                                <label><input type="checkbox" v-model="config.drums_friend">
+                                    <span>Drumming friend</span>
+                                    <help>Someone else in your party uses drums</help>
                                 </label>
                             </div>
                             <div class="form-item">
@@ -692,7 +692,7 @@
                                     <input type="text" v-model.number="config.trinket2_reuse_at">
                                 </div>
                             </div>
-                            <div class="form-item" v-if="config.drums && !config.drums_perma">
+                            <div class="form-item" v-if="config.drums">
                                 <label>First drums at</label>
                                 <input type="text" v-model.number="config.drums_at">
                             </div>
@@ -939,7 +939,7 @@
                     guardian_elixir: 0,
                     weapon_oil: 0,
                     drums: 0,
-                    drums_perma: false,
+                    drums_friend: false,
                     potion: 22832,
                     conjured: 22044,
 

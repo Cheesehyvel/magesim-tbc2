@@ -4587,7 +4587,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         guardian_elixir: 0,
         weapon_oil: 0,
         drums: 0,
-        drums_perma: false,
+        drums_friend: false,
         potion: 22832,
         conjured: 22044,
         tirisfal_2set: true,
@@ -65836,19 +65836,19 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.config.drums_perma,
-                                  expression: "config.drums_perma"
+                                  value: _vm.config.drums_friend,
+                                  expression: "config.drums_friend"
                                 }
                               ],
                               attrs: { type: "checkbox" },
                               domProps: {
-                                checked: Array.isArray(_vm.config.drums_perma)
-                                  ? _vm._i(_vm.config.drums_perma, null) > -1
-                                  : _vm.config.drums_perma
+                                checked: Array.isArray(_vm.config.drums_friend)
+                                  ? _vm._i(_vm.config.drums_friend, null) > -1
+                                  : _vm.config.drums_friend
                               },
                               on: {
                                 change: function($event) {
-                                  var $$a = _vm.config.drums_perma,
+                                  var $$a = _vm.config.drums_friend,
                                     $$el = $event.target,
                                     $$c = $$el.checked ? true : false
                                   if (Array.isArray($$a)) {
@@ -65858,32 +65858,30 @@ var render = function() {
                                       $$i < 0 &&
                                         _vm.$set(
                                           _vm.config,
-                                          "drums_perma",
+                                          "drums_friend",
                                           $$a.concat([$$v])
                                         )
                                     } else {
                                       $$i > -1 &&
                                         _vm.$set(
                                           _vm.config,
-                                          "drums_perma",
+                                          "drums_friend",
                                           $$a
                                             .slice(0, $$i)
                                             .concat($$a.slice($$i + 1))
                                         )
                                     }
                                   } else {
-                                    _vm.$set(_vm.config, "drums_perma", $$c)
+                                    _vm.$set(_vm.config, "drums_friend", $$c)
                                   }
                                 }
                               }
                             }),
                             _vm._v(" "),
-                            _c("span", [_vm._v("Permanent drums")]),
+                            _c("span", [_vm._v("Drumming friend")]),
                             _vm._v(" "),
                             _c("help", [
-                              _vm._v(
-                                "This simulates having 4+ players in your party using drums"
-                              )
+                              _vm._v("Someone else in your party uses drums")
                             ])
                           ],
                           1
@@ -66600,7 +66598,7 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.config.drums && !_vm.config.drums_perma
+                  _vm.config.drums
                     ? _c("div", { staticClass: "form-item" }, [
                         _c("label", [_vm._v("First drums at")]),
                         _vm._v(" "),
