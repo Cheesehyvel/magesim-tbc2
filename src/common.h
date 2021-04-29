@@ -1,6 +1,3 @@
-#include <string>
-#include <random>
-
 enum RegenRotation : int
 {
     ROTATION_FB,

@@ -2,7 +2,6 @@
 
 #include <emscripten.h>
 #include <emscripten/bind.h>
-#include <string>
 
 
 std::shared_ptr<Config> allocConfig()

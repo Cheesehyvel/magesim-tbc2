@@ -1,10 +1,3 @@
-#include <list>
-#include <math.h>
-#include <random>
-#include <sstream>
-#include <iomanip>
-#include <memory>
-
 using namespace std;
 
 class Event
@@ -448,7 +441,12 @@ public:
             if (spell->result == spell::CRIT)
                 spell->dmg*= critMultiplier(spell);
 
+            spell->resist = spellDmgResist(spell);
+            spell->dmg-= spell->resist;
+
+            spell->resist = round(spell->resist);
             spell->dmg = round(spell->dmg);
+
             state->dmg+= spell->dmg;
         }
 
@@ -1304,12 +1302,13 @@ public:
 
         if (spell->school == SCHOOL_ARCANE && player->talents.arcane_focus)
             hit+= player->talents.arcane_focus*2.0;
-        if (spell->school == SCHOOL_FIRE && player->talents.elemental_precision)
-            hit+= player->talents.elemental_precision;
-        // This is supposedly bugged for frost spells to give 2% hit each point
+
+        // This is supposedly bugged for binary spells to give 2% hit each point
         // They say it was actually that way in TBC so we'll keep it like this for now
-        if (spell->school == SCHOOL_FROST && player->talents.elemental_precision)
+        if (spell->binary && player->talents.elemental_precision)
             hit+= player->talents.elemental_precision*2.0;
+        else if (player->talents.elemental_precision)
+            hit+= player->talents.elemental_precision;
 
         return min(hit, 99.0);
     }
@@ -1480,6 +1479,38 @@ public:
         return dmg * dmgMultiplier(spell);
     }
 
+    double spellDmgResist(shared_ptr<spell::Spell> spell)
+    {
+        if (spell->binary)
+            return 0.0;
+
+        // 24 level-based boss resistance (Source ?)
+        // 350 is the attacker level based skill
+        // Resistance spans between 0% and 75% so multiply by 75
+        // We round that to closest whole percent
+        // 24/350 * 75 = 5.14 ~= 5
+        // Resistance table for 5% resist is {84, 12, 4, 0} for 0%/25%/50%/75% resistance respectively
+        // Source: cmangos-tbc source
+
+        int resist[4] = {84, 12, 4, 0};
+        int roll = random<int>(0, 99);
+
+        double resistance_multiplier = 0.0;
+        for (int i=0; i<4; i++) {
+            if (roll < resist[i]) {
+                resistance_multiplier = ((float) i) * 0.25;
+                break;
+            }
+
+            roll-= resist[i];
+        }
+
+        if (!resistance_multiplier)
+            return 0.0;
+
+        return spell->dmg * resistance_multiplier;
+    }
+
     spell::Result spellRoll(shared_ptr<spell::Spell> spell)
     {
         if (random<double>(0, 100) > hitChance(spell))
@@ -1635,6 +1666,9 @@ public:
             s << " crit for " << spell->dmg;
         else
             s << " hit for " << spell->dmg;
+
+        if (spell->resist)
+            s << " (" << spell->resist << " resisted)";
 
         addLog(LOG_SPELL, s.str());
     }

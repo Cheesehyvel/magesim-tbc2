@@ -1,7 +1,3 @@
-#include <string>
-#include <math.h>
-#include <memory>
-
 using namespace std;
 
 class Player
