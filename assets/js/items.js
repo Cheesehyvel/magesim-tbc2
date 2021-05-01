@@ -31,6 +31,9 @@ var ids = {
     NAARU_SLIVER: 34429,
     STAT_WEIGHT_BASE: 99990,
     DARKMOON_CRUSADE: 31856,
+    EYE_OF_THE_NIGHT: 24116,
+    CHAIN_OF_THE_TWILIGHT_OWL: 24121,
+    JADE_PENDANT_OF_BLASTING: 20966,
 };
 
 var equip = {
@@ -129,6 +132,7 @@ var equip = {
         { id: 32089, title: "Mana-Binders Cowl", int: 29, sp: 34, crit: 15, sockets: ["m", "y"], bonus: { sp: 5} },
         { id: 28278, title: "Incanter's Cowl", int: 27, spi: 17, sp: 29, crit: 19, sockets: ["m", "y"], bonus: { spi: 4 }, q: "rare" },
         { id: 28415, title: "Hood of Oblivion", int: 32, sp: 40, sockets: ["m", "b"], bonus: { sp: 5 }, q: "rare" },
+        { id: 28193, itemset: 658, title: "Mana-Etched Crown", int: 20, sp: 34, sockets: ["m", "r"], q: "rare" },
         { id: 28169, title: "Mag'hari Ritualist's Horns", int: 16, sp: 50, crit: 15, hit: 12, q: "rare" },
         { id: 22498, title: "Frostfire Circlet", int: 23, sp: 35, crit: 28, hit: 8 },
     ],
@@ -151,6 +155,9 @@ var equip = {
         { id: 31692, title: "Natasha's Ember Necklace", int: 15, sp: 29, crit: 10, q: "rare" },
         { id: 29333, title: "Torc of the Sethekk Prophet", int: 18, sp: 19, crit: 21, q: "rare" },
         { id: 24462, title: "Luminous Pearls of Insight", int: 15, sp: 25, crit: 11, q: "rare" },
+        { id: ids.EYE_OF_THE_NIGHT, title: "Eye of the Night", crit: 26, hit: 16, q: "rare" },
+        { id: ids.CHAIN_OF_THE_TWILIGHT_OWL, title: "Chain of the Twilight Owl", int: 19, sp: 21, q: "rare" },
+        { id: ids.JADE_PENDANT_OF_BLASTING, title: "Jade Pendant of Blasting", int: 3, sp: 8, q: "uncommon" },
         { id: 31338, itemset: 667, title: "Charlotte's Ivy", int: 19, spi: 14, sp: 23 },
         { id: 21608, title: "Amulet of Vek'nilash", int: 5, sp: 27, crit: 14 },
         { id: 23057, title: "Gem of Trapped Innocents", int: 7, sp: 15, crit: 28 },
@@ -317,6 +324,7 @@ var equip = {
         { id: 30709, title: "Pantaloons of Flaming Wrath", int: 28, sp: 33, crit: 42, q: "rare" },
         { id: 28338, title: "Devil-Stitched Leggings", int: 28, sp: 29, sockets: ["r", "y", "b"], bonus: { sp: 5 }, q: "rare" },
         { id: 27838, title: "Incanter's Trousers", int: 30, spi: 17, sp: 42, crit: 18, q: "rare" },
+        { id: 27907, itemset: 658, title: "Mana-Etched Pantaloons", int: 32, sp: 33, crit: 21, q: "rare" },
         { id: 23070, title: "Leggings of Polarity", int: 14, sp: 44, crit: 28 },
         { id: 22497, title: "Frostfire Leggings", int: 26, spi: 10, sp: 46, hit: 8 },
     ],
@@ -372,6 +380,7 @@ var equip = {
         { id: 27784, title: "Scintillating Coral Band", int: 15, sp: 21, crit: 17, q: "rare" },
         { id: 29126, title: "Seer's Signet", sp: 34, crit: 12 },
         { id: 31339, itemset: 667, title: "Lola's Eve", int: 14, spi: 13, sp: 29 },
+        { id: 29172, title: "Ashyen's Gift", sp: 23, hit: 21 },
         { id: 29320, title: "Band of the Guardian", int: 11, sp: 23, crit: 17, q: "rare" },
         { id: ids.WRATH_OF_CENARIUS, title: "Wrath of Cenarius", },
         { id: 21709, title: "Ring of the Fallen God", int: 6, sp: 37, hit: 8 },

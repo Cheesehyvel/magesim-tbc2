@@ -528,6 +528,33 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.inspiring_presence"> <span>Inspiring Presence (Draenei hit aura)</span></label>
                             </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.atiesh_mage">
+                                    <span>Mage Atiesh Aura</span>
+                                    <help>Another mage in your group has Atiesh</help>
+                                </label>
+                            </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.atiesh_warlock"> <span>Warlock Atiesh Aura</span></label>
+                            </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.eye_of_the_night" :disabled="isEquipped('neck', items.ids.EYE_OF_THE_NIGHT)">
+                                    <span>Eye of the Night</span>
+                                    <help>This is a party-wide buff from a JC necklace (34 sp)</help>
+                                </label>
+                            </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.chain_of_the_twilight_owl" :disabled="isEquipped('neck', items.ids.CHAIN_OF_THE_TWILIGHT_OWL)">
+                                    <span>Chain of the Twilight Owl</span>
+                                    <help>This is a party-wide buff from a JC necklace (2 crit)</help>
+                                </label>
+                            </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.jade_pendant_of_blasting" :disabled="isEquipped('neck', items.ids.JADE_PENDANT_OF_BLASTING)">
+                                    <span>Jade Pendant of Blasting</span>
+                                    <help>This is a party-wide buff from a JC necklace (15 sp)</help>
+                                </label>
+                            </div>
                         </fieldset>
                         <fieldset>
                             <legend>Consumes</legend>
@@ -942,6 +969,11 @@
                     drums_friend: false,
                     potion: 22832,
                     conjured: 22044,
+                    atiesh_mage: false,
+                    atiesh_warlock: false,
+                    eye_of_the_night: false,
+                    chain_of_the_twilight_owl: false,
+                    jade_pendant_of_blasting: false,
 
                     tirisfal_2set: true,
                     tirisfal_4set: true,
@@ -1402,6 +1434,12 @@
                     stats.spell_power+= 35;
                 if (this.config.battle_elixir == this.elixirs.ELIXIR_MAJOR_FIREPOWER)
                     stats.spell_power_fire+= 55;
+                if (this.config.atiesh_warlock)
+                    stats.spell_power+= 33;
+                if (this.config.eye_of_the_night)
+                    stats.spell_power+= 34;
+                if (this.config.jade_pendant_of_blasting)
+                    stats.spell_power+= 15;
 
                 // Spell crit
                 var critrating = 0;
@@ -1413,12 +1451,16 @@
                     stats.crit+= 3;
                 if (this.config.molten_armor)
                     stats.crit+= 3;
+                if (this.config.chain_of_the_twilight_owl)
+                    stats.crit+= 2;
                 if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS)
                     critrating+= 24;
                 if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD)
                     critrating+= 14;
                 if (this.config.food == this.foods.FOOD_SPELL_CRIT)
                     critrating+= 20;
+                if (this.config.atiesh_mage)
+                    critrating+= 28;
                 if (critrating > 0)
                     stats.crit+= this.critRatingToChance(critrating);
                 if (x = this.hasTalent("arcane_instability"))
@@ -1578,6 +1620,13 @@
                 this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
                 this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
 
+                if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT))
+                    this.config.eye_of_the_night = true;
+                if (this.isEquipped("neck", this.items.ids.CHAIN_OF_THE_TWILIGHT_OWL))
+                    this.config.chain_of_the_twilight_owl = true;
+                if (this.isEquipped("neck", this.items.ids.JADE_PENDANT_OF_BLASTING))
+                    this.config.jade_pendant_of_blasting = true;
+
                 this.config.trinket1 = 0;
                 this.config.trinket2 = 0;
                 this.config.meta_gem = 0;
@@ -1635,6 +1684,18 @@
                 return false;
             },
 
+            onUnequip(slot) {
+                if (slot == "neck") {
+                    if (this.equipped[slot] == this.items.ids.EYE_OF_THE_NIGHT)
+                        this.config.eye_of_the_night = false;
+                    if (this.equipped[slot] == this.items.ids.CHAIN_OF_THE_TWILIGHT_OWL)
+                        this.config.chain_of_the_twilight_owl = false;
+                    if (this.equipped[slot] == this.items.ids.JADE_PENDANT_OF_BLASTING)
+                        this.config.jade_pendant_of_blasting = false;
+                    this.saveConfig();
+                }
+            },
+
             equipToggle(slot, item) {
                 if (this.equipped[slot] == item.id)
                     this.unequip(slot);
@@ -1643,6 +1704,7 @@
             },
 
             unequip(slot, save) {
+                this.onUnequip(slot);
                 this.equipped[slot] = null;
                 this.gems[slot] = [null, null, null];
 
@@ -1668,6 +1730,7 @@
                         return;
                 }
 
+                this.onUnequip(slot);
                 this.equipped[slot] = item.id;
 
                 if (this.item_gems.hasOwnProperty(item.id)) {

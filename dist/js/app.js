@@ -226,7 +226,10 @@ var ids = {
   ALCHEMIST_STONE: 13503,
   NAARU_SLIVER: 34429,
   STAT_WEIGHT_BASE: 99990,
-  DARKMOON_CRUSADE: 31856
+  DARKMOON_CRUSADE: 31856,
+  EYE_OF_THE_NIGHT: 24116,
+  CHAIN_OF_THE_TWILIGHT_OWL: 24121,
+  JADE_PENDANT_OF_BLASTING: 20966
 };
 var equip = {
   weapon: [{
@@ -923,6 +926,14 @@ var equip = {
     },
     q: "rare"
   }, {
+    id: 28193,
+    itemset: 658,
+    title: "Mana-Etched Crown",
+    "int": 20,
+    sp: 34,
+    sockets: ["m", "r"],
+    q: "rare"
+  }, {
     id: 28169,
     title: "Mag'hari Ritualist's Horns",
     "int": 16,
@@ -1077,6 +1088,24 @@ var equip = {
     sp: 25,
     crit: 11,
     q: "rare"
+  }, {
+    id: ids.EYE_OF_THE_NIGHT,
+    title: "Eye of the Night",
+    crit: 26,
+    hit: 16,
+    q: "rare"
+  }, {
+    id: ids.CHAIN_OF_THE_TWILIGHT_OWL,
+    title: "Chain of the Twilight Owl",
+    "int": 19,
+    sp: 21,
+    q: "rare"
+  }, {
+    id: ids.JADE_PENDANT_OF_BLASTING,
+    title: "Jade Pendant of Blasting",
+    "int": 3,
+    sp: 8,
+    q: "uncommon"
   }, {
     id: 31338,
     itemset: 667,
@@ -2449,6 +2478,14 @@ var equip = {
     crit: 18,
     q: "rare"
   }, {
+    id: 27907,
+    itemset: 658,
+    title: "Mana-Etched Pantaloons",
+    "int": 32,
+    sp: 33,
+    crit: 21,
+    q: "rare"
+  }, {
     id: 23070,
     title: "Leggings of Polarity",
     "int": 14,
@@ -2827,6 +2864,11 @@ var equip = {
     "int": 14,
     spi: 13,
     sp: 29
+  }, {
+    id: 29172,
+    title: "Ashyen's Gift",
+    sp: 23,
+    hit: 21
   }, {
     id: 29320,
     title: "Band of the Guardian",
@@ -4500,6 +4542,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4590,6 +4659,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         drums_friend: false,
         potion: 22832,
         conjured: 22044,
+        atiesh_mage: false,
+        atiesh_warlock: false,
+        eye_of_the_night: false,
+        chain_of_the_twilight_owl: false,
+        jade_pendant_of_blasting: false,
         tirisfal_2set: true,
         tirisfal_4set: true,
         tempest_2set: false,
@@ -5047,16 +5121,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) stats.spell_power += 24;
       if (this.config.battle_elixir == this.elixirs.ELIXIR_GREATER_ARCANE) stats.spell_power += 35;
-      if (this.config.battle_elixir == this.elixirs.ELIXIR_MAJOR_FIREPOWER) stats.spell_power_fire += 55; // Spell crit
+      if (this.config.battle_elixir == this.elixirs.ELIXIR_MAJOR_FIREPOWER) stats.spell_power_fire += 55;
+      if (this.config.atiesh_warlock) stats.spell_power += 33;
+      if (this.config.eye_of_the_night) stats.spell_power += 34;
+      if (this.config.jade_pendant_of_blasting) stats.spell_power += 15; // Spell crit
 
       var critrating = 0;
       if (this.config.judgement_of_the_crusader) stats.crit += 3;
       if (this.config.moonkin_aura) stats.crit += 5;
       if (this.config.totem_of_wrath) stats.crit += 3;
       if (this.config.molten_armor) stats.crit += 3;
+      if (this.config.chain_of_the_twilight_owl) stats.crit += 2;
       if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) critrating += 24;
       if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD) critrating += 14;
       if (this.config.food == this.foods.FOOD_SPELL_CRIT) critrating += 20;
+      if (this.config.atiesh_mage) critrating += 28;
       if (critrating > 0) stats.crit += this.critRatingToChance(critrating);
       if (x = this.hasTalent("arcane_instability")) stats.crit += x; // Spell hit
 
@@ -5206,6 +5285,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.config.spellfire_set = this.numEquippedSet(this.items.ids.SPELLFIRE_SET) > 2;
       this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
       this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
+      if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT)) this.config.eye_of_the_night = true;
+      if (this.isEquipped("neck", this.items.ids.CHAIN_OF_THE_TWILIGHT_OWL)) this.config.chain_of_the_twilight_owl = true;
+      if (this.isEquipped("neck", this.items.ids.JADE_PENDANT_OF_BLASTING)) this.config.jade_pendant_of_blasting = true;
       this.config.trinket1 = 0;
       this.config.trinket2 = 0;
       this.config.meta_gem = 0;
@@ -5244,10 +5326,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return false;
     },
+    onUnequip: function onUnequip(slot) {
+      if (slot == "neck") {
+        if (this.equipped[slot] == this.items.ids.EYE_OF_THE_NIGHT) this.config.eye_of_the_night = false;
+        if (this.equipped[slot] == this.items.ids.CHAIN_OF_THE_TWILIGHT_OWL) this.config.chain_of_the_twilight_owl = false;
+        if (this.equipped[slot] == this.items.ids.JADE_PENDANT_OF_BLASTING) this.config.jade_pendant_of_blasting = false;
+        this.saveConfig();
+      }
+    },
     equipToggle: function equipToggle(slot, item) {
       if (this.equipped[slot] == item.id) this.unequip(slot);else this.equip(slot, item);
     },
     unequip: function unequip(slot, save) {
+      this.onUnequip(slot);
       this.equipped[slot] = null;
       this.gems[slot] = [null, null, null];
       this.finalStats();
@@ -5266,6 +5357,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (this.isEquipped(other, item.id)) return;
       }
 
+      this.onUnequip(slot);
       this.equipped[slot] = item.id;
 
       if (this.item_gems.hasOwnProperty(item.id)) {
@@ -65402,6 +65494,343 @@ var render = function() {
                         _vm._v("Inspiring Presence (Draenei hit aura)")
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.atiesh_mage,
+                              expression: "config.atiesh_mage"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.config.atiesh_mage)
+                              ? _vm._i(_vm.config.atiesh_mage, null) > -1
+                              : _vm.config.atiesh_mage
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.config.atiesh_mage,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "atiesh_mage",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "atiesh_mage",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.config, "atiesh_mage", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Mage Atiesh Aura")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v("Another mage in your group has Atiesh")
+                        ])
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.atiesh_warlock,
+                            expression: "config.atiesh_warlock"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.atiesh_warlock)
+                            ? _vm._i(_vm.config.atiesh_warlock, null) > -1
+                            : _vm.config.atiesh_warlock
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.atiesh_warlock,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "atiesh_warlock",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "atiesh_warlock",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "atiesh_warlock", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Warlock Atiesh Aura")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.eye_of_the_night,
+                              expression: "config.eye_of_the_night"
+                            }
+                          ],
+                          attrs: {
+                            type: "checkbox",
+                            disabled: _vm.isEquipped(
+                              "neck",
+                              _vm.items.ids.EYE_OF_THE_NIGHT
+                            )
+                          },
+                          domProps: {
+                            checked: Array.isArray(_vm.config.eye_of_the_night)
+                              ? _vm._i(_vm.config.eye_of_the_night, null) > -1
+                              : _vm.config.eye_of_the_night
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.config.eye_of_the_night,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "eye_of_the_night",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "eye_of_the_night",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.config, "eye_of_the_night", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Eye of the Night")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v(
+                            "This is a party-wide buff from a JC necklace (34 sp)"
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.chain_of_the_twilight_owl,
+                              expression: "config.chain_of_the_twilight_owl"
+                            }
+                          ],
+                          attrs: {
+                            type: "checkbox",
+                            disabled: _vm.isEquipped(
+                              "neck",
+                              _vm.items.ids.CHAIN_OF_THE_TWILIGHT_OWL
+                            )
+                          },
+                          domProps: {
+                            checked: Array.isArray(
+                              _vm.config.chain_of_the_twilight_owl
+                            )
+                              ? _vm._i(
+                                  _vm.config.chain_of_the_twilight_owl,
+                                  null
+                                ) > -1
+                              : _vm.config.chain_of_the_twilight_owl
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.config.chain_of_the_twilight_owl,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "chain_of_the_twilight_owl",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "chain_of_the_twilight_owl",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(
+                                  _vm.config,
+                                  "chain_of_the_twilight_owl",
+                                  $$c
+                                )
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Chain of the Twilight Owl")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v(
+                            "This is a party-wide buff from a JC necklace (2 crit)"
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.jade_pendant_of_blasting,
+                              expression: "config.jade_pendant_of_blasting"
+                            }
+                          ],
+                          attrs: {
+                            type: "checkbox",
+                            disabled: _vm.isEquipped(
+                              "neck",
+                              _vm.items.ids.JADE_PENDANT_OF_BLASTING
+                            )
+                          },
+                          domProps: {
+                            checked: Array.isArray(
+                              _vm.config.jade_pendant_of_blasting
+                            )
+                              ? _vm._i(
+                                  _vm.config.jade_pendant_of_blasting,
+                                  null
+                                ) > -1
+                              : _vm.config.jade_pendant_of_blasting
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.config.jade_pendant_of_blasting,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "jade_pendant_of_blasting",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "jade_pendant_of_blasting",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(
+                                  _vm.config,
+                                  "jade_pendant_of_blasting",
+                                  $$c
+                                )
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Jade Pendant of Blasting")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v(
+                            "This is a party-wide buff from a JC necklace (15 sp)"
+                          )
+                        ])
+                      ],
+                      1
+                    )
                   ])
                 ]),
                 _vm._v(" "),

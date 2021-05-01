@@ -30,6 +30,11 @@ struct Config
     bool maintain_fire_vulnerability = false;
     bool winters_chill = false;
     bool drums_friend = false;
+    bool atiesh_mage = false;
+    bool atiesh_warlock = false;
+    bool eye_of_the_night = false;
+    bool chain_of_the_twilight_owl = false;
+    bool jade_pendant_of_blasting = false;
 
     Food food;
     Flask flask;

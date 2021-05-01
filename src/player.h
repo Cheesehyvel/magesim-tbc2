@@ -165,6 +165,12 @@ public:
             stats.spell_power+= 35.0;
         if (config->battle_elixir == ELIXIR_MAJOR_FIREPOWER)
             stats.spell_power_fire+= 55.0;
+        if (config->atiesh_warlock)
+            stats.spell_power+= 33.0;
+        if (config->eye_of_the_night)
+            stats.spell_power+= 34.0;
+        if (config->jade_pendant_of_blasting)
+            stats.spell_power+= 15.0;
 
         // Spell crit
         double critrating = 0;
@@ -176,12 +182,16 @@ public:
             stats.crit+= 3.0;
         if (config->molten_armor)
             stats.crit+= 3.0;
+        if (config->chain_of_the_twilight_owl)
+            stats.crit+= 2.0;
         if (config->battle_elixir == ELIXIR_ADEPTS)
             critrating+= 24;
         if (config->weapon_oil == OIL_BRILLIANT_WIZARD)
             critrating+= 14;
         if (config->food == FOOD_SPELL_CRIT)
             critrating+= 20;
+        if (config->atiesh_mage)
+            critrating+= 28;
         if (critrating > 0)
             stats.crit+= critRatingToChance(critrating);
         if (talents.arcane_instability)

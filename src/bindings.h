@@ -165,6 +165,11 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("maintain_fire_vulnerability", &Config::maintain_fire_vulnerability)
         .property("winters_chill", &Config::winters_chill)
         .property("drums_friend", &Config::drums_friend)
+        .property("atiesh_mage", &Config::atiesh_mage)
+        .property("atiesh_warlock", &Config::atiesh_warlock)
+        .property("eye_of_the_night", &Config::eye_of_the_night)
+        .property("chain_of_the_twilight_owl", &Config::chain_of_the_twilight_owl)
+        .property("jade_pendant_of_blasting", &Config::jade_pendant_of_blasting)
 
         .property("food", &Config::food)
         .property("flask", &Config::flask)
