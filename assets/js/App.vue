@@ -983,6 +983,7 @@
                     spellstrike_set: false,
                     eternal_sage: false,
                     wrath_of_cenarius: false,
+                    mana_etched_4set: false,
                     meta_gem: 0,
                     trinket1: 0,
                     trinket2: 0,
@@ -1616,6 +1617,8 @@
 
                 this.config.spellstrike_set = this.numEquippedSet(this.items.ids.SPELLSTRIKE_SET) > 1;
                 this.config.spellfire_set = this.numEquippedSet(this.items.ids.SPELLFIRE_SET) > 2;
+
+                this.config.mana_etched_4set = this.numEquippedSet(this.items.ids.MANA_ETCHED_SET) > 3;
 
                 this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
                 this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);

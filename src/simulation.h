@@ -534,6 +534,10 @@ public:
                 onCooldownGain(make_shared<cooldown::SpellBlasting>());
                 onBuffGain(make_shared<buff::SpellBlasting>());
             }
+            // 2% proc rate, mana-etched 4-set bonus
+            if (config->mana_etched_4set && random<int>(0, 49) == 0) {
+                onBuffGain(make_shared<buff::SpellPowerBonus>());
+            }
             // 50% proc rate
             if (config->judgement_of_wisdom && random<int>(0, 1) == 1)
                 onManaGain(74, "Judgement of Wisdom");
@@ -1466,6 +1470,8 @@ public:
                 sp+= 95.0;
             if (state->hasBuff(buff::SPELL_BLASTING))
                 sp+= 132.0;
+            if (state->hasBuff(buff::SPELL_POWER_BONUS))
+                sp+= 110.0;
             if (state->hasBuff(buff::SHRUNKEN_HEAD))
                 sp+= 211.0;
             if (state->hasBuff(buff::NAARU_SLIVER))

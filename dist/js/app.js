@@ -199,6 +199,7 @@ var ids = {
   TEMPEST_SET: 671,
   SPELLFIRE_SET: 552,
   SPELLSTRIKE_SET: 559,
+  MANA_ETCHED_SET: 658,
   SERPENT_COIL: 30720,
   SILVER_CRESCENT: 29370,
   EYE_OF_MAGTHERIDON: 28789,
@@ -927,7 +928,7 @@ var equip = {
     q: "rare"
   }, {
     id: 28193,
-    itemset: 658,
+    itemset: ids.MANA_ETCHED_SET,
     title: "Mana-Etched Crown",
     "int": 20,
     sp: 34,
@@ -1280,7 +1281,7 @@ var equip = {
     phase: 2
   }, {
     id: 27796,
-    itemset: 658,
+    itemset: ids.MANA_ETCHED_SET,
     title: "Mana-Etched Spaulders",
     "int": 17,
     sp: 20,
@@ -1643,7 +1644,7 @@ var equip = {
     q: "rare"
   }, {
     id: 28191,
-    itemset: 658,
+    itemset: ids.MANA_ETCHED_SET,
     title: "Mana-Etched Vestments",
     "int": 25,
     sp: 29,
@@ -1999,7 +2000,7 @@ var equip = {
     phase: 3
   }, {
     id: 27465,
-    itemset: 658,
+    itemset: ids.MANA_ETCHED_SET,
     title: "Mana-Etched Gloves",
     "int": 17,
     sp: 20,
@@ -2479,7 +2480,7 @@ var equip = {
     q: "rare"
   }, {
     id: 27907,
-    itemset: 658,
+    itemset: ids.MANA_ETCHED_SET,
     title: "Mana-Etched Pantaloons",
     "int": 32,
     sp: 33,
@@ -3441,7 +3442,7 @@ var itemsets = [{
     sp: 15
   }
 }, {
-  id: 658,
+  id: ids.MANA_ETCHED_SET,
   title: "Mana-Etched Regalia",
   set2: {
     hit: 35
@@ -4672,6 +4673,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         spellstrike_set: false,
         eternal_sage: false,
         wrath_of_cenarius: false,
+        mana_etched_4set: false,
         meta_gem: 0,
         trinket1: 0,
         trinket2: 0,
@@ -5283,6 +5285,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.config.tempest_4set = num > 3;
       this.config.spellstrike_set = this.numEquippedSet(this.items.ids.SPELLSTRIKE_SET) > 1;
       this.config.spellfire_set = this.numEquippedSet(this.items.ids.SPELLFIRE_SET) > 2;
+      this.config.mana_etched_4set = this.numEquippedSet(this.items.ids.MANA_ETCHED_SET) > 3;
       this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
       this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
       if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT)) this.config.eye_of_the_night = true;

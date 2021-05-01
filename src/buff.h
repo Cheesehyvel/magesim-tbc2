@@ -43,6 +43,7 @@ namespace buff
         DESTRUCTION_POTION = 28508,
         FLAME_CAP = 28714,
         DARKMOON_CRUSADE = 39438,
+        SPELL_POWER_BONUS = 37619,
     };
 
 
@@ -566,6 +567,19 @@ namespace buff
             name = "Aura of the Crusade";
             duration = 10;
             max_stacks = 10;
+        }
+
+    };
+
+    class SpellPowerBonus : public Buff
+    {
+
+    public:
+        SpellPowerBonus()
+        {
+            id = SPELL_POWER_BONUS;
+            name = "Spell Power Bonus";
+            duration = 15;
         }
 
     };
