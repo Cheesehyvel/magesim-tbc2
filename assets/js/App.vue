@@ -591,6 +591,7 @@
                                     <option :value="weapon_oils.OIL_NONE">None</option>
                                     <option :value="weapon_oils.OIL_BRILLIANT_WIZARD">Brilliant Wizard Oil (36 sp / 14 crit)</option>
                                     <option :value="weapon_oils.OIL_SUPERIOR_WIZARD">Superior Wizard Oil (42 sp)</option>
+                                    <option :value="weapon_oils.OIL_BLESSED_WIZARD">Blessed Wizard Oil (60 sp to undead)</option>
                                     <option :value="weapon_oils.OIL_SUPERIOR_MANA">Superior Mana Oil (14 mp5)</option>
                                 </select>
                             </div>
@@ -1419,6 +1420,8 @@
                     stats.spell_power+= 36;
                 if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_WIZARD)
                     stats.spell_power+= 42;
+                if (this.config.weapon_oil == this.weapon_oils.OIL_BLESSED_WIZARD)
+                    stats.spell_power+= 60;
                 if (this.config.food == this.foods.FOOD_SPELL_POWER)
                     stats.spell_power+= 23;
                 if (this.config.flask == this.flasks.FLASK_SUPREME_POWER)

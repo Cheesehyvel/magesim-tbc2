@@ -139,6 +139,7 @@ __webpack_require__.r(__webpack_exports__);
     OIL_NONE: 0,
     OIL_BRILLIANT_WIZARD: 20749,
     OIL_SUPERIOR_WIZARD: 22522,
+    OIL_BLESSED_WIZARD: 23123,
     OIL_SUPERIOR_MANA: 22521
   },
   potions: {
@@ -4570,6 +4571,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -5112,6 +5114,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.config.wrath_of_air) stats.spell_power += 101;
       if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD) stats.spell_power += 36;
       if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_WIZARD) stats.spell_power += 42;
+      if (this.config.weapon_oil == this.weapon_oils.OIL_BLESSED_WIZARD) stats.spell_power += 60;
       if (this.config.food == this.foods.FOOD_SPELL_POWER) stats.spell_power += 23;
       if (this.config.flask == this.flasks.FLASK_SUPREME_POWER) stats.spell_power += 70;
       if (this.config.flask == this.flasks.FLASK_BLINDING_LIGHT) stats.spell_power_arcane += 80;
@@ -66123,6 +66126,16 @@ var render = function() {
                             }
                           },
                           [_vm._v("Superior Wizard Oil (42 sp)")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            domProps: {
+                              value: _vm.weapon_oils.OIL_BLESSED_WIZARD
+                            }
+                          },
+                          [_vm._v("Blessed Wizard Oil (60 sp to undead)")]
                         ),
                         _vm._v(" "),
                         _c(

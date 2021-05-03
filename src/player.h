@@ -149,6 +149,8 @@ public:
             stats.spell_power+= 36.0;
         if (config->weapon_oil == OIL_SUPERIOR_WIZARD)
             stats.spell_power+= 42.0;
+        if (config->weapon_oil == OIL_BLESSED_WIZARD)
+            stats.spell_power+= 60.0;
         if (config->food == FOOD_SPELL_POWER)
             stats.spell_power+= 23.0;
         if (config->flask == FLASK_SUPREME_POWER)

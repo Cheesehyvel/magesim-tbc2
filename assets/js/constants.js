@@ -48,6 +48,7 @@ export default {
         OIL_NONE: 0,
         OIL_BRILLIANT_WIZARD: 20749,
         OIL_SUPERIOR_WIZARD: 22522,
+        OIL_BLESSED_WIZARD: 23123,
         OIL_SUPERIOR_MANA: 22521,
     },
     potions: {

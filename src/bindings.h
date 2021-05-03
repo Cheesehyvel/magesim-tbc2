@@ -116,6 +116,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("OIL_NONE", OIL_NONE)
         .value("OIL_BRILLIANT_WIZARD", OIL_BRILLIANT_WIZARD)
         .value("OIL_SUPERIOR_WIZARD", OIL_SUPERIOR_WIZARD)
+        .value("OIL_BLESSED_WIZARD", OIL_BLESSED_WIZARD)
         .value("OIL_SUPERIOR_MANA", OIL_SUPERIOR_MANA);
 
     emscripten::enum_<Potion>("Potion")
