@@ -4572,6 +4572,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4687,6 +4699,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         regen_stop_at: 30,
         regen_ab_count: 3,
         regen_rotation: 0,
+        ab_haste_stop: 0,
         mana_tide_at: 20,
         bloodlust_at: 1,
         power_infusion_at: 1,
@@ -63675,554 +63688,674 @@ var render = function() {
         _vm.config_open
           ? _c("div", { staticClass: "config" }, [
               _c("div", { staticClass: "fieldsets" }, [
-                _c("fieldset", [
-                  _c("legend", [_vm._v("General")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Race")]),
+                _c(
+                  "fieldset",
+                  [
+                    _c("legend", [_vm._v("General")]),
                     _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.race,
-                            expression: "config.race"
-                          }
-                        ],
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.config,
-                              "race",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { domProps: { value: _vm.races.RACE_BLOOD_ELF } },
-                          [_vm._v("Blood elf")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { domProps: { value: _vm.races.RACE_DRAENEI } },
-                          [_vm._v("Draenei")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { domProps: { value: _vm.races.RACE_GNOME } },
-                          [_vm._v("Gnome")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { domProps: { value: _vm.races.RACE_HUMAN } },
-                          [_vm._v("Human")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { domProps: { value: _vm.races.RACE_TROLL } },
-                          [_vm._v("Troll")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { domProps: { value: _vm.races.RACE_UNDEAD } },
-                          [_vm._v("Undead")]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Spec")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.spec,
-                            expression: "config.spec"
-                          }
-                        ],
-                        on: {
-                          input: _vm.onSpecInput,
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.config,
-                              "spec",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { domProps: { value: _vm.specs.SPEC_ARCANE } },
-                          [_vm._v("Arcane")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { domProps: { value: _vm.specs.SPEC_FIRE } },
-                          [_vm._v("Fire")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { domProps: { value: _vm.specs.SPEC_FROST } },
-                          [_vm._v("Frost")]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _vm._v("Talents ("),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [_vm._v("Race")]),
+                      _vm._v(" "),
                       _c(
-                        "a",
+                        "select",
                         {
-                          attrs: { href: _vm.config.talents, target: "_blank" }
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.race,
+                              expression: "config.race"
+                            }
+                          ],
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.config,
+                                "race",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
                         },
-                        [_vm._v("link")]
-                      ),
-                      _vm._v(")")
+                        [
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.races.RACE_BLOOD_ELF } },
+                            [_vm._v("Blood elf")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.races.RACE_DRAENEI } },
+                            [_vm._v("Draenei")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.races.RACE_GNOME } },
+                            [_vm._v("Gnome")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.races.RACE_HUMAN } },
+                            [_vm._v("Human")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.races.RACE_TROLL } },
+                            [_vm._v("Troll")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.races.RACE_UNDEAD } },
+                            [_vm._v("Undead")]
+                          )
+                        ]
+                      )
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.talents },
-                      on: { input: _vm.onTalentsInput }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _vm.config.spec == _vm.specs.SPEC_ARCANE
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Filler spells")]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.config.regen_rotation,
-                                expression: "config.regen_rotation"
-                              }
-                            ],
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.config,
-                                  "regen_rotation",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              {
-                                domProps: {
-                                  value: _vm.regen_rotations.ROTATION_FB
-                                }
-                              },
-                              [_vm._v("3xFrB")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "option",
-                              {
-                                domProps: {
-                                  value: _vm.regen_rotations.ROTATION_AMFB
-                                }
-                              },
-                              [_vm._v("1xAM, 1xFrB")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "option",
-                              {
-                                domProps: {
-                                  value: _vm.regen_rotations.ROTATION_SC
-                                }
-                              },
-                              [_vm._v("5xScorch")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "option",
-                              {
-                                domProps: {
-                                  value: _vm.regen_rotations.ROTATION_SCFB
-                                }
-                              },
-                              [_vm._v("1xScorch, 2xFiB")]
-                            )
-                          ]
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.config.spec == _vm.specs.SPEC_ARCANE
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Arcane Blasts between fillers")]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.config.regen_ab_count,
-                                expression: "config.regen_ab_count"
-                              }
-                            ],
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.config,
-                                  "regen_ab_count",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          [
-                            _c("option", { domProps: { value: 1 } }, [
-                              _vm._v("1x AB")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { domProps: { value: 2 } }, [
-                              _vm._v("2x AB")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { domProps: { value: 3 } }, [
-                              _vm._v("3x AB")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { domProps: { value: 4 } }, [
-                              _vm._v("4x AB")
-                            ])
-                          ]
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.config.spec == _vm.specs.SPEC_ARCANE
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Regen rotation at mana %")]),
-                        _vm._v(" "),
-                        _c("input", {
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [_vm._v("Spec")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
                           directives: [
                             {
                               name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.regen_mana_at,
-                              expression: "config.regen_mana_at",
-                              modifiers: { number: true }
+                              rawName: "v-model",
+                              value: _vm.config.spec,
+                              expression: "config.spec"
                             }
                           ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.regen_mana_at },
                           on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
+                            input: _vm.onSpecInput,
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
                               _vm.$set(
                                 _vm.config,
-                                "regen_mana_at",
-                                _vm._n($event.target.value)
+                                "spec",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
                               )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
                             }
                           }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.config.spec == _vm.specs.SPEC_ARCANE
-                    ? _c("div", { staticClass: "form-item" }, [
+                        },
+                        [
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.specs.SPEC_ARCANE } },
+                            [_vm._v("Arcane")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.specs.SPEC_FIRE } },
+                            [_vm._v("Fire")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.specs.SPEC_FROST } },
+                            [_vm._v("Frost")]
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [
+                        _vm._v("Talents ("),
                         _c(
-                          "label",
-                          [
-                            _c("span", [
-                              _vm._v("Stop regen rotation at mana %")
-                            ]),
-                            _vm._v(" "),
-                            _c("help", [
-                              _vm._v(
-                                "Regen will always stop if it's possible to spam AB the rest of the fight"
-                              )
-                            ])
-                          ],
-                          1
+                          "a",
+                          {
+                            attrs: {
+                              href: _vm.config.talents,
+                              target: "_blank"
+                            }
+                          },
+                          [_vm._v("link")]
                         ),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.regen_stop_at,
-                              expression: "config.regen_stop_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.regen_stop_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                        _vm._v(")")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.config.talents },
+                        on: { input: _vm.onTalentsInput }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm.config.spec == _vm.specs.SPEC_ARCANE
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c("label", [_vm._v("Filler spells")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.config.regen_rotation,
+                                    expression: "config.regen_rotation"
+                                  }
+                                ],
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.config,
+                                      "regen_rotation",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    domProps: {
+                                      value: _vm.regen_rotations.ROTATION_FB
+                                    }
+                                  },
+                                  [_vm._v("3xFrB")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  {
+                                    domProps: {
+                                      value: _vm.regen_rotations.ROTATION_AMFB
+                                    }
+                                  },
+                                  [_vm._v("1xAM, 1xFrB")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  {
+                                    domProps: {
+                                      value: _vm.regen_rotations.ROTATION_SC
+                                    }
+                                  },
+                                  [_vm._v("5xScorch")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  {
+                                    domProps: {
+                                      value: _vm.regen_rotations.ROTATION_SCFB
+                                    }
+                                  },
+                                  [_vm._v("1xScorch, 2xFiB")]
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-item" }, [
+                            _c("label", [
+                              _vm._v("Arcane Blasts between fillers")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.config.regen_ab_count,
+                                    expression: "config.regen_ab_count"
+                                  }
+                                ],
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.config,
+                                      "regen_ab_count",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("option", { domProps: { value: 1 } }, [
+                                  _vm._v("1x AB")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { domProps: { value: 2 } }, [
+                                  _vm._v("2x AB")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { domProps: { value: 3 } }, [
+                                  _vm._v("3x AB")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { domProps: { value: 4 } }, [
+                                  _vm._v("4x AB")
+                                ])
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-item" }, [
+                            _c("label", [_vm._v("Regen rotation at mana %")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model.number",
+                                  value: _vm.config.regen_mana_at,
+                                  expression: "config.regen_mana_at",
+                                  modifiers: { number: true }
+                                }
+                              ],
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.config.regen_mana_at },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.config,
+                                    "regen_mana_at",
+                                    _vm._n($event.target.value)
+                                  )
+                                },
+                                blur: function($event) {
+                                  return _vm.$forceUpdate()
+                                }
                               }
-                              _vm.$set(
-                                _vm.config,
-                                "regen_stop_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [
+                                  _vm._v("Stop regen rotation at mana %")
+                                ]),
+                                _vm._v(" "),
+                                _c("help", [
+                                  _vm._v(
+                                    "Regen will always stop if it's possible to spam AB the rest of the fight"
+                                  )
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model.number",
+                                  value: _vm.config.regen_stop_at,
+                                  expression: "config.regen_stop_at",
+                                  modifiers: { number: true }
+                                }
+                              ],
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.config.regen_stop_at },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.config,
+                                    "regen_stop_at",
+                                    _vm._n($event.target.value)
+                                  )
+                                },
+                                blur: function($event) {
+                                  return _vm.$forceUpdate()
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [
+                                  _vm._v("Stop Arcane Blast at haste %")
+                                ]),
+                                _vm._v(" "),
+                                _c("help", [
+                                  _vm._v(
+                                    "\n                                        This will cast frostbolt/fireball when above a certain haste %."
+                                  ),
+                                  _c("br"),
+                                  _vm._v(
+                                    "\n                                        At 50% haste you will reach GCD cap of 1.0 seconds.\n                                    "
+                                  )
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model.number",
+                                  value: _vm.config.ab_haste_stop,
+                                  expression: "config.ab_haste_stop",
+                                  modifiers: { number: true }
+                                }
+                              ],
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.config.ab_haste_stop },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.config,
+                                    "ab_haste_stop",
+                                    _vm._n($event.target.value)
+                                  )
+                                },
+                                blur: function($event) {
+                                  return _vm.$forceUpdate()
+                                }
+                              }
+                            })
+                          ])
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [_vm._v("Fight duration (sec)")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.number",
+                            value: _vm.config.duration,
+                            expression: "config.duration",
+                            modifiers: { number: true }
+                          }
+                        ],
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.config.duration },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
                             }
+                            _vm.$set(
+                              _vm.config,
+                              "duration",
+                              _vm._n($event.target.value)
+                            )
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
                           }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Fight duration (sec)")]),
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.config.duration,
-                          expression: "config.duration",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.duration },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [_vm._v("Duration +/- (sec)")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.number",
+                            value: _vm.config.duration_variance,
+                            expression: "config.duration_variance",
+                            modifiers: { number: true }
                           }
-                          _vm.$set(
-                            _vm.config,
-                            "duration",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
+                        ],
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.config.duration_variance },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.config,
+                              "duration_variance",
+                              _vm._n($event.target.value)
+                            )
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
+                          }
                         }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Duration +/- (sec)")]),
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.config.duration_variance,
-                          expression: "config.duration_variance",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.duration_variance },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [_vm._v("Number of sims")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.number",
+                            value: _vm.config.iterations,
+                            expression: "config.iterations",
+                            modifiers: { number: true }
                           }
-                          _vm.$set(
-                            _vm.config,
-                            "duration_variance",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
+                        ],
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.config.iterations },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.config,
+                              "iterations",
+                              _vm._n($event.target.value)
+                            )
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
+                          }
                         }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Number of sims")]),
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.config.iterations,
-                          expression: "config.iterations",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.iterations },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "form-item" }, [
+                      _c(
+                        "label",
+                        [
+                          _c("span", [_vm._v("RNG seed")]),
+                          _vm._v(" "),
+                          _c("help", [
+                            _vm._v(
+                              "\n                                    A number above 0 will give all runs the same random seed."
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                                    All iterations in the same run will still have different seeds."
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                                    This might be useful for certain analysis.\n                                "
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.number",
+                            value: _vm.config.rng_seed,
+                            expression: "config.rng_seed",
+                            modifiers: { number: true }
                           }
-                          _vm.$set(
-                            _vm.config,
-                            "iterations",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
+                        ],
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.config.rng_seed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.config,
+                              "rng_seed",
+                              _vm._n($event.target.value)
+                            )
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
+                          }
                         }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c(
-                      "label",
-                      [
-                        _c("span", [_vm._v("RNG seed")]),
-                        _vm._v(" "),
-                        _c("help", [
-                          _vm._v(
-                            "\n                                    A number above 0 will give all runs the same random seed."
-                          ),
-                          _c("br"),
-                          _vm._v(
-                            "\n                                    All iterations in the same run will still have different seeds."
-                          ),
-                          _c("br"),
-                          _vm._v(
-                            "\n                                    This might be useful for certain analysis.\n                                "
-                          )
-                        ])
-                      ],
-                      1
-                    ),
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.config.rng_seed,
-                          expression: "config.rng_seed",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.rng_seed },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.config,
-                            "rng_seed",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c(
-                      "label",
-                      [
+                    _c("div", { staticClass: "form-item" }, [
+                      _c(
+                        "label",
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.gcd_unlocked,
+                                expression: "config.gcd_unlocked"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.config.gcd_unlocked)
+                                ? _vm._i(_vm.config.gcd_unlocked, null) > -1
+                                : _vm.config.gcd_unlocked
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.config.gcd_unlocked,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "gcd_unlocked",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "gcd_unlocked",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.config, "gcd_unlocked", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Unlock GCD")]),
+                          _vm._v(" "),
+                          _c("help", [
+                            _vm._v(
+                              "Enables the GCD to go below 1.0s with haste"
+                            )
+                          ])
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.config.gcd_unlocked,
-                              expression: "config.gcd_unlocked"
+                              value: _vm.config.tooltips,
+                              expression: "config.tooltips"
                             }
                           ],
                           attrs: { type: "checkbox" },
                           domProps: {
-                            checked: Array.isArray(_vm.config.gcd_unlocked)
-                              ? _vm._i(_vm.config.gcd_unlocked, null) > -1
-                              : _vm.config.gcd_unlocked
+                            checked: Array.isArray(_vm.config.tooltips)
+                              ? _vm._i(_vm.config.tooltips, null) > -1
+                              : _vm.config.tooltips
                           },
                           on: {
+                            input: function($event) {
+                              return _vm.refreshTooltips(true)
+                            },
                             change: function($event) {
-                              var $$a = _vm.config.gcd_unlocked,
+                              var $$a = _vm.config.tooltips,
                                 $$el = $event.target,
                                 $$c = $$el.checked ? true : false
                               if (Array.isArray($$a)) {
@@ -64232,92 +64365,34 @@ var render = function() {
                                   $$i < 0 &&
                                     _vm.$set(
                                       _vm.config,
-                                      "gcd_unlocked",
+                                      "tooltips",
                                       $$a.concat([$$v])
                                     )
                                 } else {
                                   $$i > -1 &&
                                     _vm.$set(
                                       _vm.config,
-                                      "gcd_unlocked",
+                                      "tooltips",
                                       $$a
                                         .slice(0, $$i)
                                         .concat($$a.slice($$i + 1))
                                     )
                                 }
                               } else {
-                                _vm.$set(_vm.config, "gcd_unlocked", $$c)
+                                _vm.$set(_vm.config, "tooltips", $$c)
                               }
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Unlock GCD")]),
-                        _vm._v(" "),
-                        _c("help", [
-                          _vm._v("Enables the GCD to go below 1.0s with haste")
+                        _c("span", [
+                          _vm._v("Use item tooltips (requires reload)")
                         ])
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.tooltips,
-                            expression: "config.tooltips"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.tooltips)
-                            ? _vm._i(_vm.config.tooltips, null) > -1
-                            : _vm.config.tooltips
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.refreshTooltips(true)
-                          },
-                          change: function($event) {
-                            var $$a = _vm.config.tooltips,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "tooltips",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "tooltips",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.config, "tooltips", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [
-                        _vm._v("Use item tooltips (requires reload)")
                       ])
                     ])
-                  ])
-                ]),
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("fieldset", [
                   _c("legend", [_vm._v("Debuffs")]),

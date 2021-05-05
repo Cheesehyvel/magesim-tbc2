@@ -68,6 +68,7 @@ struct Config
     double regen_stop_at = 30;
     int regen_ab_count = 3;
     RegenRotation regen_rotation = ROTATION_FB;
+    double ab_haste_stop = 0;
 
     double mana_tide_at = 10;
     double bloodlust_at = 20;

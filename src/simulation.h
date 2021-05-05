@@ -876,6 +876,12 @@ public:
             if (config->maintain_fire_vulnerability && player->talents.imp_scorch && shouldScorch())
                 return make_shared<spell::Scorch>();
 
+            if (config->ab_haste_stop && 1.0 / (config->ab_haste_stop/100.0 + 1) >= castHaste()) {
+                if (player->talents.imp_frostbolt < player->talents.imp_fireball)
+                    return make_shared<spell::Fireball>();
+                return make_shared<spell::Frostbolt>();
+            }
+
             if (canBlast())
                 return defaultSpell();
 
