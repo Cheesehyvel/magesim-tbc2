@@ -887,7 +887,7 @@ public:
                 return make_shared<spell::Pyroblast>();
             }
 
-            if (!state->regen_active && state->buffStacks(buff::ARCANE_BLAST) >= config->regen_ab_count && !state->hasBuff(buff::INNERVATE)) {
+            if (!state->regen_active && state->buffStacks(buff::ARCANE_BLAST) >= min(3, config->regen_ab_count) && !state->hasBuff(buff::INNERVATE)) {
                 double regen_at = config->regen_mana_at;
                 if (state->hasBuff(buff::BLOODLUST))
                     regen_at = min(regen_at, 10.0);
