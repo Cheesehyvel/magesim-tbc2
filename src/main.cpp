@@ -2,6 +2,14 @@
 #include <cstdlib>
 #include <chrono>
 #include <memory>
+#include <map>
+#include <vector>
+#include <string>
+#include <list>
+#include <math.h>
+#include <random>
+#include <sstream>
+#include <iomanip>
 
 #include "common.h"
 #include "config.h"

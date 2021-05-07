@@ -1,5 +1,3 @@
-#include <string>
-
 namespace spell
 {
 
@@ -34,11 +32,13 @@ namespace spell
         double coeff = 1;
         bool channeling = false;
         bool proc = false;
+        bool binary = false;
         int ticks = 0;
         School school;
 
         Result result;
         double dmg = 0;
+        double resist = 0;
         double actual_cost = 0;
         int tick = 0;
         bool done = false;
@@ -97,6 +97,7 @@ namespace spell
             cast_time = 3;
             coeff = 3/3.5 * 0.95;
             school = SCHOOL_FROST;
+            binary = true;
         }
 
     };
