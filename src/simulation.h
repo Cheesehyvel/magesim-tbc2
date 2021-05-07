@@ -1486,8 +1486,9 @@ public:
 
         // No confirmed formulas or resistance tables can be found
         // This resistance table is based on data from Karazhan in TBC Beta uploaded to WCL
+        // It results in about 6% mitigation
 
-        int resist[4] = {87, 8, 4, 1};
+        int resist[4] = {83, 11, 5, 1};
         int roll = random<int>(0, 99);
 
         double resistance_multiplier = 0.0;
