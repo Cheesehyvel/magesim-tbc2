@@ -1484,15 +1484,10 @@ public:
         if (spell->binary)
             return 0.0;
 
-        // 24 level-based boss resistance (Source ?)
-        // 350 is the attacker level based skill
-        // Resistance spans between 0% and 75% so multiply by 75
-        // We round that to closest whole percent
-        // 24/350 * 75 = 5.14 ~= 5
-        // Resistance table for 5% resist is {84, 12, 4, 0} for 0%/25%/50%/75% resistance respectively
-        // Source: cmangos-tbc source
+        // No confirmed formulas or resistance tables can be found
+        // This resistance table is based on data from Karazhan in TBC Beta uploaded to WCL
 
-        int resist[4] = {84, 12, 4, 0};
+        int resist[4] = {87, 8, 4, 1};
         int roll = random<int>(0, 99);
 
         double resistance_multiplier = 0.0;
