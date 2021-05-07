@@ -1328,10 +1328,12 @@ public:
 
         // This is supposedly bugged for binary spells to give 2% hit each point
         // They say it was actually that way in TBC so we'll keep it like this for now
-        if (spell->binary && player->talents.elemental_precision)
-            hit+= player->talents.elemental_precision*2.0;
-        else if (player->talents.elemental_precision)
-            hit+= player->talents.elemental_precision;
+        if (spell->school == SCHOOL_FIRE || spell->school == SCHOOL_FROST) {
+            if (spell->binary && player->talents.elemental_precision)
+                hit+= player->talents.elemental_precision*2.0;
+            else if (player->talents.elemental_precision)
+                hit+= player->talents.elemental_precision;
+        }
 
         return min(hit, 99.0);
     }
