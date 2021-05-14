@@ -1937,7 +1937,6 @@
                         }
                     }
 
-                    console.log(colors);
                     for (var color in meta.req) {
                         if (meta.req[color] > colors[color])
                             return false;

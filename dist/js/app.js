@@ -5570,8 +5570,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }
 
-        console.log(colors);
-
         for (var color in meta.req) {
           if (meta.req[color] > colors[color]) return false;
         }
