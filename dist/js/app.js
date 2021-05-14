@@ -107,7 +107,8 @@ __webpack_require__.r(__webpack_exports__);
     ROTATION_FB: 0,
     ROTATION_AMFB: 1,
     ROTATION_SC: 2,
-    ROTATION_SCFB: 3
+    ROTATION_SCFB: 3,
+    ROTATION_AMSC: 4
   },
   foods: {
     FOOD_NONE: 0,
@@ -3730,6 +3731,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -64049,6 +64051,16 @@ var render = function() {
                                     }
                                   },
                                   [_vm._v("1xAM, 1xFrB")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  {
+                                    domProps: {
+                                      value: _vm.regen_rotations.ROTATION_AMSC
+                                    }
+                                  },
+                                  [_vm._v("1xAM, 1xScorch")]
                                 ),
                                 _vm._v(" "),
                                 _c(

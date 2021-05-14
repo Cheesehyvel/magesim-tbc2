@@ -936,6 +936,14 @@ public:
                     else if (state->regen_cycle == config->regen_ab_count + 2)
                         is_done = true;
                 }
+                else if (config->regen_rotation == ROTATION_AMSC) {
+                    if (state->regen_cycle == 0)
+                        next = make_shared<spell::ArcaneMissiles>();
+                    else if (state->regen_cycle == 1)
+                        next = make_shared<spell::Scorch>();
+                    else if (state->regen_cycle == config->regen_ab_count + 1)
+                        is_done = true;
+                }
 
                 if (is_done) {
                     state->regen_cycle = 0;

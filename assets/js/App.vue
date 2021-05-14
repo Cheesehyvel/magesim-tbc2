@@ -407,6 +407,7 @@
                                     <select v-model="config.regen_rotation">
                                         <option :value="regen_rotations.ROTATION_FB">3xFrB</option>
                                         <option :value="regen_rotations.ROTATION_AMFB">1xAM, 1xFrB</option>
+                                        <option :value="regen_rotations.ROTATION_AMSC">1xAM, 1xScorch</option>
                                         <option :value="regen_rotations.ROTATION_SC">5xScorch</option>
                                         <option :value="regen_rotations.ROTATION_SCFB">1xScorch, 2xFiB</option>
                                     </select>

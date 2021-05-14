@@ -17,6 +17,7 @@ export default {
         ROTATION_AMFB: 1,
         ROTATION_SC: 2,
         ROTATION_SCFB: 3,
+        ROTATION_AMSC: 4,
     },
     foods: {
         FOOD_NONE: 0,

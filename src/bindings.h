@@ -38,6 +38,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("ROTATION_AMFB", ROTATION_AMFB)
         .value("ROTATION_SC", ROTATION_SC)
         .value("ROTATION_SCFB", ROTATION_SCFB)
+        .value("ROTATION_AMSC", ROTATION_AMSC)
         ;
 
     emscripten::enum_<Spec>("Spec")
