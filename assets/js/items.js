@@ -432,12 +432,12 @@ var equip = {
 };
 
 var gems = [
-    { id: ids.CHAOTIC_SKYFIRE, title: "Chaotic Skyfire Diamond", color: "m", crit: 12, desc: "+3% crit dmg" },
-    { id: ids.EMBER_SKYFIRE, title: "Ember Skyfire Diamond", color: "m", sp: 14, desc: "+2% int" },
-    { id: ids.INSIGHTFUL_EARTHSTORM, title: "Insightful Earthstorm Diamond", color: "m", int: 12, desc: "Chance to restore mana" },
-    { id: 25890, title: "Destructive Skyfire Diamond", color: "m", sp: 14, desc: "1% Spell reflect" },
-    { id: 32641, title: "Imbued Unstable Diamond", color: "m", sp: 14, desc: "5% stun resist" },
-    { id: 28557, title: "Swift Skyfire Diamond", color: "m", sp: 12, desc: "Minor run speed" },
+    { id: ids.CHAOTIC_SKYFIRE, title: "Chaotic Skyfire Diamond", color: "m", crit: 12, desc: "+3% crit dmg", req: {b: 2}, phase: 4 },
+    { id: ids.EMBER_SKYFIRE, title: "Ember Skyfire Diamond", color: "m", sp: 14, desc: "+2% int", req: {r: 3}, phase: 5 },
+    { id: ids.INSIGHTFUL_EARTHSTORM, title: "Insightful Earthstorm Diamond", color: "m", int: 12, desc: "Chance to restore mana", req: {b: 2, y: 2, r: 2} },
+    { id: 25890, title: "Destructive Skyfire Diamond", color: "m", sp: 14, desc: "1% Spell reflect", req: {b: 2, y: 2, r: 2} },
+    { id: 32641, title: "Imbued Unstable Diamond", color: "m", sp: 14, desc: "5% stun resist", phase: 2, req: {y: 3} },
+    { id: 28557, title: "Swift Skyfire Diamond", color: "m", sp: 12, desc: "Minor run speed", req: {y: 2, r: 1} },
     { id: 33133, title: "Don Julio's Heart", color: "r", sp: 14, unique: true, phase: 3 },
     { id: 28118, title: "Runed Ornate Ruby", color: "r", sp: 12, unique: true },
     { id: 32196, title: "Runed Crimson Spinel", color: "r", sp: 12, phase: 3 },

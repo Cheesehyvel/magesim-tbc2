@@ -259,16 +259,24 @@ table {
                 margin-top: $spacer;
                 text-align: center;
 
-                div:nth-child(1) {
+                > div:nth-child(1) {
                     font-weight: 700;
                     color: #08f;
                 }
-                div:nth-child(2) {
+                > div:nth-child(2) {
                     font-weight: 700;
                     font-size: 32px;
                 }
-                div:nth-child(3) {
+                > div:nth-child(3) {
                     color: #aaa;
+                }
+
+                .meta-warning {
+                    .material-icons {
+                        color: #fa0;
+                        cursor: pointer;
+                        font-size: 20px;
+                    }
                 }
             }
         }
@@ -340,6 +348,24 @@ table {
                         &.color-o { background: #f80; }
                         &.color-p { background: #f0f; }
                         &.color-g { background: #0f0; }
+
+                        &:nth-child(n+2) {
+                            margin-left: 5px;
+                        }
+
+                        a { color: inherit; }
+                    }
+
+                    .socket-text-color {
+                        display: inline-block;
+
+                        &.color-m { color: #aaa; }
+                        &.color-b { color: #3b9ac7; }
+                        &.color-r { color: #f00; }
+                        &.color-y { color: #ff0; }
+                        &.color-o { color: #f80; }
+                        &.color-p { color: #f0f; }
+                        &.color-g { color: #0f0; }
 
                         &:nth-child(n+2) {
                             margin-left: 5px;

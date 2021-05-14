@@ -767,16 +767,21 @@ table.simple th:last-child, table.simple td:last-child {
   margin-top: 60px;
   text-align: center;
 }
-#app .wrapper .sidebar .result div:nth-child(1) {
+#app .wrapper .sidebar .result > div:nth-child(1) {
   font-weight: 700;
   color: #08f;
 }
-#app .wrapper .sidebar .result div:nth-child(2) {
+#app .wrapper .sidebar .result > div:nth-child(2) {
   font-weight: 700;
   font-size: 32px;
 }
-#app .wrapper .sidebar .result div:nth-child(3) {
+#app .wrapper .sidebar .result > div:nth-child(3) {
   color: #aaa;
+}
+#app .wrapper .sidebar .result .meta-warning .material-icons {
+  color: #fa0;
+  cursor: pointer;
+  font-size: 20px;
 }
 #app .wrapper .main {
   position: relative;
@@ -859,6 +864,36 @@ table.simple th:last-child, table.simple td:last-child {
   margin-left: 5px;
 }
 #app .wrapper .main .gear .items .socket-color a {
+  color: inherit;
+}
+#app .wrapper .main .gear .items .socket-text-color {
+  display: inline-block;
+}
+#app .wrapper .main .gear .items .socket-text-color.color-m {
+  color: #aaa;
+}
+#app .wrapper .main .gear .items .socket-text-color.color-b {
+  color: #3b9ac7;
+}
+#app .wrapper .main .gear .items .socket-text-color.color-r {
+  color: #f00;
+}
+#app .wrapper .main .gear .items .socket-text-color.color-y {
+  color: #ff0;
+}
+#app .wrapper .main .gear .items .socket-text-color.color-o {
+  color: #f80;
+}
+#app .wrapper .main .gear .items .socket-text-color.color-p {
+  color: #f0f;
+}
+#app .wrapper .main .gear .items .socket-text-color.color-g {
+  color: #0f0;
+}
+#app .wrapper .main .gear .items .socket-text-color:nth-child(n+2) {
+  margin-left: 5px;
+}
+#app .wrapper .main .gear .items .socket-text-color a {
   color: inherit;
 }
 #app .wrapper .main .gear .items .compare {
