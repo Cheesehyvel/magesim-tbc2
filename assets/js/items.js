@@ -35,6 +35,7 @@ var ids = {
     EYE_OF_THE_NIGHT: 24116,
     CHAIN_OF_THE_TWILIGHT_OWL: 24121,
     JADE_PENDANT_OF_BLASTING: 20966,
+    ASHTONGUE_TALISMAN: 32488,
 };
 
 var equip = {
@@ -392,6 +393,7 @@ var equip = {
         { id: ids.SORCERERS_ALCHEMIST_STONE, title: "Sorcerer's Alchemist Stone", sp: 63, phase: 5 },
         { id: ids.NAARU_SLIVER, title: "Shifting Naaru Sliver", haste: 54, use: true, phase: 5 },
         { id: ids.SKULL_GULDAN, title: "The Skull of Gul'dan", sp: 55, hit: 25, use: true, phase: 3 },
+        { id: ids.ASHTONGUE_TALISMAN, title: "Ashtongue Talisman", phase: 3 },
         { id: ids.UNSTABLE_CURRENTS, title: "Sextant of Unstable Currents", crit: 40, phase: 2 },
         { id: ids.SERPENT_COIL, title: "Serpent-Coil Braid", crit: 30, hit: 12, phase: 2 },
         { id: ids.SHRUNKEN_HEAD, title: "Hex Shrunken Head", sp: 53, use: true, phase: 4 },

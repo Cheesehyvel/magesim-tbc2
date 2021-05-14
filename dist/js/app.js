@@ -231,7 +231,8 @@ var ids = {
   DARKMOON_CRUSADE: 31856,
   EYE_OF_THE_NIGHT: 24116,
   CHAIN_OF_THE_TWILIGHT_OWL: 24121,
-  JADE_PENDANT_OF_BLASTING: 20966
+  JADE_PENDANT_OF_BLASTING: 20966,
+  ASHTONGUE_TALISMAN: 32488
 };
 var equip = {
   weapon: [{
@@ -2917,6 +2918,10 @@ var equip = {
     sp: 55,
     hit: 25,
     use: true,
+    phase: 3
+  }, {
+    id: ids.ASHTONGUE_TALISMAN,
+    title: "Ashtongue Talisman",
     phase: 3
   }, {
     id: ids.UNSTABLE_CURRENTS,

@@ -552,6 +552,9 @@ public:
                 // 100% proc rate
                 if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR) && !state->hasCooldown(cooldown::LIGHTNING_CAPACITOR))
                     onBuffGain(make_shared<buff::LightningCapacitor>());
+                // 50% proc rate
+                if (hasTrinket(TRINKET_ASHTONGUE_TALISMAN) && random<int>(0, 1) == 0)
+                    onBuffGain(make_shared<buff::AshtongueTalisman>());
 
                 if (spell->school == SCHOOL_FIRE && player->talents.ignite)
                     addIgnite(spell);
@@ -1299,6 +1302,8 @@ public:
             rating+= 320;
         if (state->hasBuff(buff::MQG))
             rating+= 330;
+        if (state->hasBuff(buff::ASHTONGUE_TALISMAN))
+            rating+= 145;
         if (state->hasBuff(buff::DRUMS_OF_BATTLE))
             rating+= 80;
 

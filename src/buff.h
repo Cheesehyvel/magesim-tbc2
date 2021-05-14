@@ -42,6 +42,7 @@ namespace buff
         FLAME_CAP = 28714,
         DARKMOON_CRUSADE = 39438,
         SPELL_POWER_BONUS = 37619,
+        ASHTONGUE_TALISMAN = 40482,
     };
 
 
@@ -578,6 +579,19 @@ namespace buff
             id = SPELL_POWER_BONUS;
             name = "Spell Power Bonus";
             duration = 15;
+        }
+
+    };
+
+    class AshtongueTalisman : public Buff
+    {
+
+    public:
+        AshtongueTalisman()
+        {
+            id = ASHTONGUE_TALISMAN;
+            name = "Insight of the Ashtongue";
+            duration = 5;
         }
 
     };
