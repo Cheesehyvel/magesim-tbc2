@@ -817,7 +817,8 @@ var equip = {
     sockets: ["y", "y", "b"],
     bonus: {
       sp: 5
-    }
+    },
+    phase: 2
   }, {
     id: 32494,
     title: "Destruction Holo-gogs",
