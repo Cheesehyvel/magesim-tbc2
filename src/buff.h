@@ -43,6 +43,7 @@ namespace buff
         DARKMOON_CRUSADE = 39438,
         SPELL_POWER_BONUS = 37619,
         ASHTONGUE_TALISMAN = 40482,
+        CALL_OF_THE_NEXUS = 34320,
     };
 
 
@@ -592,6 +593,19 @@ namespace buff
             id = ASHTONGUE_TALISMAN;
             name = "Insight of the Ashtongue";
             duration = 5;
+        }
+
+    };
+
+    class CallOfTheNexus : public Buff
+    {
+
+    public:
+        CallOfTheNexus()
+        {
+            id = CALL_OF_THE_NEXUS;
+            name = "Call of the Nexus";
+            duration = 10;
         }
 
     };

@@ -233,7 +233,8 @@ var ids = {
   EYE_OF_THE_NIGHT: 24116,
   CHAIN_OF_THE_TWILIGHT_OWL: 24121,
   JADE_PENDANT_OF_BLASTING: 20966,
-  ASHTONGUE_TALISMAN: 32488
+  ASHTONGUE_TALISMAN: 32488,
+  NEXUS_HORN: 28418
 };
 var equip = {
   weapon: [{
@@ -2982,6 +2983,11 @@ var equip = {
     id: ids.LIGHTNING_CAPACITOR,
     title: "The Lightning Capacitor"
   }, {
+    id: ids.PENDANT_VIOLET_EYE,
+    title: "Pendant of the Violet Eye",
+    "int": 40,
+    use: true
+  }, {
     id: 35327,
     title: "Battlemaster's Alacrity",
     haste: 40,
@@ -3026,15 +3032,15 @@ var equip = {
     use: true,
     q: "uncommon"
   }, {
-    id: ids.PENDANT_VIOLET_EYE,
-    title: "Pendant of the Violet Eye",
-    "int": 40,
-    use: true
-  }, {
     id: ids.VENGEANCE_ILLIDARI,
     title: "Vengeance of the Illidari",
     crit: 26,
     use: true,
+    q: "rare"
+  }, {
+    id: ids.NEXUS_HORN,
+    title: "Shiffar's Nexus-Horn",
+    crit: 30,
     q: "rare"
   }],
   stat_weight: [{

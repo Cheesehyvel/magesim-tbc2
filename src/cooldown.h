@@ -23,6 +23,7 @@ namespace cooldown
         LIGHTNING_CAPACITOR = 37657,
         INSIGHTFUL_EARTHSTORM = 27521,
         MARK_OF_DEFIANCE = 33511,
+        CALL_OF_THE_NEXUS = 34320,
     };
 
 
@@ -245,6 +246,18 @@ namespace cooldown
         {
             id = MARK_OF_DEFIANCE;
             duration = 15;
+        }
+
+    };
+
+    class CallOfTheNexus : public Cooldown
+    {
+
+    public:
+        CallOfTheNexus()
+        {
+            id = CALL_OF_THE_NEXUS;
+            duration = 45;
         }
 
     };

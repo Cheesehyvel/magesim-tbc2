@@ -36,6 +36,7 @@ var ids = {
     CHAIN_OF_THE_TWILIGHT_OWL: 24121,
     JADE_PENDANT_OF_BLASTING: 20966,
     ASHTONGUE_TALISMAN: 32488,
+    NEXUS_HORN: 28418,
 };
 
 var equip = {
@@ -406,6 +407,7 @@ var equip = {
         { id: ids.EYE_OF_MAGTHERIDON, title: "Eye of Magtheridon", sp: 54 },
         { id: ids.RESTRAINED_ESSENCE, title: "The Restrained Essence of Sapphiron", sp: 40, use: true },
         { id: ids.LIGHTNING_CAPACITOR, title: "The Lightning Capacitor" },
+        { id: ids.PENDANT_VIOLET_EYE, title: "Pendant of the Violet Eye", int: 40, use: true },
         { id: 35327, title: "Battlemaster's Alacrity", haste: 40, phase: 5 },
         { id: 34579, title: "Battlemaster's Audacity", sp: 47, phase: 5 },
         { id: ids.MQG, title: "Mind Quickening Gem", use: true },
@@ -415,8 +417,8 @@ var equip = {
         { id: ids.SCRYERS_BLOODGEM, title: "Scryer's Bloodgem", hit: 32, use: true, q: "rare" },
         { id: 12930, title: "Briarwood Reed", sp: 29, q: "rare" },
         { id: ids.CRYSTAL_TALISMAN, title: "Ancient Crystal Talisman", sp: 26, use: true, q: "uncommon" },
-        { id: ids.PENDANT_VIOLET_EYE, title: "Pendant of the Violet Eye", int: 40, use: true },
         { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true, q: "rare" },
+        { id: ids.NEXUS_HORN, title: "Shiffar's Nexus-Horn", crit: 30, q: "rare" },
     ],
     stat_weight: [
         { id: ids.STAT_WEIGHT_BASE, title: "Base"},

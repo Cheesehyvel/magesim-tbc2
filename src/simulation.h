@@ -549,6 +549,11 @@ public:
                     onCooldownGain(make_shared<cooldown::UnstableCurrents>());
                     onBuffGain(make_shared<buff::UnstableCurrents>());
                 }
+                // 20% proc rate
+                if (hasTrinket(TRINKET_NEXUS_HORN) && !state->hasCooldown(cooldown::CALL_OF_THE_NEXUS) && random<int>(0, 4) == 0) {
+                    onCooldownGain(make_shared<cooldown::CallOfTheNexus>());
+                    onBuffGain(make_shared<buff::CallOfTheNexus>());
+                }
                 // 100% proc rate
                 if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR) && !state->hasCooldown(cooldown::LIGHTNING_CAPACITOR))
                     onBuffGain(make_shared<buff::LightningCapacitor>());
@@ -1486,6 +1491,8 @@ public:
                 sp+= 170.0;
             if (state->hasBuff(buff::RESTRAINED_ESSENCE))
                 sp+= 130.0;
+            if (state->hasBuff(buff::CALL_OF_THE_NEXUS))
+                sp+= 225.0;
             if (state->hasBuff(buff::ETERNAL_SAGE))
                 sp+= 95.0;
             if (state->hasBuff(buff::SPELL_BLASTING))
