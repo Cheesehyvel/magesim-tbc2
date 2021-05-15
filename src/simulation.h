@@ -1367,9 +1367,6 @@ public:
         if (rating)
             crit+= critRatingToChance(rating);
 
-        if (spell->proc)
-            return crit;
-
         if (spell->id == spell::ARCANE_BLAST && player->talents.arcane_impact)
             crit+= player->talents.arcane_impact*2.0;
         if (spell->id == spell::SCORCH && player->talents.incinerate)
@@ -1377,7 +1374,7 @@ public:
         if (spell->id == spell::FROSTBOLT && player->talents.empowered_frostbolt)
             crit+= player->talents.empowered_frostbolt*1.0;
 
-        if (state->hasBuff(buff::CLEARCAST) && player->talents.arcane_potency)
+        if (state->hasBuff(buff::CLEARCAST) && player->talents.arcane_potency && !spell->proc)
             crit+= player->talents.arcane_potency*10.0;
         if (state->hasBuff(buff::COMBUSTION) && spell->school == SCHOOL_FIRE)
             crit+= state->buffStacks(buff::COMBUSTION)*10.0;
@@ -1418,12 +1415,9 @@ public:
     {
         double multi = 1;
 
-        if (spell->proc)
-            return multi;
-
         if (config->misery)
             multi*= 1.05;
-        if (config->curse_of_elements)
+        if (config->curse_of_elements && (spell->school == SCHOOL_FROST || spell->school == SCHOOL_FIRE || spell->school == SCHOOL_ARCANE))
             multi*= 1.1;
 
         if (player->talents.arcane_instability)
@@ -1443,7 +1437,7 @@ public:
         if (spell->school == SCHOOL_FIRE && state->hasDebuff(debuff::FIRE_VULNERABILITY))
             multi*= (1 + state->debuffStacks(debuff::FIRE_VULNERABILITY) * 0.03);
 
-        if (state->hasBuff(buff::ARCANE_POWER))
+        if (state->hasBuff(buff::ARCANE_POWER) && !spell->proc)
             multi*= 1.3;
 
         if (spell->id == spell::ARCANE_BLAST && config->tirisfal_2set)
