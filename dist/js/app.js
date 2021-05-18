@@ -5061,6 +5061,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     prepare: function prepare() {
+      this.fillEmptyFields();
       this.saveGear();
       this.saveConfig();
       this.itemStats();
@@ -5134,6 +5135,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return gems.filter(function (g) {
         return _.get(g, "phase", 1) <= _this4.phase_filter;
       });
+    },
+    fillEmptyFields: function fillEmptyFields() {
+      var def = {
+        iterations: 20000,
+        duration: 180,
+        regen_mana_at: 30
+      };
+
+      for (var key in this.config) {
+        if (this.config[key] === "" || this.config[key] === null) this.config[key] = def.hasOwnProperty(key) ? def[key] : 0;
+      }
     },
     finalStats: function finalStats() {
       var x;

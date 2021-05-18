@@ -1303,6 +1303,7 @@
             },
 
             prepare() {
+                this.fillEmptyFields();
                 this.saveGear();
                 this.saveConfig();
                 this.itemStats();
@@ -1385,6 +1386,19 @@
                     return gems;
 
                 return gems.filter(g => _.get(g, "phase", 1) <= this.phase_filter);
+            },
+
+            fillEmptyFields() {
+                var def = {
+                    iterations: 20000,
+                    duration: 180,
+                    regen_mana_at: 30,
+                };
+
+                for (var key in this.config) {
+                    if (this.config[key] === "" || this.config[key] === null)
+                        this.config[key] = def.hasOwnProperty(key) ? def[key] : 0;
+                }
             },
 
             finalStats() {
