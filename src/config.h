@@ -9,6 +9,7 @@ struct Config
 
     bool misery = true;
     bool curse_of_elements = true;
+    bool malediction = false;
     bool judgement_of_the_crusader = false;
     bool judgement_of_wisdom = true;
     bool vampiric_touch = true;

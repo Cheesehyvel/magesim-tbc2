@@ -4640,6 +4640,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -64671,6 +64677,69 @@ var render = function() {
                       _c("span", [_vm._v("Curse of Elements")])
                     ])
                   ]),
+                  _vm._v(" "),
+                  _vm.config.curse_of_elements
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c(
+                          "label",
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.config.malediction,
+                                  expression: "config.malediction"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(_vm.config.malediction)
+                                  ? _vm._i(_vm.config.malediction, null) > -1
+                                  : _vm.config.malediction
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.config.malediction,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.config,
+                                          "malediction",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.config,
+                                          "malediction",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.config, "malediction", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", [_vm._v("Malediction")]),
+                            _vm._v(" "),
+                            _c("help", [
+                              _vm._v("3% extra damage from curse of elements")
+                            ])
+                          ],
+                          1
+                        )
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
                     _c("label", [

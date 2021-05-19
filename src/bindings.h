@@ -147,6 +147,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("vampiric_touch_regen", &Config::vampiric_touch_regen)
         .property("misery", &Config::misery)
         .property("curse_of_elements", &Config::curse_of_elements)
+        .property("malediction", &Config::malediction)
         .property("judgement_of_the_crusader", &Config::judgement_of_the_crusader)
         .property("judgement_of_wisdom", &Config::judgement_of_wisdom)
         .property("vampiric_touch", &Config::vampiric_touch)

@@ -1417,8 +1417,13 @@ public:
 
         if (config->misery)
             multi*= 1.05;
-        if (config->curse_of_elements && (spell->school == SCHOOL_FROST || spell->school == SCHOOL_FIRE || spell->school == SCHOOL_ARCANE))
-            multi*= 1.1;
+
+        if (config->curse_of_elements && (spell->school == SCHOOL_FROST || spell->school == SCHOOL_FIRE || spell->school == SCHOOL_ARCANE)) {
+            if (config->malediction)
+                multi*= 1.13;
+            else
+                multi*= 1.1;
+        }
 
         if (player->talents.arcane_instability)
             multi*= 1 + (player->talents.arcane_instability * 0.01);

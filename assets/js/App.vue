@@ -484,6 +484,12 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.curse_of_elements"> <span>Curse of Elements</span></label>
                             </div>
+                            <div class="form-item" v-if="config.curse_of_elements">
+                                <label><input type="checkbox" v-model="config.malediction">
+                                    <span>Malediction</span>
+                                    <help>3% extra damage from curse of elements</help>
+                                </label>
+                            </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.judgement_of_the_crusader"> <span>Imp. Judgement of the Crusader</span></label>
                             </div>
