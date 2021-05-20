@@ -4668,6 +4668,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       gcd_unlocked: false,
       misery: true,
       curse_of_elements: true,
+      malediction: false,
       judgement_of_the_crusader: false,
       judgement_of_wisdom: true,
       vampiric_touch: true,
