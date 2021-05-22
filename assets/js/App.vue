@@ -1518,6 +1518,7 @@
                     stats.crit+= this.critRatingToChance(critrating);
                 if (x = this.hasTalent("arcane_instability"))
                     stats.crit+= x;
+                stats.crit+= stats.intellect/80;
 
                 // Spell hit
                 if (this.config.totem_of_wrath)
@@ -1649,11 +1650,10 @@
                 stats.crit+= this.critRatingToChance(item_stats.crit);
                 stats.hit+= this.hitRatingToChance(item_stats.hit);
                 stats.haste+= this.hasteRatingToHaste(item_stats.haste);
-                stats.crit+= stats.intellect/80;
 
-                stats.crit = _.round(stats.crit, 2);
-                stats.hit = _.round(stats.hit, 2);
-                stats.haste = _.round(stats.haste, 2);
+                stats.crit = stats.crit;
+                stats.hit = stats.hit;
+                stats.haste = stats.haste;
 
                 this.config.stats = stats;
             },

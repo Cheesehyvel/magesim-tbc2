@@ -194,6 +194,7 @@ public:
             stats.crit+= critRatingToChance(critrating);
         if (talents.arcane_instability)
             stats.crit+= 1.0 * talents.arcane_instability;
+        stats.crit+= stats.intellect/80.0;
 
         // Spell hit
         if (config->totem_of_wrath)

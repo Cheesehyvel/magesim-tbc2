@@ -5227,7 +5227,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.config.food == this.foods.FOOD_SPELL_CRIT) critrating += 20;
       if (this.config.atiesh_mage) critrating += 28;
       if (critrating > 0) stats.crit += this.critRatingToChance(critrating);
-      if (x = this.hasTalent("arcane_instability")) stats.crit += x; // Spell hit
+      if (x = this.hasTalent("arcane_instability")) stats.crit += x;
+      stats.crit += stats.intellect / 80; // Spell hit
 
       if (this.config.totem_of_wrath) stats.hit += 3;
       if (this.config.race == this.races.RACE_DRAENEI || this.config.inspiring_presence) stats.hit += 1;
@@ -5358,10 +5359,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       stats.crit += this.critRatingToChance(item_stats.crit);
       stats.hit += this.hitRatingToChance(item_stats.hit);
       stats.haste += this.hasteRatingToHaste(item_stats.haste);
-      stats.crit += stats.intellect / 80;
-      stats.crit = _.round(stats.crit, 2);
-      stats.hit = _.round(stats.hit, 2);
-      stats.haste = _.round(stats.haste, 2);
+      stats.crit = stats.crit;
+      stats.hit = stats.hit;
+      stats.haste = stats.haste;
       this.config.stats = stats;
     },
     itemConfig: function itemConfig() {
