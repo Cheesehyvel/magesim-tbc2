@@ -5,6 +5,7 @@ struct Config
     double duration_variance = 1.5;
     int rng_seed = 0;
     bool gcd_unlocked = false;
+    bool avg_spell_dmg = false;
     int vampiric_touch_regen = 50;
 
     bool misery = true;

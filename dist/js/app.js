@@ -4653,6 +4653,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -64520,6 +64529,73 @@ var render = function() {
                           _c("help", [
                             _vm._v(
                               "Enables the GCD to go below 1.0s with haste"
+                            )
+                          ])
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c(
+                        "label",
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.avg_spell_dmg,
+                                expression: "config.avg_spell_dmg"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.config.avg_spell_dmg)
+                                ? _vm._i(_vm.config.avg_spell_dmg, null) > -1
+                                : _vm.config.avg_spell_dmg
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.config.avg_spell_dmg,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "avg_spell_dmg",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "avg_spell_dmg",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.config, "avg_spell_dmg", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Use average spell damage")]),
+                          _vm._v(" "),
+                          _c("help", [
+                            _vm._v(
+                              "\n                                    This will eliminate the random damage from spells."
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                                    This can be useful to verify calculations.\n                                "
                             )
                           ])
                         ],

@@ -144,6 +144,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("duration_variance", &Config::duration_variance)
         .property("rng_seed", &Config::rng_seed)
         .property("gcd_unlocked", &Config::gcd_unlocked)
+        .property("avg_spell_dmg", &Config::avg_spell_dmg)
         .property("vampiric_touch_regen", &Config::vampiric_touch_regen)
         .property("misery", &Config::misery)
         .property("curse_of_elements", &Config::curse_of_elements)

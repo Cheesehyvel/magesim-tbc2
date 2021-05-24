@@ -473,6 +473,15 @@
                                 </label>
                             </div>
                             <div class="form-item">
+                                <label><input type="checkbox" v-model="config.avg_spell_dmg">
+                                    <span>Use average spell damage</span>
+                                    <help>
+                                        This will eliminate the random damage from spells.<br>
+                                        This can be useful to verify calculations.
+                                    </help>
+                                </label>
+                            </div>
+                            <div class="form-item">
                                 <label><input type="checkbox" v-model="config.tooltips" @input="refreshTooltips(true)"> <span>Use item tooltips (requires reload)</span></label>
                             </div>
                         </fieldset>

@@ -43,6 +43,11 @@ namespace spell
         int tick = 0;
         bool done = false;
 
+        double avgDmg()
+        {
+            return (min_dmg + max_dmg)/2.0;
+        }
+
     };
 
     class ArcaneBlast : public Spell

@@ -1487,7 +1487,12 @@ public:
 
     double spellDmg(shared_ptr<spell::Spell> spell)
     {
-        double dmg = random<double>(spell->min_dmg, spell->max_dmg);
+        double dmg;
+
+        if (config->avg_spell_dmg)
+            dmg = spell->avgDmg();
+        else
+            dmg = random<double>(spell->min_dmg, spell->max_dmg);
 
         if (spell->coeff) {
             double sp = player->stats.spell_power;
