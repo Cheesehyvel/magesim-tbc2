@@ -4646,6 +4646,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4719,6 +4726,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       mana_tide: true,
       bloodlust: true,
       power_infusion: false,
+      symbol_of_hope: false,
       regen_mana_at: 20,
       regen_stop_at: 30,
       regen_ab_count: 3,
@@ -4727,6 +4735,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       mana_tide_at: 20,
       bloodlust_at: 1,
       power_infusion_at: 1,
+      symbol_of_hope_at: 0,
       icy_veins_at: 1,
       cold_snap_at: 41,
       combustion_at: 1,
@@ -4826,6 +4835,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     foolsActive: function foolsActive() {
       var d = new Date();
       return d.getMonth() == 3 && d.getDate() == 1;
+    },
+    faction: function faction() {
+      var alliance = [this.races.RACE_GNOME, this.races.RACE_HUMAN, this.races.RACE_DRAENEI];
+      if (alliance.indexOf(this.config.race) != -1) return "alliance";
+      return "horde";
     },
     activeItems: function activeItems() {
       var _this = this;
@@ -67662,6 +67676,115 @@ var render = function() {
                         })
                       : _vm._e()
                   ]),
+                  _vm._v(" "),
+                  _vm.faction == "alliance"
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c(
+                          "label",
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.config.symbol_of_hope,
+                                  expression: "config.symbol_of_hope"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(
+                                  _vm.config.symbol_of_hope
+                                )
+                                  ? _vm._i(_vm.config.symbol_of_hope, null) > -1
+                                  : _vm.config.symbol_of_hope
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.config.symbol_of_hope,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.config,
+                                          "symbol_of_hope",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.config,
+                                          "symbol_of_hope",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.config, "symbol_of_hope", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              [
+                                _vm._v("Symbol of Hope "),
+                                _vm.config.symbol_of_hope
+                                  ? [_vm._v("at")]
+                                  : _vm._e()
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _c("help", [
+                              _vm._v("Draenei priest racial."),
+                              _c("br"),
+                              _vm._v(
+                                "Setting this to 0 will automatically cast it when mana is low."
+                              )
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _vm.config.symbol_of_hope
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model.number",
+                                  value: _vm.config.symbol_of_hope_at,
+                                  expression: "config.symbol_of_hope_at",
+                                  modifiers: { number: true }
+                                }
+                              ],
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.config.symbol_of_hope_at },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.config,
+                                    "symbol_of_hope_at",
+                                    _vm._n($event.target.value)
+                                  )
+                                },
+                                blur: function($event) {
+                                  return _vm.$forceUpdate()
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
                     _c("label", [_vm._v("Number of innervates")]),

@@ -64,6 +64,7 @@ struct Config
     bool mana_tide = true;
     bool bloodlust = true;
     bool power_infusion = false;
+    bool symbol_of_hope = false;
 
     double regen_mana_at = 20;
     double regen_stop_at = 30;
@@ -74,6 +75,7 @@ struct Config
     double mana_tide_at = 10;
     double bloodlust_at = 20;
     double power_infusion_at = 20;
+    double symbol_of_hope_at = 0;
     double icy_veins_at = 1;
     double cold_snap_at = 20;
     double trinket1_at = 1;

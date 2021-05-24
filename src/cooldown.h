@@ -15,6 +15,8 @@ namespace cooldown
         COMBUSTION = 29977,
         ARCANE_POWER = 12042,
         PRESENCE_OF_MIND = 12043,
+        POWER_INFUSION = 10060,
+        SYMBOL_OF_HOPE = 32548,
         QUAGMIRRANS_EYE = 33370,
         UNSTABLE_CURRENTS = 38348,
         ETERNAL_SAGE = 35084,
@@ -148,6 +150,30 @@ namespace cooldown
         {
             id = EVOCATION;
             duration = 480;
+        }
+
+    };
+
+    class PowerInfusion : public Cooldown
+    {
+
+    public:
+        PowerInfusion()
+        {
+            id = POWER_INFUSION;
+            duration = 180;
+        }
+
+    };
+
+    class SymbolOfHope : public Cooldown
+    {
+
+    public:
+        SymbolOfHope()
+        {
+            id = SYMBOL_OF_HOPE;
+            duration = 300;
         }
 
     };

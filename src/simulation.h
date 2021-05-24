@@ -96,8 +96,10 @@ public:
             pushVampiricTouch(config->vampiric_touch_regen);
         if (config->bloodlust)
             pushBuffGain(make_shared<buff::Bloodlust>(), config->bloodlust_at);
-        if (config->power_infusion)
+        if (config->power_infusion) {
+            pushCooldownGain(make_shared<cooldown::PowerInfusion>(), config->power_infusion_at);
             pushBuffGain(make_shared<buff::PowerInfusion>(), config->power_infusion_at);
+        }
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
         if (config->drums && config->drums_friend) {
@@ -594,8 +596,12 @@ public:
             return NULL;
         }
 
-        if (shouldInnervate()) {
+        if (shouldInnervate())
             innervate();
+
+        if (shouldSymbolOfHope()) {
+            onCooldownGain(make_shared<cooldown::SymbolOfHope>());
+            onBuffGain(make_shared<buff::SymbolOfHope>());
         }
 
         next = nextSpell();
@@ -669,6 +675,11 @@ public:
         if (buff->id == buff::DRUMS_OF_RESTORATION) {
             for (double t = 3; t<=15; t+= 3)
                 pushManaGain(t, 120, "Drums of Restoration");
+        }
+
+        if (buff->id == buff::SYMBOL_OF_HOPE) {
+            for (double t = 5; t<=15; t+= 5)
+                pushManaGain(t, 333, "Symbol of Hope");
         }
 
         if (stacks)
@@ -765,9 +776,9 @@ public:
         double spi = player->spiritManaPerSecond();
 
         if (config->mana_spring && !state->hasBuff(buff::MANA_TIDE))
-            mps+= 50/5.0;
+            mps+= 50.0/5.0;
         if (state->hasBuff(buff::ENLIGHTENMENT))
-            mps+= 21/5.0 * state->buffStacks(buff::ENLIGHTENMENT);
+            mps+= 21.0/5.0 * state->buffStacks(buff::ENLIGHTENMENT);
 
         double while_casting = 0;
         if (state-> t - state->t_mana_spent >= 5.0) {
@@ -914,12 +925,16 @@ public:
                 bool is_done = false;
 
                 if (config->regen_rotation == ROTATION_FB) {
+                    if (state->regen_cycle == 3 && !willDropArcaneBlast())
+                        state->regen_cycle--;
                     if (state->regen_cycle < 3)
                         next = make_shared<spell::Frostbolt>();
                     else if (state->regen_cycle == config->regen_ab_count + 2)
                         is_done = true;
                 }
                 else if (config->regen_rotation == ROTATION_AMFB) {
+                    if (state->regen_cycle == 2 && !willDropArcaneBlast())
+                        state->regen_cycle--;
                     if (state->regen_cycle == 0)
                         next = make_shared<spell::ArcaneMissiles>();
                     else if (state->regen_cycle == 1)
@@ -928,12 +943,16 @@ public:
                         is_done = true;
                 }
                 else if (config->regen_rotation == ROTATION_SC) {
+                    if (state->regen_cycle == 5 && !willDropArcaneBlast())
+                        state->regen_cycle--;
                     if (state->regen_cycle < 5)
                         next = make_shared<spell::Scorch>();
                     else if (state->regen_cycle == config->regen_ab_count + 4)
                         is_done = true;
                 }
                 else if (config->regen_rotation == ROTATION_SCFB) {
+                    if (state->regen_cycle == 3 && !willDropArcaneBlast())
+                        state->regen_cycle--;
                     if (state->regen_cycle == 0)
                         next = make_shared<spell::Scorch>();
                     else if (state->regen_cycle < 3)
@@ -942,6 +961,8 @@ public:
                         is_done = true;
                 }
                 else if (config->regen_rotation == ROTATION_AMSC) {
+                    if (state->regen_cycle == 2 && !willDropArcaneBlast())
+                        state->regen_cycle--;
                     if (state->regen_cycle == 0)
                         next = make_shared<spell::ArcaneMissiles>();
                     else if (state->regen_cycle == 1)
@@ -979,6 +1000,11 @@ public:
             next = defaultSpell();
 
         return next;
+    }
+
+    bool willDropArcaneBlast()
+    {
+        return !state->hasBuff(buff::ARCANE_BLAST) || buffDuration(buff::ARCANE_BLAST) <= castTime(make_shared<spell::ArcaneBlast>());
     }
 
     shared_ptr<spell::Spell> defaultSpell()
@@ -1022,6 +1048,11 @@ public:
             useCombustion();
         if (state->t >= config->berserking_at && !state->hasCooldown(cooldown::BERSERKING) && player->race == RACE_TROLL)
             useBerserking();
+
+        if (state->t > config->power_infusion_at + 15.0 && !state->hasCooldown(cooldown::POWER_INFUSION) && config->power_infusion) {
+            onCooldownGain(make_shared<cooldown::PowerInfusion>());
+            onBuffGain(make_shared<buff::PowerInfusion>());
+        }
 
         if (!state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA) {
             if (state->t >= config->potion_at && (state->t < config->potion_at + 20 || !config->potion_reuse_at) ||
@@ -1631,6 +1662,29 @@ public:
             return true;
 
         if (manaPercent() < 30.0)
+            return true;
+
+        return false;
+    }
+
+    bool shouldSymbolOfHope()
+    {
+        if (player->faction() != FACTION_ALLIANCE)
+            return false;
+
+        if (state->hasCooldown(cooldown::SYMBOL_OF_HOPE))
+            return false;
+
+        if (config->symbol_of_hope_at)
+           return config->symbol_of_hope_at <= state->t;
+
+        if (state->hasBuff(buff::INNERVATE) || state->hasBuff(buff::MANA_TIDE))
+            return false;
+
+        if (manaPercent() < 60.0 && state->hasCooldown(cooldown::POTION) && state->hasCooldown(cooldown::CONJURED))
+            return true;
+
+        if (manaPercent() < 40.0)
             return true;
 
         return false;

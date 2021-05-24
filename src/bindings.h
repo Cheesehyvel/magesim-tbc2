@@ -202,6 +202,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("mana_tide", &Config::mana_tide)
         .property("bloodlust", &Config::bloodlust)
         .property("power_infusion", &Config::power_infusion)
+        .property("symbol_of_hope", &Config::symbol_of_hope)
 
         .property("regen_mana_at", &Config::regen_mana_at)
         .property("regen_stop_at", &Config::regen_stop_at)
@@ -212,6 +213,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("mana_tide_at", &Config::mana_tide_at)
         .property("bloodlust_at", &Config::bloodlust_at)
         .property("power_infusion_at", &Config::power_infusion_at)
+        .property("symbol_of_hope_at", &Config::symbol_of_hope_at)
         .property("icy_veins_at", &Config::icy_veins_at)
         .property("cold_snap_at", &Config::cold_snap_at)
         .property("trinket1_at", &Config::trinket1_at)

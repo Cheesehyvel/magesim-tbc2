@@ -771,6 +771,13 @@
                                 <label><input type="checkbox" v-model="config.mana_tide"> <span>Mana Tide <template v-if="config.mana_tide">at</template></span></label>
                                 <input type="text" v-model.number="config.mana_tide_at" v-if="config.mana_tide">
                             </div>
+                            <div class="form-item" v-if="faction == 'alliance'">
+                                <label><input type="checkbox" v-model="config.symbol_of_hope">
+                                    <span>Symbol of Hope <template v-if="config.symbol_of_hope">at</template></span>
+                                    <help>Draenei priest racial.<br>Setting this to 0 will automatically cast it when mana is low.</help>
+                                </label>
+                                <input type="text" v-model.number="config.symbol_of_hope_at" v-if="config.symbol_of_hope">
+                            </div>
                             <div class="form-item">
                                 <label>Number of innervates</label>
                                 <input type="text" v-model.number="config.innervate">
@@ -989,6 +996,7 @@
                 mana_tide: true,
                 bloodlust: true,
                 power_infusion: false,
+                symbol_of_hope: false,
 
                 regen_mana_at: 20,
                 regen_stop_at: 30,
@@ -999,6 +1007,7 @@
                 mana_tide_at: 20,
                 bloodlust_at: 1,
                 power_infusion_at: 1,
+                symbol_of_hope_at: 0,
                 icy_veins_at: 1,
                 cold_snap_at: 41,
                 combustion_at: 1,
@@ -1106,6 +1115,18 @@
             foolsActive() {
                 var d = new Date;
                 return d.getMonth() == 3 && d.getDate() == 1;
+            },
+
+            faction() {
+                var alliance = [
+                    this.races.RACE_GNOME,
+                    this.races.RACE_HUMAN,
+                    this.races.RACE_DRAENEI,
+                ];
+
+                if (alliance.indexOf(this.config.race) != -1)
+                    return "alliance";
+                return "horde";
             },
 
             activeItems() {

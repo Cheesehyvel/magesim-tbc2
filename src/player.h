@@ -303,4 +303,11 @@ public:
         return base_mana + stats.intellect*15;
     }
 
+    Faction faction()
+    {
+        if (race == RACE_GNOME || race == RACE_HUMAN || race == RACE_DRAENEI)
+            return FACTION_ALLIANCE;
+        return FACTION_HORDE;
+    }
+
 };

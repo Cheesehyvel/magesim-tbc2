@@ -17,6 +17,12 @@ enum Race : int
     RACE_UNDEAD
 };
 
+enum Faction : int
+{
+    FACTION_HORDE,
+    FACTION_ALLIANCE,
+};
+
 enum School : int
 {
     SCHOOL_NONE,

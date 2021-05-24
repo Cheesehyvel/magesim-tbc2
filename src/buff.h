@@ -11,6 +11,7 @@ namespace buff
         COMBUSTION = 29977,
         BLOODLUST = 2825,
         POWER_INFUSION = 10060,
+        SYMBOL_OF_HOPE = 32548,
         INNERVATE = 29166,
         CLEARCAST = 12536,
         SILVER_CRESCENT = 35163,
@@ -210,6 +211,19 @@ namespace buff
         {
             id = POWER_INFUSION;
             name = "Power Infusion";
+            duration = 15;
+        }
+
+    };
+
+    class SymbolOfHope : public Buff
+    {
+
+    public:
+        SymbolOfHope()
+        {
+            id = SYMBOL_OF_HOPE;
+            name = "Symbol of Hope";
             duration = 15;
         }
 
