@@ -1321,23 +1321,18 @@
                 for (var i in this.item_comparison)
                     this.item_comparison[i].dps = null;
 
-                var max_dps = 0;
-                var best_item_id = 0;
+                var old_item_id = this.equipped[this.active_slot];
                 var result, cmp;
                 for (var i in this.item_comparison) {
                     cmp = this.item_comparison[i];
                     result = await this.runComparisonFor(cmp.id);
                     this.item_comparison[i].dps = result.avg_dps;
-                    if (result.avg_dps > max_dps) {
-                        max_dps = result.avg_dps;
-                        best_item_id = cmp.id;
-                    }
                 }
 
                 if (this.active_slot == "stat_weight")
                     this.unequip(this.active_slot);
                 else
-                    this.equip(this.active_slot, best_item_id);
+                    this.equip(this.active_slot, old_item_id);
 
                 this.foolsOpen();
             },

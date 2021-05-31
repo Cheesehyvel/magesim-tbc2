@@ -4989,7 +4989,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var i, max_dps, best_item_id, result, cmp;
+        var i, old_item_id, result, cmp;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -5006,39 +5006,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   _this3.item_comparison[i].dps = null;
                 }
 
-                max_dps = 0;
-                best_item_id = 0;
+                old_item_id = _this3.equipped[_this3.active_slot];
                 _context2.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this3.item_comparison);
 
-              case 6:
+              case 5:
                 if ((_context2.t1 = _context2.t0()).done) {
-                  _context2.next = 16;
+                  _context2.next = 14;
                   break;
                 }
 
                 i = _context2.t1.value;
                 cmp = _this3.item_comparison[i];
-                _context2.next = 11;
+                _context2.next = 10;
                 return _this3.runComparisonFor(cmp.id);
 
-              case 11:
+              case 10:
                 result = _context2.sent;
                 _this3.item_comparison[i].dps = result.avg_dps;
-
-                if (result.avg_dps > max_dps) {
-                  max_dps = result.avg_dps;
-                  best_item_id = cmp.id;
-                }
-
-                _context2.next = 6;
+                _context2.next = 5;
                 break;
 
-              case 16:
-                if (_this3.active_slot == "stat_weight") _this3.unequip(_this3.active_slot);else _this3.equip(_this3.active_slot, best_item_id);
+              case 14:
+                if (_this3.active_slot == "stat_weight") _this3.unequip(_this3.active_slot);else _this3.equip(_this3.active_slot, old_item_id);
 
                 _this3.foolsOpen();
 
-              case 18:
+              case 16:
               case "end":
                 return _context2.stop();
             }
