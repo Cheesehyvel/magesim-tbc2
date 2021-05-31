@@ -3492,8 +3492,8 @@ var quicksets = {
   t5bis: {
     title: "T5 Arcane",
     equip: {
-      weapon: 30095,
-      off_hand: 30049,
+      weapon: 29988,
+      off_hand: null,
       ranged: 28783,
       head: 30206,
       neck: 30015,
@@ -3524,63 +3524,16 @@ var quicksets = {
     },
     gems: {
       back: [null, null, null],
-      chest: [24047, 24047, 30586],
+      chest: [24047, 24047, 30600],
       feet: [null, null, null],
       hands: [null, null, null],
-      head: [34220, 24047, null],
+      head: [25901, 24047, null],
       legs: [24047, null, null],
       neck: [null, null, null],
-      shoulder: [24047, 30586, null],
-      waist: [30586, 24047, null],
+      shoulder: [24047, 30600, null],
+      waist: [30600, 24047, null],
       weapon: [null, null, null],
       wrist: [null, null, null]
-    }
-  },
-  t4sfsp: {
-    title: "T4 Fire spellstrike + spellfire",
-    items: {
-      weapon: 28770,
-      off_hand: 28734,
-      ranged: 28673,
-      head: 24266,
-      neck: 28762,
-      shoulder: 29079,
-      back: 28766,
-      chest: 21848,
-      wrist: 28411,
-      hands: 21847,
-      waist: 21846,
-      legs: 24262,
-      feet: 28517,
-      finger1: 28793,
-      finger2: 28753,
-      trinket1: 29370,
-      trinket2: 19379
-    },
-    enchants: {
-      weapon: 46540,
-      head: 35447,
-      shoulder: 35406,
-      chest: 46502,
-      wrist: 46498,
-      hands: 46514,
-      legs: 31372,
-      feet: 46470,
-      finger1: 46518,
-      finger2: 46518
-    },
-    gems: {
-      weapon: [null, null, null],
-      head: [28118, 24030, 24030],
-      neck: [null, null, null],
-      shoulder: [30564, 30564, null],
-      back: [null, null, null],
-      chest: [30564, 30564, null],
-      wrist: [30564, null, null],
-      hands: [24030, 24030, null],
-      waist: [24030, 24030, null],
-      legs: [24030, 24030, 24030],
-      feet: [24030, 30564, null]
     }
   }
 };
