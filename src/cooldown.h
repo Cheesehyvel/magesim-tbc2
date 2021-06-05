@@ -26,6 +26,7 @@ namespace cooldown
         INSIGHTFUL_EARTHSTORM = 27521,
         MARK_OF_DEFIANCE = 33511,
         CALL_OF_THE_NEXUS = 34320,
+        FORGOTTEN_KNOWLEDGE = 38319,
     };
 
 
@@ -284,6 +285,18 @@ namespace cooldown
         {
             id = CALL_OF_THE_NEXUS;
             duration = 45;
+        }
+
+    };
+
+    class ForgottenKnowledge : public Cooldown
+    {
+
+    public:
+        ForgottenKnowledge()
+        {
+            id = FORGOTTEN_KNOWLEDGE;
+            duration = 50;
         }
 
     };

@@ -45,6 +45,7 @@ namespace buff
         SPELL_POWER_BONUS = 37619,
         ASHTONGUE_TALISMAN = 40482,
         CALL_OF_THE_NEXUS = 34320,
+        FORGOTTEN_KNOWLEDGE = 38319,
     };
 
 
@@ -620,6 +621,19 @@ namespace buff
             id = CALL_OF_THE_NEXUS;
             name = "Call of the Nexus";
             duration = 10;
+        }
+
+    };
+
+    class ForgottenKnowledge : public Buff
+    {
+
+    public:
+        ForgottenKnowledge()
+        {
+            id = FORGOTTEN_KNOWLEDGE;
+            name = "Forgotten Knowledge";
+            duration = 6;
         }
 
     };

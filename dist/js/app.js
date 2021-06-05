@@ -234,7 +234,8 @@ var ids = {
   CHAIN_OF_THE_TWILIGHT_OWL: 24121,
   JADE_PENDANT_OF_BLASTING: 20966,
   ASHTONGUE_TALISMAN: 32488,
-  NEXUS_HORN: 28418
+  NEXUS_HORN: 28418,
+  BLADE_OF_WIZARDY: 31336
 };
 var equip = {
   weapon: [{
@@ -419,6 +420,10 @@ var equip = {
     crit: 28,
     hit: 16,
     q: "legendary"
+  }, {
+    id: ids.BLADE_OF_WIZARDY,
+    title: "Blade of Wizardry",
+    sp: 159
   }, {
     id: 23554,
     title: "Eternium Runed Blade",
@@ -5344,6 +5349,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.config.mana_etched_4set = this.numEquippedSet(this.items.ids.MANA_ETCHED_SET) > 3;
       this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
       this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
+      this.config.blade_of_wizardy = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDY);
       if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT)) this.config.eye_of_the_night = true;
       if (this.isEquipped("neck", this.items.ids.CHAIN_OF_THE_TWILIGHT_OWL)) this.config.chain_of_the_twilight_owl = true;
       if (this.isEquipped("neck", this.items.ids.JADE_PENDANT_OF_BLASTING)) this.config.jade_pendant_of_blasting = true;

@@ -194,6 +194,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("eternal_sage", &Config::eternal_sage)
         .property("wrath_of_cenarius", &Config::wrath_of_cenarius)
         .property("mana_etched_4set", &Config::mana_etched_4set)
+        .property("blade_of_wizardy", &Config::blade_of_wizardy)
 
         .property("trinket1", &Config::trinket1)
         .property("trinket2", &Config::trinket2)

@@ -1699,6 +1699,7 @@
 
                 this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
                 this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
+                this.config.blade_of_wizardy = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDY);
 
                 if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT))
                     this.config.eye_of_the_night = true;

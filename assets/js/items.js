@@ -37,6 +37,7 @@ var ids = {
     JADE_PENDANT_OF_BLASTING: 20966,
     ASHTONGUE_TALISMAN: 32488,
     NEXUS_HORN: 28418,
+    BLADE_OF_WIZARDY: 31336,
 };
 
 var equip = {
@@ -63,6 +64,7 @@ var equip = {
         { id: 28770, title: "Nathrezim Mindblade", int: 18, sp: 203, crit: 23 },
         { id: 28802, title: "Bloodmaw Magus-Blade", int: 15, sp: 203, crit: 25 },
         { id: 22589, title: "Atiesh, Greatstaff of the Guardian", twohand: true, int: 32, spi: 24, sp: 150, crit: 28, hit: 16, q: "legendary" },
+        { id: ids.BLADE_OF_WIZARDY, title: "Blade of Wizardry", sp: 159 },
         { id: 23554, title: "Eternium Runed Blade", int: 19, sp: 168, crit: 21 },
         { id: 29155, title: "Stormcaller", int: 12, sp: 159, crit: 21 },
         { id: 28935, title: "High Warlord's War Staff", int: 30, sp: 121, crit: 30, hit: 20, q: "rare" },

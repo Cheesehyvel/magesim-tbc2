@@ -529,6 +529,11 @@ public:
                 onCooldownGain(make_shared<cooldown::EternalSage>());
                 onBuffGain(make_shared<buff::EternalSage>());
             }
+            // 15% proc rate
+            if (config->blade_of_wizardy && !state->hasCooldown(cooldown::FORGOTTEN_KNOWLEDGE) && random<int>(0, 19) < 3) {
+                onCooldownGain(make_shared<cooldown::ForgottenKnowledge>());
+                onBuffGain(make_shared<buff::ForgottenKnowledge>());
+            }
             // 5% proc rate, cannot refresh itself while up
             if (config->wrath_of_cenarius && !state->hasCooldown(cooldown::SPELL_BLASTING) && random<int>(0, 19) == 0) {
                 onCooldownGain(make_shared<cooldown::SpellBlasting>());
@@ -1343,6 +1348,8 @@ public:
         if (state->hasBuff(buff::SKULL_GULDAN))
             rating+= 175;
         if (state->hasBuff(buff::QUAGMIRRANS_EYE))
+            rating+= 320;
+        if (state->hasBuff(buff::FORGOTTEN_KNOWLEDGE))
             rating+= 320;
         if (state->hasBuff(buff::MQG))
             rating+= 330;

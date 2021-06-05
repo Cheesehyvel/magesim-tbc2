@@ -56,6 +56,7 @@ struct Config
     bool eternal_sage = false;
     bool wrath_of_cenarius = false;
     bool mana_etched_4set = false;
+    bool blade_of_wizardy = false;
 
     Trinket trinket1 = TRINKET_NONE;
     Trinket trinket2 = TRINKET_NONE;
