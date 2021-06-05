@@ -3096,8 +3096,7 @@ var gems = [{
   desc: "+3% crit dmg",
   req: {
     b: 2
-  },
-  phase: 4
+  }
 }, {
   id: ids.EMBER_SKYFIRE,
   title: "Ember Skyfire Diamond",
