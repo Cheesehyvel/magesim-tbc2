@@ -330,6 +330,7 @@ var equip = {
         { id: 28338, title: "Devil-Stitched Leggings", int: 28, sp: 29, sockets: ["r", "y", "b"], bonus: { sp: 5 }, q: "rare" },
         { id: 27838, title: "Incanter's Trousers", int: 30, spi: 17, sp: 42, crit: 18, q: "rare" },
         { id: 27907, itemset: ids.MANA_ETCHED_SET, title: "Mana-Etched Pantaloons", int: 32, sp: 33, crit: 21, q: "rare" },
+        { id: 27418, title: "Stormreaver Shadow-Kilt", int: 26, spi: 14, sp: 30, crit: 25, q: "rare" },
         { id: 23070, title: "Leggings of Polarity", int: 14, sp: 44, crit: 28 },
         { id: 22497, title: "Frostfire Leggings", int: 26, spi: 10, sp: 46, hit: 8 },
     ],

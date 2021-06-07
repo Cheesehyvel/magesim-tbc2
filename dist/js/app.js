@@ -2497,6 +2497,14 @@ var equip = {
     crit: 21,
     q: "rare"
   }, {
+    id: 27418,
+    title: "Stormreaver Shadow-Kilt",
+    "int": 26,
+    spi: 14,
+    sp: 30,
+    crit: 25,
+    q: "rare"
+  }, {
     id: 23070,
     title: "Leggings of Polarity",
     "int": 14,
