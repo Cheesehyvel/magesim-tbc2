@@ -4627,6 +4627,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4647,6 +4657,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       duration_variance: 0,
       rng_seed: 0,
       gcd_unlocked: false,
+      avg_spell_dmg: false,
+      additional_data: false,
       misery: true,
       curse_of_elements: true,
       malediction: false,
@@ -5967,6 +5979,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.log_open = false;
       this.config_open = false;
       this.histogram_open = !this.histogram_open;
+    },
+    allResults: function allResults() {
+      var a = document.createElement("a");
+      a.href = "data:text/csv," + encodeURIComponent(this.result.all_results);
+      a.download = "simdata.csv";
+      a.click();
     },
     loadTooltips: function loadTooltips() {
       if (this.item_source == "tbcdb") this.loadTbcdbTooltips();else this.loadWowheadTooltips();
@@ -62859,6 +62877,17 @@ var render = function() {
                             },
                             [_vm._v("Histogram")]
                           )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.result.all_results
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "btn mt-1",
+                              on: { click: _vm.allResults }
+                            },
+                            [_vm._v("Simulation data")]
+                          )
                         : _vm._e()
                     ]
                   : [
@@ -64555,6 +64584,73 @@ var render = function() {
                             _c("br"),
                             _vm._v(
                               "\n                                    This can be useful to verify calculations.\n                                "
+                            )
+                          ])
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c(
+                        "label",
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.additional_data,
+                                expression: "config.additional_data"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.config.additional_data)
+                                ? _vm._i(_vm.config.additional_data, null) > -1
+                                : _vm.config.additional_data
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.config.additional_data,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "additional_data",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "additional_data",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.config, "additional_data", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Additional data")]),
+                          _vm._v(" "),
+                          _c("help", [
+                            _vm._v(
+                              "\n                                    This will save data about dps and duration for each simulation."
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                                    This will use more memory and can cause performance issues with a high number of sims.\n                                "
                             )
                           ])
                         ],

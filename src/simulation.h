@@ -51,6 +51,10 @@ public:
         double bin_size = 20;
         int bin;
         map<int, int> histogram;
+        ostringstream results;
+
+        if (config->additional_data)
+            results << "DPS,Duration\n";
 
         for (int i=0; i<iterations; i++) {
             if (config->rng_seed)
@@ -69,9 +73,15 @@ public:
                 histogram[bin]++;
             else
                 histogram[bin] = 1;
+
+            if (config->additional_data)
+                results << r.dps << "," << r.t << "\n";
         }
 
         result.iterations = iterations;
+
+        if (config->additional_data)
+            result.all_results = results.str();
 
         ostringstream ss;
         ss << "{";

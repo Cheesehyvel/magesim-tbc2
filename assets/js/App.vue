@@ -100,6 +100,7 @@
                         <div>{{ $round(result.avg_dps, 2) }}</div>
                         <div>{{ $round(result.min_dps, 2) }} - {{ $round(result.max_dps, 2) }}</div>
                         <div class="btn mt-1" v-if="result.histogram" @click="histogramToggle">Histogram</div>
+                        <div class="btn mt-1" v-if="result.all_results" @click="allResults">Simulation data</div>
                     </template>
                     <template v-else>
                         <div>DPS</div>
@@ -478,6 +479,15 @@
                                     <help>
                                         This will eliminate the random damage from spells.<br>
                                         This can be useful to verify calculations.
+                                    </help>
+                                </label>
+                            </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.additional_data">
+                                    <span>Additional data</span>
+                                    <help>
+                                        This will save data about dps and duration for each simulation.<br>
+                                        This will use more memory and can cause performance issues with a high number of sims.
                                     </help>
                                 </label>
                             </div>
@@ -947,6 +957,8 @@
                 duration_variance: 0,
                 rng_seed: 0,
                 gcd_unlocked: false,
+                avg_spell_dmg: false,
+                additional_data: false,
 
                 misery: true,
                 curse_of_elements: true,
@@ -2425,6 +2437,13 @@
                 this.log_open = false;
                 this.config_open = false;
                 this.histogram_open = !this.histogram_open;
+            },
+
+            allResults() {
+                var a = document.createElement("a");
+                a.href = "data:text/csv,"+encodeURIComponent(this.result.all_results);
+                a.download = "simdata.csv";
+                a.click();
             },
 
             loadTooltips() {

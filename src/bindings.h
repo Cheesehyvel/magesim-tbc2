@@ -145,13 +145,15 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("rng_seed", &Config::rng_seed)
         .property("gcd_unlocked", &Config::gcd_unlocked)
         .property("avg_spell_dmg", &Config::avg_spell_dmg)
-        .property("vampiric_touch_regen", &Config::vampiric_touch_regen)
+        .property("additional_data", &Config::additional_data)
+
         .property("misery", &Config::misery)
         .property("curse_of_elements", &Config::curse_of_elements)
         .property("malediction", &Config::malediction)
         .property("judgement_of_the_crusader", &Config::judgement_of_the_crusader)
         .property("judgement_of_wisdom", &Config::judgement_of_wisdom)
         .property("vampiric_touch", &Config::vampiric_touch)
+        .property("vampiric_touch_regen", &Config::vampiric_touch_regen)
 
         .property("totem_of_wrath", &Config::totem_of_wrath)
         .property("wrath_of_air", &Config::wrath_of_air)
@@ -272,6 +274,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .field("max_dps", &SimulationsResult::max_dps)
         .field("iterations", &SimulationsResult::iterations)
         .field("histogram", &SimulationsResult::histogram)
+        .field("all_results", &SimulationsResult::all_results)
         ;
 
     emscripten::function("runSimulation", &runSimulation);

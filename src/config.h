@@ -6,7 +6,7 @@ struct Config
     int rng_seed = 0;
     bool gcd_unlocked = false;
     bool avg_spell_dmg = false;
-    int vampiric_touch_regen = 50;
+    bool additional_data = false;
 
     bool misery = true;
     bool curse_of_elements = true;
@@ -14,6 +14,7 @@ struct Config
     bool judgement_of_the_crusader = false;
     bool judgement_of_wisdom = true;
     bool vampiric_touch = true;
+    int vampiric_touch_regen = 50;
 
     bool totem_of_wrath = false;
     bool wrath_of_air = true;
