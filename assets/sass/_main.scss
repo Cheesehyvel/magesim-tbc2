@@ -239,6 +239,10 @@ table {
         z-index: 10;
         background: url("../img/GitHub-Mark-Light-64px.png") no-repeat center center;
         background-size: 32px auto;
+
+        @media all and (max-width: 1220px) {
+            display: none;
+        }
     }
 
     .wrapper {
@@ -288,7 +292,7 @@ table {
             .gear {
                 .slots {
                     background: #121220;
-                    padding: $spacer*0.5;
+                    padding: $spacer*0.5 $spacer $spacer*0.5 $spacer*0.5;
 
                     .slot {
                         display: inline-block;
@@ -308,6 +312,16 @@ table {
                         &.active {
                             color: #fff;
                             border-color: #fff;
+                        }
+
+                        @media all and (max-width: 1820px) {
+                            margin-right: 20px;
+                        }
+                        @media all and (max-width: 1620px) {
+                            margin-right: 15px;
+                        }
+                        @media all and (max-width: 1540px) {
+                            font-size: 14px;
                         }
                     }
                 }

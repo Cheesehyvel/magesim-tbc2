@@ -27,6 +27,7 @@ namespace cooldown
         MARK_OF_DEFIANCE = 33511,
         CALL_OF_THE_NEXUS = 34320,
         FORGOTTEN_KNOWLEDGE = 38319,
+        POWER_OF_ARCANAGOS = 34598,
     };
 
 
@@ -296,6 +297,18 @@ namespace cooldown
         ForgottenKnowledge()
         {
             id = FORGOTTEN_KNOWLEDGE;
+            duration = 50;
+        }
+
+    };
+
+    class PowerOfArcanagos : public Cooldown
+    {
+
+    public:
+        PowerOfArcanagos()
+        {
+            id = POWER_OF_ARCANAGOS;
             duration = 50;
         }
 

@@ -46,6 +46,7 @@ namespace buff
         ASHTONGUE_TALISMAN = 40482,
         CALL_OF_THE_NEXUS = 34320,
         FORGOTTEN_KNOWLEDGE = 38319,
+        POWER_OF_ARCANAGOS = 34598,
     };
 
 
@@ -634,6 +635,19 @@ namespace buff
             id = FORGOTTEN_KNOWLEDGE;
             name = "Forgotten Knowledge";
             duration = 6;
+        }
+
+    };
+
+    class PowerOfArcanagos : public Buff
+    {
+
+    public:
+        PowerOfArcanagos()
+        {
+            id = POWER_OF_ARCANAGOS;
+            name = "Power of Arcanagos";
+            duration = 10;
         }
 
     };

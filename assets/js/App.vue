@@ -1008,6 +1008,8 @@
                 spellstrike_set: false,
                 eternal_sage: false,
                 wrath_of_cenarius: false,
+                blade_of_wizardry: false,
+                robe_elder_scribes: false,
                 mana_etched_4set: false,
                 meta_gem: 0,
                 trinket1: 0,
@@ -1711,7 +1713,8 @@
 
                 this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
                 this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
-                this.config.blade_of_wizardy = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDY);
+                this.config.blade_of_wizardry = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDRY);
+                this.config.robe_elder_scribes = this.isEquipped("chest", this.items.ids.ROBE_ELDER_SCRIBES);
 
                 if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT))
                     this.config.eye_of_the_night = true;
@@ -1817,6 +1820,12 @@
                     if (item.twohand)
                         this.equipped.off_hand = null;
                 }
+                if (slot == "off_hand") {
+                    var weapon = this.equippedItem("weapon");
+                    if (weapon.twohand)
+                        return;
+                }
+
                 if (slot.indexOf("trinket") === 0) {
                     var other = slot == "trinket1" ? "trinket2" : "trinket1";
                     if (this.isEquipped(other, item.id))

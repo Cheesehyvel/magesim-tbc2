@@ -750,6 +750,11 @@ table.simple th:last-child, table.simple td:last-child {
   background: url("../img/GitHub-Mark-Light-64px.png") no-repeat center center;
   background-size: 32px auto;
 }
+@media all and (max-width: 1220px) {
+  #app .github {
+    display: none;
+  }
+}
 #app .wrapper {
   display: grid;
   grid-template-columns: 200px auto;
@@ -789,7 +794,7 @@ table.simple th:last-child, table.simple td:last-child {
 }
 #app .wrapper .main .gear .slots {
   background: #121220;
-  padding: 30px;
+  padding: 30px 60px 30px 30px;
 }
 #app .wrapper .main .gear .slots .slot {
   display: inline-block;
@@ -811,6 +816,21 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .main .gear .slots .slot.active {
   color: #fff;
   border-color: #fff;
+}
+@media all and (max-width: 1820px) {
+  #app .wrapper .main .gear .slots .slot {
+    margin-right: 20px;
+  }
+}
+@media all and (max-width: 1620px) {
+  #app .wrapper .main .gear .slots .slot {
+    margin-right: 15px;
+  }
+}
+@media all and (max-width: 1540px) {
+  #app .wrapper .main .gear .slots .slot {
+    font-size: 14px;
+  }
 }
 #app .wrapper .main .gear .items {
   max-height: calc(100vh - 86px);

@@ -235,7 +235,8 @@ var ids = {
   JADE_PENDANT_OF_BLASTING: 20966,
   ASHTONGUE_TALISMAN: 32488,
   NEXUS_HORN: 28418,
-  BLADE_OF_WIZARDY: 31336
+  BLADE_OF_WIZARDRY: 31336,
+  ROBE_ELDER_SCRIBES: 28602
 };
 var equip = {
   weapon: [{
@@ -421,7 +422,7 @@ var equip = {
     hit: 16,
     q: "legendary"
   }, {
-    id: ids.BLADE_OF_WIZARDY,
+    id: ids.BLADE_OF_WIZARDRY,
     title: "Blade of Wizardry",
     sp: 159
   }, {
@@ -437,12 +438,20 @@ var equip = {
     sp: 159,
     crit: 21
   }, {
+    id: 29355,
+    title: "Terokk's Shadowstaff",
+    "int": 42,
+    sp: 168,
+    crit: 37,
+    twohand: true
+  }, {
     id: 28935,
     title: "High Warlord's War Staff",
     "int": 30,
     sp: 121,
     crit: 30,
     hit: 20,
+    twohand: true,
     q: "rare"
   }, {
     id: 28341,
@@ -451,6 +460,7 @@ var equip = {
     sp: 121,
     crit: 26,
     hit: 16,
+    twohand: true,
     q: "rare"
   }, {
     id: 28188,
@@ -458,6 +468,7 @@ var equip = {
     "int": 42,
     sp: 121,
     crit: 28,
+    twohand: true,
     q: "rare"
   }, {
     id: 27842,
@@ -465,6 +476,7 @@ var equip = {
     "int": 43,
     sp: 121,
     hit: 19,
+    twohand: true,
     q: "rare"
   }, {
     id: 27905,
@@ -1614,6 +1626,13 @@ var equip = {
       crit: 4
     },
     phase: 2
+  }, {
+    id: ids.ROBE_ELDER_SCRIBES,
+    title: "Robe of the Elder Scribes",
+    "int": 29,
+    spi: 24,
+    sp: 32,
+    crit: 24
   }, {
     id: 29341,
     title: "Auchenai Anchorite's Robe",
@@ -4704,6 +4723,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       spellstrike_set: false,
       eternal_sage: false,
       wrath_of_cenarius: false,
+      blade_of_wizardry: false,
+      robe_elder_scribes: false,
       mana_etched_4set: false,
       meta_gem: 0,
       trinket1: 0,
@@ -5369,7 +5390,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.config.mana_etched_4set = this.numEquippedSet(this.items.ids.MANA_ETCHED_SET) > 3;
       this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
       this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
-      this.config.blade_of_wizardy = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDY);
+      this.config.blade_of_wizardry = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDRY);
+      this.config.robe_elder_scribes = this.isEquipped("chest", this.items.ids.ROBE_ELDER_SCRIBES);
       if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT)) this.config.eye_of_the_night = true;
       if (this.isEquipped("neck", this.items.ids.CHAIN_OF_THE_TWILIGHT_OWL)) this.config.chain_of_the_twilight_owl = true;
       if (this.isEquipped("neck", this.items.ids.JADE_PENDANT_OF_BLASTING)) this.config.jade_pendant_of_blasting = true;
@@ -5435,6 +5457,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (slot == "weapon") {
         if (item.twohand) this.equipped.off_hand = null;
+      }
+
+      if (slot == "off_hand") {
+        var weapon = this.equippedItem("weapon");
+        if (weapon.twohand) return;
       }
 
       if (slot.indexOf("trinket") === 0) {

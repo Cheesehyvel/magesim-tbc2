@@ -540,9 +540,14 @@ public:
                 onBuffGain(make_shared<buff::EternalSage>());
             }
             // 15% proc rate
-            if (config->blade_of_wizardy && !state->hasCooldown(cooldown::FORGOTTEN_KNOWLEDGE) && random<int>(0, 19) < 3) {
+            if (config->blade_of_wizardry && !state->hasCooldown(cooldown::FORGOTTEN_KNOWLEDGE) && random<int>(0, 19) < 3) {
                 onCooldownGain(make_shared<cooldown::ForgottenKnowledge>());
                 onBuffGain(make_shared<buff::ForgottenKnowledge>());
+            }
+            // 20% proc rate
+            if (config->robe_elder_scribes && !state->hasCooldown(cooldown::POWER_OF_ARCANAGOS) && random<int>(0, 4) == 0) {
+                onCooldownGain(make_shared<cooldown::PowerOfArcanagos>());
+                onBuffGain(make_shared<buff::PowerOfArcanagos>());
             }
             // 5% proc rate, cannot refresh itself while up
             if (config->wrath_of_cenarius && !state->hasCooldown(cooldown::SPELL_BLASTING) && random<int>(0, 19) == 0) {
@@ -1555,6 +1560,8 @@ public:
                 sp+= 211.0;
             if (state->hasBuff(buff::NAARU_SLIVER))
                 sp+= 320.0;
+            if (state->hasBuff(buff::POWER_OF_ARCANAGOS))
+                sp+= 130.0;
             if (state->hasBuff(buff::DRUMS_OF_WAR))
                 sp+= 30.0;
             if (state->hasBuff(buff::DESTRUCTION_POTION))
