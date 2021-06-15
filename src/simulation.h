@@ -1113,6 +1113,8 @@ public:
 
         if (trinket_id == TRINKET_RESTRAINED_ESSENCE)
             onBuffGain(make_shared<buff::RestrainedEssence>());
+        if (trinket_id == TRINKET_STARKILLERS_BAUBLE)
+            onBuffGain(make_shared<buff::StarkillersBauble>());
         if (trinket_id == TRINKET_SILVER_CRESCENT)
             onBuffGain(make_shared<buff::SilverCrescent>());
         if (trinket_id == TRINKET_CRYSTAL_TALISMAN)
@@ -1548,6 +1550,8 @@ public:
                 sp+= 170.0;
             if (state->hasBuff(buff::RESTRAINED_ESSENCE))
                 sp+= 130.0;
+            if (state->hasBuff(buff::STARKILLERS_BAUBLE))
+                sp+= 125.0;
             if (state->hasBuff(buff::CALL_OF_THE_NEXUS))
                 sp+= 225.0;
             if (state->hasBuff(buff::ETERNAL_SAGE))

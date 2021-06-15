@@ -236,7 +236,8 @@ var ids = {
   ASHTONGUE_TALISMAN: 32488,
   NEXUS_HORN: 28418,
   BLADE_OF_WIZARDRY: 31336,
-  ROBE_ELDER_SCRIBES: 28602
+  ROBE_ELDER_SCRIBES: 28602,
+  STARKILLERS_BAUBLE: 30340
 };
 var equip = {
   weapon: [{
@@ -519,6 +520,13 @@ var equip = {
     sp: 121,
     hit: 8,
     q: "rare"
+  }, {
+    id: 22807,
+    title: "Wraith Blade",
+    "int": 8,
+    sp: 95,
+    hit: 8,
+    crit: 14
   }],
   off_hand: [{
     id: 34179,
@@ -3074,6 +3082,12 @@ var equip = {
     title: "Shiffar's Nexus-Horn",
     crit: 30,
     q: "rare"
+  }, {
+    id: ids.STARKILLERS_BAUBLE,
+    title: "Starkiller's Bauble",
+    hit: 26,
+    use: true,
+    q: "uncommon"
   }],
   stat_weight: [{
     id: ids.STAT_WEIGHT_BASE,
@@ -3393,6 +3407,10 @@ var enchants = {
     id: 46533,
     title: "Major Spellpower",
     sp: 40
+  }, {
+    id: 22749,
+    title: "Spell Power",
+    sp: 30
   }],
   head: [{
     id: 35447,

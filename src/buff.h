@@ -47,6 +47,7 @@ namespace buff
         CALL_OF_THE_NEXUS = 34320,
         FORGOTTEN_KNOWLEDGE = 38319,
         POWER_OF_ARCANAGOS = 34598,
+        STARKILLERS_BAUBLE = 30340,
     };
 
 
@@ -294,6 +295,18 @@ namespace buff
             duration = 20;
         }
 
+    };
+
+    class StarkillersBauble : public Buff
+    {
+
+    public:
+        StarkillersBauble()
+        {
+            id = STARKILLERS_BAUBLE;
+            name = "Starkiller's Bauble";
+            duration = 15;
+        }
     };
 
     class QuagmirransEye : public Buff

@@ -39,6 +39,7 @@ var ids = {
     NEXUS_HORN: 28418,
     BLADE_OF_WIZARDRY: 31336,
     ROBE_ELDER_SCRIBES: 28602,
+    STARKILLERS_BAUBLE: 30340,
 };
 
 var equip = {
@@ -79,6 +80,7 @@ var equip = {
         { id: 27512, title: "The Willbreaker", int: 14, sp: 121, crit: 17, q: "rare" },
         { id: 27899, title: "Mana Wrath", int: 18, sp: 126, q: "rare" },
         { id: 29185, title: "Continuum Blade", int: 11, sp: 121, hit: 8, q: "rare" },
+        { id: 22807, title: "Wraith Blade", int: 8, sp: 95, hit: 8, crit: 14 },
     ],
     off_hand: [
         { id: 34179, title: "Heart of the Pit", int: 21, sp: 39, haste: 32, phase: 5 },
@@ -425,6 +427,7 @@ var equip = {
         { id: ids.CRYSTAL_TALISMAN, title: "Ancient Crystal Talisman", sp: 26, use: true, q: "uncommon" },
         { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true, q: "rare" },
         { id: ids.NEXUS_HORN, title: "Shiffar's Nexus-Horn", crit: 30, q: "rare" },
+        { id: ids.STARKILLERS_BAUBLE, title: "Starkiller's Bauble", hit: 26, use: true, q: "uncommon" },
     ],
     stat_weight: [
         { id: ids.STAT_WEIGHT_BASE, title: "Base"},
@@ -488,6 +491,7 @@ var enchants = {
         { id: 46540, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
         { id: 46538, title: "Soulfrost", sp_frost: 54 },
         { id: 46533, title: "Major Spellpower", sp: 40 },
+        { id: 22749, title: "Spell Power", sp: 30 },
     ],
     head: [
         { id: 35447, title: "Glyph of Power", sp: 22, hit: 14 },
