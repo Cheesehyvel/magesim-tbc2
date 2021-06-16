@@ -24,6 +24,7 @@ namespace cooldown
         DRUMS = 35476,
         LIGHTNING_CAPACITOR = 37657,
         INSIGHTFUL_EARTHSTORM = 27521,
+        MYSTICAL_SKYFIRE = 32837,
         MARK_OF_DEFIANCE = 33511,
         CALL_OF_THE_NEXUS = 34320,
         FORGOTTEN_KNOWLEDGE = 38319,
@@ -262,6 +263,18 @@ namespace cooldown
         {
             id = INSIGHTFUL_EARTHSTORM;
             duration = 15;
+        }
+
+    };
+
+    class MysticalSkyfire : public Cooldown
+    {
+
+    public:
+        MysticalSkyfire()
+        {
+            id = MYSTICAL_SKYFIRE;
+            duration = 35;
         }
 
     };

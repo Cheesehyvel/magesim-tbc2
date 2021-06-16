@@ -315,7 +315,12 @@
                                                 <td>{{ formatStats(gem) }}</td>
                                                 <td v-if="socket == 'm'">
                                                     <template v-if="gem.req">
-                                                        <div class="socket-text-color" :class="['color-'+c]" v-for="(n, c) in gem.req">{{ n }}</div>
+                                                        <template v-if="metaGemHasCustomReq(gem)">
+                                                            {{ gem.req }}
+                                                        </template>
+                                                        <template v-else>
+                                                            <div class="socket-text-color" :class="['color-'+c]" v-for="(n, c) in gem.req">{{ n }}</div>
+                                                        </template>
                                                     </template>
                                                 </td>
                                                 <td v-else><template v-if="gem.unique">Yes</template></td>
@@ -1969,6 +1974,10 @@
                 return false;
             },
 
+            metaGemHasCustomReq(meta) {
+                return typeof(meta.req) == "string";
+            },
+
             isMetaGemActive() {
                 if (this.equipped.head && this.metaGem()) {
                     var meta = this.metaGem();
@@ -2003,9 +2012,14 @@
                         }
                     }
 
-                    for (var color in meta.req) {
-                        if (meta.req[color] > colors[color])
-                            return false;
+                    if (!this.metaGemHasCustomReq(meta)) {
+                        for (var color in meta.req) {
+                            if (meta.req[color] > colors[color])
+                                return false;
+                        }
+                    }
+                    else if (meta.id == this.items.ids.MYSTICAL_SKYFIRE) {
+                        return colors.b > colors.y;
                     }
                 }
 

@@ -212,6 +212,7 @@ var ids = {
   CHAOTIC_SKYFIRE: 34220,
   EMBER_SKYFIRE: 35503,
   INSIGHTFUL_EARTHSTORM: 25901,
+  MYSTICAL_SKYFIRE: 25893,
   MQG: 19339,
   BLUE_DRAGON: 19288,
   RUNED_LIVING_RUBY: 24030,
@@ -3151,6 +3152,12 @@ var gems = [{
     r: 2
   }
 }, {
+  id: ids.MYSTICAL_SKYFIRE,
+  title: "Mystical Skyfire Diamond",
+  color: "m",
+  desc: "Chance to increase cast speed",
+  req: "b > y"
+}, {
   id: 25890,
   title: "Destructive Skyfire Diamond",
   color: "m",
@@ -3721,6 +3728,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5586,6 +5598,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return false;
     },
+    metaGemHasCustomReq: function metaGemHasCustomReq(meta) {
+      return typeof meta.req == "string";
+    },
     isMetaGemActive: function isMetaGemActive() {
       if (this.equipped.head && this.metaGem()) {
         var meta = this.metaGem();
@@ -5621,8 +5636,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }
 
-        for (var color in meta.req) {
-          if (meta.req[color] > colors[color]) return false;
+        if (!this.metaGemHasCustomReq(meta)) {
+          for (var color in meta.req) {
+            if (meta.req[color] > colors[color]) return false;
+          }
+        } else if (meta.id == this.items.ids.MYSTICAL_SKYFIRE) {
+          return colors.b > colors.y;
         }
       }
 
@@ -63686,17 +63705,30 @@ var render = function() {
                                         "td",
                                         [
                                           gem.req
-                                            ? _vm._l(gem.req, function(n, c) {
-                                                return _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "socket-text-color",
-                                                    class: ["color-" + c]
-                                                  },
-                                                  [_vm._v(_vm._s(n))]
-                                                )
-                                              })
+                                            ? [
+                                                _vm.metaGemHasCustomReq(gem)
+                                                  ? [
+                                                      _vm._v(
+                                                        "\n                                                        " +
+                                                          _vm._s(gem.req) +
+                                                          "\n                                                    "
+                                                      )
+                                                    ]
+                                                  : _vm._l(gem.req, function(
+                                                      n,
+                                                      c
+                                                    ) {
+                                                      return _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "socket-text-color",
+                                                          class: ["color-" + c]
+                                                        },
+                                                        [_vm._v(_vm._s(n))]
+                                                      )
+                                                    })
+                                              ]
                                             : _vm._e()
                                         ],
                                         2

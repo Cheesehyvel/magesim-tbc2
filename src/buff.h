@@ -47,6 +47,7 @@ namespace buff
         CALL_OF_THE_NEXUS = 34320,
         FORGOTTEN_KNOWLEDGE = 38319,
         POWER_OF_ARCANAGOS = 34598,
+        MYSTICAL_SKYFIRE = 32837,
     };
 
 
@@ -648,6 +649,19 @@ namespace buff
             id = POWER_OF_ARCANAGOS;
             name = "Power of Arcanagos";
             duration = 10;
+        }
+
+    };
+
+    class MysticalSkyfire : public Buff
+    {
+
+    public:
+        MysticalSkyfire()
+        {
+            id = MYSTICAL_SKYFIRE;
+            name = "Focus";
+            duration = 6;
         }
 
     };

@@ -450,6 +450,11 @@ public:
             onCooldownGain(make_shared<cooldown::InsightfulEarthstorm>());
             onManaGain(300, "Mana Restore (meta)");
         }
+        // 15% proc rate
+        if (config->meta_gem == META_MYSTICAL_SKYFIRE && random<int>(0, 19) < 3 && !state->hasCooldown(cooldown::MYSTICAL_SKYFIRE)) {
+            onCooldownGain(make_shared<cooldown::MysticalSkyfire>());
+            onBuffGain(make_shared<buff::MysticalSkyfire>());
+        }
         // 2% proc rate
         if (hasTrinket(TRINKET_BLUE_DRAGON) && random<int>(0, 49) == 0)
             onBuffGain(make_shared<buff::BlueDragon>());
@@ -1365,6 +1370,8 @@ public:
         if (state->hasBuff(buff::QUAGMIRRANS_EYE))
             rating+= 320;
         if (state->hasBuff(buff::FORGOTTEN_KNOWLEDGE))
+            rating+= 320;
+        if (state->hasBuff(buff::MYSTICAL_SKYFIRE))
             rating+= 320;
         if (state->hasBuff(buff::MQG))
             rating+= 330;
