@@ -521,8 +521,8 @@ public:
             if (spell->id == spell::PYROBLAST)
                 pushDot(make_shared<dot::Pyroblast>());
 
-            // 5% proc rate ?
-            if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && !state->hasCooldown(cooldown::QUAGMIRRANS_EYE) && random<int>(0, 19) == 0) {
+            // 10% proc rate
+            if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && !state->hasCooldown(cooldown::QUAGMIRRANS_EYE) && random<int>(0, 9) == 0) {
                 onCooldownGain(make_shared<cooldown::QuagmirransEye>());
                 onBuffGain(make_shared<buff::QuagmirransEye>());
             }
