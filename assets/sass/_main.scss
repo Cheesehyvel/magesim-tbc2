@@ -143,6 +143,11 @@ fieldset {
     input:checked + span {
         color: #fff;
     }
+
+    input:disabled + span {
+        color: #888;
+        pointer-events: none;
+    }
 }
 
 .form-row {
@@ -666,10 +671,10 @@ table {
     }
 }
 
-.fools2 {
+.notice {
     position: fixed;
-    bottom: 15px;
-    right: 15px;
+    bottom: 30px;
+    right: 30px;
     max-width: 350px;
     z-index: 1000;
     background: rgba(0,0,0,0.5);
@@ -677,7 +682,7 @@ table {
 
     > .inner {
         background: #161620;
-        padding: $spacer*0.25;
+        padding: $spacer*0.5;
         text-align: center;
 
         .title {
@@ -692,6 +697,23 @@ table {
             b {
                 font-weight: 700;
             }
+        }
+
+        .checklist {
+            font-size: 16px;
+        }
+    }
+}
+
+.checklist {
+    text-align: left;
+
+    .check-item {
+        &.checked .material-icons {
+            color: #0f0;
+        }
+        &.unchecked .material-icons {
+            color: #f00;
         }
     }
 }

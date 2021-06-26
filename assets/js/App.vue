@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="fools2" v-if="fools_open == 3">
+        <div class="fools2 notice" v-if="fools_open == 3">
             <div class="inner">
                 <div class="title">Premium or else</div>
                 <div class="text mt-2">
@@ -38,6 +38,16 @@
                 <div class="btn mt-2" @click="foolsBuy">Buy premium 9.99€</div>
                 <div></div>
                 <div class="btn-text mt-1" @click="foolsClose">Dude wtf, stop it</div>
+            </div>
+        </div>
+
+        <div class="profile-status notice" v-if="profile_status.open" @click="profile_status.open = false">
+            <div class="inner">
+                <div class="title">Profile loaded</div>
+                <div class="checklist">
+                    <check-item :value="profile_status.items">Items</check-item>
+                    <check-item :value="profile_status.config">Config</check-item>
+                </div>
             </div>
         </div>
 
@@ -496,9 +506,6 @@
                                     </help>
                                 </label>
                             </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.tooltips" @input="refreshTooltips(true)"> <span>Use item tooltips (requires reload)</span></label>
-                            </div>
                         </fieldset>
                         <fieldset>
                             <legend>Debuffs</legend>
@@ -849,11 +856,15 @@
                 </div>
             </div>
 
-            <div class="lightbox" v-if="export_open">
+            <div class="lightbox" v-if="export_profile.open">
                 <div class="inner">
                     <div class="title">Export</div>
                     <div class="form-item">
-                        <textarea v-model="export_string" ref="export_input"></textarea>
+                        <textarea v-model="export_profile.string" ref="export_input"></textarea>
+                    </div>
+                    <div class="form-item">
+                        <label><input type="checkbox" v-model="export_profile.items" @input="updateExport"> <span>Include items</span></label>
+                        <label><input type="checkbox" v-model="export_profile.config" @input="updateExport"> <span>Include config</span></label>
                     </div>
                     <div class="btn mt-2" @click="closeExport">Close</div>
                     <div class="close" @click="closeExport">
@@ -864,13 +875,17 @@
                 </div>
             </div>
 
-            <div class="lightbox" v-if="import_open">
+            <div class="lightbox" v-if="import_profile.open">
                 <div class="inner">
                     <div class="title">Import</div>
                     <div class="form-item">
-                        <textarea v-model="import_string" ref="import_input"></textarea>
+                        <textarea v-model="import_profile.string" ref="import_input" @input="checkImportString"></textarea>
                     </div>
-                    <div class="btn mt-2" :class="[import_string ? '' : 'disabled']" @click="doImport">Import</div>
+                    <div class="form-item">
+                        <label><input type="checkbox" v-model="import_profile.items" :disabled="!import_status.items"> <span>Include items</span></label>
+                        <label><input type="checkbox" v-model="import_profile.config" :disabled="!import_status.config"> <span>Include config</span></label>
+                    </div>
+                    <div class="btn mt-2" :class="[import_profile.string ? '' : 'disabled']" @click="doImport">Import</div>
                     <div class="close" @click="closeImport">
                         <span class="material-icons">
                             &#xe5cd;
@@ -1088,10 +1103,28 @@
                 profiles: [],
                 active_slot: "weapon",
                 new_profile: null,
-                import_open: false,
-                import_string: null,
-                export_open: false,
-                export_string: null,
+                import_profile: {
+                    open: false,
+                    string: null,
+                    items: true,
+                    config: true,
+                },
+                export_profile: {
+                    open: false,
+                    string: null,
+                    items: true,
+                    config: true,
+                },
+                import_status: {
+                    items: true,
+                    config: true,
+                },
+                profile_status: {
+                    open: false,
+                    timeout: null,
+                    items: true,
+                    config: true,
+                },
                 equiplist_open: false,
                 equiplist_string: null,
                 final_stats: null,
@@ -1372,7 +1405,7 @@
                 this.active_slot = slot;
                 this.item_comparison = [];
 
-                if (window.$WowheadPower && this.config.tooltips) {
+                if (window.$WowheadPower) {
                     this.$nextTick(function() {
                         this.refreshTooltips();
                     });
@@ -2113,6 +2146,9 @@
             },
 
             compareAll() {
+                if (this.active_slot == "quicksets")
+                    return;
+
                 if (this.item_comparison.length == this.activeItems.length && _.find(this.item_comparison, {id: this.activeItems[0].id})) {
                     this.item_comparison = [];
                 }
@@ -2255,13 +2291,32 @@
 
             exportString() {
                 var data = {
-                    equipped: _.cloneDeep(this.equipped),
-                    enchants: _.cloneDeep(this.enchants),
-                    gems: _.cloneDeep(this.gems),
-                    config: _.cloneDeep(this.config),
+                    equipped: this.export_profile.items ? _.cloneDeep(this.equipped) : null,
+                    enchants: this.export_profile.items ? _.cloneDeep(this.enchants) : null,
+                    gems: this.export_profile.items ? _.cloneDeep(this.gems) : null,
+                    config: this.export_profile.config ? _.cloneDeep(this.config) : null,
                 };
 
                 return btoa(JSON.stringify(data));
+            },
+
+            checkImportString() {
+                var json = atob(this.import_profile.string);
+                if (!json)
+                    return;
+
+                try {
+                    var data = JSON.parse(json);
+                }
+                catch (e) {
+                    return;
+                }
+
+                if (!data)
+                    return;
+
+                this.import_status.items = _.get(data, "equipped", null) !== null;
+                this.import_status.config = _.get(data, "config", null) !== null;
             },
 
             importString(str) {
@@ -2279,13 +2334,13 @@
                 if (!data)
                     return this.importError("Could not parse import string");
 
-                if (!data.hasOwnProperty("equipped") ||
-                    !data.hasOwnProperty("enchants") ||
-                    !data.hasOwnProperty("gems") ||
-                    !data.hasOwnProperty("config"))
-                {
+                if (!data.equipped && !data.enchants && !data.gems && !data.config)
                     return this.importError("Invalid import string");
-                }
+
+                if (!this.import_profile.items)
+                    data.equipped = data.enchants = data.gems = null;
+                if (!this.import_profile.config)
+                    data.config = null;
 
                 this.loadProfile(data);
 
@@ -2294,28 +2349,39 @@
 
             importError(err) {
                 alert(err);
-                this.import_string = null;
+                this.import_profile.string = null;
                 this.$refs.import_input.focus();
                 return false;
             },
 
             doImport() {
-                if (this.import_string && this.importString(this.import_string))
+                if (this.import_profile.string && this.importString(this.import_profile.string))
                     this.closeImport();
             },
 
             openExport() {
-                this.export_string = this.exportString();
-                this.export_open = true;
+                this.export_profile.string = this.exportString();
+                this.export_profile.open = true;
 
                 this.$nextTick(function() {
                     this.$refs.export_input.select();
                 });
             },
 
+            updateExport() {
+                var self = this;
+                setTimeout(function() {
+                    self.export_profile.string = self.exportString();
+
+                    self.$nextTick(function() {
+                        self.$refs.export_input.select();
+                    });
+                }, 100);
+            },
+
             openImport() {
-                this.import_string = null;
-                this.import_open = true;
+                this.import_profile.string = null;
+                this.import_profile.open = true;
 
                 this.$nextTick(function() {
                     this.$refs.import_input.focus();
@@ -2323,13 +2389,89 @@
             },
 
             closeExport() {
-                this.export_open = false;
-                this.export_string = null;
+                this.export_profile.open = false;
+                this.export_profile.string = null;
             },
 
             closeImport() {
-                this.import_open = false;
-                this.import_string = null;
+                this.import_profile.open = false;
+                this.import_profile.string = null;
+            },
+
+            saveProfile(profile) {
+                profile.equipped = _.cloneDeep(this.equipped);
+                profile.enchants = _.cloneDeep(this.enchants);
+                profile.gems = _.cloneDeep(this.gems);
+                profile.config = _.cloneDeep(this.config);
+
+                var index = _.findIndex(this.profiles, {id: profile.id});
+                if (index != -1)
+                    this.profiles.splice(index, 1, profile);
+                else
+                    this.profiles.push(profile);
+
+                this.saveProfiles();
+            },
+
+            loadProfile(profile) {
+                if (profile.equipped)
+                    _.merge(this.equipped, _.pick(profile.equipped, _.keys(this.equipped)));
+                if (profile.enchants)
+                    _.merge(this.enchants, _.pick(profile.enchants, _.keys(this.enchants)));
+                if (profile.gems)
+                    _.merge(this.gems, _.pick(profile.gems, _.keys(this.gems)));
+                if (profile.config) {
+                    _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
+                    this.config.talents = this.conformTalents(this.config.talents);
+                }
+
+                this.finalStats();
+                this.saveGear();
+
+                if (profile.config)
+                    this.saveConfig();
+
+                var self = this;
+                clearTimeout(this.profile_status.timeout);
+                this.profile_status.open = true;
+                this.profile_status.items = _.get(profile, "equipped", null) !== null;
+                this.profile_status.config = _.get(profile, "config", null) !== null;
+                this.profile_status.timeout = setTimeout(function() {
+                    self.profile_status.open = false;
+                }, 4000);
+            },
+
+            deleteProfile(profile) {
+                var index = _.findIndex(this.profiles, {id: profile.id});
+                if (index != -1) {
+                    this.profiles.splice(index, 1);
+                    this.saveProfiles();
+                }
+            },
+
+            newProfile() {
+                if (!this.new_profile)
+                    return;
+
+                var profile = {
+                    id: this.uuid(),
+                    name: this.new_profile,
+                    equipped: {},
+                    enchants: {},
+                    gems: {},
+                    config: {},
+                };
+
+                this.new_profile = null;
+
+                this.saveProfile(profile);
+            },
+
+            uuid() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
             },
 
             copyEquiplist() {
@@ -2369,71 +2511,6 @@
 
             closeEquiplist() {
                 this.equiplist_open = false;
-            },
-
-            saveProfile(profile) {
-                profile.equipped = _.cloneDeep(this.equipped);
-                profile.enchants = _.cloneDeep(this.enchants);
-                profile.gems = _.cloneDeep(this.gems);
-                profile.config = _.cloneDeep(this.config);
-
-                var index = _.findIndex(this.profiles, {id: profile.id});
-                if (index != -1)
-                    this.profiles.splice(index, 1, profile);
-                else
-                    this.profiles.push(profile);
-
-                this.saveProfiles();
-            },
-
-            loadProfile(profile) {
-                if (profile.equipped)
-                    _.merge(this.equipped, _.pick(profile.equipped, _.keys(this.equipped)));
-                if (profile.enchants)
-                    _.merge(this.enchants, _.pick(profile.enchants, _.keys(this.enchants)));
-                if (profile.gems)
-                    _.merge(this.gems, _.pick(profile.gems, _.keys(this.gems)));
-                if (profile.config) {
-                    _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
-                    this.config.talents = this.conformTalents(this.config.talents);
-                }
-
-                this.finalStats();
-                this.saveGear();
-                this.saveConfig();
-            },
-
-            deleteProfile(profile) {
-                var index = _.findIndex(this.profiles, {id: profile.id});
-                if (index != -1) {
-                    this.profiles.splice(index, 1);
-                    this.saveProfiles();
-                }
-            },
-
-            newProfile() {
-                if (!this.new_profile)
-                    return;
-
-                var profile = {
-                    id: this.uuid(),
-                    name: this.new_profile,
-                    equipped: {},
-                    enchants: {},
-                    gems: {},
-                    config: {},
-                };
-
-                this.new_profile = null;
-
-                this.saveProfile(profile);
-            },
-
-            uuid() {
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
-                });
             },
 
             showLog(log) {
@@ -2477,7 +2554,7 @@
             },
 
             loadTbcdbTooltips() {
-                if (!window.aowow_tooltips && this.config.tooltips) {
+                if (!window.aowow_tooltips) {
                     window.aowow_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true };
                     var script = document.createElement("script");
                     script.id = "wowheadpower";
@@ -2488,7 +2565,7 @@
             },
 
             loadWowheadTooltips() {
-                if (!window.whTooltips && this.config.tooltips) {
+                if (!window.whTooltips) {
                     window.whTooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true };
                     var script = document.createElement("script");
                     script.id = "wowheadpower";

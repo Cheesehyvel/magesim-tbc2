@@ -8,6 +8,7 @@
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
+	"./CheckItem.vue": "./assets/js/components/CheckItem.vue",
 	"./Help.vue": "./assets/js/components/Help.vue",
 	"./Histogram.vue": "./assets/js/components/Histogram.vue",
 	"./SortLink.vue": "./assets/js/components/SortLink.vue",
@@ -4695,6 +4696,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4830,10 +4846,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       profiles: [],
       active_slot: "weapon",
       new_profile: null,
-      import_open: false,
-      import_string: null,
-      export_open: false,
-      export_string: null,
+      import_profile: {
+        open: false,
+        string: null,
+        items: true,
+        config: true
+      },
+      export_profile: {
+        open: false,
+        string: null,
+        items: true,
+        config: true
+      },
+      import_status: {
+        items: true,
+        config: true
+      },
+      profile_status: {
+        open: false,
+        timeout: null,
+        items: true,
+        config: true
+      },
       equiplist_open: false,
       equiplist_string: null,
       final_stats: null,
@@ -5136,7 +5170,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.active_slot = slot;
       this.item_comparison = [];
 
-      if (window.$WowheadPower && this.config.tooltips) {
+      if (window.$WowheadPower) {
         this.$nextTick(function () {
           this.refreshTooltips();
         });
@@ -5752,6 +5786,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }) != -1;
     },
     compareAll: function compareAll() {
+      if (this.active_slot == "quicksets") return;
+
       if (this.item_comparison.length == this.activeItems.length && _.find(this.item_comparison, {
         id: this.activeItems[0].id
       })) {
@@ -5880,12 +5916,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     exportString: function exportString() {
       var data = {
-        equipped: _.cloneDeep(this.equipped),
-        enchants: _.cloneDeep(this.enchants),
-        gems: _.cloneDeep(this.gems),
-        config: _.cloneDeep(this.config)
+        equipped: this.export_profile.items ? _.cloneDeep(this.equipped) : null,
+        enchants: this.export_profile.items ? _.cloneDeep(this.enchants) : null,
+        gems: this.export_profile.items ? _.cloneDeep(this.gems) : null,
+        config: this.export_profile.config ? _.cloneDeep(this.config) : null
       };
       return btoa(JSON.stringify(data));
+    },
+    checkImportString: function checkImportString() {
+      var json = atob(this.import_profile.string);
+      if (!json) return;
+
+      try {
+        var data = JSON.parse(json);
+      } catch (e) {
+        return;
+      }
+
+      if (!data) return;
+      this.import_status.items = _.get(data, "equipped", null) !== null;
+      this.import_status.config = _.get(data, "config", null) !== null;
     },
     importString: function importString(str) {
       var json = atob(str);
@@ -5898,44 +5948,117 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       if (!data) return this.importError("Could not parse import string");
-
-      if (!data.hasOwnProperty("equipped") || !data.hasOwnProperty("enchants") || !data.hasOwnProperty("gems") || !data.hasOwnProperty("config")) {
-        return this.importError("Invalid import string");
-      }
-
+      if (!data.equipped && !data.enchants && !data.gems && !data.config) return this.importError("Invalid import string");
+      if (!this.import_profile.items) data.equipped = data.enchants = data.gems = null;
+      if (!this.import_profile.config) data.config = null;
       this.loadProfile(data);
       return true;
     },
     importError: function importError(err) {
       alert(err);
-      this.import_string = null;
+      this.import_profile.string = null;
       this.$refs.import_input.focus();
       return false;
     },
     doImport: function doImport() {
-      if (this.import_string && this.importString(this.import_string)) this.closeImport();
+      if (this.import_profile.string && this.importString(this.import_profile.string)) this.closeImport();
     },
     openExport: function openExport() {
-      this.export_string = this.exportString();
-      this.export_open = true;
+      this.export_profile.string = this.exportString();
+      this.export_profile.open = true;
       this.$nextTick(function () {
         this.$refs.export_input.select();
       });
     },
+    updateExport: function updateExport() {
+      var self = this;
+      setTimeout(function () {
+        self.export_profile.string = self.exportString();
+        self.$nextTick(function () {
+          self.$refs.export_input.select();
+        });
+      }, 100);
+    },
     openImport: function openImport() {
-      this.import_string = null;
-      this.import_open = true;
+      this.import_profile.string = null;
+      this.import_profile.open = true;
       this.$nextTick(function () {
         this.$refs.import_input.focus();
       });
     },
     closeExport: function closeExport() {
-      this.export_open = false;
-      this.export_string = null;
+      this.export_profile.open = false;
+      this.export_profile.string = null;
     },
     closeImport: function closeImport() {
-      this.import_open = false;
-      this.import_string = null;
+      this.import_profile.open = false;
+      this.import_profile.string = null;
+    },
+    saveProfile: function saveProfile(profile) {
+      profile.equipped = _.cloneDeep(this.equipped);
+      profile.enchants = _.cloneDeep(this.enchants);
+      profile.gems = _.cloneDeep(this.gems);
+      profile.config = _.cloneDeep(this.config);
+
+      var index = _.findIndex(this.profiles, {
+        id: profile.id
+      });
+
+      if (index != -1) this.profiles.splice(index, 1, profile);else this.profiles.push(profile);
+      this.saveProfiles();
+    },
+    loadProfile: function loadProfile(profile) {
+      if (profile.equipped) _.merge(this.equipped, _.pick(profile.equipped, _.keys(this.equipped)));
+      if (profile.enchants) _.merge(this.enchants, _.pick(profile.enchants, _.keys(this.enchants)));
+      if (profile.gems) _.merge(this.gems, _.pick(profile.gems, _.keys(this.gems)));
+
+      if (profile.config) {
+        _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
+
+        this.config.talents = this.conformTalents(this.config.talents);
+      }
+
+      this.finalStats();
+      this.saveGear();
+      if (profile.config) this.saveConfig();
+      var self = this;
+      clearTimeout(this.profile_status.timeout);
+      this.profile_status.open = true;
+      this.profile_status.items = _.get(profile, "equipped", null) !== null;
+      this.profile_status.config = _.get(profile, "config", null) !== null;
+      this.profile_status.timeout = setTimeout(function () {
+        self.profile_status.open = false;
+      }, 4000);
+    },
+    deleteProfile: function deleteProfile(profile) {
+      var index = _.findIndex(this.profiles, {
+        id: profile.id
+      });
+
+      if (index != -1) {
+        this.profiles.splice(index, 1);
+        this.saveProfiles();
+      }
+    },
+    newProfile: function newProfile() {
+      if (!this.new_profile) return;
+      var profile = {
+        id: this.uuid(),
+        name: this.new_profile,
+        equipped: {},
+        enchants: {},
+        gems: {},
+        config: {}
+      };
+      this.new_profile = null;
+      this.saveProfile(profile);
+    },
+    uuid: function uuid() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : r & 0x3 | 0x8;
+        return v.toString(16);
+      });
     },
     copyEquiplist: function copyEquiplist() {
       var arr = [];
@@ -5972,64 +6095,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     closeEquiplist: function closeEquiplist() {
       this.equiplist_open = false;
     },
-    saveProfile: function saveProfile(profile) {
-      profile.equipped = _.cloneDeep(this.equipped);
-      profile.enchants = _.cloneDeep(this.enchants);
-      profile.gems = _.cloneDeep(this.gems);
-      profile.config = _.cloneDeep(this.config);
-
-      var index = _.findIndex(this.profiles, {
-        id: profile.id
-      });
-
-      if (index != -1) this.profiles.splice(index, 1, profile);else this.profiles.push(profile);
-      this.saveProfiles();
-    },
-    loadProfile: function loadProfile(profile) {
-      if (profile.equipped) _.merge(this.equipped, _.pick(profile.equipped, _.keys(this.equipped)));
-      if (profile.enchants) _.merge(this.enchants, _.pick(profile.enchants, _.keys(this.enchants)));
-      if (profile.gems) _.merge(this.gems, _.pick(profile.gems, _.keys(this.gems)));
-
-      if (profile.config) {
-        _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
-
-        this.config.talents = this.conformTalents(this.config.talents);
-      }
-
-      this.finalStats();
-      this.saveGear();
-      this.saveConfig();
-    },
-    deleteProfile: function deleteProfile(profile) {
-      var index = _.findIndex(this.profiles, {
-        id: profile.id
-      });
-
-      if (index != -1) {
-        this.profiles.splice(index, 1);
-        this.saveProfiles();
-      }
-    },
-    newProfile: function newProfile() {
-      if (!this.new_profile) return;
-      var profile = {
-        id: this.uuid(),
-        name: this.new_profile,
-        equipped: {},
-        enchants: {},
-        gems: {},
-        config: {}
-      };
-      this.new_profile = null;
-      this.saveProfile(profile);
-    },
-    uuid: function uuid() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0,
-            v = c == 'x' ? r : r & 0x3 | 0x8;
-        return v.toString(16);
-      });
-    },
     showLog: function showLog(log) {
       return this.log_filter[log.type];
     },
@@ -6063,7 +6128,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.item_source == "tbcdb") this.loadTbcdbTooltips();else this.loadWowheadTooltips();
     },
     loadTbcdbTooltips: function loadTbcdbTooltips() {
-      if (!window.aowow_tooltips && this.config.tooltips) {
+      if (!window.aowow_tooltips) {
         window.aowow_tooltips = {
           "colorlinks": true,
           "iconizelinks": true,
@@ -6077,7 +6142,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     loadWowheadTooltips: function loadWowheadTooltips() {
-      if (!window.whTooltips && this.config.tooltips) {
+      if (!window.whTooltips) {
         window.whTooltips = {
           "colorlinks": true,
           "iconizelinks": true,
@@ -6156,6 +6221,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var profiles = JSON.parse(str);
         if (profiles) this.profiles = profiles;
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/CheckItem.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/CheckItem.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['value'],
+  computed: {
+    icon: function icon() {
+      return this.value ? '&#xe876' : '&#xe5cd';
     }
   }
 });
@@ -62364,6 +62458,45 @@ component.options.__file = "assets/js/App.vue"
 
 /***/ }),
 
+/***/ "./assets/js/components/CheckItem.vue":
+/*!********************************************!*\
+  !*** ./assets/js/components/CheckItem.vue ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CheckItem_vue_vue_type_template_id_5d8479ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CheckItem.vue?vue&type=template&id=5d8479ea& */ "./assets/js/components/CheckItem.vue?vue&type=template&id=5d8479ea&");
+/* harmony import */ var _CheckItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CheckItem.vue?vue&type=script&lang=js& */ "./assets/js/components/CheckItem.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _CheckItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _CheckItem_vue_vue_type_template_id_5d8479ea___WEBPACK_IMPORTED_MODULE_0__.render,
+  _CheckItem_vue_vue_type_template_id_5d8479ea___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/js/components/CheckItem.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./assets/js/components/Help.vue":
 /*!***************************************!*\
   !*** ./assets/js/components/Help.vue ***!
@@ -62536,6 +62669,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/components/CheckItem.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./assets/js/components/CheckItem.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CheckItem.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/CheckItem.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./assets/js/components/Help.vue?vue&type=script&lang=js&":
 /*!****************************************************************!*\
   !*** ./assets/js/components/Help.vue?vue&type=script&lang=js& ***!
@@ -62613,6 +62762,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_b8fe0bae___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_b8fe0bae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=template&id=b8fe0bae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/App.vue?vue&type=template&id=b8fe0bae&");
+
+
+/***/ }),
+
+/***/ "./assets/js/components/CheckItem.vue?vue&type=template&id=5d8479ea&":
+/*!***************************************************************************!*\
+  !*** ./assets/js/components/CheckItem.vue?vue&type=template&id=5d8479ea& ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckItem_vue_vue_type_template_id_5d8479ea___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckItem_vue_vue_type_template_id_5d8479ea___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CheckItem_vue_vue_type_template_id_5d8479ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CheckItem.vue?vue&type=template&id=5d8479ea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/CheckItem.vue?vue&type=template&id=5d8479ea&");
 
 
 /***/ }),
@@ -62769,7 +62935,7 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.fools_open == 3
-      ? _c("div", { staticClass: "fools2" }, [
+      ? _c("div", { staticClass: "fools2 notice" }, [
           _c("div", { staticClass: "inner" }, [
             _c("div", { staticClass: "title" }, [_vm._v("Premium or else")]),
             _vm._v(" "),
@@ -62794,6 +62960,44 @@ var render = function() {
             )
           ])
         ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.profile_status.open
+      ? _c(
+          "div",
+          {
+            staticClass: "profile-status notice",
+            on: {
+              click: function($event) {
+                _vm.profile_status.open = false
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "inner" }, [
+              _c("div", { staticClass: "title" }, [_vm._v("Profile loaded")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "checklist" },
+                [
+                  _c(
+                    "check-item",
+                    { attrs: { value: _vm.profile_status.items } },
+                    [_vm._v("Items")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "check-item",
+                    { attrs: { value: _vm.profile_status.config } },
+                    [_vm._v("Config")]
+                  )
+                ],
+                1
+              )
+            ])
+          ]
+        )
       : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "wrapper" }, [
@@ -64742,64 +64946,6 @@ var render = function() {
                         ],
                         1
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-item" }, [
-                      _c("label", [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.config.tooltips,
-                              expression: "config.tooltips"
-                            }
-                          ],
-                          attrs: { type: "checkbox" },
-                          domProps: {
-                            checked: Array.isArray(_vm.config.tooltips)
-                              ? _vm._i(_vm.config.tooltips, null) > -1
-                              : _vm.config.tooltips
-                          },
-                          on: {
-                            input: function($event) {
-                              return _vm.refreshTooltips(true)
-                            },
-                            change: function($event) {
-                              var $$a = _vm.config.tooltips,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = null,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.config,
-                                      "tooltips",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.config,
-                                      "tooltips",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(_vm.config, "tooltips", $$c)
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", [
-                          _vm._v("Use item tooltips (requires reload)")
-                        ])
-                      ])
                     ])
                   ],
                   2
@@ -68229,7 +68375,7 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _vm.export_open
+      _vm.export_profile.open
         ? _c("div", { staticClass: "lightbox" }, [
             _c("div", { staticClass: "inner" }, [
               _c("div", { staticClass: "title" }, [_vm._v("Export")]),
@@ -68240,21 +68386,127 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.export_string,
-                      expression: "export_string"
+                      value: _vm.export_profile.string,
+                      expression: "export_profile.string"
                     }
                   ],
                   ref: "export_input",
-                  domProps: { value: _vm.export_string },
+                  domProps: { value: _vm.export_profile.string },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.export_string = $event.target.value
+                      _vm.$set(
+                        _vm.export_profile,
+                        "string",
+                        $event.target.value
+                      )
                     }
                   }
                 })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-item" }, [
+                _c("label", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.export_profile.items,
+                        expression: "export_profile.items"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.export_profile.items)
+                        ? _vm._i(_vm.export_profile.items, null) > -1
+                        : _vm.export_profile.items
+                    },
+                    on: {
+                      input: _vm.updateExport,
+                      change: function($event) {
+                        var $$a = _vm.export_profile.items,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.export_profile,
+                                "items",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.export_profile,
+                                "items",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.export_profile, "items", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Include items")])
+                ]),
+                _vm._v(" "),
+                _c("label", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.export_profile.config,
+                        expression: "export_profile.config"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.export_profile.config)
+                        ? _vm._i(_vm.export_profile.config, null) > -1
+                        : _vm.export_profile.config
+                    },
+                    on: {
+                      input: _vm.updateExport,
+                      change: function($event) {
+                        var $$a = _vm.export_profile.config,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.export_profile,
+                                "config",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.export_profile,
+                                "config",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.export_profile, "config", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Include config")])
+                ])
               ]),
               _vm._v(" "),
               _c(
@@ -68276,7 +68528,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.import_open
+      _vm.import_profile.open
         ? _c("div", { staticClass: "lightbox" }, [
             _c("div", { staticClass: "inner" }, [
               _c("div", { staticClass: "title" }, [_vm._v("Import")]),
@@ -68287,28 +68539,141 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.import_string,
-                      expression: "import_string"
+                      value: _vm.import_profile.string,
+                      expression: "import_profile.string"
                     }
                   ],
                   ref: "import_input",
-                  domProps: { value: _vm.import_string },
+                  domProps: { value: _vm.import_profile.string },
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.import_string = $event.target.value
-                    }
+                    input: [
+                      function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.import_profile,
+                          "string",
+                          $event.target.value
+                        )
+                      },
+                      _vm.checkImportString
+                    ]
                   }
                 })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-item" }, [
+                _c("label", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.import_profile.items,
+                        expression: "import_profile.items"
+                      }
+                    ],
+                    attrs: {
+                      type: "checkbox",
+                      disabled: !_vm.import_status.items
+                    },
+                    domProps: {
+                      checked: Array.isArray(_vm.import_profile.items)
+                        ? _vm._i(_vm.import_profile.items, null) > -1
+                        : _vm.import_profile.items
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.import_profile.items,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.import_profile,
+                                "items",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.import_profile,
+                                "items",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.import_profile, "items", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Include items")])
+                ]),
+                _vm._v(" "),
+                _c("label", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.import_profile.config,
+                        expression: "import_profile.config"
+                      }
+                    ],
+                    attrs: {
+                      type: "checkbox",
+                      disabled: !_vm.import_status.config
+                    },
+                    domProps: {
+                      checked: Array.isArray(_vm.import_profile.config)
+                        ? _vm._i(_vm.import_profile.config, null) > -1
+                        : _vm.import_profile.config
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.import_profile.config,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.import_profile,
+                                "config",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.import_profile,
+                                "config",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.import_profile, "config", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Include config")])
+                ])
               ]),
               _vm._v(" "),
               _c(
                 "div",
                 {
                   staticClass: "btn mt-2",
-                  class: [_vm.import_string ? "" : "disabled"],
+                  class: [_vm.import_profile.string ? "" : "disabled"],
                   on: { click: _vm.doImport }
                 },
                 [_vm._v("Import")]
@@ -68573,6 +68938,42 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/CheckItem.vue?vue&type=template&id=5d8479ea&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/CheckItem.vue?vue&type=template&id=5d8479ea& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "check-item", class: [_vm.value ? "checked" : "unchecked"] },
+    [
+      _c("span", {
+        staticClass: "material-icons",
+        domProps: { innerHTML: _vm._s(_vm.icon) }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "check-text" }, [_vm._t("default")], 2)
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
