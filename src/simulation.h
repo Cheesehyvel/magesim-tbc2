@@ -1129,8 +1129,8 @@ public:
         if (trinket_id == TRINKET_SHRUNKEN_HEAD)
             onBuffGain(make_shared<buff::ShrunkenHead>());
 
-        if (trinket_id == TRINKET_SCRYERS_BLOODGEM) {
-            onBuffGain(make_shared<buff::ScryersBloodgem>());
+        if (trinket_id == TRINKET_SCRYERS_BLOODGEM || trinket_id == TRINKET_XIRIS_GIFT) {
+            onBuffGain(make_shared<buff::SpellPower>());
             duration = 90;
         }
         if (trinket_id == TRINKET_MQG) {
@@ -1541,7 +1541,7 @@ public:
                 sp+= 70.0;
             if (state->hasBuff(buff::SILVER_CRESCENT))
                 sp+= 155.0;
-            if (state->hasBuff(buff::SCRYERS_BLOODGEM))
+            if (state->hasBuff(buff::SPELL_POWER))
                 sp+= 150.0;
             if (state->hasBuff(buff::CRYSTAL_TALISMAN))
                 sp+= 104.0;

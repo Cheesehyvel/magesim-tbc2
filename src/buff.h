@@ -26,7 +26,7 @@ namespace buff
         BERSERKING = 20554,
         MQG = 23723,
         BLUE_DRAGON = 23684,
-        SCRYERS_BLOODGEM = 35337,
+        SPELL_POWER = 35337,
         CRYSTAL_TALISMAN = 32355,
         PENDANT_VIOLET_EYE = 29601,
         ENLIGHTENMENT = 35095,
@@ -376,13 +376,13 @@ namespace buff
 
     };
 
-    class ScryersBloodgem : public Buff
+    class SpellPower : public Buff
     {
 
     public:
-        ScryersBloodgem()
+        SpellPower()
         {
-            id = SCRYERS_BLOODGEM;
+            id = SPELL_POWER;
             name = "Spell Power";
             duration = 15;
         }

@@ -207,6 +207,7 @@ var ids = {
   EYE_OF_MAGTHERIDON: 28789,
   RESTRAINED_ESSENCE: 23046,
   QUAGMIRRANS_EYE: 27683,
+  XIRIS_GIFT: 29179,
   UNSTABLE_CURRENTS: 30626,
   LIGHTNING_CAPACITOR: 28785,
   CHAOTIC_SKYFIRE: 34220,
@@ -2989,6 +2990,12 @@ var equip = {
     title: "Quagmirran's Eye",
     sp: 37,
     q: "rare"
+  }, {
+    id: ids.XIRIS_GIFT,
+    title: "Xi'ri's Gift",
+    crit: 32,
+    q: "rare",
+    use: true
   }, {
     id: ids.ALCHEMIST_STONE,
     title: "Alchemist Stone",
