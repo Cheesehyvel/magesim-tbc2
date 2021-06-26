@@ -2016,6 +2016,13 @@ var equip = {
     crit: 19,
     hit: 17
   }, {
+    id: 30668,
+    title: "Grasp of the Dead",
+    "int": 24,
+    spi: 21,
+    sp_frost: 46,
+    hit: 17
+  }, {
     id: 35098,
     title: "Brutal Gladiator's Silk Handguards",
     "int": 23,
@@ -2196,6 +2203,12 @@ var equip = {
     bonus: {
       sp: 4
     }
+  }, {
+    id: 30673,
+    title: "Inferno Waist Cord",
+    "int": 18,
+    sp_fire: 59,
+    crit: 24
   }, {
     id: 27843,
     title: "Glyph-Lined Sash",
