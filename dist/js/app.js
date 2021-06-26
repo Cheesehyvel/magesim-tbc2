@@ -4711,6 +4711,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -4866,6 +4867,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         open: false,
         timeout: null,
         items: true,
+        missing_items: [],
         config: true
       },
       equiplist_open: false,
@@ -5996,6 +5998,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     saveProfile: function saveProfile(profile) {
       profile.equipped = _.cloneDeep(this.equipped);
+      delete profile.equipped.stat_weight;
       profile.enchants = _.cloneDeep(this.enchants);
       profile.gems = _.cloneDeep(this.gems);
       profile.config = _.cloneDeep(this.config);
@@ -6008,9 +6011,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.saveProfiles();
     },
     loadProfile: function loadProfile(profile) {
-      if (profile.equipped) _.merge(this.equipped, _.pick(profile.equipped, _.keys(this.equipped)));
-      if (profile.enchants) _.merge(this.enchants, _.pick(profile.enchants, _.keys(this.enchants)));
-      if (profile.gems) _.merge(this.gems, _.pick(profile.gems, _.keys(this.gems)));
+      this.profile_status.missing_items = [];
+
+      if (profile.equipped) {
+        profile.equipped = _.pick(profile.equipped, _.keys(this.equipped));
+        delete profile.equipped.stat_weight;
+
+        for (var slot in profile.equipped) {
+          if (profile.equipped[slot] && !this.getItem(slot, profile.equipped[slot])) {
+            profile.equipped[slot] = null;
+            this.profile_status.missing_items.push(this.equipSlotToItemSlot(slot));
+          }
+        }
+
+        _.merge(this.equipped, profile.equipped);
+      }
+
+      if (profile.enchants) {
+        profile.enchants = _.pick(profile.enchants, _.keys(this.enchants));
+
+        for (var slot in profile.enchants) {
+          if (!this.getEnchant(slot, profile.enchants[slot])) profile.enchants[slot] = null;
+        }
+
+        _.merge(this.enchants, profile.enchants);
+      }
+
+      if (profile.gems) {
+        profile.gems = _.pick(profile.gems, _.keys(this.gems));
+
+        for (var slot in profile.gems) {
+          for (var i in profile.gems[slot]) {
+            if (!this.getGem(profile.gems[slot][i])) profile.gems[slot][i] = null;
+          }
+        }
+
+        _.merge(this.gems, profile.gems);
+      }
 
       if (profile.config) {
         _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
@@ -62987,13 +63024,21 @@ var render = function() {
                     [_vm._v("Items")]
                   ),
                   _vm._v(" "),
+                  _vm._l(_vm.profile_status.missing_items, function(slot) {
+                    return _c(
+                      "check-item",
+                      { key: slot, attrs: { value: false } },
+                      [_vm._v(_vm._s(_vm.formatKey(slot)))]
+                    )
+                  }),
+                  _vm._v(" "),
                   _c(
                     "check-item",
                     { attrs: { value: _vm.profile_status.config } },
                     [_vm._v("Config")]
                   )
                 ],
-                1
+                2
               )
             ])
           ]
