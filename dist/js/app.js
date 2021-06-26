@@ -2166,6 +2166,13 @@ var equip = {
     sockets: ["y", "y"],
     phase: 2
   }, {
+    id: 30020,
+    title: "Fire-Cord of the Magus",
+    "int": 23,
+    sp_fire: 60,
+    crit: 30,
+    phase: 2
+  }, {
     id: 32256,
     title: "Waistwrap of Infinity",
     "int": 22,

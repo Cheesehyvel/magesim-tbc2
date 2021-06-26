@@ -295,6 +295,7 @@ var equip = {
         { id: 30888, title: "Anetheron's Noose", int: 23, sp: 55, crit: 24, sockets: ["y", "b"], bonus: { sp: 4 }, phase: 3 },
         { id: 21846, itemset: ids.SPELLFIRE_SET, title: "Spellfire Belt", int: 18, sp_arcane: 50, sp_fire: 50, crit: 18, sockets: ["y", "b"] },
         { id: 30064, title: "Cord of Screaming Terrors", int: 15, sp: 50, hit: 24, sockets: ["y", "y"], phase: 2 },
+        { id: 30020, title: "Fire-Cord of the Magus", int: 23, sp_fire: 60, crit: 30, phase: 2 },
         { id: 32256, title: "Waistwrap of Infinity", int: 22, sp: 56, haste: 32, phase: 3 },
         { id: 33291, title: "Voodoo-woven Belt", int: 22, sp: 40, crit: 33, hit: 17, phase: 4 },
         { id: 24256, title: "Girdle of Ruination", int: 13, sp: 39, crit: 20, sockets: ["r", "y"] },
