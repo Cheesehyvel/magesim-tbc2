@@ -118,7 +118,7 @@ var equip = {
         { id: 28320, title: "Gladiator's Touch of Defeat", int: 11, sp: 14 },
         { id: 30859, title: "Wand of the Seer", int: 8, spi: 5, sp: 18, q: "rare" },
         { id: 22820, title: "Wand of Fates", int: 7, sp: 12, hit: 8 },
-        { id: 25939, title: "Voidfire Wand", int: 9, sp: 11, hit: 7 },
+        { id: 25939, title: "Voidfire Wand", int: 9, sp: 11, hit: 7, q: "rare" },
     ],
     head: [
         { id: 34340, title: "Dark Conjuror's Collar", int: 42, sp: 75, crit: 38, haste: 30, sockets: ["m", "b"], bonus: { sp: 5 }, phase: 5 },

@@ -737,6 +737,13 @@ var equip = {
     "int": 7,
     sp: 12,
     hit: 8
+  }, {
+    id: 25939,
+    title: "Voidfire Wand",
+    "int": 9,
+    sp: 11,
+    hit: 7,
+    q: "rare"
   }],
   head: [{
     id: 34340,
@@ -2957,6 +2964,11 @@ var equip = {
     title: "Band of the Inevitable",
     sp: 36,
     hit: 8
+  }, {
+    id: 28555,
+    title: "Seal of the Exorcist",
+    sp: 28,
+    hit: 12
   }],
   trinket: [{
     id: ids.SORCERERS_ALCHEMIST_STONE,
