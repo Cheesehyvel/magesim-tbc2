@@ -1002,13 +1002,13 @@ table.simple th:last-child, table.simple td:last-child {
   color: #08f;
 }
 #app .profiles .profile .actions {
-  font-size: 16px;
   white-space: nowrap;
 }
 #app .profiles .profile .actions > * {
   display: inline-block;
 }
 #app .profiles .profile .actions > * .material-icons {
+  font-size: 16px;
   transition: opacity 0.2s ease;
 }
 #app .profiles .profile .actions > *:hover .material-icons {

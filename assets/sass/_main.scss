@@ -499,13 +499,13 @@ table {
             }
 
             .actions {
-                font-size: 16px;
                 white-space: nowrap;
 
                 > * {
                     display: inline-block;
 
                     .material-icons {
+                        font-size: 16px;
                         transition: opacity 0.2s ease;
                     }
 

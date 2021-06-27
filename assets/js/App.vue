@@ -821,16 +821,20 @@
                                 <div class="profile" v-for="profile in profiles" :key="profile.id">
                                     <div class="name" @click="loadProfile(profile)">{{ profile.name }}</div>
                                     <div class="actions">
+                                        <div class="load-items" @click="loadProfile(profile, 'items')">
+                                            <span class="material-icons">&#xe84e;</span>
+                                            <tooltip position="t">Load items only</tooltip>
+                                        </div>
+                                        <div class="load-config" @click="loadProfile(profile, 'config')">
+                                            <span class="material-icons">&#xe8b8;</span>
+                                            <tooltip position="t">Load config only</tooltip>
+                                        </div>
                                         <div class="save" @click="saveProfile(profile)">
-                                            <span class="material-icons">
-                                                &#xe161;
-                                            </span>
+                                            <span class="material-icons">&#xe161;</span>
                                             <tooltip position="t">Save profile</tooltip>
                                         </div>
                                         <div class="delete" @click="deleteProfile(profile)">
-                                            <span class="material-icons">
-                                                &#xe872;
-                                            </span>
+                                            <span class="material-icons">&#xe872;</span>
                                             <tooltip position="t">Delete profile</tooltip>
                                         </div>
                                     </div>
@@ -2416,10 +2420,13 @@
                 this.saveProfiles();
             },
 
-            loadProfile(profile) {
+            loadProfile(profile, only) {
+                this.profile_status.open = true;
+                this.profile_status.items = false;
+                this.profile_status.config = false;
                 this.profile_status.missing_items = [];
 
-                if (profile.equipped) {
+                if (profile.equipped && (!only || only == "items")) {
                     profile.equipped = _.pick(profile.equipped, _.keys(this.equipped));
                     delete profile.equipped.stat_weight;
                     for (var slot in profile.equipped) {
@@ -2429,9 +2436,10 @@
                         }
                     }
                     _.merge(this.equipped, profile.equipped);
+                    this.profile_status.items = true;
                 }
 
-                if (profile.enchants) {
+                if (profile.enchants && (!only || only == "items")) {
                     profile.enchants = _.pick(profile.enchants, _.keys(this.enchants));
                     for (var slot in profile.enchants) {
                         if (!this.getEnchant(slot, profile.enchants[slot]))
@@ -2440,7 +2448,7 @@
                     _.merge(this.enchants, profile.enchants);
                 }
 
-                if (profile.gems) {
+                if (profile.gems && (!only || only == "items")) {
                     profile.gems = _.pick(profile.gems, _.keys(this.gems));
                     for (var slot in profile.gems) {
                         for (var i in profile.gems[slot]) {
@@ -2451,22 +2459,22 @@
                     _.merge(this.gems, profile.gems);
                 }
 
-                if (profile.config) {
+                if (profile.config && (!only || only == "config")) {
                     _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
                     this.config.talents = this.conformTalents(this.config.talents);
+                    this.profile_status.config = true;
                 }
 
                 this.finalStats();
-                this.saveGear();
 
-                if (profile.config)
+                if (!only || only == "items")
+                    this.saveGear();
+
+                if (profile.config && (!only || only == "config"))
                     this.saveConfig();
 
                 var self = this;
                 clearTimeout(this.profile_status.timeout);
-                this.profile_status.open = true;
-                this.profile_status.items = _.get(profile, "equipped", null) !== null;
-                this.profile_status.config = _.get(profile, "config", null) !== null;
                 this.profile_status.timeout = setTimeout(function() {
                     self.profile_status.open = false;
                 }, 4000);
