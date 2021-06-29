@@ -70,6 +70,7 @@ var equip = {
         { id: ids.BLADE_OF_WIZARDRY, title: "Blade of Wizardry", sp: 159 },
         { id: 23554, title: "Eternium Runed Blade", int: 19, sp: 168, crit: 21 },
         { id: 29155, title: "Stormcaller", int: 12, sp: 159, crit: 21 },
+        { id: 29153, title: "Blade of the Archmage", int: 11, sp: 159, crit: 21 },
         { id: 29355, title: "Terokk's Shadowstaff", int: 42, sp: 168, crit: 37, twohand: true },
         { id: 28935, title: "High Warlord's War Staff", int: 30, sp: 121, crit: 30, hit: 20, twohand: true, q: "rare" },
         { id: 28341, title: "Warpstaff of Arcanum", int: 38, sp: 121, crit: 26, hit: 16, twohand: true, q: "rare" },

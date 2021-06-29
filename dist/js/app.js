@@ -441,6 +441,12 @@ var equip = {
     sp: 159,
     crit: 21
   }, {
+    id: 29153,
+    title: "Blade of the Archmage",
+    "int": 11,
+    sp: 159,
+    crit: 21
+  }, {
     id: 29355,
     title: "Terokk's Shadowstaff",
     "int": 42,
