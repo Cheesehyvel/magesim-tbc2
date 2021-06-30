@@ -189,6 +189,7 @@ var equip = {
         { id: 21869, title: "Frozen Shadoweave Shoulders", int: 15, sp_frost: 50, sockets: ["y", "b"], bonus: { hit: 3 } },
         { id: 33757, title: "Vengeful Gladiator's Silk Amice", int: 13, sp: 40, crit: 17, sockets: ["b", "y"], phase: 3 },
         { id: 29079, title: "Pauldrons of the Aldor", int: 26, spi: 16, sp: 27, crit: 15, sockets: ["y", "r"], bonus: { sp: 4 } },
+        { id: 28726, title: "Mantle of the Mind Flayer", int: 29, sp: 35 },
         { id: 32047, title: "Merciless Gladiator's Silk Amice", int: 15, sp: 36, crit: 14, sockets: ["b", "y"], phase: 2 },
         { id: 27796, itemset: ids.MANA_ETCHED_SET, title: "Mana-Etched Spaulders", int: 17, sp: 20, crit: 16, sockets: ["y", "r"], q: "rare" },
         { id: 28866, title: "High Warlord's Silk Amice", int: 16, sp: 25, crit: 8, sockets: ["b", "y"], q: "rare" },

@@ -1310,6 +1310,11 @@ var equip = {
       sp: 4
     }
   }, {
+    id: 28726,
+    title: "Mantle of the Mind Flayer",
+    "int": 29,
+    sp: 35
+  }, {
     id: 32047,
     title: "Merciless Gladiator's Silk Amice",
     "int": 15,
