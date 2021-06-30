@@ -1034,11 +1034,11 @@
                         </div>
                         <div class="form-item form-row">
                             <label>Mp5</label>
-                            <input type="number" v-model="custom_item.mp5">
+                            <input type="number" v-model.number="custom_item.mp5">
                         </div>
                         <div class="form-item form-row">
                             <label>Number of sockets</label>
-                            <input type="number" v-model="custom_item.sockets">
+                            <input type="number" v-model.number="custom_item.sockets">
                         </div>
                     </div>
                     <div class="mt-2 text-error" v-if="custom_item_error">
