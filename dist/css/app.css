@@ -931,12 +931,14 @@ table.simple th:last-child, table.simple td:last-child {
 }
 #app .wrapper .main .gear .items .compare {
   cursor: pointer;
+}
+#app .wrapper .main .gear .items .compare .help .material-icons {
   color: #aaa;
 }
-#app .wrapper .main .gear .items .compare.active {
+#app .wrapper .main .gear .items .compare.active .help .material-icons {
   color: #08f;
 }
-#app .wrapper .main .gear .items .compare.error {
+#app .wrapper .main .gear .items .compare.error .help .material-icons {
   color: #f00;
 }
 #app .wrapper .main .gear .items .delete .material-icons {

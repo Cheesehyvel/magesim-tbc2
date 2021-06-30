@@ -405,13 +405,16 @@ table {
 
                     .compare {
                         cursor: pointer;
-                        color: #aaa;
 
-                        &.active {
+                        .help .material-icons {
+                            color: #aaa;
+                        }
+
+                        &.active .help .material-icons {
                             color: #08f;
                         }
 
-                        &.error {
+                        &.error .help .material-icons {
                             color: #f00;
                         }
                     }
