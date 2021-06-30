@@ -575,7 +575,7 @@
                                 <label><input type="checkbox" v-model="config.molten_armor" @input="dontStack($event, 'mage_armor')"> <span>Molten Armor</span></label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.divine_spirit"> <span>Divine Spirit</span></label>
+                                <label><input type="checkbox" v-model="config.divine_spirit" @input="dontStack($event, 'scroll_of_spirit')"> <span>Divine Spirit</span></label>
                             </div>
                             <div class="form-item" v-if="config.divine_spirit">
                                 <label><input type="checkbox" v-model="config.improved_divine_spirit"> <span>Imp. Divine Spirit</span></label>
@@ -711,10 +711,18 @@
                                 </select>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.scroll_of_spirit"> <span>Scroll of Spirit V</span></label>
+                                <label>
+                                    <input type="checkbox" v-model="config.scroll_of_spirit" @input="dontStack($event, ['divine_spirit', 'improved_divine_spirit'])">
+                                    <span>Scroll of Spirit V</span>
+                                    <help>Does not stack with Divine Spirit (30 spirit)</help>
+                                </label>
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.kreegs"> <span>Kreeg's Stout Beatdown</span></label>
+                                <label>
+                                    <input type="checkbox" v-model="config.kreegs">
+                                    <span>Kreeg's Stout Beatdown</span>
+                                    <help>Stacks with other food buffs (25 spirit, -5 int)</help>
+                                </label>
                             </div>
                         </fieldset>
                         <fieldset>

@@ -4841,6 +4841,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -66054,6 +66062,9 @@ var render = function() {
                             : _vm.config.divine_spirit
                         },
                         on: {
+                          input: function($event) {
+                            return _vm.dontStack($event, "scroll_of_spirit")
+                          },
                           change: function($event) {
                             var $$a = _vm.config.divine_spirit,
                               $$el = $event.target,
@@ -67514,105 +67525,135 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.scroll_of_spirit,
-                            expression: "config.scroll_of_spirit"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.scroll_of_spirit)
-                            ? _vm._i(_vm.config.scroll_of_spirit, null) > -1
-                            : _vm.config.scroll_of_spirit
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.config.scroll_of_spirit,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "scroll_of_spirit",
-                                    $$a.concat([$$v])
-                                  )
+                    _c(
+                      "label",
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.scroll_of_spirit,
+                              expression: "config.scroll_of_spirit"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.config.scroll_of_spirit)
+                              ? _vm._i(_vm.config.scroll_of_spirit, null) > -1
+                              : _vm.config.scroll_of_spirit
+                          },
+                          on: {
+                            input: function($event) {
+                              return _vm.dontStack($event, [
+                                "divine_spirit",
+                                "improved_divine_spirit"
+                              ])
+                            },
+                            change: function($event) {
+                              var $$a = _vm.config.scroll_of_spirit,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "scroll_of_spirit",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "scroll_of_spirit",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
                               } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "scroll_of_spirit",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
+                                _vm.$set(_vm.config, "scroll_of_spirit", $$c)
                               }
-                            } else {
-                              _vm.$set(_vm.config, "scroll_of_spirit", $$c)
                             }
                           }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Scroll of Spirit V")])
-                    ])
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Scroll of Spirit V")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v(
+                            "Does not stack with Divine Spirit (30 spirit)"
+                          )
+                        ])
+                      ],
+                      1
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.kreegs,
-                            expression: "config.kreegs"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.kreegs)
-                            ? _vm._i(_vm.config.kreegs, null) > -1
-                            : _vm.config.kreegs
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.config.kreegs,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "kreegs",
-                                    $$a.concat([$$v])
-                                  )
+                    _c(
+                      "label",
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.kreegs,
+                              expression: "config.kreegs"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.config.kreegs)
+                              ? _vm._i(_vm.config.kreegs, null) > -1
+                              : _vm.config.kreegs
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.config.kreegs,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "kreegs",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "kreegs",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
                               } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "kreegs",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
+                                _vm.$set(_vm.config, "kreegs", $$c)
                               }
-                            } else {
-                              _vm.$set(_vm.config, "kreegs", $$c)
                             }
                           }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Kreeg's Stout Beatdown")])
-                    ])
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Kreeg's Stout Beatdown")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v(
+                            "Stacks with other food buffs (25 spirit, -5 int)"
+                          )
+                        ])
+                      ],
+                      1
+                    )
                   ])
                 ]),
                 _vm._v(" "),
