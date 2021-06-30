@@ -710,6 +710,12 @@
                                     <option :value="conjureds.CONJURED_FLAME_CAP">Flame Cap</option>
                                 </select>
                             </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.scroll_of_spirit"> <span>Scroll of Spirit V</span></label>
+                            </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.kreegs"> <span>Kreeg's Stout Beatdown</span></label>
+                            </div>
                         </fieldset>
                         <fieldset>
                             <legend>Cooldowns</legend>
@@ -1126,6 +1132,8 @@
                 eye_of_the_night: false,
                 chain_of_the_twilight_owl: false,
                 jade_pendant_of_blasting: false,
+                scroll_of_spirit: false,
+                kreegs: false,
 
                 tirisfal_2set: true,
                 tirisfal_4set: true,
@@ -1648,6 +1656,12 @@
                     stats.intellect+= 65;
                 if (this.config.food == this.foods.FOOD_SPELL_POWER || this.config.food == this.foods.FOOD_SPELL_CRIT)
                     stats.spirit+= 20;
+                if (this.config.scroll_of_spirit)
+                    stats.spirit+= 30;
+                if (this.config.kreegs) {
+                    stats.spirit+= 25;
+                    stats.intellect-= 5;
+                }
 
                 // Attribute multipliers
                 if (x = this.hasTalent("arcane_mind"))

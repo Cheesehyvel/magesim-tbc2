@@ -105,6 +105,12 @@ public:
             stats.intellect+= 65;
         if (config->food == FOOD_SPELL_POWER || config->food == FOOD_SPELL_CRIT)
             stats.spirit+= 20;
+        if (config->scroll_of_spirit)
+            stats.spirit+= 30;
+        if (config->kreegs) {
+            stats.spirit+= 25;
+            stats.intellect-= 5;
+        }
 
         // Attribute multipliers
         if (talents.arcane_mind)
