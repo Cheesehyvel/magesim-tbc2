@@ -158,6 +158,9 @@
                                 <div class="btn" @click="openEquiplist">
                                     Equipped items overview
                                 </div>
+                                <div class="btn" @click="openCustomItem">
+                                    Add custom item
+                                </div>
                             </div>
 
                             <table class="mt-2">
@@ -168,6 +171,7 @@
                                                 <help icon="e915">Compare all items</help>
                                             </span>
                                         </th>
+                                        <th class="min"></th>
                                         <th class="title">
                                             <sort-link v-model="item_sort" name="title">Name</sort-link>
                                         </th>
@@ -214,6 +218,11 @@
                                         <td class="min">
                                             <span class="compare" :class="[isComparing(item) ? 'active' : '']" @click.stop="compareItem(item)">
                                                 <help icon="e915">Add to comparison</help>
+                                            </span>
+                                        </td>
+                                        <td class="min">
+                                            <span class="delete" @click.stop="deleteCustomItem(item)" v-if="$get(item, 'custom')">
+                                                <help icon="e872">Delete custom item</help>
                                             </span>
                                         </td>
                                         <td class="title">
@@ -954,6 +963,98 @@
                     </div>
                 </div>
             </div>
+
+            <div class="lightbox small" v-if="custom_item_open">
+                <div class="inner">
+                    <div class="title">Add custom item</div>
+                    <div class="description">Custom items will only be added for your browser.</div>
+                    <div class="form">
+                        <div class="form-item form-row">
+                            <label>
+                                ID
+                                <help>Leave empty to generate a random ID</help>
+                            </label>
+                            <input type="number" v-model.number="custom_item.id">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Name</label>
+                            <input type="text" v-model="custom_item.title">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Slot</label>
+                            <select v-model="custom_item.slot">
+                                <option :value="null">- Choose -</option>
+                                <option :value="slot" v-for="slot in itemSlots">{{ formatKey(slot) }}</option>
+                            </select>
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Quality</label>
+                            <select v-model="custom_item.q">
+                                <option value="epic">Epic</option>
+                                <option value="rare">Rare</option>
+                                <option value="uncommon">Uncommon</option>
+                                <option value="common">Common</option>
+                            </select>
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Intellect</label>
+                            <input type="number" v-model.number="custom_item.int">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Spirit</label>
+                            <input type="number" v-model.number="custom_item.spi">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Spell Power</label>
+                            <input type="number" v-model.number="custom_item.sp">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Spell Power (fire)</label>
+                            <input type="number" v-model.number="custom_item.sp_fire">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Spell Power (frost)</label>
+                            <input type="number" v-model.number="custom_item.sp_frost">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Spell Power (arcane)</label>
+                            <input type="number" v-model.number="custom_item.sp_arcane">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Crit rating</label>
+                            <input type="number" v-model.number="custom_item.crit">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Hit rating</label>
+                            <input type="number" v-model.number="custom_item.hit">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Haste rating</label>
+                            <input type="number" v-model.number="custom_item.haste">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Mp5</label>
+                            <input type="number" v-model="custom_item.mp5">
+                        </div>
+                        <div class="form-item form-row">
+                            <label>Number of sockets</label>
+                            <input type="number" v-model="custom_item.sockets">
+                        </div>
+                    </div>
+                    <div class="mt-2 text-error" v-if="custom_item_error">
+                        {{ custom_item_error }}
+                    </div>
+                    <div class="mt-2">
+                        <div class="btn" @click="addCustomItem">Save</div>
+                    </div>
+                    <div class="close" @click="closeCustomItem">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </template>
@@ -965,6 +1066,7 @@
 
     export default {
         mounted() {
+            this.loadCustomItems();
             this.loadConfig();
             this.loadGear();
             this.loadProfiles();
@@ -1131,6 +1233,25 @@
                     missing_items: [],
                     config: true,
                 },
+                custom_item: {
+                    id: null,
+                    title: null,
+                    slot: null,
+                    q: "rare",
+                    sockets: null,
+                    int: null,
+                    spi: null,
+                    sp: null,
+                    sp_fire: null,
+                    sp_arcane: null,
+                    sp_frost: null,
+                    crit: null,
+                    hit: null,
+                    haste: null,
+                    mp5: null,
+                },
+                custom_item_open: false,
+                custom_item_error: null,
                 equiplist_open: false,
                 equiplist_string: null,
                 final_stats: null,
@@ -1227,6 +1348,10 @@
             hasComparisons() {
                 return this.item_comparison.length > 1;
             },
+
+            itemSlots() {
+                return _.keys(this.items.equip).filter(s => s != "stat_weight");
+            }
         },
 
         methods: {
@@ -1443,6 +1568,17 @@
                         }
                     }
                 }
+            },
+
+            findItem(id) {
+                var item;
+                for (var i=0; i<this.itemSlots.length; i++) {
+                    item =_.find(this.items.equip[this.itemSlots[i]], {id: id});
+                    if (item)
+                        return item;
+                }
+
+                return null;
             },
 
             getItem(slot, id) {
@@ -2552,6 +2688,104 @@
                 this.equiplist_open = false;
             },
 
+            openCustomItem() {
+                var slot = this.equipSlotToItemSlot(this.active_slot);
+                if (slot != "quicksets" && slot != "stat_weight")
+                    this.custom_item.slot = slot;
+                this.custom_item_open = true;
+            },
+
+            closeCustomItem() {
+                this.custom_item.id = null;
+                this.custom_item.title = null;
+                this.custom_item.slot = null;
+                this.custom_item.sockets = [null, null, null];
+                this.custom_item.int = null;
+                this.custom_item.spi = null;
+                this.custom_item.sp = null;
+                this.custom_item.sp_fire = null;
+                this.custom_item.sp_frost = null;
+                this.custom_item.sp_arcane = null;
+                this.custom_item.crit = null;
+                this.custom_item.hit = null;
+                this.custom_item.haste = null;
+                this.custom_item.mp5 = null;
+                this.custom_item_open = false;
+                this.custom_item_error = null;
+            },
+
+            addCustomItem() {
+                this.custom_item_error = null;
+
+                try {
+                    if (!this.custom_item.slot)
+                        throw "Choose a slot";
+                    if (!this.custom_item.title)
+                        throw "Enter a title";
+                    if (this.custom_item.id && this.findItem(this.custom_item.id))
+                        throw "Item id already exists";
+                }
+                catch(e) {
+                    this.custom_item_error = e;
+                    return;
+                }
+
+                var item = _.clone(this.custom_item);
+                item.custom = true;
+                delete item.slot;
+
+                if (!item.id)
+                    item.id = this.createItemId();
+
+                item.sockets = [];
+                for (var i=0; i<this.custom_item.sockets; i++)
+                    item.sockets.push("r");
+
+                for (var key in item) {
+                    if (!item[key])
+                        delete item[key];
+                }
+
+                this.items.equip[this.custom_item.slot].push(item);
+                this.saveCustomItems();
+                this.closeCustomItem();
+
+                this.$nextTick(function() {
+                    this.refreshTooltips();
+                });
+            },
+
+            deleteCustomItem(item) {
+                var index = _.findIndex(this.items.equip[this.active_slot], {id: item.id});
+                if (index != -1) {
+                    if (this.isEquipped(this.active_slot, item.id))
+                        this.unequip(this.active_slot);
+                    this.items.equip[this.active_slot].splice(index, 1);
+                    this.saveCustomItems();
+                }
+            },
+
+            customItems() {
+                var items = {};
+
+                for (var slot in this.items.equip) {
+                    var arr = this.items.equip[slot].filter(item => item.custom);
+                    if (arr.length)
+                        items[slot] = arr;
+                }
+
+                return items;
+            },
+
+            createItemId() {
+                var id;
+                while (true) {
+                    id = 100000 + Math.round(Math.random() * 500000);
+                    if (!this.findItem(id))
+                        return id;
+                }
+            },
+
             showLog(log) {
                 return this.log_filter[log.type];
             },
@@ -2685,6 +2919,23 @@
                     var profiles = JSON.parse(str);
                     if (profiles)
                         this.profiles = profiles;
+                }
+            },
+
+            saveCustomItems() {
+                window.localStorage.setItem("magesim_tbc_custom_items", JSON.stringify(this.customItems()));
+            },
+
+            loadCustomItems() {
+                var str = window.localStorage.getItem("magesim_tbc_custom_items");
+                if (str) {
+                    var items = JSON.parse(str);
+                    if (items) {
+                        for (var slot in items) {
+                            for (var i=0; i<items[slot].length; i++)
+                                this.items.equip[slot].push(items[slot][i]);
+                        }
+                    }
                 }
             },
         }

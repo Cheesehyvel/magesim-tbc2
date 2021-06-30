@@ -573,6 +573,10 @@ a:hover {
   opacity: 0.5;
 }
 
+.text-error {
+  color: #f00;
+}
+
 .btn-text {
   display: inline-block;
   padding: 5px 12px;
@@ -588,8 +592,12 @@ a:hover {
 .help {
   display: inline-block;
 }
+.help .material-icons {
+  color: #08f;
+}
 
 input[type=text],
+input[type=number],
 textarea,
 select {
   border: 0;
@@ -659,6 +667,7 @@ table th, table td {
 }
 table th.min, table td.min {
   width: 1px;
+  padding: 4px 8px;
 }
 table th.title, table td.title {
   width: auto !important;
@@ -930,6 +939,10 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .main .gear .items .compare.error {
   color: #f00;
 }
+#app .wrapper .main .gear .items .delete .material-icons {
+  cursor: pointer;
+  color: #f00;
+}
 #app .wrapper .main .gear .items tr.active .socket-bonus {
   color: #bbe8ba;
 }
@@ -945,7 +958,7 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .main .gear .items .sockets .socket:nth-child(n+2) {
   margin-left: 2%;
 }
-#app .wrapper .main .gear .items table th:nth-child(n+3), #app .wrapper .main .gear .items table td:nth-child(n+3) {
+#app .wrapper .main .gear .items table th:nth-child(n+4), #app .wrapper .main .gear .items table td:nth-child(n+4) {
   width: 7%;
   white-space: nowrap;
   text-align: center;
@@ -978,9 +991,6 @@ table.simple th:last-child, table.simple td:last-child {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(5, 1fr);
-}
-#app .config .fieldsets .help .material-icons {
-  color: #08f;
 }
 #app .profiles .profile {
   background: #2f2f48;
@@ -1104,6 +1114,7 @@ table.simple th:last-child, table.simple td:last-child {
   width: 80vw;
   background: #161620;
   padding: 30px;
+  box-sizing: border-box;
   overflow: auto;
   -webkit-animation: moveInFromBelow 0.4s ease forwards;
           animation: moveInFromBelow 0.4s ease forwards;
@@ -1113,8 +1124,22 @@ table.simple th:last-child, table.simple td:last-child {
   margin-bottom: 15px;
   font-weight: 700;
 }
+#app .lightbox > .inner > .description {
+  margin-top: -15px;
+  margin-bottom: 15px;
+}
 #app .lightbox > .inner textarea {
   height: 350px;
+}
+#app .lightbox.small > .inner {
+  position: relative;
+  left: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  max-width: 100%;
+  width: 500px;
+  margin: 10vh auto;
 }
 
 .fools {
