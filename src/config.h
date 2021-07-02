@@ -38,6 +38,8 @@ struct Config
     bool eye_of_the_night = false;
     bool chain_of_the_twilight_owl = false;
     bool jade_pendant_of_blasting = false;
+    bool scroll_of_spirit = false;
+    bool kreegs = false;
 
     Food food;
     Flask flask;

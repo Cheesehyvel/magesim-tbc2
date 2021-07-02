@@ -180,6 +180,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("eye_of_the_night", &Config::eye_of_the_night)
         .property("chain_of_the_twilight_owl", &Config::chain_of_the_twilight_owl)
         .property("jade_pendant_of_blasting", &Config::jade_pendant_of_blasting)
+        .property("scroll_of_spirit", &Config::scroll_of_spirit)
+        .property("kreegs", &Config::kreegs)
 
         .property("food", &Config::food)
         .property("flask", &Config::flask)
