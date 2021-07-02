@@ -1331,11 +1331,12 @@ public:
     double gcd()
     {
         double t = 1.5;
+        double cap = 0.75;
 
         t*= castHaste();
 
-        if (t < 1.0 && !config->gcd_unlocked)
-            t = 1.0;
+        if (t < cap && !config->gcd_unlocked)
+            t = cap;
 
         return t;
     }
