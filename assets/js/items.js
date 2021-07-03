@@ -499,6 +499,7 @@ var enchants = {
         { id: 46540, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
         { id: 46538, title: "Soulfrost", sp_frost: 54 },
         { id: 46533, title: "Major Spellpower", sp: 40 },
+        { id: 46532, title: "Major Intellect", int: 30 },
     ],
     head: [
         { id: 35447, title: "Glyph of Power", sp: 22, hit: 14 },

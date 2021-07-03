@@ -3451,6 +3451,10 @@ var enchants = {
     id: 46533,
     title: "Major Spellpower",
     sp: 40
+  }, {
+    id: 46532,
+    title: "Major Intellect",
+    "int": 30
   }],
   head: [{
     id: 35447,
