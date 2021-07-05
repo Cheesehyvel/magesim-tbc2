@@ -441,6 +441,14 @@ table {
                         }
                     }
 
+                    span.link {
+                        color: #888;
+
+                        &:hover {
+                            color: #08f;
+                        }
+                    }
+
                     table {
                         th, td {
                             &:nth-child(n+4) {

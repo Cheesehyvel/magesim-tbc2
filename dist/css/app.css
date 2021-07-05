@@ -960,6 +960,12 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .main .gear .items .sockets .socket:nth-child(n+2) {
   margin-left: 2%;
 }
+#app .wrapper .main .gear .items span.link {
+  color: #888;
+}
+#app .wrapper .main .gear .items span.link:hover {
+  color: #08f;
+}
 #app .wrapper .main .gear .items table th:nth-child(n+4), #app .wrapper .main .gear .items table td:nth-child(n+4) {
   width: 7%;
   white-space: nowrap;

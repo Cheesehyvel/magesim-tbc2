@@ -226,9 +226,14 @@
                                             </span>
                                         </td>
                                         <td class="title">
-                                            <a :href="itemUrl(item)" :class="['quality-'+$get(item, 'q', 'epic')]" target="_blank" @click.stop>
+                                            <a :href="itemUrl(item)" :class="['quality-'+$get(item, 'q', 'epic')]" target="_blank" @click.prevent>
                                                 {{ item.title }}
                                             </a>
+                                            <span class="link" @click.stop="openItem(item)">
+                                                <span class="material-icons">
+                                                    &#xe895;
+                                                </span>
+                                            </span>
                                         </td>
                                         <th v-if="hasComparisons">
                                             {{ comparisonDps(item) }}
@@ -1934,6 +1939,13 @@
                     this.config.trinket2 = this.equipped.trinket2;
                 if (this.metaGem() && this.isSpecialItem(this.metaGem().id) && this.isMetaGemActive())
                     this.config.meta_gem = this.metaGem().id;
+            },
+
+            openItem(item) {
+                var a = document.createElement("a");
+                a.href = this.itemUrl(item.id);
+                a.target = "_blank";
+                a.click();
             },
 
             itemUrl(id) {

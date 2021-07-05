@@ -4858,6 +4858,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5668,6 +5673,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.isSpecialItem(this.equipped.trinket1)) this.config.trinket1 = this.equipped.trinket1;
       if (this.isSpecialItem(this.equipped.trinket2)) this.config.trinket2 = this.equipped.trinket2;
       if (this.metaGem() && this.isSpecialItem(this.metaGem().id) && this.isMetaGemActive()) this.config.meta_gem = this.metaGem().id;
+    },
+    openItem: function openItem(item) {
+      var a = document.createElement("a");
+      a.href = this.itemUrl(item.id);
+      a.target = "_blank";
+      a.click();
     },
     itemUrl: function itemUrl(id) {
       if (_typeof(id) == "object") id = id.id;
@@ -64021,7 +64032,7 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    $event.stopPropagation()
+                                    $event.preventDefault()
                                   }
                                 }
                               },
@@ -64031,6 +64042,26 @@ var render = function() {
                                     _vm._s(item.title) +
                                     "\n                                        "
                                 )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass: "link",
+                                on: {
+                                  click: function($event) {
+                                    $event.stopPropagation()
+                                    return _vm.openItem(item)
+                                  }
+                                }
+                              },
+                              [
+                                _c("span", { staticClass: "material-icons" }, [
+                                  _vm._v(
+                                    "\n                                                \n                                            "
+                                  )
+                                ])
                               ]
                             )
                           ]),
