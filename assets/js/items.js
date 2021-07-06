@@ -310,7 +310,7 @@ var equip = {
         { id: 28654, title: "Malefic Girdle", int: 26, sp: 37, crit: 21 },
         { id: 31461, title: "A'dal's Gift", int: 25, sp: 34, crit: 21, q: "rare" },
         { id: 29241, title: "Belt of Depravity", int: 27, sp: 34, hit: 17 },
-        { id: 24395, title: "Mindfire Waistband", int: 14, spi: 8, sp: 21, hit: 11, sockets: ["y", "b"], bonus: { hit: 3 }, q: "rare" },
+        { id: 24395, title: "Mindfire Waistband", int: 14, spi: 8, sp: 21, crit: 11, sockets: ["y", "b"], bonus: { hit: 3 }, q: "rare" },
         { id: 29257, title: "Sash of Arcane Visions", int: 23, spi: 19, sp: 28, crit: 22 },
         { id: 31283, title: "Sash of Sealed Fate", int: 15, sp: 35, crit: 23, q: "rare" },
         { id: 22730, title: "Eyestalk Waist Cord", int: 9, sp: 41, crit: 14 },
