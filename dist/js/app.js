@@ -4993,6 +4993,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       gems: {},
       item_gems: {},
       item_comparison: [],
+      item_off_hand: null,
       item_sort: {
         name: null,
         order: null
@@ -5717,6 +5718,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (this.equipped[slot] == this.items.ids.JADE_PENDANT_OF_BLASTING) this.config.jade_pendant_of_blasting = false;
         this.saveConfig();
       }
+
+      if (this.equipped[slot] && this.gems[slot]) {
+        this.item_gems[this.equipped[slot]] = this.gems[slot];
+      }
+
+      if (slot == "weapon" && this.equipped.off_hand) {
+        this.item_off_hand = this.equipped.off_hand;
+      }
     },
     equipToggle: function equipToggle(slot, item) {
       if (this.equipped[slot] == item.id) this.unequip(slot);else this.equip(slot, item);
@@ -5732,13 +5741,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (!_.isObject(item)) item = this.getItem(slot, item);
       if (this.equipped[slot] == item.id) return;
 
-      if (slot == "weapon") {
-        if (item.twohand) this.equipped.off_hand = null;
-      }
-
       if (slot == "off_hand") {
         var weapon = this.equippedItem("weapon");
         if (weapon.twohand) return;
+        this.item_off_hand = item.id;
       }
 
       if (slot.indexOf("trinket") === 0) {
@@ -5747,6 +5753,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.onUnequip(slot);
+
+      if (slot == "weapon") {
+        if (item.twohand) this.equipped.off_hand = null;else if (!this.equipped.off_hand && this.item_off_hand) this.equipped.off_hand = this.item_off_hand;
+      }
+
       this.equipped[slot] = item.id;
 
       if (this.item_gems.hasOwnProperty(item.id)) {

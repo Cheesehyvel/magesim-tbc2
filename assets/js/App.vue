@@ -1224,6 +1224,7 @@
                 gems: {},
                 item_gems: {},
                 item_comparison: [],
+                item_off_hand: null,
                 item_sort: {
                     name: null,
                     order: null,
@@ -2004,6 +2005,14 @@
                         this.config.jade_pendant_of_blasting = false;
                     this.saveConfig();
                 }
+
+                if (this.equipped[slot] && this.gems[slot]) {
+                    this.item_gems[this.equipped[slot]] = this.gems[slot];
+                }
+
+                if (slot == "weapon" && this.equipped.off_hand) {
+                    this.item_off_hand = this.equipped.off_hand;
+                }
             },
 
             equipToggle(slot, item) {
@@ -2030,14 +2039,11 @@
                 if (this.equipped[slot] == item.id)
                     return;
 
-                if (slot == "weapon") {
-                    if (item.twohand)
-                        this.equipped.off_hand = null;
-                }
                 if (slot == "off_hand") {
                     var weapon = this.equippedItem("weapon");
                     if (weapon.twohand)
                         return;
+                    this.item_off_hand = item.id;
                 }
 
                 if (slot.indexOf("trinket") === 0) {
@@ -2047,6 +2053,14 @@
                 }
 
                 this.onUnequip(slot);
+
+                if (slot == "weapon") {
+                    if (item.twohand)
+                        this.equipped.off_hand = null;
+                    else if (!this.equipped.off_hand && this.item_off_hand)
+                        this.equipped.off_hand = this.item_off_hand;
+                }
+
                 this.equipped[slot] = item.id;
 
                 if (this.item_gems.hasOwnProperty(item.id)) {
