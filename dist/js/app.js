@@ -1631,7 +1631,6 @@ var equip = {
     "int": 32,
     spi: 14,
     sp: 49,
-    crit: 25,
     sockets: ["y", "b", "b"],
     bonus: {
       sp: 5

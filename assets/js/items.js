@@ -231,7 +231,7 @@ var equip = {
         { id: 32327, title: "Robe of the Shadow Council", int: 36, spi: 26, sp: 73, crit: 28, phase: 3 },
         { id: 33317, title: "Robe of Departed Spirits", int: 31, spi: 30, sp: 54, haste: 35, phase: 4 },
         { id: 33760, title: "Vengeful Gladiator's Silk Raiment", int: 15, sp: 39, crit: 33, sockets: ["r", "y", "y"], bonus: { crit: 4 }, phase: 3 },
-        { id: 29077, title: "Vestments of the Aldor", int: 32, spi: 14, sp: 49, crit: 25, sockets: ["y", "b", "b"], bonus: { sp: 5 } },
+        { id: 29077, title: "Vestments of the Aldor", int: 32, spi: 14, sp: 49, sockets: ["y", "b", "b"], bonus: { sp: 5 } },
         { id: 32050, title: "Merciless Gladiator's Silk Raiment", int: 21, sp: 35, crit: 30, sockets: ["r", "y", "y"], bonus: { crit: 4 }, phase: 2 },
         { id: ids.ROBE_ELDER_SCRIBES, title: "Robe of the Elder Scribes", int: 29, spi: 24, sp: 32, crit: 24 },
         { id: 29341, title: "Auchenai Anchorite's Robe", int: 24, sp: 28, hit: 23, sockets: ["y", "y", "r"], bonus: { crit: 4 }, q: "rare" },
