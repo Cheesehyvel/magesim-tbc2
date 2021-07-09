@@ -747,6 +747,7 @@ public:
 
     void onCooldownGain(shared_ptr<cooldown::Cooldown> cooldown)
     {
+        removeCooldownExpiration(cooldown);
         state->addCooldown(cooldown);
         pushCooldownExpire(cooldown);
     }
@@ -1256,6 +1257,16 @@ public:
     {
         for (auto itr = queue.begin(); itr != queue.end(); itr++) {
             if ((*itr)->type == EVENT_DEBUFF_EXPIRE && (*itr)->debuff->id == debuff->id) {
+                queue.erase(itr);
+                return;
+            }
+        }
+    }
+
+    void removeCooldownExpiration(shared_ptr<cooldown::Cooldown> cooldown)
+    {
+        for (auto itr = queue.begin(); itr != queue.end(); itr++) {
+            if ((*itr)->type == EVENT_CD_EXPIRE && (*itr)->cooldown->id == cooldown->id) {
                 queue.erase(itr);
                 return;
             }
