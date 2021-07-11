@@ -1717,7 +1717,7 @@ public:
 
     bool shouldSymbolOfHope()
     {
-        if (player->faction() != FACTION_ALLIANCE)
+        if (player->faction() != FACTION_ALLIANCE || !config->symbol_of_hope)
             return false;
 
         if (state->hasCooldown(cooldown::SYMBOL_OF_HOPE))
