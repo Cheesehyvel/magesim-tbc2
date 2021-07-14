@@ -4862,6 +4862,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5039,7 +5045,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         crit: null,
         hit: null,
         haste: null,
-        mp5: null
+        mp5: null,
+        twohand: false
       },
       custom_item_open: false,
       custom_item_error: null,
@@ -6368,6 +6375,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.custom_item.hit = null;
       this.custom_item.haste = null;
       this.custom_item.mp5 = null;
+      this.custom_item.twohand = false;
       this.custom_item_open = false;
       this.custom_item_error = null;
     },
@@ -6386,6 +6394,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var item = _.clone(this.custom_item);
 
       item.custom = true;
+      if (item.slot != "weapon" || !item.twohand) delete item.twohand;
       delete item.slot;
       if (!item.id) item.id = this.createItemId();
       item.sockets = [];
@@ -69583,6 +69592,61 @@ var render = function() {
                     2
                   )
                 ]),
+                _vm._v(" "),
+                _vm.custom_item.slot == "weapon"
+                  ? _c("div", { staticClass: "form-item form-row" }, [
+                      _c("label", [_vm._v("Twohanded")]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.custom_item.twohand,
+                              expression: "custom_item.twohand"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.custom_item.twohand)
+                              ? _vm._i(_vm.custom_item.twohand, null) > -1
+                              : _vm.custom_item.twohand
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.custom_item.twohand,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.custom_item,
+                                      "twohand",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.custom_item,
+                                      "twohand",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.custom_item, "twohand", $$c)
+                              }
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-item form-row" }, [
                   _c("label", [_vm._v("Quality")]),

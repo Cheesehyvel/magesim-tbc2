@@ -1006,6 +1006,12 @@
                                 <option :value="slot" v-for="slot in itemSlots">{{ formatKey(slot) }}</option>
                             </select>
                         </div>
+                        <div class="form-item form-row" v-if="custom_item.slot == 'weapon'">
+                            <label>Twohanded</label>
+                            <div>
+                                <input type="checkbox" v-model="custom_item.twohand">
+                            </div>
+                        </div>
                         <div class="form-item form-row">
                             <label>Quality</label>
                             <select v-model="custom_item.q">
@@ -1271,6 +1277,7 @@
                     hit: null,
                     haste: null,
                     mp5: null,
+                    twohand: false,
                 },
                 custom_item_open: false,
                 custom_item_error: null,
@@ -2758,6 +2765,7 @@
                 this.custom_item.hit = null;
                 this.custom_item.haste = null;
                 this.custom_item.mp5 = null;
+                this.custom_item.twohand = false;
                 this.custom_item_open = false;
                 this.custom_item_error = null;
             },
@@ -2780,6 +2788,8 @@
 
                 var item = _.clone(this.custom_item);
                 item.custom = true;
+                if (item.slot != "weapon" || !item.twohand)
+                    delete item.twohand;
                 delete item.slot;
 
                 if (!item.id)
