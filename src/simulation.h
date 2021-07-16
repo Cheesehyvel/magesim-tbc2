@@ -844,8 +844,11 @@ public:
         int stacks = 0;
 
         double mana_cost_extra = 0;
+        if (state->hasBuff(buff::BURST_OF_KNOWLEDGE))
+            mana_cost_extra-= 100;
+
         if (config->tirisfal_2set)
-            mana_cost_extra = 39;
+            mana_cost_extra+= (195 + mana_cost_extra) * 0.2;
 
         if (state->hasBuff(buff::ARCANE_BLAST) && buffDuration(buff::ARCANE_BLAST) > 1.5)
             stacks = state->buffStacks(buff::ARCANE_BLAST);
@@ -1146,6 +1149,10 @@ public:
             onBuffGain(make_shared<buff::NaaruSliver>());
             duration = 90;
         }
+        if (trinket_id == TRINKET_BURST_OF_KNOWLEDGE) {
+            onBuffGain(make_shared<buff::BurstOfKnowledge>());
+            duration = 900;
+        }
 
         onCooldownGain(make_shared<cooldown::Cooldown>(cd, duration));
     }
@@ -1314,11 +1321,16 @@ public:
             return 0;
 
         double multi = 1;
+        double discount = 0;
 
         if (spell->id == spell::ARCANE_BLAST) {
             multi+= 0.75 * state->buffStacks(buff::ARCANE_BLAST);
             if (config->tirisfal_2set)
                 multi+= 0.2;
+        }
+
+        if(state->hasBuff(buff::BURST_OF_KNOWLEDGE)) {
+            discount+= 100;
         }
 
         if (spell->school == SCHOOL_FROST && player->talents.frost_channeling)
@@ -1336,7 +1348,7 @@ public:
         if (state->hasBuff(buff::ARCANE_POWER))
             multi+= 0.3;
 
-        return round(spell->cost * multi);
+        return round((spell->cost - discount) * multi);
     }
 
     double gcd()

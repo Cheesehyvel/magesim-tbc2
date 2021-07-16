@@ -48,6 +48,7 @@ namespace buff
         FORGOTTEN_KNOWLEDGE = 38319,
         POWER_OF_ARCANAGOS = 34598,
         MYSTICAL_SKYFIRE = 32837,
+        BURST_OF_KNOWLEDGE = 15646,
     };
 
 
@@ -662,6 +663,19 @@ namespace buff
             id = MYSTICAL_SKYFIRE;
             name = "Focus";
             duration = 6;
+        }
+
+    };
+
+    class BurstOfKnowledge : public Buff
+    {
+
+    public:
+        BurstOfKnowledge()
+        {
+            id = BURST_OF_KNOWLEDGE;
+            name = "Burst of Knowledge";
+            duration = 10;
         }
 
     };

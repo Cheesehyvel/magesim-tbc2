@@ -41,6 +41,7 @@ var ids = {
     NEXUS_HORN: 28418,
     BLADE_OF_WIZARDRY: 31336,
     ROBE_ELDER_SCRIBES: 28602,
+    BURST_OF_KNOWLEDGE: 11832,
 };
 
 var equip = {
@@ -435,6 +436,7 @@ var equip = {
         { id: ids.CRYSTAL_TALISMAN, title: "Ancient Crystal Talisman", sp: 26, use: true, q: "uncommon" },
         { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true, q: "rare" },
         { id: ids.NEXUS_HORN, title: "Shiffar's Nexus-Horn", crit: 30, q: "rare" },
+        { id: ids.BURST_OF_KNOWLEDGE, title: "Burst of Knowledge", sp: 12, use: true, q: "rare" },
     ],
     stat_weight: [
         { id: ids.STAT_WEIGHT_BASE, title: "Base"},
