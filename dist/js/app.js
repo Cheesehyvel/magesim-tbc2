@@ -3439,20 +3439,20 @@ var gems = [{
 }];
 var enchants = {
   weapon: [{
-    id: 46540,
+    id: 27981,
     title: "Sunfire",
     sp_arcane: 50,
     sp_fire: 50
   }, {
-    id: 46538,
+    id: 27982,
     title: "Soulfrost",
     sp_frost: 54
   }, {
-    id: 46533,
+    id: 27975,
     title: "Major Spellpower",
     sp: 40
   }, {
-    id: 46532,
+    id: 27968,
     title: "Major Intellect",
     "int": 30
   }],
@@ -3496,38 +3496,38 @@ var enchants = {
     crit: 13
   }],
   chest: [{
-    id: 46502,
+    id: 27960,
     title: "Exceptional Stats",
     "int": 6,
     spi: 6
   }, {
-    id: 46504,
+    id: 33990,
     title: "Major Spirit",
     spi: 15
   }],
   wrist: [{
-    id: 46498,
+    id: 27917,
     title: "Spellpower",
     sp: 15
   }, {
-    id: 46496,
+    id: 34001,
     title: "Major Intellect",
     "int": 12
   }, {
-    id: 46497,
+    id: 27913,
     title: "Restore Mana Prime",
     mp5: 6
   }],
   hands: [{
-    id: 46514,
+    id: 33997,
     title: "Major Spellpower",
     sp: 20
   }, {
-    id: 46516,
+    id: 33994,
     title: "Spell Strike",
     hit: 15
   }, {
-    id: 46512,
+    id: 33993,
     title: "Blasting",
     crit: 10
   }],
@@ -3549,7 +3549,7 @@ var enchants = {
     q: "epic"
   }],
   feet: [{
-    id: 46470,
+    id: 34008,
     title: "Boar's Speed",
     q: "rare"
   }, {
@@ -3563,7 +3563,7 @@ var enchants = {
     spi: 5
   }],
   finger: [{
-    id: 46518,
+    id: 27924,
     title: "Spellpower",
     sp: 12
   }]
@@ -3604,16 +3604,16 @@ var quicksets = {
       trinket2: 30720
     },
     enchants: {
-      weapon: 46540,
+      weapon: 27981,
       head: 35447,
       shoulder: 35406,
-      chest: 46502,
-      wrist: 46498,
-      hands: 46514,
+      chest: 27960,
+      wrist: 27917,
+      hands: 33997,
       legs: 31372,
-      feet: 46470,
-      finger1: 46518,
-      finger2: 46518
+      feet: 34008,
+      finger1: 27924,
+      finger2: 27924
     },
     gems: {
       back: [null, null, null],
@@ -6526,6 +6526,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, 50);
       }
     },
+    convertEnchants: function convertEnchants(enchants) {
+      for (var slot in enchants) {
+        enchants[slot] = this.convertEnchant(enchants[slot]);
+      }
+
+      return enchants;
+    },
+    convertEnchant: function convertEnchant(id) {
+      if (!id) return id;
+      var map = {
+        "46540": 27981,
+        "46538": 27982,
+        "46533": 27975,
+        "46532": 27968,
+        "46502": 27960,
+        "46504": 33990,
+        "46498": 27917,
+        "46496": 34001,
+        "46497": 27913,
+        "46514": 33997,
+        "46516": 33994,
+        "46512": 33993,
+        "46470": 34008,
+        "46518": 27924
+      };
+      id = _.toString(id);
+      if (map.hasOwnProperty(id)) id = map[id];
+      return parseInt(id);
+    },
     saveGear: function saveGear() {
       window.localStorage.setItem("magesim_tbc_equipped", JSON.stringify(this.equipped));
       window.localStorage.setItem("magesim_tbc_enchants", JSON.stringify(this.enchants));
@@ -6544,7 +6573,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (str) {
         enchants = JSON.parse(str);
-        if (enchants) _.merge(this.enchants, _.pick(enchants, _.keys(this.enchants)));
+
+        if (enchants) {
+          enchants = this.convertEnchants(enchants);
+
+          _.merge(this.enchants, _.pick(enchants, _.keys(this.enchants)));
+        }
       }
 
       var str = window.localStorage.getItem("magesim_tbc_gems");

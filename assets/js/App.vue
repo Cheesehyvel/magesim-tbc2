@@ -2929,6 +2929,41 @@
                 }
             },
 
+            convertEnchants(enchants) {
+                for (var slot in enchants)
+                    enchants[slot] = this.convertEnchant(enchants[slot]);
+
+                return enchants;
+            },
+
+            convertEnchant(id) {
+                if (!id)
+                    return id;
+
+                var map = {
+                    "46540": 27981,
+                    "46538": 27982,
+                    "46533": 27975,
+                    "46532": 27968,
+                    "46502": 27960,
+                    "46504": 33990,
+                    "46498": 27917,
+                    "46496": 34001,
+                    "46497": 27913,
+                    "46514": 33997,
+                    "46516": 33994,
+                    "46512": 33993,
+                    "46470": 34008,
+                    "46518": 27924,
+                };
+
+                id = _.toString(id);
+                if (map.hasOwnProperty(id))
+                    id = map[id];
+
+                return parseInt(id);
+            },
+
             saveGear() {
                 window.localStorage.setItem("magesim_tbc_equipped", JSON.stringify(this.equipped));
                 window.localStorage.setItem("magesim_tbc_enchants", JSON.stringify(this.enchants));
@@ -2948,8 +2983,10 @@
                 var str = window.localStorage.getItem("magesim_tbc_enchants");
                 if (str) {
                     enchants = JSON.parse(str);
-                    if (enchants)
+                    if (enchants) {
+                        enchants = this.convertEnchants(enchants);
                         _.merge(this.enchants, _.pick(enchants, _.keys(this.enchants)));
+                    }
                 }
 
                 var str = window.localStorage.getItem("magesim_tbc_gems");

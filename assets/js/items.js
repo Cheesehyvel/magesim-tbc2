@@ -496,10 +496,10 @@ var gems = [
 
 var enchants = {
     weapon: [
-        { id: 46540, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
-        { id: 46538, title: "Soulfrost", sp_frost: 54 },
-        { id: 46533, title: "Major Spellpower", sp: 40 },
-        { id: 46532, title: "Major Intellect", int: 30 },
+        { id: 27981, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
+        { id: 27982, title: "Soulfrost", sp_frost: 54 },
+        { id: 27975, title: "Major Spellpower", sp: 40 },
+        { id: 27968, title: "Major Intellect", int: 30 },
     ],
     head: [
         { id: 35447, title: "Glyph of Power", sp: 22, hit: 14 },
@@ -513,18 +513,18 @@ var enchants = {
         { id: 35436, title: "Inscription of the Orb (Scryer)", crit: 13 },
     ],
     chest: [
-        { id: 46502, title: "Exceptional Stats", int: 6, spi: 6 },
-        { id: 46504, title: "Major Spirit", spi: 15 },
+        { id: 27960, title: "Exceptional Stats", int: 6, spi: 6 },
+        { id: 33990, title: "Major Spirit", spi: 15 },
     ],
     wrist: [
-        { id: 46498, title: "Spellpower", sp: 15 },
-        { id: 46496, title: "Major Intellect", int: 12 },
-        { id: 46497, title: "Restore Mana Prime", mp5: 6 },
+        { id: 27917, title: "Spellpower", sp: 15 },
+        { id: 34001, title: "Major Intellect", int: 12 },
+        { id: 27913, title: "Restore Mana Prime", mp5: 6 },
     ],
     hands: [
-        { id: 46514, title: "Major Spellpower", sp: 20 },
-        { id: 46516, title: "Spell Strike", hit: 15 },
-        { id: 46512, title: "Blasting", crit: 10 },
+        { id: 33997, title: "Major Spellpower", sp: 20 },
+        { id: 33994, title: "Spell Strike", hit: 15 },
+        { id: 33993, title: "Blasting", crit: 10 },
     ],
     legs: [
         { id: 31372, title: "Runic Spellthread", sp: 35, q: "epic" },
@@ -532,12 +532,12 @@ var enchants = {
         { id: 24164, title: "Presence of Sight", sp: 18, hit: 8, q: "epic" },
     ],
     feet: [
-        { id: 46470, title: "Boar's Speed", q: "rare" },
+        { id: 34008, title: "Boar's Speed", q: "rare" },
         { id: 32399, title: "Magister's Armor Kit", mp5: 3, q: "common" },
         { id: 20024, title: "Spirit", spi: 5 },
     ],
     finger: [
-        { id: 46518, title: "Spellpower", sp: 12 },
+        { id: 27924, title: "Spellpower", sp: 12 },
     ],
 };
 
@@ -569,16 +569,16 @@ var quicksets = {
             trinket2: 30720,
         },
         enchants: {
-            weapon: 46540,
+            weapon: 27981,
             head: 35447,
             shoulder: 35406,
-            chest: 46502,
-            wrist: 46498,
-            hands: 46514,
+            chest: 27960,
+            wrist: 27917,
+            hands: 33997,
             legs: 31372,
-            feet: 46470,
-            finger1: 46518,
-            finger2: 46518,
+            feet: 34008,
+            finger1: 27924,
+            finger2: 27924,
         },
         gems: {
             back: [ null, null, null ],
