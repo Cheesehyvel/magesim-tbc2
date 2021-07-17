@@ -939,7 +939,7 @@ var equip = {
     "int": 29,
     sp: 34,
     crit: 15,
-    sockets: ["m", "y"],
+    sockets: ["y", "m"],
     bonus: {
       sp: 5
     }
@@ -950,7 +950,7 @@ var equip = {
     spi: 17,
     sp: 29,
     crit: 19,
-    sockets: ["m", "y"],
+    sockets: ["y", "m"],
     bonus: {
       spi: 4
     },
@@ -960,7 +960,7 @@ var equip = {
     title: "Hood of Oblivion",
     "int": 32,
     sp: 40,
-    sockets: ["m", "b"],
+    sockets: ["b", "m"],
     bonus: {
       sp: 5
     },
@@ -971,7 +971,7 @@ var equip = {
     title: "Mana-Etched Crown",
     "int": 20,
     sp: 34,
-    sockets: ["m", "r"],
+    sockets: ["r", "m"],
     q: "rare"
   }, {
     id: 28169,
@@ -1671,7 +1671,7 @@ var equip = {
     "int": 18,
     sp: 32,
     crit: 25,
-    sockets: ["y", "y", "r"],
+    sockets: ["r", "y", "y"],
     bonus: {
       crit: 4
     }
@@ -1918,7 +1918,7 @@ var equip = {
     spi: 27,
     sp: 47,
     haste: 36,
-    sockets: ["y", "r"],
+    sockets: ["r", "y"],
     bonus: {
       sp: 4
     },
@@ -2225,7 +2225,7 @@ var equip = {
     title: "Belt of Divine Inspiration",
     "int": 26,
     sp: 43,
-    sockets: ["b", "y"],
+    sockets: ["y", "b"],
     bonus: {
       sp: 4
     }
@@ -5863,12 +5863,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (sock == "b" && ["g", "p"].indexOf(gem) != -1) return true;
       return false;
     },
-    hasSocketBonus: function hasSocketBonus(slot) {
+    hasSocketBonus: function hasSocketBonus(slot, gems) {
+      if (!gems) gems = this.gems[slot];
       var item = this.equippedItem(slot);
 
       if (item && item.sockets && item.bonus) {
         for (var i = 0; i < item.sockets.length; i++) {
-          var gem_id = this.gems[slot][i];
+          var gem_id = gems[i];
           var gem = gem_id ? _.find(this.items.gems, {
             id: gem_id
           }) : null;
@@ -6265,6 +6266,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (profile.enchants && (!only || only == "items")) {
         profile.enchants = _.pick(profile.enchants, _.keys(this.enchants));
+        profile.enchants = this.convertEnchants(profile.enchants);
 
         for (var slot in profile.enchants) {
           if (!this.getEnchant(slot, profile.enchants[slot])) profile.enchants[slot] = null;
@@ -6275,6 +6277,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (profile.gems && (!only || only == "items")) {
         profile.gems = _.pick(profile.gems, _.keys(this.gems));
+        profile.gems = this.convertGems(profile.gems);
 
         for (var slot in profile.gems) {
           for (var i in profile.gems[slot]) {
@@ -6555,6 +6558,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (map.hasOwnProperty(id)) id = map[id];
       return parseInt(id);
     },
+    convertGems: function convertGems(gems) {
+      for (var slot in gems) {
+        gems[slot] = this.convertGemsSlot(slot, gems[slot]);
+      }
+
+      return gems;
+    },
+    convertGemsSlot: function convertGemsSlot(slot, gems) {
+      if (!this.hasSocketBonus(slot, gems)) {
+        var item = this.equippedItem(slot);
+        if (!item) return gems;
+        var n = item.sockets ? item.sockets.length - 1 : 0;
+
+        var arr = _.clone(gems);
+
+        for (var i = 0; i < n; i++) {
+          arr.splice(n, 0, arr.splice(0, 1)[0]);
+          if (this.hasSocketBonus(slot, arr)) return arr;
+        }
+      }
+
+      return gems;
+    },
     saveGear: function saveGear() {
       window.localStorage.setItem("magesim_tbc_equipped", JSON.stringify(this.equipped));
       window.localStorage.setItem("magesim_tbc_enchants", JSON.stringify(this.enchants));
@@ -6585,7 +6611,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (str) {
         gems = JSON.parse(str);
-        if (gems) _.merge(this.gems, _.pick(gems, _.keys(this.gems)));
+
+        if (gems) {
+          gems = this.convertGems(gems);
+
+          _.merge(this.gems, _.pick(gems, _.keys(this.gems)));
+        }
       }
 
       if (!equipped) this.quickset(this.items.quicksets.t5bis);

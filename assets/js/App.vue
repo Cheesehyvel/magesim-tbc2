@@ -2184,12 +2184,15 @@
                 return false;
             },
 
-            hasSocketBonus(slot) {
+            hasSocketBonus(slot, gems) {
+                if (!gems)
+                    gems = this.gems[slot];
+
                 var item = this.equippedItem(slot);
 
                 if (item && item.sockets && item.bonus) {
                     for (var i=0; i<item.sockets.length; i++) {
-                        var gem_id = this.gems[slot][i];
+                        var gem_id = gems[i];
                         var gem = gem_id ? _.find(this.items.gems, {id: gem_id}) : null;
                         if (!gem || !this.matchSocketColor(item.sockets[i], gem.color))
                             return false;
@@ -2643,6 +2646,7 @@
 
                 if (profile.enchants && (!only || only == "items")) {
                     profile.enchants = _.pick(profile.enchants, _.keys(this.enchants));
+                    profile.enchants = this.convertEnchants(profile.enchants);
                     for (var slot in profile.enchants) {
                         if (!this.getEnchant(slot, profile.enchants[slot]))
                             profile.enchants[slot] = null;
@@ -2652,6 +2656,7 @@
 
                 if (profile.gems && (!only || only == "items")) {
                     profile.gems = _.pick(profile.gems, _.keys(this.gems));
+                    profile.gems = this.convertGems(profile.gems);
                     for (var slot in profile.gems) {
                         for (var i in profile.gems[slot]) {
                             if (!this.getGem(profile.gems[slot][i]))
@@ -2964,6 +2969,30 @@
                 return parseInt(id);
             },
 
+            convertGems(gems) {
+                for (var slot in gems)
+                    gems[slot] = this.convertGemsSlot(slot, gems[slot]);
+
+                return gems;
+            },
+
+            convertGemsSlot(slot, gems) {
+                if (!this.hasSocketBonus(slot, gems)) {
+                    var item = this.equippedItem(slot);
+                    if (!item)
+                        return gems;
+                    var n = item.sockets ? item.sockets.length-1 : 0;
+                    var arr = _.clone(gems);
+                    for (var i=0; i<n; i++) {
+                        arr.splice(n, 0, arr.splice(0, 1)[0]);
+                        if (this.hasSocketBonus(slot, arr))
+                            return arr;
+                    }
+                }
+
+                return gems;
+            },
+
             saveGear() {
                 window.localStorage.setItem("magesim_tbc_equipped", JSON.stringify(this.equipped));
                 window.localStorage.setItem("magesim_tbc_enchants", JSON.stringify(this.enchants));
@@ -2992,8 +3021,10 @@
                 var str = window.localStorage.getItem("magesim_tbc_gems");
                 if (str) {
                     gems = JSON.parse(str);
-                    if (gems)
+                    if (gems) {
+                        gems = this.convertGems(gems);
                         _.merge(this.gems, _.pick(gems, _.keys(this.gems)));
+                    }
                 }
 
                 if (!equipped)
