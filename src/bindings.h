@@ -182,6 +182,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("jade_pendant_of_blasting", &Config::jade_pendant_of_blasting)
         .property("scroll_of_spirit", &Config::scroll_of_spirit)
         .property("kreegs", &Config::kreegs)
+        .property("bloodthistle", &Config::bloodthistle)
 
         .property("food", &Config::food)
         .property("flask", &Config::flask)

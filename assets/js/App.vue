@@ -729,6 +729,13 @@
                                     <help>Stacks with other food buffs (25 spirit, -5 int)</help>
                                 </label>
                             </div>
+                            <div class="form-item" v-if="config.race == races.RACE_BLOOD_ELF">
+                                <label>
+                                    <input type="checkbox" v-model="config.bloodthistle">
+                                    <span>Bloodthistle</span>
+                                    <help>10sp buff, only usable by Blood Elfs</help>
+                                </label>
+                            </div>
                         </fieldset>
                         <fieldset>
                             <legend>Cooldowns</legend>
@@ -1153,6 +1160,7 @@
                 jade_pendant_of_blasting: false,
                 scroll_of_spirit: false,
                 kreegs: false,
+                bloodthistle: false,
 
                 tirisfal_2set: true,
                 tirisfal_4set: true,
@@ -1747,6 +1755,8 @@
                     stats.spell_power+= 34;
                 if (this.config.jade_pendant_of_blasting)
                     stats.spell_power+= 15;
+                if (this.config.bloodthistle && this.config.race == this.races.RACE_BLOOD_ELF)
+                    stats.spell_power+= 10;
 
                 // Spell crit
                 var critrating = 0;

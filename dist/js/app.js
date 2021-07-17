@@ -4868,6 +4868,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4930,6 +4937,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       jade_pendant_of_blasting: false,
       scroll_of_spirit: false,
       kreegs: false,
+      bloodthistle: false,
       tirisfal_2set: true,
       tirisfal_4set: true,
       tempest_2set: false,
@@ -5507,7 +5515,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.config.battle_elixir == this.elixirs.ELIXIR_MAJOR_FIREPOWER) stats.spell_power_fire += 55;
       if (this.config.atiesh_warlock) stats.spell_power += 33;
       if (this.config.eye_of_the_night) stats.spell_power += 34;
-      if (this.config.jade_pendant_of_blasting) stats.spell_power += 15; // Spell crit
+      if (this.config.jade_pendant_of_blasting) stats.spell_power += 15;
+      if (this.config.bloodthistle && this.config.race == this.races.RACE_BLOOD_ELF) stats.spell_power += 10; // Spell crit
 
       var critrating = 0;
       if (this.config.judgement_of_the_crusader) stats.crit += 3;
@@ -67713,7 +67722,70 @@ var render = function() {
                       ],
                       1
                     )
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.config.race == _vm.races.RACE_BLOOD_ELF
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c(
+                          "label",
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.config.bloodthistle,
+                                  expression: "config.bloodthistle"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(_vm.config.bloodthistle)
+                                  ? _vm._i(_vm.config.bloodthistle, null) > -1
+                                  : _vm.config.bloodthistle
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.config.bloodthistle,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.config,
+                                          "bloodthistle",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.config,
+                                          "bloodthistle",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.config, "bloodthistle", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", [_vm._v("Bloodthistle")]),
+                            _vm._v(" "),
+                            _c("help", [
+                              _vm._v("10sp buff, only usable by Blood Elfs")
+                            ])
+                          ],
+                          1
+                        )
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("fieldset", [

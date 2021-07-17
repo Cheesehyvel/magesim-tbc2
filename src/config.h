@@ -40,6 +40,7 @@ struct Config
     bool jade_pendant_of_blasting = false;
     bool scroll_of_spirit = false;
     bool kreegs = false;
+    bool bloodthistle = false;
 
     Food food;
     Flask flask;
