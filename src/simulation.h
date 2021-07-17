@@ -867,11 +867,8 @@ public:
         int stacks = 0;
 
         double mana_cost_extra = 0;
-        if (state->hasBuff(buff::BURST_OF_KNOWLEDGE))
-            mana_cost_extra-= 100;
-
         if (config->tirisfal_2set)
-            mana_cost_extra+= (195 + mana_cost_extra) * 0.2;
+            mana_cost_extra = 39;
 
         if (state->hasBuff(buff::ARCANE_BLAST) && buffDuration(buff::ARCANE_BLAST) > 1.5)
             stacks = state->buffStacks(buff::ARCANE_BLAST);
