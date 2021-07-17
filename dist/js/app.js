@@ -240,7 +240,8 @@ var ids = {
   ASHTONGUE_TALISMAN: 32488,
   NEXUS_HORN: 28418,
   BLADE_OF_WIZARDRY: 31336,
-  ROBE_ELDER_SCRIBES: 28602
+  ROBE_ELDER_SCRIBES: 28602,
+  BURST_OF_KNOWLEDGE: 11832
 };
 var equip = {
   weapon: [{
@@ -3125,6 +3126,12 @@ var equip = {
     id: ids.NEXUS_HORN,
     title: "Shiffar's Nexus-Horn",
     crit: 30,
+    q: "rare"
+  }, {
+    id: ids.BURST_OF_KNOWLEDGE,
+    title: "Burst of Knowledge",
+    sp: 12,
+    use: true,
     q: "rare"
   }],
   stat_weight: [{

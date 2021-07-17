@@ -50,6 +50,7 @@ namespace buff
         MYSTICAL_SKYFIRE = 32837,
         FEL_MANA = 38929,
         FEL_ACHE = 38927,
+        BURST_OF_KNOWLEDGE = 15646,
     };
 
 
@@ -690,6 +691,19 @@ namespace buff
             id = FEL_ACHE;
             name = "Fel Ache";
             duration = 900;
+        }
+
+    };
+
+    class BurstOfKnowledge : public Buff
+    {
+
+    public:
+        BurstOfKnowledge()
+        {
+            id = BURST_OF_KNOWLEDGE;
+            name = "Burst of Knowledge";
+            duration = 10;
         }
 
     };
