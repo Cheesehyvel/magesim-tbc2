@@ -704,6 +704,7 @@
                                 <select v-model="config.potion">
                                     <option :value="potions.POTION_NONE">None</option>
                                     <option :value="potions.POTION_MANA">Mana potion</option>
+                                    <option :value="potions.POTION_FEL_MANA">Fel Mana potion</option>
                                     <option :value="potions.POTION_DESTRUCTION">Destruction potion</option>
                                 </select>
                             </div>
@@ -770,7 +771,7 @@
                                 <label>Berserking at</label>
                                 <input type="text" v-model.number="config.berserking_at">
                             </div>
-                            <div class="form-row" v-if="config.potion && config.potion != potions.POTION_MANA">
+                            <div class="form-row" v-if="config.potion && config.potion != potions.POTION_MANA && config.potion != potions.POTION_FEL_MANA">
                                 <div class="form-item">
                                     <label>Potion at</label>
                                     <input type="text" v-model.number="config.potion_at">

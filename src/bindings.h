@@ -127,7 +127,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
     emscripten::enum_<Potion>("Potion")
         .value("POTION_NONE", POTION_NONE)
         .value("POTION_MANA", POTION_MANA)
-        .value("POTION_DESTRUCTION", POTION_DESTRUCTION);
+        .value("POTION_DESTRUCTION", POTION_DESTRUCTION)
+        .value("POTION_FEL_MANA", POTION_FEL_MANA);
 
     emscripten::enum_<Conjured>("Conjured")
         .value("CONJURED_NONE", CONJURED_NONE)

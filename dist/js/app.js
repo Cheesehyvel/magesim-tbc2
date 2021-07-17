@@ -147,7 +147,8 @@ __webpack_require__.r(__webpack_exports__);
   potions: {
     POTION_NONE: 0,
     POTION_MANA: 22832,
-    POTION_DESTRUCTION: 22839
+    POTION_DESTRUCTION: 22839,
+    POTION_FEL_MANA: 31677
   },
   conjureds: {
     CONJURED_NONE: 0,
@@ -3782,6 +3783,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -67521,6 +67523,12 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "option",
+                          { domProps: { value: _vm.potions.POTION_FEL_MANA } },
+                          [_vm._v("Fel Mana potion")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
                           {
                             domProps: { value: _vm.potions.POTION_DESTRUCTION }
                           },
@@ -68047,7 +68055,8 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.config.potion &&
-                  _vm.config.potion != _vm.potions.POTION_MANA
+                  _vm.config.potion != _vm.potions.POTION_MANA &&
+                  _vm.config.potion != _vm.potions.POTION_FEL_MANA
                     ? _c("div", { staticClass: "form-row" }, [
                         _c("div", { staticClass: "form-item" }, [
                           _c("label", [_vm._v("Potion at")]),

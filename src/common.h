@@ -123,6 +123,7 @@ enum Potion : int
     POTION_NONE = 0,
     POTION_MANA = 22832,
     POTION_DESTRUCTION = 22839,
+    POTION_FEL_MANA = 31677,
 };
 
 enum Conjured : int

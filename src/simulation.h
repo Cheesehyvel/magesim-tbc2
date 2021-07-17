@@ -759,12 +759,35 @@ public:
 
     void useManaPotion()
     {
+        if (config->potion == POTION_FEL_MANA)
+            useFelManaPotion();
+        else
+            useRegularManaPotion();
+    }
+
+    void useRegularManaPotion()
+    {
         double mana = round(random<double>(1800, 3000));
 
         if (hasTrinket(TRINKET_SORCERERS_ALCHEMIST_STONE) || hasTrinket(TRINKET_ALCHEMIST_STONE))
             mana*= 1.4;
 
         onManaGain(mana, "Mana Potion");
+        onCooldownGain(make_shared<cooldown::Potion>());
+    }
+
+    void useFelManaPotion()
+    {
+        double mana = 400; // 3200 over 8 sec
+
+        if (hasTrinket(TRINKET_SORCERERS_ALCHEMIST_STONE) || hasTrinket(TRINKET_ALCHEMIST_STONE))
+            mana*= 1.4;
+
+        for (double t = 3; t<=24; t+= 3)
+            pushManaGain(t, mana, "Fel Mana");
+
+        onBuffGain(make_shared<buff::FelMana>());
+        onBuffGain(make_shared<buff::FelAche>());
         onCooldownGain(make_shared<cooldown::Potion>());
     }
 
@@ -1588,6 +1611,9 @@ public:
             if (state->hasBuff(buff::DARKMOON_CRUSADE))
                 sp+= state->buffStacks(buff::DARKMOON_CRUSADE) * 8.0;
 
+            if (state->hasBuff(buff::FEL_ACHE))
+                sp-= 25.0;
+
             if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
                 coeff+= player->talents.empowered_arcane_missiles * 0.15;
             if (spell->id == spell::FIREBALL && player->talents.empowered_fireball)
@@ -1785,7 +1811,10 @@ public:
 
     bool shouldUseManaPotion()
     {
-        if (config->potion != POTION_MANA || state->hasCooldown(cooldown::POTION) || !state->hasCooldown(cooldown::CONJURED) || state->hasBuff(buff::INNERVATE))
+        if (config->potion != POTION_MANA && config->potion != POTION_FEL_MANA)
+            return false;
+
+        if (state->hasCooldown(cooldown::POTION) || !state->hasCooldown(cooldown::CONJURED) || state->hasBuff(buff::INNERVATE))
             return false;
 
         double max = 3000;
