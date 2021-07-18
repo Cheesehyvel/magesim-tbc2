@@ -4884,6 +4884,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -63596,13 +63602,37 @@ var render = function() {
                         _vm._v(_vm._s(_vm.$round(_vm.result.avg_dps, 2)))
                       ]),
                       _vm._v(" "),
-                      _c("div", [
+                      _c("div", { staticClass: "faded" }, [
                         _vm._v(
                           _vm._s(_vm.$round(_vm.result.min_dps, 2)) +
                             " - " +
                             _vm._s(_vm.$round(_vm.result.max_dps, 2))
                         )
                       ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "mt-1" }),
+                      _vm._v(" "),
+                      _vm.result.stats.evocated.n
+                        ? _c("div", { staticClass: "faded" }, [
+                            _vm._v(
+                              "Evocated at: " +
+                                _vm._s(
+                                  _vm.$round(_vm.result.stats.evocated.t, 1)
+                                )
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.result.stats.regened.n
+                        ? _c("div", { staticClass: "faded" }, [
+                            _vm._v(
+                              "Filler at: " +
+                                _vm._s(
+                                  _vm.$round(_vm.result.stats.regened.t, 1)
+                                )
+                            )
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _vm.result.histogram
                         ? _c(
@@ -63634,6 +63664,26 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", [_vm._v("Damage: " + _vm._s(_vm.result.dmg))]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "mt-1" }),
+                      _vm._v(" "),
+                      _vm.result.evocated_at > 0
+                        ? _c("div", { staticClass: "faded" }, [
+                            _vm._v(
+                              "Evocated at: " +
+                                _vm._s(_vm.$round(_vm.result.evocated_at, 1))
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.result.regened_at > 0
+                        ? _c("div", { staticClass: "faded" }, [
+                            _vm._v(
+                              "Filler at: " +
+                                _vm._s(_vm.$round(_vm.result.regened_at, 1))
+                            )
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _vm.result.log
                         ? _c(

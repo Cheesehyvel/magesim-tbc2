@@ -53,6 +53,11 @@ public:
         map<int, int> histogram;
         ostringstream results;
 
+        double evocated = 0;
+        double evocated_at = 0;
+        double regened = 0;
+        double regened_at = 0;
+
         if (config->additional_data)
             results << "DPS,Duration\n";
 
@@ -67,6 +72,15 @@ public:
             if (i == 0 || r.dps > result.max_dps)
                 result.max_dps = r.dps;
             result.avg_dps+= (r.dps - result.avg_dps) / (i+1);
+
+            if (r.evocated_at != -1) {
+                evocated++;
+                evocated_at+= (r.evocated_at - evocated_at) / evocated;
+            }
+            if (r.regened_at != -1) {
+                regened++;
+                regened_at+= (r.regened_at - regened_at) / regened;
+            }
 
             bin = floor(r.dps/bin_size)*bin_size;
             if (histogram.find(bin) != histogram.end())
@@ -83,6 +97,7 @@ public:
         if (config->additional_data)
             result.all_results = results.str();
 
+        // Histogram json string
         ostringstream ss;
         ss << "{";
         for (auto itr = histogram.begin(); itr != histogram.end(); itr++) {
@@ -92,6 +107,15 @@ public:
         }
         ss << "}";
         result.histogram = ss.str();
+
+        // Stats json string
+        ss.str("");
+        ss.clear();
+        ss << "{";
+        ss << "\"evocated\":{\"t\":" << evocated_at << ",\"n\":" << evocated << "},";
+        ss << "\"regened\":{\"t\":" << regened_at << ",\"n\":" << regened << "}";
+        ss << "}";
+        result.stats = ss.str();
 
         return result;
     }
@@ -145,6 +169,8 @@ public:
         result.dmg = state->dmg;
         result.t = state->t;
         result.dps = state->dmg/state->t;
+        result.evocated_at = state->evocated_at;
+        result.regened_at = state->regened_at;
 
         if (logging)
             result.log = jsonLog();
@@ -967,6 +993,8 @@ public:
                 if (regen_at >= manaPercent()) {
                     state->regen_active = true;
                     state->regen_cycle = 0;
+                    if (state->regened_at < 0)
+                        state->regened_at = state->t;
                 }
             }
 
@@ -1703,6 +1731,8 @@ public:
         event->t = ticks * 2 * haste;
         event->spell = defaultSpell();
         push(event);
+
+        state->evocated_at = state->t;
     }
 
     void clearcast()

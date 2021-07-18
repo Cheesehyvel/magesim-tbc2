@@ -66,6 +66,7 @@ onmessage = function onmessage(event) {
       if (data.iterations && data.iterations > 1) var result = m.runSimulations(config, player, data.iterations);else var result = m.runSimulation(config, player);
       if (result.log) result.log = JSON.parse(result.log);
       if (result.histogram) result.histogram = JSON.parse(result.histogram);
+      if (result.stats) result.stats = JSON.parse(result.stats);
       postMessage({
         type: "success",
         result: result

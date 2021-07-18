@@ -274,6 +274,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .field("dmg", &SimulationResult::dmg)
         .field("t", &SimulationResult::t)
         .field("dps", &SimulationResult::dps)
+        .field("evocated_at", &SimulationResult::evocated_at)
+        .field("regened_at", &SimulationResult::regened_at)
         .field("log", &SimulationResult::log)
         ;
 
@@ -284,6 +286,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .field("iterations", &SimulationsResult::iterations)
         .field("histogram", &SimulationsResult::histogram)
         .field("all_results", &SimulationsResult::all_results)
+        .field("stats", &SimulationsResult::stats)
         ;
 
     emscripten::function("runSimulation", &runSimulation);

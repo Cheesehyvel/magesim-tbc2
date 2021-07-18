@@ -17,6 +17,9 @@ public:
     int combustion;
     double duration;
 
+    double evocated_at = -1;
+    double regened_at = -1;
+
     map<cooldown::ID, shared_ptr<cooldown::Cooldown>> cooldowns;
     map<buff::ID, shared_ptr<buff::Buff>> buffs;
     map<debuff::ID, shared_ptr<debuff::Debuff>> debuffs;

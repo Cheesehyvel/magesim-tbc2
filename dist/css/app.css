@@ -793,7 +793,7 @@ table.simple th:last-child, table.simple td:last-child {
   font-weight: 700;
   font-size: 32px;
 }
-#app .wrapper .sidebar .result > div:nth-child(3) {
+#app .wrapper .sidebar .result > div.faded {
   color: #aaa;
 }
 #app .wrapper .sidebar .result .meta-warning .material-icons {

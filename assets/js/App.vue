@@ -109,7 +109,10 @@
                     <template v-if="result.iterations">
                         <div>DPS</div>
                         <div>{{ $round(result.avg_dps, 2) }}</div>
-                        <div>{{ $round(result.min_dps, 2) }} - {{ $round(result.max_dps, 2) }}</div>
+                        <div class="faded">{{ $round(result.min_dps, 2) }} - {{ $round(result.max_dps, 2) }}</div>
+                        <div class="mt-1"></div>
+                        <div class="faded" v-if="result.stats.evocated.n">Evocated at: {{ $round(result.stats.evocated.t, 1) }}</div>
+                        <div class="faded" v-if="result.stats.regened.n">Filler at: {{ $round(result.stats.regened.t, 1) }}</div>
                         <div class="btn mt-1" v-if="result.histogram" @click="histogramToggle">Histogram</div>
                         <div class="btn mt-1" v-if="result.all_results" @click="allResults">Simulation data</div>
                     </template>
@@ -117,6 +120,9 @@
                         <div>DPS</div>
                         <div>{{ $round(result.dps, 2) }}</div>
                         <div>Damage: {{ result.dmg }}</div>
+                        <div class="mt-1"></div>
+                        <div class="faded" v-if="result.evocated_at > 0">Evocated at: {{ $round(result.evocated_at, 1) }}</div>
+                        <div class="faded" v-if="result.regened_at > 0">Filler at: {{ $round(result.regened_at, 1) }}</div>
                         <div class="btn mt-1" v-if="result.log" @click="logToggle">Combat log</div>
                     </template>
                     <template v-if="!isMetaGemActive()">

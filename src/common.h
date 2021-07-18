@@ -178,6 +178,8 @@ struct SimulationResult
     int dmg;
     double t;
     double dps;
+    double evocated_at;
+    double regened_at;
     std::string log;
 };
 
@@ -187,6 +189,7 @@ struct SimulationsResult
     int iterations;
     std::string histogram;
     std::string all_results;
+    std::string stats;
 };
 
 double critRatingToChance(double rating)
