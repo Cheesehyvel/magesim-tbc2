@@ -194,12 +194,12 @@ var equip = {
         { id: 32047, title: "Merciless Gladiator's Silk Amice", int: 15, sp: 36, crit: 14, sockets: ["b", "y"], phase: 2 },
         { id: 27796, itemset: ids.MANA_ETCHED_SET, title: "Mana-Etched Spaulders", int: 17, sp: 20, crit: 16, sockets: ["y", "r"], q: "rare" },
         { id: 28866, title: "High Warlord's Silk Amice", int: 16, sp: 25, crit: 8, sockets: ["b", "y"], q: "rare" },
+        { id: 27738, title: "Incanter's Pauldrons", int: 17, spi: 16, sp: 20, sockets: ["y", "r"], bonus: { crit: 3 }, q: "rare" },
         { id: 27778, title: "Spaulders of Oblivion", int: 17, sp: 29, sockets: ["b", "y"], bonus: { hit: 3 }, q: "rare" },
         { id: 30925, title: "Spaulders of the Torn-heart", int: 7, spi: 8, sp: 40, crit: 18, q: "rare" },
         { id: 27994, title: "Mantle of Three Terrors", int: 25, sp: 29, hit: 12, q: "rare" },
         { id: 22983, title: "Rime Covered Mantle", int: 12, sp: 39, crit: 14 },
         { id: 22499, title: "Frostfire Shoulderpads", int: 18, spi: 9, sp: 36 },
-        { id: 27738, title: "Incanter's Pauldrons", int: 17, spi: 16, sp: 20, sockets: ["y", "r"], bonus: { crit: 3 }, q: "rare" },
     ],
     back: [
         { id: 34242, title: "Tattered Cape of Antonidas", int: 26, sp: 42, haste: 32, sockets: ["r"], bonus: { sp: 2 }, phase: 5 },

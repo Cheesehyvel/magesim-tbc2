@@ -1342,6 +1342,17 @@ var equip = {
     sockets: ["b", "y"],
     q: "rare"
   }, {
+    id: 27738,
+    title: "Incanter's Pauldrons",
+    "int": 17,
+    spi: 16,
+    sp: 20,
+    sockets: ["y", "r"],
+    bonus: {
+      crit: 3
+    },
+    q: "rare"
+  }, {
     id: 27778,
     title: "Spaulders of Oblivion",
     "int": 17,
