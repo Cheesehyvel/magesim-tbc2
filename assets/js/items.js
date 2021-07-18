@@ -199,6 +199,7 @@ var equip = {
         { id: 27994, title: "Mantle of Three Terrors", int: 25, sp: 29, hit: 12, q: "rare" },
         { id: 22983, title: "Rime Covered Mantle", int: 12, sp: 39, crit: 14 },
         { id: 22499, title: "Frostfire Shoulderpads", int: 18, spi: 9, sp: 36 },
+        { id: 27738, title: "Incanter's Pauldrons", int: 17, spi: 16, sp: 20, sockets: ["y", "r"], bonus: { crit: 3 }, q: "rare" },
     ],
     back: [
         { id: 34242, title: "Tattered Cape of Antonidas", int: 26, sp: 42, haste: 32, sockets: ["r"], bonus: { sp: 2 }, phase: 5 },
