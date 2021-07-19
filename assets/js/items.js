@@ -264,9 +264,9 @@ var equip = {
         { id: 29240, title: "Bands of Negation", int: 22, sp: 29 },
         { id: 28174, title: "Shattrath Wraps", int: 15, sp: 21, sockets: ["r"], q: "rare" },
         { id: 28477, title: "Harbinger Bands", int: 21, spi: 14, sp: 26 },
+        { id: 29255, title: "Bands of Rarefied Magic", int: 21, spi: 16, sp: 25 },
         { id: 23021, title: "The Soul Harvester's Bindings", int: 11, sp: 21, crit: 14 },
         { id: 21186, title: "Rockfury Bracers", sp: 27, hit: 8 },
-        { id: 29255, title: "Bands of Rarefied Magic", int: 21, spi: 16, sp: 25 },
     ],
     hands: [
         { id: 34344, title: "Handguards of Defiled Worlds", int: 32, sp: 47, hit: 27, haste: 36, sockets: ["y", "r"], bonus: { sp: 4 }, phase: 5 },

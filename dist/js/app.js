@@ -1900,6 +1900,12 @@ var equip = {
     spi: 14,
     sp: 26
   }, {
+    id: 29255,
+    title: "Bands of Rarefied Magic",
+    "int": 21,
+    spi: 16,
+    sp: 25
+  }, {
     id: 23021,
     title: "The Soul Harvester's Bindings",
     "int": 11,
