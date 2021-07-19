@@ -55,6 +55,17 @@ class SimulationWorkers {
                                 sum.histogram[key]+= result.histogram[key];
                         }
                     }
+
+                    if (result.stats) {
+                        if (result.stats.evocated.n) {
+                            sum.stats.evocated.t = (sum.stats.evocated.t * sum.stats.evocated.n + result.stats.evocated.t * result.stats.evocated.n) / (sum.stats.evocated.n + result.stats.evocated.n);
+                            sum.stats.evocated.n+= result.stats.evocated.n;
+                        }
+                        if (result.stats.regened.n) {
+                            sum.stats.regened.t = (sum.stats.regened.t * sum.stats.regened.n + result.stats.regened.t * result.stats.regened.n) / (sum.stats.regened.n + result.stats.regened.n);
+                            sum.stats.regened.n+= result.stats.regened.n;
+                        }
+                    }
                 }
 
                 if (sum.iterations == iterations)

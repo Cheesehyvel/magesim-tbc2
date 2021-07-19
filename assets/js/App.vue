@@ -111,8 +111,14 @@
                         <div>{{ $round(result.avg_dps, 2) }}</div>
                         <div class="faded">{{ $round(result.min_dps, 2) }} - {{ $round(result.max_dps, 2) }}</div>
                         <div class="mt-1"></div>
-                        <div class="faded" v-if="result.stats.evocated.n">Evocated at: {{ $round(result.stats.evocated.t, 1) }}</div>
-                        <div class="faded" v-if="result.stats.regened.n">Filler at: {{ $round(result.stats.regened.t, 1) }}</div>
+                        <div class="faded" v-if="result.stats.evocated.n">
+                            Evocated: {{ $round(result.stats.evocated.t, 1) }}s
+                            ({{ $round(result.stats.evocated.n / result.iterations * 100, 1) }}%)
+                        </div>
+                        <div class="faded" v-if="result.stats.regened.n">
+                            Filler: {{ $round(result.stats.regened.t, 1) }}s
+                            ({{ $round(result.stats.regened.n / result.iterations * 100, 1) }}%)
+                        </div>
                         <div class="btn mt-1" v-if="result.histogram" @click="histogramToggle">Histogram</div>
                         <div class="btn mt-1" v-if="result.all_results" @click="allResults">Simulation data</div>
                     </template>

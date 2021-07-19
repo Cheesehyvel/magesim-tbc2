@@ -3738,6 +3738,18 @@ var SimulationWorkers = /*#__PURE__*/function () {
               if (!sum.histogram.hasOwnProperty(key)) sum.histogram[key] = result.histogram[key];else sum.histogram[key] += result.histogram[key];
             }
           }
+
+          if (result.stats) {
+            if (result.stats.evocated.n) {
+              sum.stats.evocated.t = (sum.stats.evocated.t * sum.stats.evocated.n + result.stats.evocated.t * result.stats.evocated.n) / (sum.stats.evocated.n + result.stats.evocated.n);
+              sum.stats.evocated.n += result.stats.evocated.n;
+            }
+
+            if (result.stats.regened.n) {
+              sum.stats.regened.t = (sum.stats.regened.t * sum.stats.regened.n + result.stats.regened.t * result.stats.regened.n) / (sum.stats.regened.n + result.stats.regened.n);
+              sum.stats.regened.n += result.stats.regened.n;
+            }
+          }
         }
 
         if (sum.iterations == iterations) onSuccess(sum);
@@ -3801,6 +3813,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -63626,10 +63644,20 @@ var render = function() {
                       _vm.result.stats.evocated.n
                         ? _c("div", { staticClass: "faded" }, [
                             _vm._v(
-                              "Evocated at: " +
+                              "\n                        Evocated: " +
                                 _vm._s(
                                   _vm.$round(_vm.result.stats.evocated.t, 1)
-                                )
+                                ) +
+                                "s\n                        (" +
+                                _vm._s(
+                                  _vm.$round(
+                                    (_vm.result.stats.evocated.n /
+                                      _vm.result.iterations) *
+                                      100,
+                                    1
+                                  )
+                                ) +
+                                "%)\n                    "
                             )
                           ])
                         : _vm._e(),
@@ -63637,10 +63665,20 @@ var render = function() {
                       _vm.result.stats.regened.n
                         ? _c("div", { staticClass: "faded" }, [
                             _vm._v(
-                              "Filler at: " +
+                              "\n                        Filler: " +
                                 _vm._s(
                                   _vm.$round(_vm.result.stats.regened.t, 1)
-                                )
+                                ) +
+                                "s\n                        (" +
+                                _vm._s(
+                                  _vm.$round(
+                                    (_vm.result.stats.regened.n /
+                                      _vm.result.iterations) *
+                                      100,
+                                    1
+                                  )
+                                ) +
+                                "%)\n                    "
                             )
                           ])
                         : _vm._e(),
