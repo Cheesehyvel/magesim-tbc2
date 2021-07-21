@@ -1721,6 +1721,7 @@ public:
             ticks++;
 
         state->regen_cycle = 0;
+        state->regen_active = false;
         onCooldownGain(make_shared<cooldown::Evocation>());
 
         for (double i=1; i<=ticks; i++)
