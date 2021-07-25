@@ -121,6 +121,7 @@ var equip = {
         { id: 30859, title: "Wand of the Seer", int: 8, spi: 5, sp: 18, q: "rare" },
         { id: 22820, title: "Wand of Fates", int: 7, sp: 12, hit: 8 },
         { id: 25939, title: "Voidfire Wand", int: 9, sp: 11, hit: 7, q: "rare" },
+        { id: 28588, title: "Blue Diamond Witchwand", int: 13, spi: 10, sp: 10 },
     ],
     head: [
         { id: 34340, title: "Dark Conjuror's Collar", int: 42, sp: 75, crit: 38, haste: 30, sockets: ["m", "b"], bonus: { sp: 5 }, phase: 5 },
@@ -406,7 +407,8 @@ var equip = {
         { id: 21709, title: "Ring of the Fallen God", int: 6, sp: 37, hit: 8 },
         { id: 23062, title: "Frostfire Ring", int: 10, sp: 30, crit: 14 },
         { id: 23031, title: "Band of the Inevitable", sp: 36, hit: 8 },
-        { id: 28555, title: "Seal of the Exorcist", sp: 28, hit: 12},
+        { id: 28555, title: "Seal of the Exorcist", sp: 28, hit: 12 },
+        { id: 31921, title: "Yor's Collapsing Band", int: 20, spi: 19, sp: 23 },
     ],
     trinket: [
         { id: ids.SORCERERS_ALCHEMIST_STONE, title: "Sorcerer's Alchemist Stone", sp: 63, phase: 5 },
