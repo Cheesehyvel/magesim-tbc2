@@ -691,6 +691,12 @@ var equip = {
     sp: 15,
     hit: 11
   }, {
+    id: 28588,
+    title: "Blue Diamond Witchwand",
+    "int": 13,
+    spi: 11,
+    sp: 10
+  }, {
     id: 29350,
     title: "The Black Stalk",
     sp: 20,
@@ -2911,6 +2917,17 @@ var equip = {
     "int": 17,
     sp: 35
   }, {
+    id: 28555,
+    title: "Seal of the Exorcist",
+    sp: 28,
+    hit: 12
+  }, {
+    id: 31921,
+    title: "Yor's Collapsing Band",
+    "int": 20,
+    spi: 19,
+    sp: 23
+  }, {
     id: 31075,
     title: "Evoker's Mark of the Redemption",
     "int": 15,
@@ -2993,11 +3010,6 @@ var equip = {
     title: "Band of the Inevitable",
     sp: 36,
     hit: 8
-  }, {
-    id: 28555,
-    title: "Seal of the Exorcist",
-    sp: 28,
-    hit: 12
   }],
   trinket: [{
     id: ids.SORCERERS_ALCHEMIST_STONE,
