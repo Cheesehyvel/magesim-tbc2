@@ -133,7 +133,7 @@ var equip = {
         { id: 30206, itemset: ids.TIRISFAL_SET, title: "Cowl of Tirisfal", int: 36, spi: 24, sp: 55, crit: 24, sockets: ["m", "y"], bonus: { hit: 4 }, phase: 2 },
         { id: 24266, itemset: ids.SPELLSTRIKE_SET, title: "Spellstrike Hood", int: 12, sp: 46, crit: 24, hit: 16, sockets: ["b", "y", "r"] },
         { id: 29986, title: "Cowl of the Grand Engineer", int: 27, sp: 53, crit: 35, hit: 16, sockets: ["y", "y", "b"], bonus: { sp: 5 }, phase: 2 },
-        { id: 32494, title: "Destruction Holo-gogs", int: 24, sp: 64, crit: 29, sockets: ["m", "b"], bonus: { sp: 5 }, phase: 3 },
+        { id: 32494, title: "Destruction Holo-gogs", int: 24, sp: 64, crit: 29, sockets: ["m", "b"], bonus: { sp: 5 }, phase: 2 },
         { id: 35097, title: "Brutal Gladiator's Silk Cowl", int: 29, sp: 54, crit: 30, sockets: ["m", "r"], phase: 5 },
         { id: 29076, title: "Collar of the Aldor", int: 35, spi: 17, sp: 41, crit: 27, sockets: ["m", "b"], bonus: { sp: 5 } },
         { id: 28744, title: "Uni-Mind Headdress", int: 40, sp: 46, crit: 25, hit: 19 },

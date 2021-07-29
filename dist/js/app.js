@@ -873,7 +873,7 @@ var equip = {
     bonus: {
       sp: 5
     },
-    phase: 3
+    phase: 2
   }, {
     id: 35097,
     title: "Brutal Gladiator's Silk Cowl",
