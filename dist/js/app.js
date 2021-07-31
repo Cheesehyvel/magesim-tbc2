@@ -5684,7 +5684,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           if (item.sockets) {
             for (var i = 0; i < item.sockets.length; i++) {
-              gem_id = this.gems[slot][i];
+              gem_id = this.gems[key][i];
               gem = gem_id ? _.find(this.items.gems, {
                 id: gem_id
               }) : null;
