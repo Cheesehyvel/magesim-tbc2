@@ -2019,7 +2019,7 @@ var equip = {
     bonus: {
       sp: 4
     },
-    phase: 2
+    phase: 5
   }, {
     id: 28780,
     title: "Soul-Eater's Handwraps",
