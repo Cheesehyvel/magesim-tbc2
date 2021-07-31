@@ -278,7 +278,7 @@ var equip = {
         { id: 21847, itemset: ids.SPELLFIRE_SET, title: "Spellfire Gloves", int: 10, sp_arcane: 50, sp_fire: 50, crit: 23, sockets: ["y", "b"] },
         { id: 33586, title: "Studious Wraps", int: 22, sp: 40, crit: 25, sockets: ["r", "b"], bonus: { sp: 4 }, phase: 4 },
         { id: 29987, title: "Gauntlets of the Sun King", int: 29, spi: 20, sp: 42, crit: 28, phase: 2 },
-        { id: 34808, title: "Gloves of Arcane Acuity", int: 20, sp: 34, hit: 18, sockets: ["b", "r"], bonus: { sp: 4 }, phase: 2 },
+        { id: 34808, title: "Gloves of Arcane Acuity", int: 20, sp: 34, hit: 18, sockets: ["b", "r"], bonus: { sp: 4 }, phase: 5 },
         { id: 28780, title: "Soul-Eater's Handwraps", int: 24, sp: 36, crit: 21, sockets: ["y", "b"], bonus: { sp: 4 } },
         { id: 30725, title: "Anger-Spark Gloves", sp: 30, crit: 25, hit: 20, sockets: ["r", "r"], bonus: { crit: 3 } },
         { id: 28507, title: "Handwraps of Flowing Thought", int: 22, sp: 35, hit: 14, sockets: ["y", "b"], bonus: { hit: 3 } },
