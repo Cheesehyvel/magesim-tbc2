@@ -614,6 +614,9 @@ public:
                 if (hasTrinket(TRINKET_ASHTONGUE_TALISMAN) && random<int>(0, 1) == 0)
                     onBuffGain(make_shared<buff::AshtongueTalisman>());
 
+                if (config->tirisfal_4set)
+                    onBuffGain(make_shared<buff::ArcaneMadness>());
+
                 if (spell->school == SCHOOL_FIRE && player->talents.ignite)
                     addIgnite(spell);
                 if ((spell->school == SCHOOL_FIRE || spell->school == SCHOOL_FROST) && player->talents.master_of_elements)
@@ -631,11 +634,8 @@ public:
     {
         shared_ptr<spell::Spell> next = NULL;
 
-        if (spell->id == spell::ARCANE_BLAST) {
+        if (spell->id == spell::ARCANE_BLAST)
             onBuffGain(make_shared<buff::ArcaneBlast>());
-            if (config->tirisfal_4set && spell->result == spell::CRIT)
-                onBuffGain(make_shared<buff::ArcaneMadness>());
-        }
 
         if (shouldUseManaGem())
             useManaGem();
