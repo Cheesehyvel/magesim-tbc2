@@ -130,10 +130,8 @@ public:
             pushVampiricTouch(config->vampiric_touch_regen);
         if (config->bloodlust)
             pushBuffGain(make_shared<buff::Bloodlust>(), config->bloodlust_at);
-        if (config->power_infusion) {
-            pushCooldownGain(make_shared<cooldown::PowerInfusion>(), config->power_infusion_at);
-            pushBuffGain(make_shared<buff::PowerInfusion>(), config->power_infusion_at);
-        }
+        if (config->power_infusion)
+            pushPowerInfusion(config->power_infusion_at);
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
         if (config->innervate && config->innervate_at)
@@ -231,6 +229,8 @@ public:
             useDrums();
         else if (event->type == EVENT_INNERVATE)
             innervate();
+        else if (event->type == EVENT_POWER_INFUSION)
+            powerInfusion();
         else if (event->type == EVENT_WAIT)
             onWait();
     }
@@ -384,6 +384,15 @@ public:
     {
         shared_ptr<Event> event(new Event());
         event->type = EVENT_INNERVATE;
+        event->t = t;
+
+        push(event);
+    }
+
+    void pushPowerInfusion(double t)
+    {
+        shared_ptr<Event> event(new Event());
+        event->type = EVENT_POWER_INFUSION;
         event->t = t;
 
         push(event);
@@ -748,6 +757,9 @@ public:
 
         if (stacks)
             logBuffGain(buff, stacks);
+
+        if (buff->id == buff::ARCANE_POWER && state->hasBuff(buff::POWER_INFUSION))
+            onBuffExpire(make_shared<buff::PowerInfusion>());
 
         if (buff->id == buff::LIGHTNING_CAPACITOR && stacks == 3) {
             onBuffExpire(buff);
@@ -1717,6 +1729,17 @@ public:
             return spell::CRIT;
 
         return spell::HIT;
+    }
+
+    void powerInfusion()
+    {
+        if (state->hasBuff(buff::ARCANE_POWER)) {
+            pushPowerInfusion(buffDuration(buff::ARCANE_POWER));
+            return;
+        }
+
+        onCooldownGain(make_shared<cooldown::PowerInfusion>());
+        onBuffGain(make_shared<buff::PowerInfusion>());
     }
 
     void innervate()

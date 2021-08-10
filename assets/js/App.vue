@@ -844,7 +844,10 @@
                                 <input type="text" v-model.number="config.bloodlust_at" v-if="config.bloodlust">
                             </div>
                             <div class="form-item">
-                                <label><input type="checkbox" v-model="config.power_infusion"> <span>Power Infusion <template v-if="config.power_infusion">at</template></span></label>
+                                <label>
+                                    <input type="checkbox" v-model="config.power_infusion"> <span>Power Infusion <template v-if="config.power_infusion">at</template></span>
+                                    <help>Does not stack with Arcane Power</help>
+                                </label>
                                 <input type="text" v-model.number="config.power_infusion_at" v-if="config.power_infusion">
                             </div>
                             <div class="form-item">
