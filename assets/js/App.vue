@@ -618,7 +618,7 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.moonkin_aura"> <span>Moonkin Aura</span></label>
                             </div>
-                            <div class="form-item">
+                            <div class="form-item" v-if="faction == 'alliance'">
                                 <label><input type="checkbox" v-model="config.inspiring_presence"> <span>Inspiring Presence (Draenei hit aura)</span></label>
                             </div>
                             <div class="form-item">
@@ -1811,7 +1811,7 @@
                 // Spell hit
                 if (this.config.totem_of_wrath)
                     stats.hit+= 3;
-                if (this.config.race == this.races.RACE_DRAENEI || this.config.inspiring_presence)
+                if (this.config.race == this.races.RACE_DRAENEI || (this.faction == 'alliance' && this.config.inspiring_presence))
                     stats.hit+= 1;
 
                 this.final_stats = stats;

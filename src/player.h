@@ -207,7 +207,7 @@ public:
         // Spell hit
         if (config->totem_of_wrath)
             stats.hit+= 3.0;
-        if (race == RACE_DRAENEI || config->inspiring_presence)
+        if (race == RACE_DRAENEI || (config->inspiring_presence && faction() == FACTION_ALLIANCE))
             stats.hit+= 1.0;
     }
 
