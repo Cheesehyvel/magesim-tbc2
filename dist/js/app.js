@@ -4937,6 +4937,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5025,6 +5032,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       regen_rotation: 0,
       ab_haste_stop: 0,
       mana_tide_at: 20,
+      innervate_at: 0,
       bloodlust_at: 1,
       power_infusion_at: 1,
       symbol_of_hope_at: 0,
@@ -69016,7 +69024,56 @@ var render = function() {
                         }
                       }
                     })
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.config.innervate > 0
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c(
+                          "label",
+                          [
+                            _c("span", [_vm._v("Innervate at")]),
+                            _vm._v(" "),
+                            _c("help", [
+                              _vm._v("Timing for the first innervate."),
+                              _c("br"),
+                              _vm._v(
+                                "Setting this to 0 will innervate when mana is low"
+                              )
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.innervate_at,
+                              expression: "config.innervate_at",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.innervate_at },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "innervate_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("fieldset", [

@@ -149,6 +149,7 @@ enum EventType : int
     EVENT_CD_EXPIRE,
     EVENT_VAMPIRIC_TOUCH,
     EVENT_DRUMS,
+    EVENT_INNERVATE,
     EVENT_WAIT
 };
 

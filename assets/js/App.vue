@@ -862,6 +862,13 @@
                                 <label>Number of innervates</label>
                                 <input type="text" v-model.number="config.innervate">
                             </div>
+                            <div class="form-item" v-if="config.innervate > 0">
+                                <label>
+                                    <span>Innervate at</span>
+                                    <help>Timing for the first innervate.<br>Setting this to 0 will innervate when mana is low</help>
+                                </label>
+                                <input type="text" v-model.number="config.innervate_at">
+                            </div>
                         </fieldset>
                         <fieldset>
                             <legend>Profiles</legend>
@@ -1203,6 +1210,7 @@
                 ab_haste_stop: 0,
 
                 mana_tide_at: 20,
+                innervate_at: 0,
                 bloodlust_at: 1,
                 power_infusion_at: 1,
                 symbol_of_hope_at: 0,

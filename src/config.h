@@ -80,6 +80,7 @@ struct Config
     double ab_haste_stop = 0;
 
     double mana_tide_at = 10;
+    double innervate_at = 0;
     double bloodlust_at = 20;
     double power_infusion_at = 20;
     double symbol_of_hope_at = 0;

@@ -136,6 +136,8 @@ public:
         }
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
+        if (config->innervate && config->innervate_at)
+            pushInnervate(config->innervate_at);
         if (config->drums && config->drums_friend) {
             for (double t = config->drums_at; t<state->duration; t+= 120)
                 pushDrums(t);
@@ -227,6 +229,8 @@ public:
             onVampiricTouch(event->mana);
         else if (event->type == EVENT_DRUMS)
             useDrums();
+        else if (event->type == EVENT_INNERVATE)
+            innervate();
         else if (event->type == EVENT_WAIT)
             onWait();
     }
@@ -371,6 +375,15 @@ public:
     {
         shared_ptr<Event> event(new Event());
         event->type = EVENT_DRUMS;
+        event->t = t;
+
+        push(event);
+    }
+
+    void pushInnervate(double t)
+    {
+        shared_ptr<Event> event(new Event());
+        event->type = EVENT_INNERVATE;
         event->t = t;
 
         push(event);
@@ -1770,6 +1783,9 @@ public:
     bool shouldInnervate()
     {
         if (!state->innervates || state->hasBuff(buff::INNERVATE))
+            return false;
+
+        if (config->innervate_at && state->innervates == config->innervate)
             return false;
 
         if (manaPercent() < 70.0 && state->hasCooldown(cooldown::POTION) && state->hasCooldown(cooldown::CONJURED))

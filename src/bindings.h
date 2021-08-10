@@ -224,6 +224,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("ab_haste_stop", &Config::ab_haste_stop)
 
         .property("mana_tide_at", &Config::mana_tide_at)
+        .property("innervate_at", &Config::innervate_at)
         .property("bloodlust_at", &Config::bloodlust_at)
         .property("power_infusion_at", &Config::power_infusion_at)
         .property("symbol_of_hope_at", &Config::symbol_of_hope_at)
