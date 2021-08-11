@@ -5621,7 +5621,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       stats.crit += stats.intellect / 80; // Spell hit
 
       if (this.config.totem_of_wrath) stats.hit += 3;
-      if (this.config.race == this.races.RACE_DRAENEI || this.faction == 'alliance' && this.config.inspiring_presence) stats.hit += 1;
+      if (this.config.race == this.races.RACE_DRAENEI || this.faction == "alliance" && this.config.inspiring_presence) stats.hit += 1;
       this.final_stats = stats;
     },
     baseStats: function baseStats() {

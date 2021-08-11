@@ -1811,7 +1811,7 @@
                 // Spell hit
                 if (this.config.totem_of_wrath)
                     stats.hit+= 3;
-                if (this.config.race == this.races.RACE_DRAENEI || (this.faction == 'alliance' && this.config.inspiring_presence))
+                if (this.config.race == this.races.RACE_DRAENEI || this.faction == "alliance" && this.config.inspiring_presence)
                     stats.hit+= 1;
 
                 this.final_stats = stats;
