@@ -3433,6 +3433,12 @@ var gems = [{
   sp: 6,
   unique: true
 }, {
+  id: 31116,
+  title: "Infused Amethyst",
+  color: "p",
+  sp: 6,
+  unique: true
+}, {
   id: 24056,
   title: "Glowing Nightseye",
   color: "p",
