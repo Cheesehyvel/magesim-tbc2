@@ -522,6 +522,7 @@ var enchants = {
     chest: [
         { id: 27960, title: "Exceptional Stats", int: 6, spi: 6 },
         { id: 33990, title: "Major Spirit", spi: 15 },
+        { id: 33991, title: "Restore Mana Prime", mp5: 6 },
     ],
     wrist: [
         { id: 27917, title: "Spellpower", sp: 15 },
@@ -540,6 +541,7 @@ var enchants = {
     ],
     feet: [
         { id: 34008, title: "Boar's Speed", q: "rare" },
+        { id: 27948, title: "Vitality", mp5: 4 },
         { id: 32399, title: "Magister's Armor Kit", mp5: 3, q: "common" },
         { id: 20024, title: "Spirit", spi: 5 },
     ],

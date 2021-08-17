@@ -3555,6 +3555,10 @@ var enchants = {
     id: 33990,
     title: "Major Spirit",
     spi: 15
+  }, {
+    id: 33991,
+    title: "Restore Mana Prime",
+    mp5: 6
   }],
   wrist: [{
     id: 27917,
@@ -3603,6 +3607,10 @@ var enchants = {
     id: 34008,
     title: "Boar's Speed",
     q: "rare"
+  }, {
+    id: 27948,
+    title: "Vitality",
+    mp5: 4
   }, {
     id: 32399,
     title: "Magister's Armor Kit",
