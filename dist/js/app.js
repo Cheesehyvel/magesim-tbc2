@@ -3071,7 +3071,7 @@ var equip = {
   }, {
     id: ids.DARKMOON_CRUSADE,
     title: "Darkmoon Card: Crusade",
-    phase: 3
+    phase: 2
   }, {
     id: ids.QUAGMIRRANS_EYE,
     title: "Quagmirran's Eye",

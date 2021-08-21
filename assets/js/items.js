@@ -421,7 +421,7 @@ var equip = {
         { id: ids.SERPENT_COIL, title: "Serpent-Coil Braid", crit: 30, hit: 12, phase: 2 },
         { id: ids.SHRUNKEN_HEAD, title: "Hex Shrunken Head", sp: 53, use: true, phase: 4 },
         { id: ids.SILVER_CRESCENT, title: "Icon of the Silver Crescent", sp: 43, use: true },
-        { id: ids.DARKMOON_CRUSADE, title: "Darkmoon Card: Crusade", phase: 3 },
+        { id: ids.DARKMOON_CRUSADE, title: "Darkmoon Card: Crusade", phase: 2 },
         { id: ids.QUAGMIRRANS_EYE, title: "Quagmirran's Eye", sp: 37, q: "rare" },
         { id: ids.XIRIS_GIFT, title: "Xi'ri's Gift", crit: 32, q: "rare", use: true },
         { id: ids.ALCHEMIST_STONE, title: "Alchemist Stone", int: 15, spi: 15 },
