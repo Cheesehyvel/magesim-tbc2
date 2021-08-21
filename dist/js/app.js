@@ -1478,6 +1478,12 @@ var equip = {
     sp: 21,
     crit: 22
   }, {
+    id: 35497,
+    title: "Cloak of the Frigid Winds",
+    "int": 16,
+    sp: 21,
+    crit: 22
+  }, {
     id: 25777,
     title: "Ogre Slayer's Cover",
     "int": 18,
@@ -1751,6 +1757,13 @@ var equip = {
     "int": 20,
     sp: 40,
     sockets: ["r", "y", "b"],
+    q: "rare"
+  }, {
+    id: 31297,
+    title: "Robe of the Crimson Order",
+    "int": 23,
+    sp: 50,
+    hit: 30,
     q: "rare"
   }, {
     id: 22496,
@@ -3299,6 +3312,12 @@ var gems = [{
   title: "Runed Living Ruby",
   color: "r",
   sp: 9
+}, {
+  id: 23096,
+  title: "Runed Blood Garnet",
+  color: "r",
+  sp: 7,
+  q: "uncommon"
 }, {
   id: 35760,
   title: "Reckless Pyrestone",
