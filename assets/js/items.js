@@ -270,6 +270,7 @@ var equip = {
         { id: 29255, title: "Bands of Rarefied Magic", int: 21, spi: 16, sp: 25 },
         { id: 23021, title: "The Soul Harvester's Bindings", int: 11, sp: 21, crit: 14 },
         { id: 21186, title: "Rockfury Bracers", sp: 27, hit: 8 },
+        { id: 32655, title: "Crystalweave Bracers", int: 16, sp: 23, crit: 12, sockets: ["r"], bonus: { sp: 2 }, phase: 2 },
     ],
     hands: [
         { id: 34344, title: "Handguards of Defiled Worlds", int: 32, sp: 47, hit: 27, haste: 36, sockets: ["y", "r"], bonus: { sp: 4 }, phase: 5 },
