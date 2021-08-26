@@ -97,6 +97,10 @@ public:
             stats.intellect+= 30;
             stats.spirit+= 30;
         }
+        if (config->battle_elixir == ELIXIR_MASTERY) {
+            stats.intellect+= 15;
+            stats.spirit+= 15;
+        }
         if (config->mark_of_the_wild) {
             stats.intellect+= 18;
             stats.spirit+= 18;

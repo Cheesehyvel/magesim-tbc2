@@ -668,6 +668,7 @@
                                     <option :value="elixirs.ELIXIR_ADEPTS">Adept's Elixir (24 sp / 24 crit)</option>
                                     <option :value="elixirs.ELIXIR_GREATER_ARCANE">Greater Arcane (35 sp)</option>
                                     <option :value="elixirs.ELIXIR_MAJOR_FIREPOWER">Major Firepower (55 fire)</option>
+                                    <option :value="elixirs.ELIXIR_MASTERY">Elixir of Mastery (15 all stats)</option>
                                 </select>
                             </div>
                             <div class="form-item" v-if="!config.flask">
@@ -1700,6 +1701,10 @@
                 if (this.config.guardian_elixir == this.elixirs.ELIXIR_DRAENIC_WISDOM) {
                     stats.intellect+= 30;
                     stats.spirit+= 30;
+                }
+                if (this.config.battle_elixir == this.elixirs.ELIXIR_MASTERY) {
+                    stats.intellect+= 15;
+                    stats.spirit+= 15;
                 }
                 if (this.config.mark_of_the_wild) {
                     stats.intellect+= 18;

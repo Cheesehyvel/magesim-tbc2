@@ -129,7 +129,8 @@ __webpack_require__.r(__webpack_exports__);
     ELIXIR_ADEPTS: 28103,
     ELIXIR_MAJOR_MAGEBLOOD: 22840,
     ELIXIR_DRAENIC_WISDOM: 32067,
-    ELIXIR_MAJOR_FIREPOWER: 22833
+    ELIXIR_MAJOR_FIREPOWER: 22833,
+    ELIXIR_MASTERY: 28104
   },
   drums: {
     DRUMS_NONE: 0,
@@ -5000,6 +5001,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -5585,6 +5587,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.config.guardian_elixir == this.elixirs.ELIXIR_DRAENIC_WISDOM) {
         stats.intellect += 30;
         stats.spirit += 30;
+      }
+
+      if (this.config.battle_elixir == this.elixirs.ELIXIR_MASTERY) {
+        stats.intellect += 15;
+        stats.spirit += 15;
       }
 
       if (this.config.mark_of_the_wild) {
@@ -67399,6 +67406,14 @@ var render = function() {
                                 }
                               },
                               [_vm._v("Major Firepower (55 fire)")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: { value: _vm.elixirs.ELIXIR_MASTERY }
+                              },
+                              [_vm._v("Elixir of Mastery (15 all stats)")]
                             )
                           ]
                         )
