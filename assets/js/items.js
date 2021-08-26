@@ -260,6 +260,7 @@ var equip = {
         { id: 29918, title: "Mindstorm Wristbands", int: 13, sp: 36, crit: 23, phase: 2 },
         { id: 32820, title: "Veteran's Silk Cuffs", int: 18, sp: 22, crit: 14, sockets: ["y"], bonus: { sp: 2 }, phase: 2 },
         { id: 28411, title: "General's Silk Cuffs", int: 17, sp: 20, crit: 12, sockets: ["y"], bonus: { sp: 2 } },
+        { id: 32655, title: "Crystalweave Bracers", int: 16, sp: 23, crit: 12, sockets: ["r"], bonus: { sp: 2 }, phase: 2 },
         { id: 24250, title: "Bracers of Havok", int: 12, sp: 30, sockets: ["y"], bonus: { crit: 2 }, q: "rare" },
         { id: 32811, title: "Veteran's Dreadweave Cuffs", int: 16, sp: 25, sockets: ["y"], bonus: { sp: 2 }, phase: 2 },
         { id: 28515, title: "Bands of Nefarious Deeds", int: 22, sp: 32 },
@@ -270,7 +271,6 @@ var equip = {
         { id: 29255, title: "Bands of Rarefied Magic", int: 21, spi: 16, sp: 25 },
         { id: 23021, title: "The Soul Harvester's Bindings", int: 11, sp: 21, crit: 14 },
         { id: 21186, title: "Rockfury Bracers", sp: 27, hit: 8 },
-        { id: 32655, title: "Crystalweave Bracers", int: 16, sp: 23, crit: 12, sockets: ["r"], bonus: { sp: 2 }, phase: 2 },
     ],
     hands: [
         { id: 34344, title: "Handguards of Defiled Worlds", int: 32, sp: 47, hit: 27, haste: 36, sockets: ["y", "r"], bonus: { sp: 4 }, phase: 5 },

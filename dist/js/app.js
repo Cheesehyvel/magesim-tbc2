@@ -1869,6 +1869,17 @@ var equip = {
       sp: 2
     }
   }, {
+    id: 32655,
+    title: "Crystalweave Bracers",
+    "int": 16,
+    sp: 23,
+    crit: 12,
+    sockets: ["r"],
+    bonus: {
+      sp: 2
+    },
+    phase: 2
+  }, {
     id: 24250,
     title: "Bracers of Havok",
     "int": 12,
