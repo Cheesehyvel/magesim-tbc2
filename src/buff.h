@@ -15,6 +15,7 @@ namespace buff
         INNERVATE = 29166,
         CLEARCAST = 12536,
         SILVER_CRESCENT = 35163,
+        ESSENCE_MARTYR = 35165,
         SERPENT_COIL = 30720,
         MANA_TIDE = 39609,
         SPELLSTRIKE = 32106,
@@ -165,6 +166,19 @@ namespace buff
         {
             id = SILVER_CRESCENT;
             name = "Silver Crescent";
+            duration = 20;
+        }
+
+    };
+
+    class EssenceMartyr : public Buff
+    {
+
+    public:
+        EssenceMartyr()
+        {
+            id = ESSENCE_MARTYR;
+            name = "Essence of the Martyr";
             duration = 20;
         }
 

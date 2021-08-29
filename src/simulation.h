@@ -1197,6 +1197,8 @@ public:
             onBuffGain(make_shared<buff::RestrainedEssence>());
         if (trinket_id == TRINKET_SILVER_CRESCENT)
             onBuffGain(make_shared<buff::SilverCrescent>());
+        if (trinket_id == TRINKET_ESSENCE_MARTYR)
+            onBuffGain(make_shared<buff::EssenceMartyr>());
         if (trinket_id == TRINKET_CRYSTAL_TALISMAN)
             onBuffGain(make_shared<buff::CrystalTalisman>());
         if (trinket_id == TRINKET_PENDANT_VIOLET_EYE)
@@ -1638,6 +1640,8 @@ public:
                 sp+= 70.0;
             if (state->hasBuff(buff::SILVER_CRESCENT))
                 sp+= 155.0;
+            if (state->hasBuff(buff::ESSENCE_MARTYR))
+                sp+= 99.0;
             if (state->hasBuff(buff::SPELL_POWER))
                 sp+= 150.0;
             if (state->hasBuff(buff::CRYSTAL_TALISMAN))

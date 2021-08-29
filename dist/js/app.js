@@ -207,6 +207,7 @@ var ids = {
   MANA_ETCHED_SET: 658,
   SERPENT_COIL: 30720,
   SILVER_CRESCENT: 29370,
+  ESSENCE_MARTYR: 29376,
   EYE_OF_MAGTHERIDON: 28789,
   RESTRAINED_ESSENCE: 23046,
   QUAGMIRRANS_EYE: 27683,
@@ -3125,6 +3126,11 @@ var equip = {
     id: ids.PENDANT_VIOLET_EYE,
     title: "Pendant of the Violet Eye",
     "int": 40,
+    use: true
+  }, {
+    id: ids.ESSENCE_MARTYR,
+    title: "Essence of the Martyr",
+    sp: 28,
     use: true
   }, {
     id: 35327,
