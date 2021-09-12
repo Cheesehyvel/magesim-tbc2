@@ -1127,7 +1127,6 @@
             this.loadGear();
             this.loadProfiles();
             this.finalStats();
-            this.loadTooltips();
         },
 
         data() {
@@ -2919,35 +2918,6 @@
                 a.href = "data:text/csv,"+encodeURIComponent(this.result.all_results);
                 a.download = "simdata.csv";
                 a.click();
-            },
-
-            loadTooltips() {
-                if (this.item_source == "tbcdb")
-                    this.loadTbcdbTooltips();
-                else
-                    this.loadWowheadTooltips();
-            },
-
-            loadTbcdbTooltips() {
-                if (!window.aowow_tooltips) {
-                    window.aowow_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true };
-                    var script = document.createElement("script");
-                    script.id = "wowheadpower";
-                    script.type = "text/javascript";
-                    script.src = "https://tbcdb.com/tooltips/power.js?vnew";
-                    document.body.appendChild(script);
-                }
-            },
-
-            loadWowheadTooltips() {
-                if (!window.whTooltips) {
-                    window.whTooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true };
-                    var script = document.createElement("script");
-                    script.id = "wowheadpower";
-                    script.type = "text/javascript";
-                    script.src = "https://tbc.wowhead.com/widgets/power.js";
-                    document.body.appendChild(script);
-                }
             },
 
             refreshTooltips(save) {
