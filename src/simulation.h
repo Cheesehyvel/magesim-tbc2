@@ -132,6 +132,8 @@ public:
             pushBuffGain(make_shared<buff::Bloodlust>(), config->bloodlust_at);
         if (config->power_infusion)
             pushPowerInfusion(config->power_infusion_at);
+        if (config->mana_spring)
+            pushManaSpring();
         if (config->mana_tide)
             pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
         if (config->innervate && config->innervate_at)
@@ -223,6 +225,8 @@ public:
             onCooldownGain(event->cooldown);
         else if (event->type == EVENT_CD_EXPIRE)
             onCooldownExpire(event->cooldown);
+        else if (event->type == EVENT_MANA_SPRING)
+            onManaSpring();
         else if (event->type == EVENT_VAMPIRIC_TOUCH)
             onVampiricTouch(event->mana);
         else if (event->type == EVENT_DRUMS)
@@ -274,6 +278,14 @@ public:
         shared_ptr<Event> event(new Event());
         event->type = EVENT_MANA_REGEN;
         event->t = 2;
+        push(event);
+    }
+
+    void pushManaSpring(double t = 2)
+    {
+        shared_ptr<Event> event(new Event());
+        event->type = EVENT_MANA_SPRING;
+        event->t = t;
         push(event);
     }
 
@@ -684,7 +696,7 @@ public:
 
     void onManaRegen()
     {
-        onManaGain(totalManaPerTick(), "Mana Regen");
+        onManaGain(manaPerTick(), "Mana Regen");
         pushManaRegen();
     }
 
@@ -692,6 +704,12 @@ public:
     {
         state->mana = min(player->maxMana(), state->mana + mana);
         logManaGain(mana, source);
+    }
+
+    void onManaSpring()
+    {
+        onManaGain(manaSpringPerTick(), "Mana Spring");
+        pushManaSpring();
     }
 
     void onVampiricTouch(double mana)
@@ -743,6 +761,10 @@ public:
         if (buff->id == buff::MANA_TIDE) {
             for (double t=3; t<=12; t+= 3)
                 pushManaGain(t, player->maxMana() * 0.06, "Mana Tide");
+
+            // Hold mana spring while mana tide is rolling
+            removeManaSpring();
+            pushManaSpring(14);
         }
 
         if (buff->id == buff::DRUMS_OF_RESTORATION) {
@@ -870,13 +892,11 @@ public:
         return state->mana / player->maxMana() * 100.0;
     }
 
-    double totalManaPerSecond()
+    double manaPerSecond()
     {
         double mps = player->staticManaPerSecond();
         double spi = player->spiritManaPerSecond();
 
-        if (config->mana_spring && !state->hasBuff(buff::MANA_TIDE))
-            mps+= 50.0/5.0;
         if (state->hasBuff(buff::ENLIGHTENMENT))
             mps+= 21.0/5.0 * state->buffStacks(buff::ENLIGHTENMENT);
 
@@ -903,9 +923,29 @@ public:
         return mps;
     }
 
-    double totalManaPerTick()
+    double manaPerTick()
     {
-        return totalManaPerSecond() * 2;
+        return manaPerSecond() * 2;
+    }
+
+    double manaSpringPerTick()
+    {
+        double mpt = 20;
+
+        if (config->improved_mana_spring)
+            mpt*= 1.25;
+
+        return mpt;
+    }
+
+    double totalManaPerSecond()
+    {
+        double mps = manaPerSecond();
+
+        if (config->mana_spring)
+            mps+= manaSpringPerTick() / 2.0;
+
+        return mps;
     }
 
     bool canBlast()
@@ -1323,6 +1363,16 @@ public:
     bool hasTrinket(Trinket trinket)
     {
         return config->trinket1 == trinket || config->trinket2 == trinket;
+    }
+
+    void removeManaSpring()
+    {
+        for (auto itr = queue.begin(); itr != queue.end(); itr++) {
+            if ((*itr)->type == EVENT_MANA_SPRING) {
+                queue.erase(itr);
+                return;
+            }
+        }
     }
 
     void removeBuffExpiration(shared_ptr<buff::Buff> buff)

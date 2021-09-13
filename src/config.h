@@ -19,6 +19,7 @@ struct Config
     bool totem_of_wrath = false;
     bool wrath_of_air = true;
     bool mana_spring = true;
+    bool improved_mana_spring = false;
     bool arcane_intellect = true;
     bool divine_spirit = true;
     bool improved_divine_spirit = false;

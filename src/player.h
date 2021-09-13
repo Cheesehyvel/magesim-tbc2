@@ -137,6 +137,8 @@ public:
             stats.mp5+= 16;
         if (config->weapon_oil == OIL_SUPERIOR_MANA)
             stats.mp5+= 14;
+        if (config->blessing_of_wisdom)
+            stats.mp5+= 49;
 
         // Spell power
         double int_multi = 0;
@@ -304,8 +306,6 @@ public:
 
         if (stats.mp5)
             mps+= stats.mp5/5.0;
-        if (config->blessing_of_wisdom)
-            mps+= 49/5.0;
 
         return mps;
     }

@@ -609,6 +609,9 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.mana_spring"> <span>Mana Spring Totem</span></label>
                             </div>
+                            <div class="form-item" v-if="config.mana_spring">
+                                <label><input type="checkbox" v-model="config.improved_mana_spring"> <span>Imp. Mana Spring Totem</span></label>
+                            </div>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.blessing_of_kings"> <span>Blessing of Kings</span></label>
                             </div>
@@ -1153,6 +1156,7 @@
                 totem_of_wrath: true,
                 wrath_of_air: true,
                 mana_spring: true,
+                improved_mana_spring: false,
                 arcane_intellect: true,
                 divine_spirit: true,
                 improved_divine_spirit: false,
@@ -1741,6 +1745,8 @@
                     stats.mp5+= 16;
                 if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_MANA)
                     stats.mp5+= 14;
+                if (this.config.blessing_of_wisdom)
+                    stats.mp5+= 49;
 
                 // Spell power
                 var int_multi = 0;

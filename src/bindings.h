@@ -165,6 +165,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("totem_of_wrath", &Config::totem_of_wrath)
         .property("wrath_of_air", &Config::wrath_of_air)
         .property("mana_spring", &Config::mana_spring)
+        .property("improved_mana_spring", &Config::improved_mana_spring)
         .property("arcane_intellect", &Config::arcane_intellect)
         .property("divine_spirit", &Config::divine_spirit)
         .property("improved_divine_spirit", &Config::improved_divine_spirit)

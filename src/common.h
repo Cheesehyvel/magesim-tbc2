@@ -153,6 +153,7 @@ enum EventType : int
     EVENT_DRUMS,
     EVENT_INNERVATE,
     EVENT_POWER_INFUSION,
+    EVENT_MANA_SPRING,
     EVENT_WAIT
 };
 

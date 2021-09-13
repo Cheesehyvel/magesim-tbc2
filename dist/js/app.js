@@ -5006,6 +5006,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -5038,6 +5041,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       totem_of_wrath: true,
       wrath_of_air: true,
       mana_spring: true,
+      improved_mana_spring: false,
       arcane_intellect: true,
       divine_spirit: true,
       improved_divine_spirit: false,
@@ -5626,7 +5630,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       stats.spirit = Math.round(stats.spirit); // Mp5
 
       if (this.config.guardian_elixir == this.elixirs.ELIXIR_MAJOR_MAGEBLOOD) stats.mp5 += 16;
-      if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_MANA) stats.mp5 += 14; // Spell power
+      if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_MANA) stats.mp5 += 14;
+      if (this.config.blessing_of_wisdom) stats.mp5 += 49; // Spell power
 
       var int_multi = 0;
       if (x = this.hasTalent("mind_mastery")) int_multi += x * 0.05;
@@ -66673,6 +66678,70 @@ var render = function() {
                       _c("span", [_vm._v("Mana Spring Totem")])
                     ])
                   ]),
+                  _vm._v(" "),
+                  _vm.config.mana_spring
+                    ? _c("div", { staticClass: "form-item" }, [
+                        _c("label", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.improved_mana_spring,
+                                expression: "config.improved_mana_spring"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.config.improved_mana_spring
+                              )
+                                ? _vm._i(
+                                    _vm.config.improved_mana_spring,
+                                    null
+                                  ) > -1
+                                : _vm.config.improved_mana_spring
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.config.improved_mana_spring,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "improved_mana_spring",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "improved_mana_spring",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.config,
+                                    "improved_mana_spring",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Imp. Mana Spring Totem")])
+                        ])
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
                     _c("label", [
