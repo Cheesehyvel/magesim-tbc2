@@ -43,6 +43,7 @@ var ids = {
     BLADE_OF_WIZARDRY: 31336,
     ROBE_ELDER_SCRIBES: 28602,
     BURST_OF_KNOWLEDGE: 11832,
+    DARK_IRON_PIPE: 38290,
 };
 
 var equip = {
@@ -422,7 +423,7 @@ var equip = {
         { id: ids.UNSTABLE_CURRENTS, title: "Sextant of Unstable Currents", crit: 40, phase: 2 },
         { id: ids.SERPENT_COIL, title: "Serpent-Coil Braid", crit: 30, hit: 12, phase: 2 },
         { id: ids.SHRUNKEN_HEAD, title: "Hex Shrunken Head", sp: 53, use: true, phase: 4 },
-        { id: ids.SILVER_CRESCENT, title: "Icon of the Silver Crescent", sp: 43, use: true },
+        { id: ids.SILVER_CRESCENT, title: "Icon of the Silver Crescent", sp: 43, use: true, unique: true },
         { id: ids.DARKMOON_CRUSADE, title: "Darkmoon Card: Crusade", phase: 2 },
         { id: ids.QUAGMIRRANS_EYE, title: "Quagmirran's Eye", sp: 37, q: "rare" },
         { id: ids.XIRIS_GIFT, title: "Xi'ri's Gift", crit: 32, q: "rare", use: true },
@@ -438,6 +439,7 @@ var equip = {
         { id: 34579, title: "Battlemaster's Audacity", sp: 47, phase: 5 },
         { id: ids.MQG, title: "Mind Quickening Gem", use: true },
         { id: ids.BLUE_DRAGON, title: "Darkmoon Card: Blue Dragon" },
+        { id: ids.DARK_IRON_PIPE, title: "Dark Iron Smoking Pipe", sp: 43, use: true, unique: true, phase: 2 },
         { id: 26055, title: "Oculus of the Hidden Eye", sp: 33, q: "rare" },
         { id: ids.MARK_OF_DEFIANCE, title: "Mark of Defiance", sp: 32, q: "rare" },
         { id: ids.SCRYERS_BLOODGEM, title: "Scryer's Bloodgem", hit: 32, use: true, q: "rare" },

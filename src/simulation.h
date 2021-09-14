@@ -1237,6 +1237,8 @@ public:
             onBuffGain(make_shared<buff::RestrainedEssence>());
         if (trinket_id == TRINKET_SILVER_CRESCENT)
             onBuffGain(make_shared<buff::SilverCrescent>());
+        if (trinket_id == TRINKET_SMOKING_PIPE)
+            onBuffGain(make_shared<buff::DarkIronPipe>());
         if (trinket_id == TRINKET_ESSENCE_MARTYR)
             onBuffGain(make_shared<buff::EssenceMartyr>());
         if (trinket_id == TRINKET_CRYSTAL_TALISMAN)
@@ -1689,6 +1691,8 @@ public:
             if (state->hasBuff(buff::ARCANE_MADNESS))
                 sp+= 70.0;
             if (state->hasBuff(buff::SILVER_CRESCENT))
+                sp+= 155.0;
+            if (state->hasBuff(buff::DARK_IRON_PIPE))
                 sp+= 155.0;
             if (state->hasBuff(buff::ESSENCE_MARTYR))
                 sp+= 99.0;
