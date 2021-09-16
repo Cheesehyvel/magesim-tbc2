@@ -64578,9 +64578,9 @@ var render = function() {
                             [
                               _c("td"),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(set.title))]),
-                              _vm._v(" "),
                               _c("td"),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(set.title))]),
                               _vm._v(" "),
                               _c("td"),
                               _vm._v(" "),

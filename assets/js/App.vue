@@ -274,8 +274,8 @@
                                         v-if="active_slot == 'quicksets'"
                                     >
                                         <td></td>
-                                        <td>{{ set.title }}</td>
                                         <td></td>
+                                        <td>{{ set.title }}</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
