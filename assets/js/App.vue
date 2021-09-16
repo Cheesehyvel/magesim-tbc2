@@ -3032,7 +3032,7 @@
                 }
 
                 if (!equipped)
-                    this.quickset(this.items.quicksets.t5bis);
+                    this.quickset(this.items.quicksets.t5_arcane_bis);
             },
 
             saveConfig() {
