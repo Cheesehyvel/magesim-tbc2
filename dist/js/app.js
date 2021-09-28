@@ -65650,7 +65650,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("help", [
                             _vm._v(
-                              "Enables the GCD to go below 0.75s with haste"
+                              "Enables the GCD to go below 1.0s with haste"
                             )
                           ])
                         ],

@@ -512,7 +512,7 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.gcd_unlocked">
                                     <span>Unlock GCD</span>
-                                    <help>Enables the GCD to go below 0.75s with haste</help>
+                                    <help>Enables the GCD to go below 1.0s with haste</help>
                                 </label>
                             </div>
                             <div class="form-item">
