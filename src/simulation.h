@@ -1481,7 +1481,7 @@ public:
     double gcd()
     {
         double t = 1.5;
-        double cap = 0.75;
+        double cap = 1.0;
 
         t*= castHaste();
 

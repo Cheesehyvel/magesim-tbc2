@@ -480,7 +480,7 @@
                                         <span>Stop Arcane Blast at haste %</span>
                                         <help>
                                             This will cast frostbolt/fireball when above a certain haste %.<br>
-                                            At 100% haste you will reach GCD cap of 0.75 seconds.
+                                            At 100% haste you will reach GCD cap of 1 second.
                                         </help>
                                     </label>
                                     <input type="text" v-model.number="config.ab_haste_stop">
