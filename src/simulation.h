@@ -864,8 +864,11 @@ public:
         onCooldownGain(make_shared<cooldown::Potion>());
     }
 
-    void useManaGem()
+    void useManaGem(bool force = false)
     {
+        if (config->conjured_at > 0 && !force)
+            return;
+
         double mana = 0;
 
         if (state->mana_emerald > 0) {
@@ -1204,7 +1207,7 @@ public:
             }
         }
 
-        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE && config->conjured != CONJURED_MANA_GEM) {
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE && (config->conjured != CONJURED_MANA_GEM || config->conjured_at > 0)) {
             if (state->t >= config->conjured_at && (state->t < config->conjured_at + 20 || !config->conjured_reuse_at) ||
                 state->t >= config->conjured_reuse_at && config->conjured_reuse_at > config->conjured_at)
             {
@@ -1314,6 +1317,9 @@ public:
         if (config->conjured == CONJURED_FLAME_CAP) {
             cd = 180;
             onBuffGain(make_shared<buff::FlameCap>());
+        }
+        else if (config->conjured == CONJURED_MANA_GEM) {
+            useManaGem(true);
         }
         else {
             return;
@@ -1951,7 +1957,10 @@ public:
         if (config->potion != POTION_MANA && config->potion != POTION_FEL_MANA)
             return false;
 
-        if (state->hasCooldown(cooldown::POTION) || !state->hasCooldown(cooldown::CONJURED) || state->hasBuff(buff::INNERVATE))
+        if (state->hasCooldown(cooldown::POTION) || state->hasBuff(buff::INNERVATE))
+            return false;
+
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured_at == 0)
             return false;
 
         double max = 3000;
