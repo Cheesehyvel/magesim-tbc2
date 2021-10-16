@@ -3471,6 +3471,12 @@ var gems = [{
   color: "y",
   "int": 8
 }, {
+  id: 32215,
+  title: "Glowing Shadowsong Amethyst",
+  color: "p",
+  sp: 6,
+  phase: 3
+}, {
   id: 30600,
   title: "Fluorescent Tanzanite",
   color: "p",
@@ -3494,6 +3500,13 @@ var gems = [{
   title: "Glowing Nightseye",
   color: "p",
   sp: 5
+}, {
+  id: 32225,
+  title: "Dazzling Seaspray Emerald",
+  color: "g",
+  "int": 5,
+  mp5: 2,
+  phase: 3
 }, {
   id: 30586,
   title: "Seer's Chrysoprase",
@@ -3528,6 +3541,12 @@ var gems = [{
   color: "g",
   "int": 4,
   mp5: 2
+}, {
+  id: 32201,
+  title: "Sparkling Empyrean Sapphire",
+  color: "b",
+  spi: 10,
+  phase: 3
 }, {
   id: 24035,
   title: "Sparkling Star of Elune",
