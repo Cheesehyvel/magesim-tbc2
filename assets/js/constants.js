@@ -13,11 +13,15 @@ export default {
         SPEC_FROST: 2,
     },
     regen_rotations: {
-        ROTATION_FB: 0,
-        ROTATION_AMFB: 1,
-        ROTATION_SC: 2,
-        ROTATION_SCFB: 3,
-        ROTATION_AMSC: 4,
+        REGEN_ROTATION_FB: 0,
+        REGEN_ROTATION_AMFB: 1,
+        REGEN_ROTATION_SC: 2,
+        REGEN_ROTATION_SCFB: 3,
+        REGEN_ROTATION_AMSC: 4,
+    },
+    fire_rotations: {
+        FIRE_ROTATION_FB: 0,
+        FIRE_ROTATION_SC: 1,
     },
     foods: {
         FOOD_NONE: 0,

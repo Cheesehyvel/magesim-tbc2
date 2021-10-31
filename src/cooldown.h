@@ -12,6 +12,7 @@ namespace cooldown
         COLD_SNAP = 11958,
         BERSERKING = 20554,
         ICY_VEINS = 12472,
+        FIRE_BLAST = 27079,
         COMBUSTION = 29977,
         ARCANE_POWER = 12042,
         PRESENCE_OF_MIND = 12043,
@@ -105,6 +106,18 @@ namespace cooldown
         {
             id = PRESENCE_OF_MIND;
             duration = 180;
+        }
+
+    };
+
+    class FireBlast : public Cooldown
+    {
+
+    public:
+        FireBlast(int imp_fire_blast = 0)
+        {
+            id = FIRE_BLAST;
+            duration = 8 - imp_fire_blast * 0.5;
         }
 
     };

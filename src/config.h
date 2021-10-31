@@ -77,8 +77,11 @@ struct Config
     double regen_mana_at = 20;
     double regen_stop_at = 30;
     int regen_ab_count = 3;
-    RegenRotation regen_rotation = ROTATION_FB;
+    RegenRotation regen_rotation = REGEN_ROTATION_FB;
     double ab_haste_stop = 0;
+
+    FireRotation fire_rotation = FIRE_ROTATION_FB;
+    bool fire_blast_weave = false;
 
     double mana_tide_at = 10;
     double innervate_at = 0;

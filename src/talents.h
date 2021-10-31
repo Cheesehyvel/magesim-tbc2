@@ -14,6 +14,7 @@ struct Talents
     int empowered_arcane_missiles = 0;
     int imp_fireball = 0;
     int ignite = 0;
+    int imp_fire_blast = 0;
     int incinerate = 0;
     int pyroblast = 0;
     int imp_scorch = 0;

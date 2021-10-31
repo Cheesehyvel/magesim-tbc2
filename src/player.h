@@ -268,6 +268,7 @@ public:
                 else if (tree == 0 && t == 21) talents.mind_mastery = p;
                 else if (tree == 1 && t == 0) talents.imp_fireball = p;
                 else if (tree == 1 && t == 2) talents.ignite = p;
+                else if (tree == 1 && t == 4) talents.imp_fire_blast = p;
                 else if (tree == 1 && t == 5) talents.incinerate = p;
                 else if (tree == 1 && t == 7) talents.pyroblast = p;
                 else if (tree == 1 && t == 9) talents.imp_scorch = p;

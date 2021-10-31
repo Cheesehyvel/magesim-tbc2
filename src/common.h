@@ -1,10 +1,16 @@
 enum RegenRotation : int
 {
-    ROTATION_FB,
-    ROTATION_AMFB,
-    ROTATION_SC,
-    ROTATION_SCFB,
-    ROTATION_AMSC,
+    REGEN_ROTATION_FB,
+    REGEN_ROTATION_AMFB,
+    REGEN_ROTATION_SC,
+    REGEN_ROTATION_SCFB,
+    REGEN_ROTATION_AMSC,
+};
+
+enum FireRotation : int
+{
+    FIRE_ROTATION_FB,
+    FIRE_ROTATION_SC,
 };
 
 enum Race : int

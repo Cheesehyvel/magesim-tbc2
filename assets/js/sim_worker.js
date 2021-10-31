@@ -31,6 +31,8 @@ onmessage = (event) => {
             }
             if (m.RegenRotation.values.hasOwnProperty(data.config.regen_rotation))
                 config.regen_rotation = m.RegenRotation.values[data.config.regen_rotation];
+            if (m.FireRotation.values.hasOwnProperty(data.config.fire_rotation))
+                config.fire_rotation = m.FireRotation.values[data.config.fire_rotation];
             if (m.Trinket.values.hasOwnProperty(data.config.trinket1))
                 config.trinket1 = m.Trinket.values[data.config.trinket1];
             if (m.Trinket.values.hasOwnProperty(data.config.trinket2))

@@ -448,11 +448,11 @@
                                 <div class="form-item">
                                     <label>Filler spells</label>
                                     <select v-model="config.regen_rotation">
-                                        <option :value="regen_rotations.ROTATION_FB">3xFrB</option>
-                                        <option :value="regen_rotations.ROTATION_AMFB">1xAM, 1xFrB</option>
-                                        <option :value="regen_rotations.ROTATION_AMSC">1xAM, 1xScorch</option>
-                                        <option :value="regen_rotations.ROTATION_SC">5xScorch</option>
-                                        <option :value="regen_rotations.ROTATION_SCFB">1xScorch, 2xFiB</option>
+                                        <option :value="regen_rotations.REGEN_ROTATION_FB">3xFrB</option>
+                                        <option :value="regen_rotations.REGEN_ROTATION_AMFB">1xAM, 1xFrB</option>
+                                        <option :value="regen_rotations.REGEN_ROTATION_AMSC">1xAM, 1xScorch</option>
+                                        <option :value="regen_rotations.REGEN_ROTATION_SC">5xScorch</option>
+                                        <option :value="regen_rotations.REGEN_ROTATION_SCFB">1xScorch, 2xFiB</option>
                                     </select>
                                 </div>
                                 <div class="form-item">
@@ -484,6 +484,18 @@
                                         </help>
                                     </label>
                                     <input type="text" v-model.number="config.ab_haste_stop">
+                                </div>
+                            </template>
+                            <template v-if="config.spec == specs.SPEC_FIRE">
+                                <div class="form-item">
+                                    <label>Main spell</label>
+                                    <select v-model="config.fire_rotation">
+                                        <option :value="fire_rotations.FIRE_ROTATION_FB">Fireball</option>
+                                        <option :value="fire_rotations.FIRE_ROTATION_SC">Scorch</option>
+                                    </select>
+                                </div>
+                                <div class="form-item">
+                                    <label><input type="checkbox" v-model="config.fire_blast_weave"> <span>Fire Blast weave</span></label>
                                 </div>
                             </template>
                             <div class="form-item">
@@ -1215,6 +1227,9 @@
                 regen_ab_count: 3,
                 regen_rotation: 0,
                 ab_haste_stop: 0,
+
+                fire_rotation: 0,
+                fire_blast_weave: false,
 
                 mana_tide_at: 20,
                 innervate_at: 0,

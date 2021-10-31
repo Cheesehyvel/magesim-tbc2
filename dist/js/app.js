@@ -105,11 +105,15 @@ __webpack_require__.r(__webpack_exports__);
     SPEC_FROST: 2
   },
   regen_rotations: {
-    ROTATION_FB: 0,
-    ROTATION_AMFB: 1,
-    ROTATION_SC: 2,
-    ROTATION_SCFB: 3,
-    ROTATION_AMSC: 4
+    REGEN_ROTATION_FB: 0,
+    REGEN_ROTATION_AMFB: 1,
+    REGEN_ROTATION_SC: 2,
+    REGEN_ROTATION_SCFB: 3,
+    REGEN_ROTATION_AMSC: 4
+  },
+  fire_rotations: {
+    FIRE_ROTATION_FB: 0,
+    FIRE_ROTATION_SC: 1
   },
   foods: {
     FOOD_NONE: 0,
@@ -5194,6 +5198,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5281,6 +5297,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       regen_ab_count: 3,
       regen_rotation: 0,
       ab_haste_stop: 0,
+      fire_rotation: 0,
+      fire_blast_weave: false,
       mana_tide_at: 20,
       innervate_at: 0,
       bloodlust_at: 1,
@@ -65230,7 +65248,8 @@ var render = function() {
                                   "option",
                                   {
                                     domProps: {
-                                      value: _vm.regen_rotations.ROTATION_FB
+                                      value:
+                                        _vm.regen_rotations.REGEN_ROTATION_FB
                                     }
                                   },
                                   [_vm._v("3xFrB")]
@@ -65240,7 +65259,8 @@ var render = function() {
                                   "option",
                                   {
                                     domProps: {
-                                      value: _vm.regen_rotations.ROTATION_AMFB
+                                      value:
+                                        _vm.regen_rotations.REGEN_ROTATION_AMFB
                                     }
                                   },
                                   [_vm._v("1xAM, 1xFrB")]
@@ -65250,7 +65270,8 @@ var render = function() {
                                   "option",
                                   {
                                     domProps: {
-                                      value: _vm.regen_rotations.ROTATION_AMSC
+                                      value:
+                                        _vm.regen_rotations.REGEN_ROTATION_AMSC
                                     }
                                   },
                                   [_vm._v("1xAM, 1xScorch")]
@@ -65260,7 +65281,8 @@ var render = function() {
                                   "option",
                                   {
                                     domProps: {
-                                      value: _vm.regen_rotations.ROTATION_SC
+                                      value:
+                                        _vm.regen_rotations.REGEN_ROTATION_SC
                                     }
                                   },
                                   [_vm._v("5xScorch")]
@@ -65270,7 +65292,8 @@ var render = function() {
                                   "option",
                                   {
                                     domProps: {
-                                      value: _vm.regen_rotations.ROTATION_SCFB
+                                      value:
+                                        _vm.regen_rotations.REGEN_ROTATION_SCFB
                                     }
                                   },
                                   [_vm._v("1xScorch, 2xFiB")]
@@ -65465,6 +65488,131 @@ var render = function() {
                                 }
                               }
                             })
+                          ])
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.config.spec == _vm.specs.SPEC_FIRE
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c("label", [_vm._v("Main spell")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.config.fire_rotation,
+                                    expression: "config.fire_rotation"
+                                  }
+                                ],
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.config,
+                                      "fire_rotation",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    domProps: {
+                                      value: _vm.fire_rotations.FIRE_ROTATION_FB
+                                    }
+                                  },
+                                  [_vm._v("Fireball")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  {
+                                    domProps: {
+                                      value: _vm.fire_rotations.FIRE_ROTATION_SC
+                                    }
+                                  },
+                                  [_vm._v("Scorch")]
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-item" }, [
+                            _c("label", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.config.fire_blast_weave,
+                                    expression: "config.fire_blast_weave"
+                                  }
+                                ],
+                                attrs: { type: "checkbox" },
+                                domProps: {
+                                  checked: Array.isArray(
+                                    _vm.config.fire_blast_weave
+                                  )
+                                    ? _vm._i(
+                                        _vm.config.fire_blast_weave,
+                                        null
+                                      ) > -1
+                                    : _vm.config.fire_blast_weave
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.config.fire_blast_weave,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.config,
+                                            "fire_blast_weave",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.config,
+                                            "fire_blast_weave",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(
+                                        _vm.config,
+                                        "fire_blast_weave",
+                                        $$c
+                                      )
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", [_vm._v("Fire Blast weave")])
+                            ])
                           ])
                         ]
                       : _vm._e(),

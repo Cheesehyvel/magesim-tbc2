@@ -505,6 +505,9 @@ public:
         if (spell->actual_cost > 0 && state->hasBuff(buff::PENDANT_VIOLET_EYE))
             onBuffGain(make_shared<buff::Enlightenment>());
 
+        if (spell->id == spell::FIRE_BLAST)
+            onCooldownGain(make_shared<cooldown::FireBlast>(player->talents.imp_fire_blast));
+
         // 5% proc rate
         if (config->meta_gem == META_INSIGHTFUL_EARTHSTORM && random<int>(0, 19) == 0 && !state->hasCooldown(cooldown::INSIGHTFUL_EARTHSTORM)) {
             onCooldownGain(make_shared<cooldown::InsightfulEarthstorm>());
@@ -1069,7 +1072,7 @@ public:
             if (state->regen_active) {
                 bool is_done = false;
 
-                if (config->regen_rotation == ROTATION_FB) {
+                if (config->regen_rotation == REGEN_ROTATION_FB) {
                     if (state->regen_cycle == 3 && !willDropArcaneBlast())
                         state->regen_cycle--;
                     if (state->regen_cycle < 3)
@@ -1077,7 +1080,7 @@ public:
                     else if (state->regen_cycle == config->regen_ab_count + 2)
                         is_done = true;
                 }
-                else if (config->regen_rotation == ROTATION_AMFB) {
+                else if (config->regen_rotation == REGEN_ROTATION_AMFB) {
                     if (state->regen_cycle == 2 && !willDropArcaneBlast())
                         state->regen_cycle--;
                     if (state->regen_cycle == 0)
@@ -1087,7 +1090,7 @@ public:
                     else if (state->regen_cycle == config->regen_ab_count + 1)
                         is_done = true;
                 }
-                else if (config->regen_rotation == ROTATION_SC) {
+                else if (config->regen_rotation == REGEN_ROTATION_SC) {
                     if (state->regen_cycle == 5 && !willDropArcaneBlast())
                         state->regen_cycle--;
                     if (state->regen_cycle < 5)
@@ -1095,7 +1098,7 @@ public:
                     else if (state->regen_cycle == config->regen_ab_count + 4)
                         is_done = true;
                 }
-                else if (config->regen_rotation == ROTATION_SCFB) {
+                else if (config->regen_rotation == REGEN_ROTATION_SCFB) {
                     if (state->regen_cycle == 3 && !willDropArcaneBlast())
                         state->regen_cycle--;
                     if (state->regen_cycle == 0)
@@ -1105,7 +1108,7 @@ public:
                     else if (state->regen_cycle == config->regen_ab_count + 2)
                         is_done = true;
                 }
-                else if (config->regen_rotation == ROTATION_AMSC) {
+                else if (config->regen_rotation == REGEN_ROTATION_AMSC) {
                     if (state->regen_cycle == 2 && !willDropArcaneBlast())
                         state->regen_cycle--;
                     if (state->regen_cycle == 0)
@@ -1139,6 +1142,8 @@ public:
 
             if (shouldScorch())
                 next = make_shared<spell::Scorch>();
+            else if (config->fire_blast_weave && !state->hasCooldown(cooldown::FIRE_BLAST))
+                next = make_shared<spell::FireBlast>();
         }
 
         if (next == NULL)
@@ -1156,6 +1161,8 @@ public:
     {
         if (player->spec == SPEC_ARCANE)
             return make_shared<spell::ArcaneBlast>();
+        if (player->spec == SPEC_FIRE && config->fire_rotation == FIRE_ROTATION_SC)
+            return make_shared<spell::Scorch>();
         if (player->spec == SPEC_FIRE)
             return make_shared<spell::Fireball>();
         if (player->spec == SPEC_FROST)

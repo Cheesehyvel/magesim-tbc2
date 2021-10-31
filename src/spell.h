@@ -8,6 +8,7 @@ namespace spell
         FROSTBOLT = 27072,
         FIREBALL = 27070,
         SCORCH = 27074,
+        FIRE_BLAST = 27079,
         PYROBLAST = 33938,
         LIGHTNING_CAPACITOR = 28785,
     };
@@ -137,6 +138,24 @@ namespace spell
             min_dmg = 305;
             max_dmg = 361;
             cast_time = 1.5;
+            coeff = 1.5/3.5;
+            school = SCHOOL_FIRE;
+        }
+
+    };
+
+    class FireBlast : public Spell
+    {
+
+    public:
+        FireBlast()
+        {
+            id = FIRE_BLAST;
+            name = "Fire Blast";
+            cost = 465;
+            min_dmg = 664;
+            max_dmg = 786;
+            cast_time = 0;
             coeff = 1.5/3.5;
             school = SCHOOL_FIRE;
         }

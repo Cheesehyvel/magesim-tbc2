@@ -34,11 +34,16 @@ SimulationsResult runSimulations(std::shared_ptr<Config> config, std::shared_ptr
 EMSCRIPTEN_BINDINGS(my_module) {
 
     emscripten::enum_<RegenRotation>("RegenRotation")
-        .value("ROTATION_FB", ROTATION_FB)
-        .value("ROTATION_AMFB", ROTATION_AMFB)
-        .value("ROTATION_SC", ROTATION_SC)
-        .value("ROTATION_SCFB", ROTATION_SCFB)
-        .value("ROTATION_AMSC", ROTATION_AMSC)
+        .value("REGEN_ROTATION_FB", REGEN_ROTATION_FB)
+        .value("REGEN_ROTATION_AMFB", REGEN_ROTATION_AMFB)
+        .value("REGEN_ROTATION_SC", REGEN_ROTATION_SC)
+        .value("REGEN_ROTATION_SCFB", REGEN_ROTATION_SCFB)
+        .value("REGEN_ROTATION_AMSC", REGEN_ROTATION_AMSC)
+        ;
+
+    emscripten::enum_<FireRotation>("FireRotation")
+        .value("FIRE_ROTATION_FB", FIRE_ROTATION_FB)
+        .value("FIRE_ROTATION_SC", FIRE_ROTATION_SC)
         ;
 
     emscripten::enum_<Spec>("Spec")
@@ -227,6 +232,9 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("regen_ab_count", &Config::regen_ab_count)
         .property("regen_rotation", &Config::regen_rotation)
         .property("ab_haste_stop", &Config::ab_haste_stop)
+
+        .property("fire_rotation", &Config::fire_rotation)
+        .property("fire_blast_weave", &Config::fire_blast_weave)
 
         .property("mana_tide_at", &Config::mana_tide_at)
         .property("innervate_at", &Config::innervate_at)
