@@ -1469,7 +1469,7 @@ public:
                 multi+= 0.2;
         }
 
-        if(state->hasBuff(buff::BURST_OF_KNOWLEDGE)) {
+        if (state->hasBuff(buff::BURST_OF_KNOWLEDGE)) {
             discount+= 100;
         }
 
@@ -1968,13 +1968,21 @@ public:
         if (state->hasCooldown(cooldown::POTION) || state->hasBuff(buff::INNERVATE))
             return false;
 
-        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured_at == 0)
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured == CONJURED_MANA_GEM && config->conjured_at == 0)
             return false;
 
         double max = 3000;
 
         if (state->hasBuff(buff::MANA_TIDE))
             max+= player->maxMana() * 0.06;
+
+        // If gem is configured to be used within 15 sec, count with the mana gain to avoid overcapping
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured == CONJURED_MANA_GEM && config->conjured_at != 0 && config->conjured_at > state->t-10 && config->conjured_at - state->t < 15) {
+            double gem = 2460;
+            if (hasTrinket(TRINKET_SERPENT_COIL))
+                gem*= 1.25;
+            max+= gem;
+        }
 
         return player->maxMana() - state->mana >= max;
     }
