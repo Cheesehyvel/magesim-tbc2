@@ -974,6 +974,7 @@ table.simple th:last-child, table.simple td:last-child {
 #app .log .close,
 #app .config .close,
 #app .histog .close,
+#app .managr .close,
 #app .lightbox .close {
   position: absolute;
   top: 0;
@@ -1091,6 +1092,7 @@ table.simple th:last-child, table.simple td:last-child {
 #app .log table tr.type-6 td:nth-child(4) {
   color: #b88;
 }
+#app .managr,
 #app .histog {
   position: absolute;
   left: 0;

@@ -466,6 +466,7 @@ table {
     .log,
     .config,
     .histog,
+    .managr,
     .lightbox {
         .close {
             position: absolute;
@@ -609,6 +610,7 @@ table {
         }
     }
 
+    .managr,
     .histog {
         position: absolute;
         left: 0;

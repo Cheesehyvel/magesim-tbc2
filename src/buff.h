@@ -9,6 +9,7 @@ namespace buff
         PRESENCE_OF_MIND = 12043,
         ICY_VEINS = 12472,
         COMBUSTION = 29977,
+        EVOCATION = 12051,
         BLOODLUST = 2825,
         POWER_INFUSION = 10060,
         SYMBOL_OF_HOPE = 32548,
@@ -155,6 +156,19 @@ namespace buff
             name = "Combustion";
             duration = 2000;
             max_stacks = 20;
+        }
+
+    };
+
+    class Evocation : public Buff
+    {
+
+    public:
+        Evocation()
+        {
+            id = EVOCATION;
+            name = "Evocation";
+            duration = 8;
         }
 
     };

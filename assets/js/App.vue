@@ -130,6 +130,7 @@
                         <div class="faded" v-if="result.evocated_at > 0">Evocated at: {{ $round(result.evocated_at, 1) }}</div>
                         <div class="faded" v-if="result.regened_at > 0">Filler at: {{ $round(result.regened_at, 1) }}</div>
                         <div class="btn mt-1" v-if="result.log" @click="logToggle">Combat log</div>
+                        <div class="btn mt-1" v-if="result.log" @click="managraphToggle">Mana graph</div>
                     </template>
                     <template v-if="!isMetaGemActive()">
                         <div class="meta-warning mt-2">
@@ -402,6 +403,15 @@
                         </table>
                     </div>
                     <div class="close" @click="logToggle">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
+                </div>
+
+                <div class="managr" v-if="managraph_open">
+                    <managraph ref="managraph" :log="result.log"></managraph>
+                    <div class="close" @click="managraphToggle">
                         <span class="material-icons">
                             &#xe5cd;
                         </span>
@@ -1339,6 +1349,7 @@
                 is_running: false,
                 config_open: false,
                 log_open: false,
+                managraph_open: false,
                 histogram_open: false,
                 item_source: "wowhead",
                 phase_filter: 0,
@@ -1533,6 +1544,7 @@
                     console.error(error);
                 });
 
+                this.managraph_open = false;
                 this.log_open = false;
                 this.prepare();
                 this.is_running = true;
@@ -2913,6 +2925,7 @@
             },
 
             configToggle() {
+                this.managraph_open = false;
                 this.histogram_open = false;
                 this.log_open = false;
                 this.config_open = !this.config_open;
@@ -2923,6 +2936,7 @@
             },
 
             logToggle() {
+                this.managraph_open = false;
                 this.histogram_open = false;
                 this.config_open = false;
                 this.log_open = !this.log_open;
@@ -2931,7 +2945,15 @@
             histogramToggle() {
                 this.log_open = false;
                 this.config_open = false;
+                this.managraph_open = false;
                 this.histogram_open = !this.histogram_open;
+            },
+
+            managraphToggle() {
+                this.log_open = false;
+                this.config_open = false;
+                this.histogram_open = false;
+                this.managraph_open = !this.managraph_open;
             },
 
             allResults() {

@@ -11,6 +11,7 @@ var map = {
 	"./CheckItem.vue": "./assets/js/components/CheckItem.vue",
 	"./Help.vue": "./assets/js/components/Help.vue",
 	"./Histogram.vue": "./assets/js/components/Histogram.vue",
+	"./Managraph.vue": "./assets/js/components/Managraph.vue",
 	"./SortLink.vue": "./assets/js/components/SortLink.vue",
 	"./Tooltip.vue": "./assets/js/components/Tooltip.vue"
 };
@@ -5210,6 +5211,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5403,6 +5414,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       is_running: false,
       config_open: false,
       log_open: false,
+      managraph_open: false,
       histogram_open: false,
       item_source: "wowhead",
       phase_filter: 0,
@@ -5580,6 +5592,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         self.is_running = false;
         console.error(error);
       });
+      this.managraph_open = false;
       this.log_open = false;
       this.prepare();
       this.is_running = true;
@@ -6805,6 +6818,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.log_filter[log.type];
     },
     configToggle: function configToggle() {
+      this.managraph_open = false;
       this.histogram_open = false;
       this.log_open = false;
       this.config_open = !this.config_open;
@@ -6815,6 +6829,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     logToggle: function logToggle() {
+      this.managraph_open = false;
       this.histogram_open = false;
       this.config_open = false;
       this.log_open = !this.log_open;
@@ -6822,7 +6837,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     histogramToggle: function histogramToggle() {
       this.log_open = false;
       this.config_open = false;
+      this.managraph_open = false;
       this.histogram_open = !this.histogram_open;
+    },
+    managraphToggle: function managraphToggle() {
+      this.log_open = false;
+      this.config_open = false;
+      this.histogram_open = false;
+      this.managraph_open = !this.managraph_open;
     },
     allResults: function allResults() {
       var a = document.createElement("a");
@@ -7087,7 +7109,6 @@ __webpack_require__.r(__webpack_exports__);
     draw: function draw() {
       var bin_size = 20;
       var data = {
-        labels: [],
         datasets: [{
           data: [],
           backgroundColor: "#08f",
@@ -7148,6 +7169,139 @@ __webpack_require__.r(__webpack_exports__);
             ticks: {
               maxTicksLimit: 20,
               beginAtZero: true
+            }
+          }]
+        }
+      };
+      this.renderChart(data, options);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__.Line],
+  mounted: function mounted() {
+    this.draw();
+  },
+  watch: {
+    log: function log() {
+      this.draw();
+    }
+  },
+  props: ['log'],
+  methods: {
+    draw: function draw() {
+      var data = {
+        datasets: [{
+          data: [],
+          borderColor: "#08f",
+          pointRadius: 0,
+          label: "Mana"
+        }]
+      };
+
+      var last = _.last(this.log); // Mana
+
+
+      for (var i = 0; i < this.log.length; i++) {
+        data.datasets[0].data.push({
+          x: this.log[i].t,
+          y: this.log[i].mana_percent
+        });
+      } // CDs
+
+
+      var cds = [{
+        title: "Arcane Power",
+        color: "#d3f"
+      }, {
+        title: "Icy Veins",
+        color: "#6df"
+      }, {
+        title: "Bloodlust",
+        color: "#d55"
+      }, {
+        title: "Drums of Battle",
+        color: "#993"
+      }, {
+        title: "Drums of War",
+        color: "#993"
+      }, {
+        title: "Drums of Restoration",
+        color: "#993"
+      }, {
+        title: "Evocation",
+        color: "#6d6"
+      }];
+      var delta = 0;
+
+      for (var i = 0; i < cds.length; i++) {
+        var start = _.find(this.log, {
+          text: "Gained " + cds[i].title
+        });
+
+        if (start) {
+          var end = _.find(this.log, {
+            text: "Lost " + cds[i].title
+          });
+
+          data.datasets.push({
+            data: [{
+              x: start.t,
+              y: delta
+            }, {
+              x: end ? end.t : last.t,
+              y: delta++
+            }],
+            borderColor: cds[i].color,
+            pointRadius: 0,
+            label: cds[i].title,
+            fill: false
+          });
+        }
+      }
+
+      var options = {
+        legend: {
+          display: true
+        },
+        tooltips: {
+          enabled: false
+        },
+        scales: {
+          xAxes: [{
+            type: "linear",
+            scaleLabel: {
+              enabled: true,
+              labelString: "Time (s)"
+            }
+          }],
+          yAxes: [{
+            type: "linear",
+            scaleLabel: {
+              enabled: true,
+              labelString: "Mana (%)"
             }
           }]
         }
@@ -63336,6 +63490,45 @@ component.options.__file = "assets/js/components/Histogram.vue"
 
 /***/ }),
 
+/***/ "./assets/js/components/Managraph.vue":
+/*!********************************************!*\
+  !*** ./assets/js/components/Managraph.vue ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Managraph.vue?vue&type=template&id=43a58316& */ "./assets/js/components/Managraph.vue?vue&type=template&id=43a58316&");
+/* harmony import */ var _Managraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Managraph.vue?vue&type=script&lang=js& */ "./assets/js/components/Managraph.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Managraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/js/components/Managraph.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./assets/js/components/SortLink.vue":
 /*!*******************************************!*\
   !*** ./assets/js/components/SortLink.vue ***!
@@ -63478,6 +63671,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/components/Managraph.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./assets/js/components/Managraph.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Managraph.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./assets/js/components/SortLink.vue?vue&type=script&lang=js&":
 /*!********************************************************************!*\
   !*** ./assets/js/components/SortLink.vue?vue&type=script&lang=js& ***!
@@ -63574,6 +63783,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Histogram_vue_vue_type_template_id_77fcae93___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Histogram_vue_vue_type_template_id_77fcae93___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Histogram.vue?vue&type=template&id=77fcae93& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Histogram.vue?vue&type=template&id=77fcae93&");
+
+
+/***/ }),
+
+/***/ "./assets/js/components/Managraph.vue?vue&type=template&id=43a58316&":
+/*!***************************************************************************!*\
+  !*** ./assets/js/components/Managraph.vue?vue&type=template&id=43a58316& ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Managraph.vue?vue&type=template&id=43a58316& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=template&id=43a58316&");
 
 
 /***/ }),
@@ -64017,6 +64243,17 @@ var render = function() {
                               on: { click: _vm.logToggle }
                             },
                             [_vm._v("Combat log")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.result.log
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "btn mt-1",
+                              on: { click: _vm.managraphToggle }
+                            },
+                            [_vm._v("Mana graph")]
                           )
                         : _vm._e()
                     ],
@@ -65019,6 +65256,32 @@ var render = function() {
                 ]
               )
             ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.managraph_open
+          ? _c(
+              "div",
+              { staticClass: "managr" },
+              [
+                _c("managraph", {
+                  ref: "managraph",
+                  attrs: { log: _vm.result.log }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "close", on: { click: _vm.managraphToggle } },
+                  [
+                    _c("span", { staticClass: "material-icons" }, [
+                      _vm._v(
+                        "\n                        \n                    "
+                      )
+                    ])
+                  ]
+                )
+              ],
+              1
+            )
           : _vm._e(),
         _vm._v(" "),
         _vm.histogram_open
@@ -71075,6 +71338,33 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "histogram" }, [
+    _c("canvas", { ref: "canvas" })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=template&id=43a58316&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=template&id=43a58316& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "managraph" }, [
     _c("canvas", { ref: "canvas" })
   ])
 }

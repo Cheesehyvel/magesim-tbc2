@@ -1830,6 +1830,7 @@ public:
         state->regen_cycle = 0;
         state->regen_active = false;
         onCooldownGain(make_shared<cooldown::Evocation>());
+        onBuffGain(make_shared<buff::Evocation>());
 
         for (double i=1; i<=ticks; i++)
             pushManaGain(i * haste * 2.0, player->maxMana()*0.15, "Evocation");
@@ -1882,7 +1883,7 @@ public:
         if (config->innervate_at && state->innervates == config->innervate)
             return false;
 
-        if (manaPercent() < 70.0 && state->hasCooldown(cooldown::POTION) && state->hasCooldown(cooldown::CONJURED))
+        if (manaPercent() < 40.0 && state->hasBuff(buff::ARCANE_POWER))
             return true;
 
         if (manaPercent() < 30.0)
