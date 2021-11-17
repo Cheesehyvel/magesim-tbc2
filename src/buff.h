@@ -164,11 +164,11 @@ namespace buff
     {
 
     public:
-        Evocation()
+        Evocation(double haste = 1)
         {
             id = EVOCATION;
             name = "Evocation";
-            duration = 8;
+            duration = 8 * haste;
         }
 
     };

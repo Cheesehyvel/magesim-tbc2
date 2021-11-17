@@ -1830,7 +1830,7 @@ public:
         state->regen_cycle = 0;
         state->regen_active = false;
         onCooldownGain(make_shared<cooldown::Evocation>());
-        onBuffGain(make_shared<buff::Evocation>());
+        onBuffGain(make_shared<buff::Evocation>(castHaste()));
 
         for (double i=1; i<=ticks; i++)
             pushManaGain(i * haste * 2.0, player->maxMana()*0.15, "Evocation");
