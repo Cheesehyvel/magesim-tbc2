@@ -6322,11 +6322,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return gems;
     },
     defaultGem: function defaultGem(color) {
-      if (color == "m") {
-        if (this.phase_filter && this.phase_filter < 4) return this.items.ids.INSIGHTFUL_EARTHSTORM;
-        return this.items.ids.CHAOTIC_SKYFIRE;
-      }
-
+      if (color == "m") return this.items.ids.CHAOTIC_SKYFIRE;
       if (this.config.spec == this.specs.SPEC_ARCANE) return this.items.ids.BRILLIANT_DAWNSTONE;
       return this.items.ids.RUNED_LIVING_RUBY;
     },

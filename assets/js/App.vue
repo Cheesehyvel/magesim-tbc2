@@ -2354,11 +2354,8 @@
             },
 
             defaultGem(color) {
-                if (color == "m") {
-                    if (this.phase_filter && this.phase_filter < 4)
-                        return this.items.ids.INSIGHTFUL_EARTHSTORM;
+                if (color == "m")
                     return this.items.ids.CHAOTIC_SKYFIRE;
-                }
 
                 if (this.config.spec == this.specs.SPEC_ARCANE)
                     return this.items.ids.BRILLIANT_DAWNSTONE;
