@@ -27,6 +27,7 @@
                 var bin_size = 20;
 
                 var data = {
+                    labels: [],
                     datasets: [{
                         data: [],
                         backgroundColor: "#08f",
