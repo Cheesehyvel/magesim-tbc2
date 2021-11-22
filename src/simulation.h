@@ -1620,11 +1620,11 @@ public:
         double base = 1.5;
         double talents = 1;
 
-        if (spell->proc)
-            return base;
-
         if (config->meta_gem == META_CHAOTIC_SKYFIRE)
             base*= 1.03;
+
+        if (spell->proc)
+            return base;
 
         if (player->talents.spell_power)
             talents+= player->talents.spell_power*0.25;
