@@ -643,6 +643,9 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.moonkin_aura"> <span>Moonkin Aura</span></label>
                             </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.imp_sanctity"> <span>Imp. Sanctity Aura</span></label>
+                            </div>
                             <div class="form-item" v-if="faction == 'alliance'">
                                 <label><input type="checkbox" v-model="config.inspiring_presence"> <span>Inspiring Presence (Draenei hit aura)</span></label>
                             </div>
@@ -672,6 +675,10 @@
                                     <span>Jade Pendant of Blasting</span>
                                     <help>This is a party-wide buff from a JC necklace (15 sp)</help>
                                 </label>
+                            </div>
+                            <div class="form-item">
+                                <label>Ferocious Inspirations</label>
+                                <input type="text" v-model.number="config.ferocious_inspiration">
                             </div>
                         </fieldset>
                         <fieldset>
@@ -1192,6 +1199,8 @@
                 fire_vulnerability: false,
                 maintain_fire_vulnerability: false,
                 winters_chill: false,
+                imp_sanctity: false,
+                ferocious_inspiration: 0,
 
                 food: 0,
                 flask: 0,

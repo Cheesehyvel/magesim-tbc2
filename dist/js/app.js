@@ -5221,6 +5221,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5267,6 +5274,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       fire_vulnerability: false,
       maintain_fire_vulnerability: false,
       winters_chill: false,
+      imp_sanctity: false,
+      ferocious_inspiration: 0,
       food: 0,
       flask: 0,
       battle_elixir: 0,
@@ -67548,6 +67557,57 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.imp_sanctity,
+                            expression: "config.imp_sanctity"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.config.imp_sanctity)
+                            ? _vm._i(_vm.config.imp_sanctity, null) > -1
+                            : _vm.config.imp_sanctity
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.config.imp_sanctity,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "imp_sanctity",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.config,
+                                    "imp_sanctity",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.config, "imp_sanctity", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Imp. Sanctity Aura")])
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _vm.faction == "alliance"
                     ? _c("div", { staticClass: "form-item" }, [
                         _c("label", [
@@ -67947,6 +68007,39 @@ var render = function() {
                       ],
                       1
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
+                    _c("label", [_vm._v("Ferocious Inspirations")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.config.ferocious_inspiration,
+                          expression: "config.ferocious_inspiration",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.config.ferocious_inspiration },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.config,
+                            "ferocious_inspiration",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
                   ])
                 ]),
                 _vm._v(" "),

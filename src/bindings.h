@@ -186,6 +186,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("fire_vulnerability", &Config::fire_vulnerability)
         .property("maintain_fire_vulnerability", &Config::maintain_fire_vulnerability)
         .property("winters_chill", &Config::winters_chill)
+        .property("imp_sanctity", &Config::imp_sanctity)
+        .property("ferocious_inspiration", &Config::ferocious_inspiration)
         .property("drums_friend", &Config::drums_friend)
         .property("atiesh_mage", &Config::atiesh_mage)
         .property("atiesh_warlock", &Config::atiesh_warlock)
