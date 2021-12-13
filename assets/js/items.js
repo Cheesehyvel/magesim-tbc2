@@ -162,6 +162,7 @@ var equip = {
         { id: 30015, title: "The Sun King's Talisman", int: 16, sp: 41, crit: 24, phase: 2 },
         { id: 32589, title: "Hellfire-Encased Pendant", int: 17, spi: 12, sp_fire: 51, crit: 24, phase: 3 },
         { id: 33920, title: "Vindicator's Pendant of Conquest", int: 15, sp: 25, crit: 21, sockets: ["y"], phase: 3 },
+        { id: 35319, title: "Vindicator's Pendant of Subjugation", int: 15, sp: 25, haste: 21, sockets: ["y"], phase: 3 },
         { id: 28762, title: "Adornment of Stolen Souls", int: 20, sp: 28, crit: 23 },
         { id: 33067, title: "Veteran's Pendant of Conquest", int: 12, sp: 21, crit: 18, sockets: ["y"], phase: 2 },
         { id: 28530, title: "Brooch of Unquenchable Fury", int: 21, sp: 26, hit: 15 },
