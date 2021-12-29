@@ -1462,6 +1462,7 @@ public:
 
         double multi = 1;
         double discount = 0;
+        double cost;
 
         if (spell->id == spell::ARCANE_BLAST) {
             multi+= 0.75 * state->buffStacks(buff::ARCANE_BLAST);
@@ -1469,10 +1470,12 @@ public:
                 multi+= 0.2;
         }
 
-        if (state->hasBuff(buff::BURST_OF_KNOWLEDGE)) {
+        if (state->hasBuff(buff::BURST_OF_KNOWLEDGE))
             discount+= 100;
-        }
 
+        /*
+         * Additive multipliers
+         */
         if (spell->school == SCHOOL_FROST && player->talents.frost_channeling)
             multi-= player->talents.frost_channeling*0.05;
 
@@ -1482,13 +1485,21 @@ public:
         if (spell->id == spell::ARCANE_MISSILES && player->talents.empowered_arcane_missiles)
             multi+= player->talents.empowered_arcane_missiles * 0.02;
 
-        if (state->hasBuff(buff::POWER_INFUSION))
-            multi-= 0.2;
-
         if (state->hasBuff(buff::ARCANE_POWER))
             multi+= 0.3;
 
-        return round((spell->cost - discount) * multi);
+        cost = (spell->cost - discount) * multi;
+
+        /*
+         * Multiplicative multipliers
+         */
+        if ((spell->school == SCHOOL_FROST || spell->school == SCHOOL_FIRE) && player->talents.elemental_precision)
+            cost*= (1.0 - player->talents.elemental_precision*0.01);
+
+        if (state->hasBuff(buff::POWER_INFUSION))
+            cost*= 0.8;
+
+        return round(cost);
     }
 
     double gcd()
