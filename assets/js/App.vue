@@ -805,12 +805,21 @@
                                 <label>Combustion at</label>
                                 <input type="text" v-model.number="config.combustion_at">
                             </div>
-                            <div class="form-item">
-                                <label>
-                                    <span>Evocation at</span>
-                                    <help>Setting this to 0 will evocate when mana is low</help>
-                                </label>
-                                <input type="text" v-model.number="config.evocation_at">
+                            <div class="form-row">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Evocation at</span>
+                                        <help>Setting this to 0 will evocate when mana is low</help>
+                                    </label>
+                                    <input type="text" v-model.number="config.evocation_at">
+                                </div>
+                                <div class="form-item">
+                                    <label>
+                                        <span>Cancel after n ticks</span>
+                                        <help>Setting this to 0 will not cancel evocation.</help>
+                                    </label>
+                                    <input type="text" v-model.number="config.evo_ticks">
+                                </div>
                             </div>
                             <div class="form-item" v-if="config.race == races.RACE_TROLL">
                                 <label>Berserking at</label>
@@ -824,7 +833,7 @@
                                 <div class="form-item">
                                     <label>
                                         <span>Reuse at</span>
-                                        <help>Settings this to 0 will reuse potion on CD</help>
+                                        <help>Setting this to 0 will reuse potion on CD</help>
                                     </label>
                                     <input type="text" v-model.number="config.potion_reuse_at">
                                 </div>
@@ -1267,6 +1276,7 @@
                 presence_of_mind_at: 0,
                 drums_at: 1,
                 evocation_at: 0,
+                evo_ticks: 0,
                 potion_at: 1,
                 potion_reuse_at: 0,
                 conjured_at: 1,

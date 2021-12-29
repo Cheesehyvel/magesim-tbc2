@@ -224,6 +224,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("meta_gem", &Config::meta_gem)
 
         .property("innervate", &Config::innervate)
+        .property("evo_ticks", &Config::evo_ticks)
         .property("mana_tide", &Config::mana_tide)
         .property("bloodlust", &Config::bloodlust)
         .property("power_infusion", &Config::power_infusion)

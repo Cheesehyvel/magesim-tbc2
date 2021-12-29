@@ -5236,6 +5236,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5344,6 +5353,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       presence_of_mind_at: 0,
       drums_at: 1,
       evocation_at: 0,
+      evo_ticks: 0,
       potion_at: 1,
       potion_reuse_at: 0,
       conjured_at: 1,
@@ -69053,49 +69063,96 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c(
-                      "label",
-                      [
-                        _c("span", [_vm._v("Evocation at")]),
-                        _vm._v(" "),
-                        _c("help", [
-                          _vm._v(
-                            "Setting this to 0 will evocate when mana is low"
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.config.evocation_at,
-                          expression: "config.evocation_at",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.evocation_at },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                  _c("div", { staticClass: "form-row" }, [
+                    _c("div", { staticClass: "form-item" }, [
+                      _c(
+                        "label",
+                        [
+                          _c("span", [_vm._v("Evocation at")]),
+                          _vm._v(" "),
+                          _c("help", [
+                            _vm._v(
+                              "Setting this to 0 will evocate when mana is low"
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.number",
+                            value: _vm.config.evocation_at,
+                            expression: "config.evocation_at",
+                            modifiers: { number: true }
                           }
-                          _vm.$set(
-                            _vm.config,
-                            "evocation_at",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
+                        ],
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.config.evocation_at },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.config,
+                              "evocation_at",
+                              _vm._n($event.target.value)
+                            )
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
+                          }
                         }
-                      }
-                    })
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c(
+                        "label",
+                        [
+                          _c("span", [_vm._v("Cancel after n ticks")]),
+                          _vm._v(" "),
+                          _c("help", [
+                            _vm._v(
+                              "Setting this to 0 will not cancel evocation."
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.number",
+                            value: _vm.config.evo_ticks,
+                            expression: "config.evo_ticks",
+                            modifiers: { number: true }
+                          }
+                        ],
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.config.evo_ticks },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.config,
+                              "evo_ticks",
+                              _vm._n($event.target.value)
+                            )
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
+                          }
+                        }
+                      })
+                    ])
                   ]),
                   _vm._v(" "),
                   _vm.config.race == _vm.races.RACE_TROLL
@@ -69178,7 +69235,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("help", [
                                 _vm._v(
-                                  "Settings this to 0 will reuse potion on CD"
+                                  "Setting this to 0 will reuse potion on CD"
                                 )
                               ])
                             ],

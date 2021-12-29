@@ -1832,17 +1832,20 @@ public:
         if (config->tempest_2set)
             ticks++;
 
+        if (config->evo_ticks > 0 && config->evo_ticks < ticks)
+            ticks = config->evo_ticks;
+
         state->regen_cycle = 0;
         state->regen_active = false;
         onCooldownGain(make_shared<cooldown::Evocation>());
-        onBuffGain(make_shared<buff::Evocation>(castHaste()));
+        onBuffGain(make_shared<buff::Evocation>(castHaste(), ticks));
 
         for (double i=1; i<=ticks; i++)
             pushManaGain(i * haste * 2.0, player->maxMana()*0.15, "Evocation");
 
         shared_ptr<Event> event(new Event());
         event->type = EVENT_CAST;
-        event->t = ticks * 2 * haste;
+        event->t = ticks * 2.0 * haste;
         event->spell = defaultSpell();
         push(event);
 

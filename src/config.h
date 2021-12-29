@@ -71,6 +71,7 @@ struct Config
     MetaGem meta_gem = META_NONE;
 
     int innervate = 0;
+    int evo_ticks = 0;
     bool mana_tide = true;
     bool bloodlust = true;
     bool power_infusion = false;
