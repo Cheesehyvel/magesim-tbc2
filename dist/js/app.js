@@ -69458,7 +69458,7 @@ var render = function() {
                     _vm.config.potion &&
                     _vm.config.potion != _vm.potions.POTION_MANA &&
                     _vm.config.potion != _vm.potions.POTION_FEL_MANA
-                      ? _c("div", { staticClass: "form-row" }, [
+                      ? [
                           _c("div", { staticClass: "form-item" }, [
                             _c(
                               "label",
@@ -69508,7 +69508,7 @@ var render = function() {
                             }),
                             0
                           )
-                        ])
+                        ]
                       : _vm._e(),
                     _vm._v(" "),
                     _vm.config.conjured

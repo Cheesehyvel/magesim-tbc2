@@ -863,7 +863,7 @@
                                     </div>
                                 </div>
                             </template>
-                            <div class="form-row" v-if="config.potion && config.potion != potions.POTION_MANA && config.potion != potions.POTION_FEL_MANA">
+                            <template v-if="config.potion && config.potion != potions.POTION_MANA && config.potion != potions.POTION_FEL_MANA">
                                 <div class="form-item">
                                     <label>
                                         <span>Potion timings</span>
@@ -875,7 +875,7 @@
                                         <input type="text" v-model.number="config.potion_t[i]">
                                     </div>
                                 </div>
-                            </div>
+                            </template>
                             <template v-if="config.conjured">
                                 <div class="form-item">
                                     <label>
