@@ -13,6 +13,7 @@ var map = {
 	"./Histogram.vue": "./assets/js/components/Histogram.vue",
 	"./Managraph.vue": "./assets/js/components/Managraph.vue",
 	"./SortLink.vue": "./assets/js/components/SortLink.vue",
+	"./TimingHelper.vue": "./assets/js/components/TimingHelper.vue",
 	"./Tooltip.vue": "./assets/js/components/Tooltip.vue"
 };
 
@@ -5245,6 +5246,117 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5336,28 +5448,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       ab_haste_stop: 0,
       fire_rotation: 0,
       fire_blast_weave: false,
-      mana_tide_at: 20,
-      innervate_at: 0,
-      bloodlust_at: 1,
-      power_infusion_at: 1,
+      trinket1_t: Array(4),
+      trinket2_t: Array(4),
+      arcane_power_t: Array(4),
+      presence_of_mind_t: Array(4),
+      icy_veins_t: Array(4),
+      cold_snap_t: Array(4),
+      combustion_t: Array(4),
+      berserking_t: Array(4),
+      mana_tide_t: Array(4),
+      bloodlust_t: Array(4),
+      power_infusion_t: Array(4),
+      drums_t: Array(4),
+      innervate_t: Array(4),
+      potion_t: Array(4),
+      conjured_t: Array(4),
       symbol_of_hope_at: 0,
-      icy_veins_at: 1,
-      cold_snap_at: 41,
-      combustion_at: 1,
-      trinket1_at: 1,
-      trinket1_reuse_at: 0,
-      trinket2_at: 21,
-      trinket2_reuse_at: 0,
-      berserking_at: 41,
-      arcane_power_at: 1,
-      presence_of_mind_at: 0,
-      drums_at: 1,
       evocation_at: 0,
       evo_ticks: 0,
-      potion_at: 1,
-      potion_reuse_at: 0,
-      conjured_at: 1,
-      conjured_reuse_at: 0,
       talents: "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001",
       stats: {
         intellect: 465,
@@ -6669,7 +6777,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (profile.config && (!only || only == "config")) {
         _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
 
-        this.config.talents = this.conformTalents(this.config.talents);
+        this.onLoadConfig(profile.config);
         this.profile_status.config = true;
       }
 
@@ -6989,8 +7097,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (config) {
           _.merge(this.config, _.pick(config, _.keys(this.config)));
 
-          this.config.talents = this.conformTalents(this.config.talents);
+          this.onLoadConfig(config);
         }
+      }
+    },
+    // Backwards compatibility
+    onLoadConfig: function onLoadConfig(cfg) {
+      this.config.talents = this.conformTalents(this.config.talents);
+      var timings = ["trinket1", "trinket2", "presence_of_mind", "arcane_power", "icy_veins", "cold_snap", "combustion", "berserking", "drums", "bloodlust", "mana_tide", "power_infusion", "innervate", "potion", "conjured"];
+      if (_.get(cfg, "innervate_at") === 0) delete cfg.innervate_at;
+      if (_.get(cfg, "conjured_at") === 0 && cfg.conjured == this.conjureds.CONJURED_MANA_GEM) delete cfg.conjured_at;
+      var from, to;
+
+      for (var i = 0; i < timings.length; i++) {
+        to = timings[i] + "_t";
+        from = timings[i] + "_at";
+        if (cfg.hasOwnProperty(from)) this.config[to][0] = cfg[from];
+        from = timings[i] + "_reuse_at";
+        if (cfg.hasOwnProperty(from)) this.config[to][1] = cfg[from];
       }
     },
     saveProfiles: function saveProfiles() {
@@ -7448,6 +7572,33 @@ __webpack_require__.r(__webpack_exports__);
       return order == "asc" ? "desc" : "asc";
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/TimingHelper.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/TimingHelper.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['nocd']
 });
 
 /***/ }),
@@ -63651,6 +63802,45 @@ component.options.__file = "assets/js/components/SortLink.vue"
 
 /***/ }),
 
+/***/ "./assets/js/components/TimingHelper.vue":
+/*!***********************************************!*\
+  !*** ./assets/js/components/TimingHelper.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _TimingHelper_vue_vue_type_template_id_616b8b39___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TimingHelper.vue?vue&type=template&id=616b8b39& */ "./assets/js/components/TimingHelper.vue?vue&type=template&id=616b8b39&");
+/* harmony import */ var _TimingHelper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TimingHelper.vue?vue&type=script&lang=js& */ "./assets/js/components/TimingHelper.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TimingHelper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TimingHelper_vue_vue_type_template_id_616b8b39___WEBPACK_IMPORTED_MODULE_0__.render,
+  _TimingHelper_vue_vue_type_template_id_616b8b39___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/js/components/TimingHelper.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./assets/js/components/Tooltip.vue":
 /*!******************************************!*\
   !*** ./assets/js/components/Tooltip.vue ***!
@@ -63786,6 +63976,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/js/components/TimingHelper.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./assets/js/components/TimingHelper.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TimingHelper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TimingHelper.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/TimingHelper.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TimingHelper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./assets/js/components/Tooltip.vue?vue&type=script&lang=js&":
 /*!*******************************************************************!*\
   !*** ./assets/js/components/Tooltip.vue?vue&type=script&lang=js& ***!
@@ -63900,6 +64106,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SortLink.vue?vue&type=template&id=e5d8144e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e&");
+
+
+/***/ }),
+
+/***/ "./assets/js/components/TimingHelper.vue?vue&type=template&id=616b8b39&":
+/*!******************************************************************************!*\
+  !*** ./assets/js/components/TimingHelper.vue?vue&type=template&id=616b8b39& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TimingHelper_vue_vue_type_template_id_616b8b39___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TimingHelper_vue_vue_type_template_id_616b8b39___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TimingHelper_vue_vue_type_template_id_616b8b39___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TimingHelper.vue?vue&type=template&id=616b8b39& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/TimingHelper.vue?vue&type=template&id=616b8b39&");
 
 
 /***/ }),
@@ -68885,1107 +69108,1102 @@ var render = function() {
                     : _vm._e()
                 ]),
                 _vm._v(" "),
-                _c("fieldset", [
-                  _c("legend", [_vm._v("Cooldowns")]),
-                  _vm._v(" "),
-                  _vm.hasTalent("presence_of_mind")
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Presence of Mind at")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.presence_of_mind_at,
-                              expression: "config.presence_of_mind_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.presence_of_mind_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "presence_of_mind_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.hasTalent("arcane_power")
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Arcane Power at")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.arcane_power_at,
-                              expression: "config.arcane_power_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.arcane_power_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "arcane_power_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.hasTalent("icy_veins")
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Icy Veins at")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.icy_veins_at,
-                              expression: "config.icy_veins_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.icy_veins_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "icy_veins_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.hasTalent("cold_snap")
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Cold Snap at")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.cold_snap_at,
-                              expression: "config.cold_snap_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.cold_snap_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "cold_snap_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.hasTalent("combustion")
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Combustion at")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.combustion_at,
-                              expression: "config.combustion_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.combustion_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "combustion_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-row" }, [
-                    _c("div", { staticClass: "form-item" }, [
-                      _c(
-                        "label",
-                        [
-                          _c("span", [_vm._v("Evocation at")]),
-                          _vm._v(" "),
-                          _c("help", [
-                            _vm._v(
-                              "Setting this to 0 will evocate when mana is low"
-                            )
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model.number",
-                            value: _vm.config.evocation_at,
-                            expression: "config.evocation_at",
-                            modifiers: { number: true }
-                          }
-                        ],
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.config.evocation_at },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.config,
-                              "evocation_at",
-                              _vm._n($event.target.value)
-                            )
-                          },
-                          blur: function($event) {
-                            return _vm.$forceUpdate()
-                          }
-                        }
-                      })
-                    ]),
+                _c(
+                  "fieldset",
+                  [
+                    _c("legend", [_vm._v("Cooldowns")]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-item" }, [
-                      _c(
-                        "label",
-                        [
-                          _c("span", [_vm._v("Cancel after n ticks")]),
-                          _vm._v(" "),
-                          _c("help", [
-                            _vm._v(
-                              "Setting this to 0 will not cancel evocation."
-                            )
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model.number",
-                            value: _vm.config.evo_ticks,
-                            expression: "config.evo_ticks",
-                            modifiers: { number: true }
-                          }
-                        ],
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.config.evo_ticks },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.config,
-                              "evo_ticks",
-                              _vm._n($event.target.value)
-                            )
-                          },
-                          blur: function($event) {
-                            return _vm.$forceUpdate()
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _vm.config.race == _vm.races.RACE_TROLL
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("Berserking at")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.berserking_at,
-                              expression: "config.berserking_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.berserking_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "berserking_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.config.potion &&
-                  _vm.config.potion != _vm.potions.POTION_MANA &&
-                  _vm.config.potion != _vm.potions.POTION_FEL_MANA
-                    ? _c("div", { staticClass: "form-row" }, [
-                        _c("div", { staticClass: "form-item" }, [
-                          _c("label", [_vm._v("Potion at")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.config.potion_at,
-                                expression: "config.potion_at",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.config.potion_at },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.config,
-                                  "potion_at",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                return _vm.$forceUpdate()
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-item" }, [
-                          _c(
-                            "label",
-                            [
-                              _c("span", [_vm._v("Reuse at")]),
-                              _vm._v(" "),
-                              _c("help", [
-                                _vm._v(
-                                  "Setting this to 0 will reuse potion on CD"
-                                )
-                              ])
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.config.potion_reuse_at,
-                                expression: "config.potion_reuse_at",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.config.potion_reuse_at },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.config,
-                                  "potion_reuse_at",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                return _vm.$forceUpdate()
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.config.conjured
-                    ? _c("div", { staticClass: "form-row" }, [
-                        _c("div", { staticClass: "form-item" }, [
-                          _c("label", [_vm._v("Conjured at")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.config.conjured_at,
-                                expression: "config.conjured_at",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.config.conjured_at },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.config,
-                                  "conjured_at",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                return _vm.$forceUpdate()
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-item" }, [
-                          _c(
-                            "label",
-                            [
-                              _c("span", [_vm._v("Reuse at")]),
-                              _vm._v(" "),
-                              _c("help", [
-                                _vm._v(
-                                  "Settings this to 0 will reuse conjured on CD"
-                                )
-                              ])
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.config.conjured_reuse_at,
-                                expression: "config.conjured_reuse_at",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.config.conjured_reuse_at },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.config,
-                                  "conjured_reuse_at",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                return _vm.$forceUpdate()
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.hasUseTrinket(1)
-                    ? _c("div", { staticClass: "form-row" }, [
-                        _c("div", { staticClass: "form-item" }, [
-                          _c("label", [_vm._v("Trinket #1 at")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.config.trinket1_at,
-                                expression: "config.trinket1_at",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.config.trinket1_at },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.config,
-                                  "trinket1_at",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                return _vm.$forceUpdate()
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-item" }, [
-                          _c(
-                            "label",
-                            [
-                              _c("span", [_vm._v("Reuse at")]),
-                              _vm._v(" "),
-                              _c("help", [
-                                _vm._v(
-                                  "Settings this to 0 will reuse trinket on CD"
-                                )
-                              ])
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.config.trinket1_reuse_at,
-                                expression: "config.trinket1_reuse_at",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.config.trinket1_reuse_at },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.config,
-                                  "trinket1_reuse_at",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                return _vm.$forceUpdate()
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.hasUseTrinket(2)
-                    ? _c("div", { staticClass: "form-row" }, [
-                        _c("div", { staticClass: "form-item" }, [
-                          _c("label", [_vm._v("Trinket #2 at")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.config.trinket2_at,
-                                expression: "config.trinket2_at",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.config.trinket2_at },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.config,
-                                  "trinket2_at",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                return _vm.$forceUpdate()
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-item" }, [
-                          _c(
-                            "label",
-                            [
-                              _c("span", [_vm._v("Reuse at")]),
-                              _vm._v(" "),
-                              _c("help", [
-                                _vm._v(
-                                  "Settings this to 0 will reuse trinket on CD"
-                                )
-                              ])
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model.number",
-                                value: _vm.config.trinket2_reuse_at,
-                                expression: "config.trinket2_reuse_at",
-                                modifiers: { number: true }
-                              }
-                            ],
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.config.trinket2_reuse_at },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.config,
-                                  "trinket2_reuse_at",
-                                  _vm._n($event.target.value)
-                                )
-                              },
-                              blur: function($event) {
-                                return _vm.$forceUpdate()
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.config.drums
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c("label", [_vm._v("First drums at")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.drums_at,
-                              expression: "config.drums_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.drums_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "drums_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.bloodlust,
-                            expression: "config.bloodlust"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.bloodlust)
-                            ? _vm._i(_vm.config.bloodlust, null) > -1
-                            : _vm.config.bloodlust
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.config.bloodlust,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "bloodlust",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "bloodlust",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.config, "bloodlust", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          _vm._v("Bloodlust "),
-                          _vm.config.bloodlust ? [_vm._v("at")] : _vm._e()
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _vm.config.bloodlust
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.bloodlust_at,
-                              expression: "config.bloodlust_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.bloodlust_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "bloodlust_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c(
-                      "label",
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.config.power_infusion,
-                              expression: "config.power_infusion"
-                            }
-                          ],
-                          attrs: { type: "checkbox" },
-                          domProps: {
-                            checked: Array.isArray(_vm.config.power_infusion)
-                              ? _vm._i(_vm.config.power_infusion, null) > -1
-                              : _vm.config.power_infusion
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.config.power_infusion,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = null,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.config,
-                                      "power_infusion",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.config,
-                                      "power_infusion",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(_vm.config, "power_infusion", $$c)
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          [
-                            _vm._v("Power Infusion "),
-                            _vm.config.power_infusion
-                              ? [_vm._v("at")]
-                              : _vm._e()
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c("help", [_vm._v("Does not stack with Arcane Power")])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm.config.power_infusion
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.power_infusion_at,
-                              expression: "config.power_infusion_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.power_infusion_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "power_infusion_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.config.mana_tide,
-                            expression: "config.mana_tide"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.config.mana_tide)
-                            ? _vm._i(_vm.config.mana_tide, null) > -1
-                            : _vm.config.mana_tide
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.config.mana_tide,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "mana_tide",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.config,
-                                    "mana_tide",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.config, "mana_tide", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          _vm._v("Mana Tide "),
-                          _vm.config.mana_tide ? [_vm._v("at")] : _vm._e()
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _vm.config.mana_tide
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.number",
-                              value: _vm.config.mana_tide_at,
-                              expression: "config.mana_tide_at",
-                              modifiers: { number: true }
-                            }
-                          ],
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.config.mana_tide_at },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.config,
-                                "mana_tide_at",
-                                _vm._n($event.target.value)
-                              )
-                            },
-                            blur: function($event) {
-                              return _vm.$forceUpdate()
-                            }
-                          }
-                        })
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _vm.faction == "alliance"
-                    ? _c("div", { staticClass: "form-item" }, [
-                        _c(
-                          "label",
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.config.symbol_of_hope,
-                                  expression: "config.symbol_of_hope"
-                                }
-                              ],
-                              attrs: { type: "checkbox" },
-                              domProps: {
-                                checked: Array.isArray(
-                                  _vm.config.symbol_of_hope
-                                )
-                                  ? _vm._i(_vm.config.symbol_of_hope, null) > -1
-                                  : _vm.config.symbol_of_hope
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.config.symbol_of_hope,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        _vm.$set(
-                                          _vm.config,
-                                          "symbol_of_hope",
-                                          $$a.concat([$$v])
-                                        )
-                                    } else {
-                                      $$i > -1 &&
-                                        _vm.$set(
-                                          _vm.config,
-                                          "symbol_of_hope",
-                                          $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1))
-                                        )
-                                    }
-                                  } else {
-                                    _vm.$set(_vm.config, "symbol_of_hope", $$c)
-                                  }
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
+                    _vm.hasTalent("presence_of_mind")
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
                             _c(
-                              "span",
+                              "label",
                               [
-                                _vm._v("Symbol of Hope "),
-                                _vm.config.symbol_of_hope
-                                  ? [_vm._v("at")]
-                                  : _vm._e()
+                                _c("span", [
+                                  _vm._v("Presence of Mind timings")
+                                ]),
+                                _vm._v(" "),
+                                _c("timing-helper")
                               ],
-                              2
-                            ),
-                            _vm._v(" "),
-                            _c("help", [
-                              _vm._v("Draenei priest racial."),
-                              _c("br"),
-                              _vm._v(
-                                "Setting this to 0 will automatically cast it when mana is low."
-                              )
-                            ])
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _vm.config.symbol_of_hope
-                          ? _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model.number",
-                                  value: _vm.config.symbol_of_hope_at,
-                                  expression: "config.symbol_of_hope_at",
-                                  modifiers: { number: true }
-                                }
-                              ],
-                              attrs: { type: "text" },
-                              domProps: { value: _vm.config.symbol_of_hope_at },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.presence_of_mind_t, function(
+                              a,
+                              i
+                            ) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.presence_of_mind_t[i],
+                                      expression:
+                                        "config.presence_of_mind_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: {
+                                    value: _vm.config.presence_of_mind_t[i]
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.presence_of_mind_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
                                   }
-                                  _vm.$set(
-                                    _vm.config,
-                                    "symbol_of_hope_at",
-                                    _vm._n($event.target.value)
-                                  )
-                                },
-                                blur: function($event) {
-                                  return _vm.$forceUpdate()
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.hasTalent("arcane_power")
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Arcane Power timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.arcane_power_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.arcane_power_t[i],
+                                      expression: "config.arcane_power_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: {
+                                    value: _vm.config.arcane_power_t[i]
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.arcane_power_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.hasTalent("icy_veins")
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Icy Veins timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.icy_veins_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.icy_veins_t[i],
+                                      expression: "config.icy_veins_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: {
+                                    value: _vm.config.icy_veins_t[i]
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.icy_veins_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.hasTalent("cold_snap")
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Cold Snap timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.cold_snap_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.cold_snap_t[i],
+                                      expression: "config.cold_snap_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: {
+                                    value: _vm.config.cold_snap_t[i]
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.cold_snap_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.hasTalent("combustion")
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Combustion timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.combustion_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.combustion_t[i],
+                                      expression: "config.combustion_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: {
+                                    value: _vm.config.combustion_t[i]
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.combustion_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.config.race == _vm.races.RACE_TROLL
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Berserking timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.berserking_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.berserking_t[i],
+                                      expression: "config.berserking_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: {
+                                    value: _vm.config.berserking_t[i]
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.berserking_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.config.potion &&
+                    _vm.config.potion != _vm.potions.POTION_MANA &&
+                    _vm.config.potion != _vm.potions.POTION_FEL_MANA
+                      ? _c("div", { staticClass: "form-row" }, [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Potion timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.potion_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.potion_t[i],
+                                      expression: "config.potion_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: { value: _vm.config.potion_t[i] },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.potion_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.config.conjured
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Conjured timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.conjured_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.conjured_t[i],
+                                      expression: "config.conjured_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: { value: _vm.config.conjured_t[i] },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.conjured_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.hasUseTrinket(1)
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Trinket #1 timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.trinket1_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.trinket1_t[i],
+                                      expression: "config.trinket1_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: { value: _vm.config.trinket1_t[i] },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.trinket1_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.hasUseTrinket(2)
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Trinket #2 timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.trinket2_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.trinket2_t[i],
+                                      expression: "config.trinket2_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: { value: _vm.config.trinket2_t[i] },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.trinket2_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.config.drums
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Drums timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper")
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.drums_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.drums_t[i],
+                                      expression: "config.drums_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: { value: _vm.config.drums_t[i] },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.drums_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    [
+                      _c("div", { staticClass: "form-item" }, [
+                        _c("label", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.bloodlust,
+                                expression: "config.bloodlust"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.config.bloodlust)
+                                ? _vm._i(_vm.config.bloodlust, null) > -1
+                                : _vm.config.bloodlust
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.config.bloodlust,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "bloodlust",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "bloodlust",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.config, "bloodlust", $$c)
                                 }
                               }
-                            })
-                          : _vm._e()
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-item" }, [
-                    _c("label", [_vm._v("Number of innervates")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.config.innervate,
-                          expression: "config.innervate",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.config.innervate },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.config,
-                            "innervate",
-                            _vm._n($event.target.value)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", [
+                            _vm._v(
+                              "\n                                        Bloodlust\n                                        "
+                            ),
+                            _vm.config.bloodlust
+                              ? _c(
+                                  "span",
+                                  [
+                                    _vm._v(
+                                      "\n                                            timings\n                                            "
+                                    ),
+                                    _c("timing-helper", {
+                                      attrs: { nocd: true }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.config.bloodlust
+                        ? _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.bloodlust_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.bloodlust_t[i],
+                                      expression: "config.bloodlust_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: {
+                                    value: _vm.config.bloodlust_t[i]
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.bloodlust_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
                           )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _vm.config.innervate > 0
-                    ? _c("div", { staticClass: "form-item" }, [
+                        : _vm._e()
+                    ],
+                    _vm._v(" "),
+                    [
+                      _c("div", { staticClass: "form-item" }, [
+                        _c("label", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.power_infusion,
+                                expression: "config.power_infusion"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.config.power_infusion)
+                                ? _vm._i(_vm.config.power_infusion, null) > -1
+                                : _vm.config.power_infusion
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.config.power_infusion,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "power_infusion",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "power_infusion",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.config, "power_infusion", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", [
+                            _vm._v(
+                              "\n                                        Power Infusion\n                                        "
+                            ),
+                            _vm.config.power_infusion
+                              ? _c(
+                                  "span",
+                                  [
+                                    _vm._v(
+                                      "\n                                            timings\n                                            "
+                                    ),
+                                    _c(
+                                      "timing-helper",
+                                      { attrs: { nocd: true } },
+                                      [
+                                        _vm._v(
+                                          "Does not stack with Arcane Power"
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.config.power_infusion
+                        ? _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.power_infusion_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.power_infusion_t[i],
+                                      expression: "config.power_infusion_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: {
+                                    value: _vm.config.power_infusion_t[i]
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.power_infusion_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e()
+                    ],
+                    _vm._v(" "),
+                    [
+                      _c("div", { staticClass: "form-item" }, [
+                        _c("label", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.config.mana_tide,
+                                expression: "config.mana_tide"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.config.mana_tide)
+                                ? _vm._i(_vm.config.mana_tide, null) > -1
+                                : _vm.config.mana_tide
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.config.mana_tide,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "mana_tide",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.config,
+                                        "mana_tide",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.config, "mana_tide", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _vm._v(
+                                "\n                                        Mana Tide\n                                        "
+                              ),
+                              _vm.config.mana_tide
+                                ? [
+                                    _vm._v(
+                                      "\n                                            timings\n                                            "
+                                    ),
+                                    _c("timing-helper", {
+                                      attrs: { nocd: true }
+                                    })
+                                  ]
+                                : _vm._e()
+                            ],
+                            2
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.config.mana_tide
+                        ? _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.mana_tide_t, function(a, i) {
+                              return _c("div", { staticClass: "form-item" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.number",
+                                      value: _vm.config.mana_tide_t[i],
+                                      expression: "config.mana_tide_t[i]",
+                                      modifiers: { number: true }
+                                    }
+                                  ],
+                                  attrs: { type: "text" },
+                                  domProps: {
+                                    value: _vm.config.mana_tide_t[i]
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.config.mana_tide_t,
+                                        i,
+                                        _vm._n($event.target.value)
+                                      )
+                                    },
+                                    blur: function($event) {
+                                      return _vm.$forceUpdate()
+                                    }
+                                  }
+                                })
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e()
+                    ],
+                    _vm._v(" "),
+                    _vm.faction == "alliance"
+                      ? _c("div", { staticClass: "form-item" }, [
+                          _c(
+                            "label",
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.config.symbol_of_hope,
+                                    expression: "config.symbol_of_hope"
+                                  }
+                                ],
+                                attrs: { type: "checkbox" },
+                                domProps: {
+                                  checked: Array.isArray(
+                                    _vm.config.symbol_of_hope
+                                  )
+                                    ? _vm._i(_vm.config.symbol_of_hope, null) >
+                                      -1
+                                    : _vm.config.symbol_of_hope
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.config.symbol_of_hope,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.config,
+                                            "symbol_of_hope",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.config,
+                                            "symbol_of_hope",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(
+                                        _vm.config,
+                                        "symbol_of_hope",
+                                        $$c
+                                      )
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                [
+                                  _vm._v("Symbol of Hope "),
+                                  _vm.config.symbol_of_hope
+                                    ? [_vm._v("at")]
+                                    : _vm._e()
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c("help", [
+                                _vm._v("Draenei priest racial."),
+                                _c("br"),
+                                _vm._v(
+                                  "Setting this to 0 will automatically cast it when mana is low."
+                                )
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm.config.symbol_of_hope
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model.number",
+                                    value: _vm.config.symbol_of_hope_at,
+                                    expression: "config.symbol_of_hope_at",
+                                    modifiers: { number: true }
+                                  }
+                                ],
+                                attrs: { type: "text" },
+                                domProps: {
+                                  value: _vm.config.symbol_of_hope_at
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.config,
+                                      "symbol_of_hope_at",
+                                      _vm._n($event.target.value)
+                                    )
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$forceUpdate()
+                                  }
+                                }
+                              })
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-row" }, [
+                      _c("div", { staticClass: "form-item" }, [
                         _c(
                           "label",
                           [
-                            _c("span", [_vm._v("Innervate at")]),
+                            _c("span", [_vm._v("Evocation at")]),
                             _vm._v(" "),
                             _c("help", [
-                              _vm._v("Timing for the first innervate."),
-                              _c("br"),
                               _vm._v(
-                                "Setting this to 0 will innervate when mana is low"
+                                "Setting this to 0 will evocate when mana is low"
                               )
                             ])
                           ],
@@ -69997,13 +70215,13 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model.number",
-                              value: _vm.config.innervate_at,
-                              expression: "config.innervate_at",
+                              value: _vm.config.evocation_at,
+                              expression: "config.evocation_at",
                               modifiers: { number: true }
                             }
                           ],
                           attrs: { type: "text" },
-                          domProps: { value: _vm.config.innervate_at },
+                          domProps: { value: _vm.config.evocation_at },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -70011,7 +70229,52 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.config,
-                                "innervate_at",
+                                "evocation_at",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-item" }, [
+                        _c(
+                          "label",
+                          [
+                            _c("span", [_vm._v("Cancel after n ticks")]),
+                            _vm._v(" "),
+                            _c("help", [
+                              _vm._v(
+                                "Setting this to 0 will not cancel evocation."
+                              )
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.config.evo_ticks,
+                              expression: "config.evo_ticks",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.config.evo_ticks },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.config,
+                                "evo_ticks",
                                 _vm._n($event.target.value)
                               )
                             },
@@ -70021,8 +70284,105 @@ var render = function() {
                           }
                         })
                       ])
-                    : _vm._e()
-                ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [_vm._v("Number of innervates")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.number",
+                            value: _vm.config.innervate,
+                            expression: "config.innervate",
+                            modifiers: { number: true }
+                          }
+                        ],
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.config.innervate },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.config,
+                              "innervate",
+                              _vm._n($event.target.value)
+                            )
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm.config.innervate > 0
+                      ? [
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Innervate timings")]),
+                                _vm._v(" "),
+                                _c("timing-helper", { attrs: { nocd: true } }, [
+                                  _vm._v(
+                                    "Leaving empty will innervate when mana is low."
+                                  )
+                                ])
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-row mt-0" },
+                            _vm._l(_vm.config.innervate_t, function(a, i) {
+                              return i < _vm.config.innervate
+                                ? _c("div", { staticClass: "form-item" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model.number",
+                                          value: _vm.config.innervate_t[i],
+                                          expression: "config.innervate_t[i]",
+                                          modifiers: { number: true }
+                                        }
+                                      ],
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value: _vm.config.innervate_t[i]
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.config.innervate_t,
+                                            i,
+                                            _vm._n($event.target.value)
+                                          )
+                                        },
+                                        blur: function($event) {
+                                          return _vm.$forceUpdate()
+                                        }
+                                      }
+                                    })
+                                  ])
+                                : _vm._e()
+                            }),
+                            0
+                          )
+                        ]
+                      : _vm._e()
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("fieldset", [
                   _c("legend", [_vm._v("Profiles")]),
@@ -71622,6 +71982,42 @@ var render = function() {
       )
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/TimingHelper.vue?vue&type=template&id=616b8b39&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/TimingHelper.vue?vue&type=template&id=616b8b39& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("help", [
+    _vm._v("\n    Enter timings in order.\n    "),
+    !_vm.nocd
+      ? _c("div", [
+          _vm._v(
+            "\n        If a timing is empty or lower than the CD it will be used when ready.\n    "
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", [_vm._t("default")], 2)
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

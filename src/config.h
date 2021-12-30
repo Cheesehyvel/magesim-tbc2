@@ -86,26 +86,23 @@ struct Config
     FireRotation fire_rotation = FIRE_ROTATION_FB;
     bool fire_blast_weave = false;
 
-    double mana_tide_at = 10;
-    double innervate_at = 0;
-    double bloodlust_at = 20;
-    double power_infusion_at = 20;
+    std::vector<double> trinket1_t;
+    std::vector<double> trinket2_t;
+    std::vector<double> presence_of_mind_t;
+    std::vector<double> arcane_power_t;
+    std::vector<double> icy_veins_t;
+    std::vector<double> cold_snap_t;
+    std::vector<double> combustion_t;
+    std::vector<double> berserking_t;
+    std::vector<double> mana_tide_t;
+    std::vector<double> bloodlust_t;
+    std::vector<double> power_infusion_t;
+    std::vector<double> drums_t;
+    std::vector<double> innervate_t;
+    std::vector<double> potion_t;
+    std::vector<double> conjured_t;
+
     double symbol_of_hope_at = 0;
-    double icy_veins_at = 1;
-    double cold_snap_at = 20;
-    double trinket1_at = 1;
-    double trinket1_reuse_at = 0;
-    double trinket2_at = 20;
-    double trinket2_reuse_at = 0;
     double evocation_at = 0;
-    double berserking_at = 1;
-    double arcane_power_at = 1;
-    double presence_of_mind_at = 0;
-    double combustion_at = 0;
-    double drums_at = 1;
-    double potion_at = 21;
-    double potion_reuse_at = 0;
-    double conjured_at = 21;
-    double conjured_reuse_at = 0;
 
 };

@@ -168,6 +168,10 @@ fieldset {
         margin-top: 10px;
     }
 
+    &.mt-0 {
+        margin-top: 0;
+    }
+
     > .form-item {
         grid-row: 1;
         grid-column-width: 1fr;

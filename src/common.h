@@ -220,6 +220,14 @@ double hasteRatingToHaste(double rating)
     return rating / 15.77;
 }
 
+double timingFor(std::vector<double>& v, int at = 0)
+{
+    if (at < 0 || at >= v.size())
+        return -1;
+
+    return v.at(at);
+}
+
 // Global rng generator
 thread_local static std::mt19937 g_rng(std::random_device{}());
 

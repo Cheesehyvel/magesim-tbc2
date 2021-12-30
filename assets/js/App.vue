@@ -785,25 +785,212 @@
                         </fieldset>
                         <fieldset>
                             <legend>Cooldowns</legend>
-                            <div class="form-item" v-if="hasTalent('presence_of_mind')">
-                                <label>Presence of Mind at</label>
-                                <input type="text" v-model.number="config.presence_of_mind_at">
+                            <template v-if="hasTalent('presence_of_mind')">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Presence of Mind timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.presence_of_mind_t">
+                                        <input type="text" v-model.number="config.presence_of_mind_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="hasTalent('arcane_power')">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Arcane Power timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.arcane_power_t">
+                                        <input type="text" v-model.number="config.arcane_power_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="hasTalent('icy_veins')">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Icy Veins timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.icy_veins_t">
+                                        <input type="text" v-model.number="config.icy_veins_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="hasTalent('cold_snap')">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Cold Snap timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.cold_snap_t">
+                                        <input type="text" v-model.number="config.cold_snap_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="hasTalent('combustion')">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Combustion timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.combustion_t">
+                                        <input type="text" v-model.number="config.combustion_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="config.race == races.RACE_TROLL">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Berserking timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.berserking_t">
+                                        <input type="text" v-model.number="config.berserking_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <div class="form-row" v-if="config.potion && config.potion != potions.POTION_MANA && config.potion != potions.POTION_FEL_MANA">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Potion timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.potion_t">
+                                        <input type="text" v-model.number="config.potion_t[i]">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-item" v-if="hasTalent('arcane_power')">
-                                <label>Arcane Power at</label>
-                                <input type="text" v-model.number="config.arcane_power_at">
-                            </div>
-                            <div class="form-item" v-if="hasTalent('icy_veins')">
-                                <label>Icy Veins at</label>
-                                <input type="text" v-model.number="config.icy_veins_at">
-                            </div>
-                            <div class="form-item" v-if="hasTalent('cold_snap')">
-                                <label>Cold Snap at</label>
-                                <input type="text" v-model.number="config.cold_snap_at">
-                            </div>
-                            <div class="form-item" v-if="hasTalent('combustion')">
-                                <label>Combustion at</label>
-                                <input type="text" v-model.number="config.combustion_at">
+                            <template v-if="config.conjured">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Conjured timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.conjured_t">
+                                        <input type="text" v-model.number="config.conjured_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="hasUseTrinket(1)">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Trinket #1 timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.trinket1_t">
+                                        <input type="text" v-model.number="config.trinket1_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="hasUseTrinket(2)">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Trinket #2 timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.trinket2_t">
+                                        <input type="text" v-model.number="config.trinket2_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="config.drums">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Drums timings</span>
+                                        <timing-helper></timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.drums_t">
+                                        <input type="text" v-model.number="config.drums_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template>
+                                <div class="form-item">
+                                    <label>
+                                        <input type="checkbox" v-model="config.bloodlust">
+                                        <span>
+                                            Bloodlust
+                                            <span v-if="config.bloodlust">
+                                                timings
+                                                <timing-helper :nocd="true"></timing-helper>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0" v-if="config.bloodlust">
+                                    <div class="form-item" v-for="(a, i) in config.bloodlust_t">
+                                        <input type="text" v-model.number="config.bloodlust_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template>
+                                <div class="form-item">
+                                    <label>
+                                        <input type="checkbox" v-model="config.power_infusion">
+                                        <span>
+                                            Power Infusion
+                                            <span v-if="config.power_infusion">
+                                                timings
+                                                <timing-helper :nocd="true">Does not stack with Arcane Power</timing-helper>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0" v-if="config.power_infusion">
+                                    <div class="form-item" v-for="(a, i) in config.power_infusion_t">
+                                        <input type="text" v-model.number="config.power_infusion_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <template>
+                                <div class="form-item">
+                                    <label>
+                                        <input type="checkbox" v-model="config.mana_tide">
+                                        <span>
+                                            Mana Tide
+                                            <template v-if="config.mana_tide">
+                                                timings
+                                                <timing-helper :nocd="true"></timing-helper>
+                                            </template>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0" v-if="config.mana_tide">
+                                    <div class="form-item" v-for="(a, i) in config.mana_tide_t">
+                                        <input type="text" v-model.number="config.mana_tide_t[i]">
+                                    </div>
+                                </div>
+                            </template>
+                            <div class="form-item" v-if="faction == 'alliance'">
+                                <label><input type="checkbox" v-model="config.symbol_of_hope">
+                                    <span>Symbol of Hope <template v-if="config.symbol_of_hope">at</template></span>
+                                    <help>Draenei priest racial.<br>Setting this to 0 will automatically cast it when mana is low.</help>
+                                </label>
+                                <input type="text" v-model.number="config.symbol_of_hope_at" v-if="config.symbol_of_hope">
                             </div>
                             <div class="form-row">
                                 <div class="form-item">
@@ -821,99 +1008,23 @@
                                     <input type="text" v-model.number="config.evo_ticks">
                                 </div>
                             </div>
-                            <div class="form-item" v-if="config.race == races.RACE_TROLL">
-                                <label>Berserking at</label>
-                                <input type="text" v-model.number="config.berserking_at">
-                            </div>
-                            <div class="form-row" v-if="config.potion && config.potion != potions.POTION_MANA && config.potion != potions.POTION_FEL_MANA">
-                                <div class="form-item">
-                                    <label>Potion at</label>
-                                    <input type="text" v-model.number="config.potion_at">
-                                </div>
-                                <div class="form-item">
-                                    <label>
-                                        <span>Reuse at</span>
-                                        <help>Setting this to 0 will reuse potion on CD</help>
-                                    </label>
-                                    <input type="text" v-model.number="config.potion_reuse_at">
-                                </div>
-                            </div>
-                            <div class="form-row" v-if="config.conjured">
-                                <div class="form-item">
-                                    <label>Conjured at</label>
-                                    <input type="text" v-model.number="config.conjured_at">
-                                </div>
-                                <div class="form-item">
-                                    <label>
-                                        <span>Reuse at</span>
-                                        <help>Settings this to 0 will reuse conjured on CD</help>
-                                    </label>
-                                    <input type="text" v-model.number="config.conjured_reuse_at">
-                                </div>
-                            </div>
-                            <div class="form-row" v-if="hasUseTrinket(1)">
-                                <div class="form-item"">
-                                    <label>Trinket #1 at</label>
-                                    <input type="text" v-model.number="config.trinket1_at">
-                                </div>
-                                <div class="form-item">
-                                    <label>
-                                        <span>Reuse at</span>
-                                        <help>Settings this to 0 will reuse trinket on CD</help>
-                                    </label>
-                                    <input type="text" v-model.number="config.trinket1_reuse_at">
-                                </div>
-                            </div>
-                            <div class="form-row" v-if="hasUseTrinket(2)">
-                                <div class="form-item">
-                                    <label>Trinket #2 at</label>
-                                    <input type="text" v-model.number="config.trinket2_at">
-                                </div>
-                                <div class="form-item">
-                                    <label>
-                                        <span>Reuse at</span>
-                                        <help>Settings this to 0 will reuse trinket on CD</help>
-                                    </label>
-                                    <input type="text" v-model.number="config.trinket2_reuse_at">
-                                </div>
-                            </div>
-                            <div class="form-item" v-if="config.drums">
-                                <label>First drums at</label>
-                                <input type="text" v-model.number="config.drums_at">
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.bloodlust"> <span>Bloodlust <template v-if="config.bloodlust">at</template></span></label>
-                                <input type="text" v-model.number="config.bloodlust_at" v-if="config.bloodlust">
-                            </div>
-                            <div class="form-item">
-                                <label>
-                                    <input type="checkbox" v-model="config.power_infusion"> <span>Power Infusion <template v-if="config.power_infusion">at</template></span>
-                                    <help>Does not stack with Arcane Power</help>
-                                </label>
-                                <input type="text" v-model.number="config.power_infusion_at" v-if="config.power_infusion">
-                            </div>
-                            <div class="form-item">
-                                <label><input type="checkbox" v-model="config.mana_tide"> <span>Mana Tide <template v-if="config.mana_tide">at</template></span></label>
-                                <input type="text" v-model.number="config.mana_tide_at" v-if="config.mana_tide">
-                            </div>
-                            <div class="form-item" v-if="faction == 'alliance'">
-                                <label><input type="checkbox" v-model="config.symbol_of_hope">
-                                    <span>Symbol of Hope <template v-if="config.symbol_of_hope">at</template></span>
-                                    <help>Draenei priest racial.<br>Setting this to 0 will automatically cast it when mana is low.</help>
-                                </label>
-                                <input type="text" v-model.number="config.symbol_of_hope_at" v-if="config.symbol_of_hope">
-                            </div>
                             <div class="form-item">
                                 <label>Number of innervates</label>
                                 <input type="text" v-model.number="config.innervate">
                             </div>
-                            <div class="form-item" v-if="config.innervate > 0">
-                                <label>
-                                    <span>Innervate at</span>
-                                    <help>Timing for the first innervate.<br>Setting this to 0 will innervate when mana is low</help>
-                                </label>
-                                <input type="text" v-model.number="config.innervate_at">
-                            </div>
+                            <template v-if="config.innervate > 0">
+                                <div class="form-item">
+                                    <label>
+                                        <span>Innervate timings</span>
+                                        <timing-helper :nocd="true">Leaving empty will innervate when mana is low.</timing-helper>
+                                    </label>
+                                </div>
+                                <div class="form-row mt-0">
+                                    <div class="form-item" v-for="(a, i) in config.innervate_t" v-if="i < config.innervate">
+                                        <input type="text" v-model.number="config.innervate_t[i]">
+                                    </div>
+                                </div>
+                            </template>
                         </fieldset>
                         <fieldset>
                             <legend>Profiles</legend>
@@ -1259,28 +1370,25 @@
                 fire_rotation: 0,
                 fire_blast_weave: false,
 
-                mana_tide_at: 20,
-                innervate_at: 0,
-                bloodlust_at: 1,
-                power_infusion_at: 1,
+                trinket1_t: Array(4),
+                trinket2_t: Array(4),
+                arcane_power_t: Array(4),
+                presence_of_mind_t: Array(4),
+                icy_veins_t: Array(4),
+                cold_snap_t: Array(4),
+                combustion_t: Array(4),
+                berserking_t: Array(4),
+                mana_tide_t: Array(4),
+                bloodlust_t: Array(4),
+                power_infusion_t: Array(4),
+                drums_t: Array(4),
+                innervate_t: Array(4),
+                potion_t: Array(4),
+                conjured_t: Array(4),
+
                 symbol_of_hope_at: 0,
-                icy_veins_at: 1,
-                cold_snap_at: 41,
-                combustion_at: 1,
-                trinket1_at: 1,
-                trinket1_reuse_at: 0,
-                trinket2_at: 21,
-                trinket2_reuse_at: 0,
-                berserking_at: 41,
-                arcane_power_at: 1,
-                presence_of_mind_at: 0,
-                drums_at: 1,
                 evocation_at: 0,
                 evo_ticks: 0,
-                potion_at: 1,
-                potion_reuse_at: 0,
-                conjured_at: 1,
-                conjured_reuse_at: 0,
 
                 talents: "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001",
 
@@ -2744,7 +2852,7 @@
 
                 if (profile.config && (!only || only == "config")) {
                     _.merge(this.config, _.pick(profile.config, _.keys(this.config)));
-                    this.config.talents = this.conformTalents(this.config.talents);
+                    this.onLoadConfig(profile.config);
                     this.profile_status.config = true;
                 }
 
@@ -3098,8 +3206,43 @@
                     var config = JSON.parse(str);
                     if (config) {
                         _.merge(this.config, _.pick(config, _.keys(this.config)));
-                        this.config.talents = this.conformTalents(this.config.talents);
+                        this.onLoadConfig(config);
+
                     }
+                }
+            },
+
+            // Backwards compatibility
+            onLoadConfig(cfg) {
+                this.config.talents = this.conformTalents(this.config.talents);
+
+                var timings = [
+                    "trinket1", "trinket2",
+                    "presence_of_mind", "arcane_power",
+                    "icy_veins", "cold_snap",
+                    "combustion", "berserking",
+                    "drums", "bloodlust",
+                    "mana_tide", "power_infusion",
+                    "innervate",
+                    "potion", "conjured",
+                ];
+
+                if (_.get(cfg, "innervate_at") === 0)
+                    delete cfg.innervate_at;
+                if (_.get(cfg, "conjured_at") === 0 && cfg.conjured == this.conjureds.CONJURED_MANA_GEM)
+                    delete cfg.conjured_at;
+
+                var from, to;
+                for (var i=0; i<timings.length; i++) {
+                    to = timings[i]+"_t";
+
+                    from = timings[i]+"_at";
+                    if (cfg.hasOwnProperty(from))
+                        this.config[to][0] = cfg[from];
+
+                    from = timings[i]+"_reuse_at";
+                    if (cfg.hasOwnProperty(from))
+                        this.config[to][1] = cfg[from];
                 }
             },
 

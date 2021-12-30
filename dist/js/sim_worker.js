@@ -30,8 +30,16 @@ onmessage = function onmessage(event) {
       var config = m.allocConfig();
 
       for (var key in data.config) {
-        if (typeof config[key] != "undefined") {
-          if (key.indexOf("_at") > 0 && data.config[key] < 0) config[key] = data.config.duration + data.config[key];else config[key] = data.config[key];
+        if (key.indexOf("_t") && Array.isArray(data.config[key])) {
+          var v = new m["VectorDouble"]();
+
+          for (var i = 0; i < data.config[key].length; i++) {
+            if (typeof data.config[key][i] == "number") v.push_back(data.config[key][i]);else break;
+          }
+
+          config[key] = v;
+        } else if (typeof config[key] != "undefined") {
+          config[key] = data.config[key];
         }
       }
 

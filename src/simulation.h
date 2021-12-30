@@ -128,18 +128,33 @@ public:
 
         if (config->vampiric_touch)
             pushVampiricTouch(config->vampiric_touch_regen);
-        if (config->bloodlust)
-            pushBuffGain(make_shared<buff::Bloodlust>(), config->bloodlust_at);
-        if (config->power_infusion)
-            pushPowerInfusion(config->power_infusion_at);
         if (config->mana_spring)
             pushManaSpring();
-        if (config->mana_tide)
-            pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_at);
-        if (config->innervate && config->innervate_at)
-            pushInnervate(config->innervate_at);
+
+        if (config->innervate) {
+            for (int i=0; i<config->innervate_t.size() && i<config->innervate; i++)
+                pushInnervate(config->innervate_t.at(i));
+        }
+        if (config->bloodlust) {
+            for (int i=0; i<config->bloodlust_t.size(); i++)
+                pushBuffGain(make_shared<buff::Bloodlust>(), config->bloodlust_t.at(i));
+        }
+        if (config->power_infusion) {
+            for (int i=0; i<config->power_infusion_t.size(); i++)
+                pushBuffGain(make_shared<buff::PowerInfusion>(), config->power_infusion_t.at(i));
+        }
+        if (config->mana_tide) {
+            for (int i=0; i<config->mana_tide_t.size(); i++)
+                pushBuffGain(make_shared<buff::ManaTide>(), config->mana_tide_t.at(i));
+        }
         if (config->drums && config->drums_friend) {
-            for (double t = config->drums_at; t<state->duration; t+= 120)
+            double t = 0;
+            for (int i=0; i<config->drums_t.size(); i++) {
+                if (config->drums_t.at(i) >= t)
+                    t = config->drums_t.at(i);
+                pushDrums(t);
+            }
+            for (t+= 120; t<state->duration; t+= 120)
                 pushDrums(t);
         }
 
@@ -475,7 +490,7 @@ public:
 
         if (next != NULL) {
             // Drums 1 sec cast
-            if (config->drums && state->t >= config->drums_at && !state->hasCooldown(cooldown::DRUMS) && !config->drums_friend) {
+            if (config->drums && isTimerReady(config->drums_t) && !state->hasCooldown(cooldown::DRUMS) && !config->drums_friend) {
                 useDrums();
                 pushCast(next, 1.0);
             }
@@ -867,11 +882,8 @@ public:
         onCooldownGain(make_shared<cooldown::Potion>());
     }
 
-    void useManaGem(bool force = false)
+    void useManaGem()
     {
-        if (config->conjured_at > 0 && !force)
-            return;
-
         double mana = 0;
 
         if (state->mana_emerald > 0) {
@@ -1048,7 +1060,7 @@ public:
             if (canBlast())
                 return defaultSpell();
 
-            if (state->t >= config->presence_of_mind_at &&
+            if (isTimerReady(config->presence_of_mind_t) &&
                 !state->hasCooldown(cooldown::PRESENCE_OF_MIND) &&
                 player->talents.presence_of_mind &&
                 player->talents.pyroblast)
@@ -1132,7 +1144,7 @@ public:
 
         else if (player->spec == SPEC_FIRE) {
 
-            if (state->t >= config->presence_of_mind_at &&
+            if (isTimerReady(config->presence_of_mind_t) &&
                 !state->hasCooldown(cooldown::PRESENCE_OF_MIND) &&
                 player->talents.presence_of_mind &&
                 player->talents.pyroblast)
@@ -1188,55 +1200,30 @@ public:
 
     void useCooldowns()
     {
-        if (state->t >= config->arcane_power_at && !state->hasCooldown(cooldown::ARCANE_POWER) && player->talents.arcane_power)
+        if (isTimerReady(config->arcane_power_t) && !state->hasCooldown(cooldown::ARCANE_POWER) && player->talents.arcane_power)
             useArcanePower();
-        if (state->t >= config->presence_of_mind_at && !state->hasCooldown(cooldown::PRESENCE_OF_MIND) && player->talents.presence_of_mind)
+        if (isTimerReady(config->presence_of_mind_t) && !state->hasCooldown(cooldown::PRESENCE_OF_MIND) && player->talents.presence_of_mind)
             usePresenceOfMind();
-        if (state->t >= config->icy_veins_at && !state->hasCooldown(cooldown::ICY_VEINS) && player->talents.icy_veins)
+        if (isTimerReady(config->icy_veins_t) && !state->hasCooldown(cooldown::ICY_VEINS) && player->talents.icy_veins)
             useIcyVeins();
-        if (state->t >= config->cold_snap_at && !state->hasCooldown(cooldown::COLD_SNAP) && player->talents.cold_snap)
+        if (isTimerReady(config->cold_snap_t) && !state->hasCooldown(cooldown::COLD_SNAP) && player->talents.cold_snap)
             useColdSnap();
-        if (state->t >= config->combustion_at && !state->hasCooldown(cooldown::COMBUSTION) && !state->hasBuff(buff::COMBUSTION) && player->talents.combustion)
+        if (isTimerReady(config->combustion_t) && !state->hasCooldown(cooldown::COMBUSTION) && !state->hasBuff(buff::COMBUSTION) && player->talents.combustion)
             useCombustion();
-        if (state->t >= config->berserking_at && !state->hasCooldown(cooldown::BERSERKING) && player->race == RACE_TROLL)
+        if (isTimerReady(config->berserking_t) && !state->hasCooldown(cooldown::BERSERKING) && player->race == RACE_TROLL)
             useBerserking();
 
-        if (state->t > config->power_infusion_at + 15.0 && !state->hasCooldown(cooldown::POWER_INFUSION) && config->power_infusion) {
-            onCooldownGain(make_shared<cooldown::PowerInfusion>());
-            onBuffGain(make_shared<buff::PowerInfusion>());
-        }
+        if (!state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA && isTimerReady(config->potion_t))
+            usePotion();
 
-        if (!state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA) {
-            if (state->t >= config->potion_at && (state->t < config->potion_at + 20 || !config->potion_reuse_at) ||
-                state->t >= config->potion_reuse_at && config->potion_reuse_at > config->potion_at)
-            {
-                usePotion();
-            }
-        }
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE && isTimerReady(config->conjured_t))
+            useConjured();
 
-        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE && (config->conjured != CONJURED_MANA_GEM || config->conjured_at > 0)) {
-            if (state->t >= config->conjured_at && (state->t < config->conjured_at + 20 || !config->conjured_reuse_at) ||
-                state->t >= config->conjured_reuse_at && config->conjured_reuse_at > config->conjured_at)
-            {
-                useConjured();
-            }
-        }
+        if (!state->hasCooldown(cooldown::TRINKET1) && isTimerReady(config->trinket1_t))
+            useTrinket(config->trinket1, cooldown::TRINKET1);
 
-        if (!state->hasCooldown(cooldown::TRINKET1)) {
-            if (state->t >= config->trinket1_at && (state->t < config->trinket1_at + 20 || !config->trinket1_reuse_at) ||
-                state->t >= config->trinket1_reuse_at && config->trinket1_reuse_at > config->trinket1_at)
-            {
-                useTrinket(config->trinket1, cooldown::TRINKET1);
-            }
-        }
-
-        if (!state->hasCooldown(cooldown::TRINKET2)) {
-            if (state->t >= config->trinket2_at && (state->t < config->trinket2_at + 20 || !config->trinket2_reuse_at) ||
-                state->t >= config->trinket2_reuse_at && config->trinket2_reuse_at > config->trinket2_at)
-            {
-                useTrinket(config->trinket2, cooldown::TRINKET2);
-            }
-        }
+        if (!state->hasCooldown(cooldown::TRINKET2) && isTimerReady(config->trinket2_t))
+            useTrinket(config->trinket2, cooldown::TRINKET2);
     }
 
     void useTrinket(Trinket trinket_id, cooldown::ID cd)
@@ -1326,7 +1313,7 @@ public:
             onBuffGain(make_shared<buff::FlameCap>());
         }
         else if (config->conjured == CONJURED_MANA_GEM) {
-            useManaGem(true);
+            useManaGem();
         }
         else {
             return;
@@ -1899,7 +1886,8 @@ public:
         if (!state->innervates || state->hasBuff(buff::INNERVATE))
             return false;
 
-        if (config->innervate_at && state->innervates == config->innervate)
+        // If we haven't used all the timed innervates
+        if (config->innervate - state->innervates < config->innervate_t.size())
             return false;
 
         if (manaPercent() < 40.0 && state->hasBuff(buff::ARCANE_POWER))
@@ -1962,6 +1950,12 @@ public:
         if (config->conjured != CONJURED_MANA_GEM || state->hasCooldown(cooldown::CONJURED) || state->hasBuff(buff::INNERVATE))
             return false;
 
+        // Check for planned mana gem timings
+        for (int i=0; i<config->conjured_t.size(); i++) {
+            if (state->t - config->conjured_t.at(i) < 10)
+                return false;
+        }
+
         double max = 0;
         if (state->mana_emerald > 0)
             max = 2460;
@@ -1987,7 +1981,7 @@ public:
         if (state->hasCooldown(cooldown::POTION) || state->hasBuff(buff::INNERVATE))
             return false;
 
-        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured == CONJURED_MANA_GEM && config->conjured_at == 0)
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured == CONJURED_MANA_GEM && config->conjured_t.size() > 0)
             return false;
 
         double max = 3000;
@@ -1996,14 +1990,41 @@ public:
             max+= player->maxMana() * 0.06;
 
         // If gem is configured to be used within 15 sec, count with the mana gain to avoid overcapping
-        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured == CONJURED_MANA_GEM && config->conjured_at != 0 && config->conjured_at > state->t-10 && config->conjured_at - state->t < 15) {
-            double gem = 2460;
-            if (hasTrinket(TRINKET_SERPENT_COIL))
-                gem*= 1.25;
-            max+= gem;
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured == CONJURED_MANA_GEM) {
+            bool gem_soon = false;
+            for (int i=0; i<config->conjured_t.size(); i++) {
+                // 10 second margin for when it was supposed to be used
+                if (state->t - config->conjured_t.at(i) < 10 && config->conjured_t.at(i) - state->t < 15) {
+                    gem_soon = true;
+                    break;
+                }
+            }
+
+            if (gem_soon) {
+                double gem = 2460;
+                if (hasTrinket(TRINKET_SERPENT_COIL))
+                    gem*= 1.25;
+                max+= gem;
+            }
         }
 
         return player->maxMana() - state->mana >= max;
+    }
+
+    bool isTimerReady(vector<double>& v, double t = -1)
+    {
+        if (t == -1)
+            t = state->t;
+
+        for (int i=0; i<v.size(); i++) {
+            if (v.at(i) > t)
+                return false;
+            // We give it a 20 second window to pop, otherwise it's an old timer
+            if (v.at(i) <= t && v.at(i) + 20 > t)
+                return true;
+        }
+
+        return true;
     }
 
     void logSpellDmg(shared_ptr<spell::Spell> spell)

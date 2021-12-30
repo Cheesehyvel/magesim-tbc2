@@ -33,6 +33,8 @@ SimulationsResult runSimulations(std::shared_ptr<Config> config, std::shared_ptr
 
 EMSCRIPTEN_BINDINGS(my_module) {
 
+    emscripten::register_vector<double>("VectorDouble");
+
     emscripten::enum_<RegenRotation>("RegenRotation")
         .value("REGEN_ROTATION_FB", REGEN_ROTATION_FB)
         .value("REGEN_ROTATION_AMFB", REGEN_ROTATION_AMFB)
@@ -239,27 +241,24 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("fire_rotation", &Config::fire_rotation)
         .property("fire_blast_weave", &Config::fire_blast_weave)
 
-        .property("mana_tide_at", &Config::mana_tide_at)
-        .property("innervate_at", &Config::innervate_at)
-        .property("bloodlust_at", &Config::bloodlust_at)
-        .property("power_infusion_at", &Config::power_infusion_at)
+        .property("trinket1_t", &Config::trinket1_t)
+        .property("trinket2_t", &Config::trinket2_t)
+        .property("presence_of_mind_t", &Config::presence_of_mind_t)
+        .property("arcane_power_t", &Config::arcane_power_t)
+        .property("icy_veins_t", &Config::icy_veins_t)
+        .property("cold_snap_t", &Config::cold_snap_t)
+        .property("combustion_t", &Config::combustion_t)
+        .property("berserking_t", &Config::berserking_t)
+        .property("mana_tide_t", &Config::mana_tide_t)
+        .property("bloodlust_t", &Config::bloodlust_t)
+        .property("power_infusion_t", &Config::power_infusion_t)
+        .property("drums_t", &Config::drums_t)
+        .property("innervate_t", &Config::innervate_t)
+        .property("potion_t", &Config::potion_t)
+        .property("conjured_t", &Config::conjured_t)
+
         .property("symbol_of_hope_at", &Config::symbol_of_hope_at)
-        .property("icy_veins_at", &Config::icy_veins_at)
-        .property("cold_snap_at", &Config::cold_snap_at)
-        .property("trinket1_at", &Config::trinket1_at)
-        .property("trinket1_reuse_at", &Config::trinket1_reuse_at)
-        .property("trinket2_at", &Config::trinket2_at)
-        .property("trinket2_reuse_at", &Config::trinket2_reuse_at)
         .property("evocation_at", &Config::evocation_at)
-        .property("berserking_at", &Config::berserking_at)
-        .property("arcane_power_at", &Config::arcane_power_at)
-        .property("presence_of_mind_at", &Config::presence_of_mind_at)
-        .property("combustion_at", &Config::combustion_at)
-        .property("drums_at", &Config::drums_at)
-        .property("potion_at", &Config::potion_at)
-        .property("potion_reuse_at", &Config::potion_reuse_at)
-        .property("conjured_at", &Config::conjured_at)
-        .property("conjured_reuse_at", &Config::conjured_reuse_at)
         ;
 
     emscripten::function("allocConfig", &allocConfig);
