@@ -5,6 +5,7 @@ enum RegenRotation : int
     REGEN_ROTATION_SC,
     REGEN_ROTATION_SCFB,
     REGEN_ROTATION_AMSC,
+    REGEN_ROTATION_AMAM,
 };
 
 enum FireRotation : int

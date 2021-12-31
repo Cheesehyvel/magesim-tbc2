@@ -1130,6 +1130,14 @@ public:
                     else if (state->regen_cycle == config->regen_ab_count + 1)
                         is_done = true;
                 }
+                else if (config->regen_rotation == REGEN_ROTATION_AMAM) {
+                    if (state->regen_cycle == 2 && !willDropArcaneBlast())
+                        state->regen_cycle--;
+                    if (state->regen_cycle < 2)
+                        next = make_shared<spell::ArcaneMissiles>();
+                    else if (state->regen_cycle == config->regen_ab_count + 1)
+                        is_done = true;
+                }
 
                 if (is_done) {
                     state->regen_cycle = 0;

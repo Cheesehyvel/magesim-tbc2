@@ -111,7 +111,8 @@ __webpack_require__.r(__webpack_exports__);
     REGEN_ROTATION_AMFB: 1,
     REGEN_ROTATION_SC: 2,
     REGEN_ROTATION_SCFB: 3,
-    REGEN_ROTATION_AMSC: 4
+    REGEN_ROTATION_AMSC: 4,
+    REGEN_ROTATION_AMAM: 5
   },
   fire_rotations: {
     FIRE_ROTATION_FB: 0,
@@ -4088,6 +4089,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -65844,6 +65846,17 @@ var render = function() {
                                     }
                                   },
                                   [_vm._v("1xAM, 1xScorch")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  {
+                                    domProps: {
+                                      value:
+                                        _vm.regen_rotations.REGEN_ROTATION_AMAM
+                                    }
+                                  },
+                                  [_vm._v("2xAM")]
                                 ),
                                 _vm._v(" "),
                                 _c(

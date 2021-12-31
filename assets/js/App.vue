@@ -461,6 +461,7 @@
                                         <option :value="regen_rotations.REGEN_ROTATION_FB">3xFrB</option>
                                         <option :value="regen_rotations.REGEN_ROTATION_AMFB">1xAM, 1xFrB</option>
                                         <option :value="regen_rotations.REGEN_ROTATION_AMSC">1xAM, 1xScorch</option>
+                                        <option :value="regen_rotations.REGEN_ROTATION_AMAM">2xAM</option>
                                         <option :value="regen_rotations.REGEN_ROTATION_SC">5xScorch</option>
                                         <option :value="regen_rotations.REGEN_ROTATION_SCFB">1xScorch, 2xFiB</option>
                                     </select>

@@ -18,6 +18,7 @@ export default {
         REGEN_ROTATION_SC: 2,
         REGEN_ROTATION_SCFB: 3,
         REGEN_ROTATION_AMSC: 4,
+        REGEN_ROTATION_AMAM: 5,
     },
     fire_rotations: {
         FIRE_ROTATION_FB: 0,

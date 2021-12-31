@@ -41,6 +41,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("REGEN_ROTATION_SC", REGEN_ROTATION_SC)
         .value("REGEN_ROTATION_SCFB", REGEN_ROTATION_SCFB)
         .value("REGEN_ROTATION_AMSC", REGEN_ROTATION_AMSC)
+        .value("REGEN_ROTATION_AMAM", REGEN_ROTATION_AMAM)
         ;
 
     emscripten::enum_<FireRotation>("FireRotation")
