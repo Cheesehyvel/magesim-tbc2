@@ -43,8 +43,8 @@ onmessage = function onmessage(event) {
         }
       }
 
+      if (m.MainRotation.values.hasOwnProperty(data.config.main_rotation)) config.main_rotation = m.MainRotation.values[data.config.main_rotation];
       if (m.RegenRotation.values.hasOwnProperty(data.config.regen_rotation)) config.regen_rotation = m.RegenRotation.values[data.config.regen_rotation];
-      if (m.FireRotation.values.hasOwnProperty(data.config.fire_rotation)) config.fire_rotation = m.FireRotation.values[data.config.fire_rotation];
       if (m.Trinket.values.hasOwnProperty(data.config.trinket1)) config.trinket1 = m.Trinket.values[data.config.trinket1];
       if (m.Trinket.values.hasOwnProperty(data.config.trinket2)) config.trinket2 = m.Trinket.values[data.config.trinket2];
       if (m.MetaGem.values.hasOwnProperty(data.config.meta_gem)) config.meta_gem = m.MetaGem.values[data.config.meta_gem];
@@ -64,7 +64,6 @@ onmessage = function onmessage(event) {
       }
 
       if (m.Race.values.hasOwnProperty(data.config.race)) player.race = m.Race.values[data.config.race];
-      if (m.Race.values.hasOwnProperty(data.config.spec)) player.spec = m.Race.values[data.config.spec];
       player.setStats(stats);
 
       if (data.config.talents) {

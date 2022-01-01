@@ -35,6 +35,14 @@ EMSCRIPTEN_BINDINGS(my_module) {
 
     emscripten::register_vector<double>("VectorDouble");
 
+    emscripten::enum_<MainRotation>("MainRotation")
+        .value("MAIN_ROTATION_AB", MAIN_ROTATION_AB)
+        .value("MAIN_ROTATION_AM", MAIN_ROTATION_AM)
+        .value("MAIN_ROTATION_SC", MAIN_ROTATION_SC)
+        .value("MAIN_ROTATION_FIB", MAIN_ROTATION_FIB)
+        .value("MAIN_ROTATION_FRB", MAIN_ROTATION_FRB)
+        ;
+
     emscripten::enum_<RegenRotation>("RegenRotation")
         .value("REGEN_ROTATION_FB", REGEN_ROTATION_FB)
         .value("REGEN_ROTATION_AMFB", REGEN_ROTATION_AMFB)
@@ -42,17 +50,6 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("REGEN_ROTATION_SCFB", REGEN_ROTATION_SCFB)
         .value("REGEN_ROTATION_AMSC", REGEN_ROTATION_AMSC)
         .value("REGEN_ROTATION_AMAM", REGEN_ROTATION_AMAM)
-        ;
-
-    emscripten::enum_<FireRotation>("FireRotation")
-        .value("FIRE_ROTATION_FB", FIRE_ROTATION_FB)
-        .value("FIRE_ROTATION_SC", FIRE_ROTATION_SC)
-        ;
-
-    emscripten::enum_<Spec>("Spec")
-        .value("SPEC_ARCANE", SPEC_ARCANE)
-        .value("SPEC_FIRE", SPEC_FIRE)
-        .value("SPEC_FROST", SPEC_FROST)
         ;
 
     emscripten::enum_<Race>("Race")
@@ -233,14 +230,16 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("power_infusion", &Config::power_infusion)
         .property("symbol_of_hope", &Config::symbol_of_hope)
 
+        .property("main_rotation", &Config::main_rotation)
+        .property("regen_rotation", &Config::regen_rotation)
         .property("regen_mana_at", &Config::regen_mana_at)
         .property("regen_stop_at", &Config::regen_stop_at)
         .property("regen_ab_count", &Config::regen_ab_count)
-        .property("regen_rotation", &Config::regen_rotation)
         .property("ab_haste_stop", &Config::ab_haste_stop)
-
-        .property("fire_rotation", &Config::fire_rotation)
         .property("fire_blast_weave", &Config::fire_blast_weave)
+
+        .property("cc_am_queue", &Config::cc_am_queue)
+        .property("cc_am_repeat", &Config::cc_am_repeat)
 
         .property("trinket1_t", &Config::trinket1_t)
         .property("trinket2_t", &Config::trinket2_t)
@@ -280,7 +279,6 @@ EMSCRIPTEN_BINDINGS(my_module) {
     emscripten::class_<Player>("Player")
         .smart_ptr<std::shared_ptr<Player>>("Player")
         .property("stats", &Player::stats)
-        .property("spec", &Player::spec)
         .property("race", &Player::race)
         .function("setStats", &Player::setStats)
         .function("loadTalentsFromString", &Player::loadTalentsFromString);

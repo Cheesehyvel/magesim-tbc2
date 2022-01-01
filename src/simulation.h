@@ -335,11 +335,11 @@ public:
         push(event);
     }
 
-    void pushBuffExpire(shared_ptr<buff::Buff> buff)
+    void pushBuffExpire(shared_ptr<buff::Buff> buff, double t = 0)
     {
         shared_ptr<Event> event(new Event());
         event->type = EVENT_BUFF_EXPIRE;
-        event->t = buff->duration;
+        event->t = t == 0 ? buff->duration : t;
         event->buff = buff;
 
         push(event);
@@ -510,8 +510,25 @@ public:
         if (spell->actual_cost > 0)
             state->t_mana_spent = state->t;
 
-        if (state->hasBuff(buff::CLEARCAST))
-            onBuffExpire(make_shared<buff::Clearcast>());
+        /**
+         * Clearcast mechanics
+         * */
+        bool has_cc = state->hasBuff(buff::CLEARCAST);
+
+        if (has_cc && spell->channeling)
+            state->cc_snapshot = true;
+        else if (state->cc_snapshot)
+            state->cc_snapshot = false;
+
+        if (has_cc && !spell->channeling)
+            state->cc_queue = true;
+        else if (state->cc_queue)
+            state->cc_queue = false;
+
+        // Expire clearcast 10ms after cast
+        if (has_cc)
+            pushBuffExpire(make_shared<buff::Clearcast>(), CC_SNAPSHOT_WINDOW);
+
         clearcast();
 
         if (state->hasBuff(buff::PRESENCE_OF_MIND))
@@ -707,7 +724,7 @@ public:
             onBuffGain(make_shared<buff::SymbolOfHope>());
         }
 
-        next = nextSpell();
+        next = nextSpell(spell);
 
         return next;
     }
@@ -1042,14 +1059,33 @@ public:
         return state->duration - state->t;
     }
 
-    shared_ptr<spell::Spell> nextSpell()
+    shared_ptr<spell::Spell> nextSpell(shared_ptr<spell::Spell> prev = NULL)
     {
         shared_ptr<spell::Spell> next = NULL;
 
-        if (player->spec == SPEC_ARCANE) {
+        if (config->maintain_fire_vulnerability && player->talents.imp_scorch && shouldScorch())
+            return make_shared<spell::Scorch>();
 
-            if (config->maintain_fire_vulnerability && player->talents.imp_scorch && shouldScorch())
-                return make_shared<spell::Scorch>();
+        if (isTimerReady(config->presence_of_mind_t) &&
+            !state->hasCooldown(cooldown::PRESENCE_OF_MIND) &&
+            player->talents.presence_of_mind &&
+            player->talents.pyroblast)
+        {
+            return make_shared<spell::Pyroblast>();
+        }
+
+        // Cream
+        if (config->cc_am_queue && state->hasBuff(buff::CLEARCAST)) {
+            if (state->cc_queue && state->t_gcd - state->t < CC_SNAPSHOT_WINDOW)
+                return make_shared<spell::ArcaneMissiles>();
+            if (config->cc_am_repeat && prev != NULL && prev->id == spell::ARCANE_MISSILES)
+                return make_shared<spell::ArcaneMissiles>();
+        }
+
+        if (config->fire_blast_weave && !state->hasCooldown(cooldown::FIRE_BLAST))
+            return make_shared<spell::FireBlast>();
+
+        if (config->main_rotation == MAIN_ROTATION_AB) {
 
             if (config->ab_haste_stop && 1.0 / (config->ab_haste_stop/100.0 + 1) >= castHaste()) {
                 if (player->talents.imp_frostbolt < player->talents.imp_fireball)
@@ -1059,14 +1095,6 @@ public:
 
             if (canBlast())
                 return defaultSpell();
-
-            if (isTimerReady(config->presence_of_mind_t) &&
-                !state->hasCooldown(cooldown::PRESENCE_OF_MIND) &&
-                player->talents.presence_of_mind &&
-                player->talents.pyroblast)
-            {
-                return make_shared<spell::Pyroblast>();
-            }
 
             if (!state->regen_active && state->buffStacks(buff::ARCANE_BLAST) >= min(3, config->regen_ab_count) && !state->hasBuff(buff::INNERVATE)) {
                 double regen_at = config->regen_mana_at;
@@ -1150,22 +1178,6 @@ public:
             }
         }
 
-        else if (player->spec == SPEC_FIRE) {
-
-            if (isTimerReady(config->presence_of_mind_t) &&
-                !state->hasCooldown(cooldown::PRESENCE_OF_MIND) &&
-                player->talents.presence_of_mind &&
-                player->talents.pyroblast)
-            {
-                return make_shared<spell::Pyroblast>();
-            }
-
-            if (shouldScorch())
-                next = make_shared<spell::Scorch>();
-            else if (config->fire_blast_weave && !state->hasCooldown(cooldown::FIRE_BLAST))
-                next = make_shared<spell::FireBlast>();
-        }
-
         if (next == NULL)
             next = defaultSpell();
 
@@ -1179,13 +1191,15 @@ public:
 
     shared_ptr<spell::Spell> defaultSpell()
     {
-        if (player->spec == SPEC_ARCANE)
+        if (config->main_rotation == MAIN_ROTATION_AB)
             return make_shared<spell::ArcaneBlast>();
-        if (player->spec == SPEC_FIRE && config->fire_rotation == FIRE_ROTATION_SC)
+        if (config->main_rotation == MAIN_ROTATION_AM)
+            return make_shared<spell::ArcaneMissiles>();
+        if (config->main_rotation == MAIN_ROTATION_SC)
             return make_shared<spell::Scorch>();
-        if (player->spec == SPEC_FIRE)
+        if (config->main_rotation == MAIN_ROTATION_FIB)
             return make_shared<spell::Fireball>();
-        if (player->spec == SPEC_FROST)
+        if (config->main_rotation == MAIN_ROTATION_FRB)
             return make_shared<spell::Frostbolt>();
 
         return NULL;
@@ -1604,8 +1618,16 @@ public:
         if (spell->id == spell::FROSTBOLT && player->talents.empowered_frostbolt)
             crit+= player->talents.empowered_frostbolt*1.0;
 
-        if (state->hasBuff(buff::CLEARCAST) && player->talents.arcane_potency && !spell->proc)
-            crit+= player->talents.arcane_potency*10.0;
+        // Clearcast
+        if (player->talents.arcane_potency && !spell->proc) {
+            // Normal clearcast
+            if (state->hasBuff(buff::CLEARCAST))
+                crit+= player->talents.arcane_potency*10.0;
+            // Snapshotted cc
+            if (state->cc_snapshot && spell->channeling)
+                crit+= player->talents.arcane_potency*10.0;
+        }
+
         if (state->hasBuff(buff::COMBUSTION) && spell->school == SCHOOL_FIRE)
             crit+= state->buffStacks(buff::COMBUSTION)*10.0;
         if (state->hasBuff(buff::DESTRUCTION_POTION))
@@ -1947,7 +1969,7 @@ public:
         if (state->hasBuff(buff::BLOODLUST) && manaPercent() > 10.0)
             return false;
 
-        if (player->spec == SPEC_ARCANE && canBlast())
+        if (config->main_rotation == MAIN_ROTATION_AB && canBlast())
             return false;
 
         return true;

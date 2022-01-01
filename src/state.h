@@ -16,6 +16,8 @@ public:
     int mana_ruby;
     int combustion;
     double duration;
+    bool cc_snapshot;
+    bool cc_queue;
 
     double evocated_at = -1;
     double regened_at = -1;
@@ -47,6 +49,8 @@ public:
         combustion = 0;
         duration = config->duration;
         duration+= -config->duration_variance + random<double>(0, config->duration_variance*2);
+        cc_snapshot = false;
+        cc_queue = false;
 
         buffs.clear();
         debuffs.clear();

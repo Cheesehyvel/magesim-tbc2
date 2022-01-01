@@ -101,11 +101,6 @@ __webpack_require__.r(__webpack_exports__);
     RACE_TROLL: 4,
     RACE_UNDEAD: 5
   },
-  specs: {
-    SPEC_ARCANE: 0,
-    SPEC_FIRE: 1,
-    SPEC_FROST: 2
-  },
   regen_rotations: {
     REGEN_ROTATION_FB: 0,
     REGEN_ROTATION_AMFB: 1,
@@ -114,9 +109,12 @@ __webpack_require__.r(__webpack_exports__);
     REGEN_ROTATION_AMSC: 4,
     REGEN_ROTATION_AMAM: 5
   },
-  fire_rotations: {
-    FIRE_ROTATION_FB: 0,
-    FIRE_ROTATION_SC: 1
+  main_rotations: {
+    MAIN_ROTATION_AB: 0,
+    MAIN_ROTATION_AM: 1,
+    MAIN_ROTATION_SC: 2,
+    MAIN_ROTATION_FIB: 3,
+    MAIN_ROTATION_FRB: 4
   },
   foods: {
     FOOD_NONE: 0,
@@ -5359,6 +5357,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5374,7 +5390,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var default_config = {
       iterations: 30000,
       race: 5,
-      spec: 0,
       duration: 180,
       duration_variance: 0,
       rng_seed: 0,
@@ -5443,13 +5458,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       bloodlust: true,
       power_infusion: false,
       symbol_of_hope: false,
+      main_rotation: 0,
+      regen_rotation: 0,
       regen_mana_at: 20,
       regen_stop_at: 30,
       regen_ab_count: 3,
-      regen_rotation: 0,
       ab_haste_stop: 0,
-      fire_rotation: 0,
       fire_blast_weave: false,
+      cc_am_queue: false,
+      cc_am_repeat: false,
       trinket1_t: Array(4),
       trinket2_t: Array(4),
       arcane_power_t: Array(4),
@@ -5592,6 +5609,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     foolsActive: function foolsActive() {
       var d = new Date();
       return d.getMonth() == 3 && d.getDate() == 1;
+    },
+    spec: function spec() {
+      if (this.config.main_rotation <= this.main_rotations.MAIN_ROTATION_AM) return "arcane";
+      if (this.config.main_rotation <= this.main_rotations.MAIN_ROTATION_FIB) return "fire";
+      if (this.config.main_rotation <= this.main_rotations.MAIN_ROTATION_FRB) return "frost";
+      return null;
     },
     faction: function faction() {
       var alliance = [this.races.RACE_GNOME, this.races.RACE_HUMAN, this.races.RACE_DRAENEI];
@@ -6460,11 +6483,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     defaultGem: function defaultGem(color) {
       if (color == "m") return this.items.ids.CHAOTIC_SKYFIRE;
-      if (this.config.spec == this.specs.SPEC_ARCANE) return this.items.ids.BRILLIANT_DAWNSTONE;
+      if (this.config.main_rotation == this.main_rotations.MAIN_ROTATION_AB) return this.items.ids.BRILLIANT_DAWNSTONE;
       return this.items.ids.RUNED_LIVING_RUBY;
+    },
+    setSpec: function setSpec(spec) {
+      var talents = null;
+
+      if (spec == "arcane") {
+        talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
+        if (this.spec != "arcane") this.config.main_rotation = this.main_rotations.MAIN_ROTATION_AB;
+      } else if (spec == "frost") {
+        talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
+        if (this.spec != "frost") this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FRB;
+      } else if (spec == "fire") {
+        talents = "https://tbc.wowhead.com/talent-calc/mage/2-505202012303331053125-043500001";
+        if (this.spec != "fire") this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FIB;
+      }
+
+      if (talents) this.config.talents = talents;
     },
     hasTalent: function hasTalent(talent) {
       var indexes = {
+        clearcast: [0, 5],
         presence_of_mind: [0, 13],
         arcane_mind: [0, 14],
         arcane_instability: [0, 16],
@@ -6556,23 +6596,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (cmp2 && cmp2.dps && item.id !== this.items.ids.STAT_WEIGHT_BASE) return cmp && cmp.dps ? "+" + _.round(cmp.dps - cmp2.dps, 2) : null;
       return cmp && cmp.dps ? _.round(cmp.dps, 2) : null;
-    },
-    onSpecInput: function onSpecInput(e) {
-      var talents = null;
-      var spec = null;
-
-      if (e.target.value == this.specs.SPEC_ARCANE) {
-        talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
-        spec = "arcane";
-      } else if (e.target.value == this.specs.SPEC_FROST) {
-        talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
-        spec = "frost";
-      } else if (e.target.value == this.specs.SPEC_FIRE) {
-        talents = "https://tbc.wowhead.com/talent-calc/mage/2-505202012303331053125-043500001";
-        spec = "fire";
-      }
-
-      if (talents && confirm("Do you also wish to change talents to " + spec + "?")) this.config.talents = talents;
     },
     onTalentsInput: function onTalentsInput(e) {
       this.config.talents = this.conformTalents(e.target.value);
@@ -7108,7 +7131,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.config.talents = this.conformTalents(this.config.talents);
       var timings = ["trinket1", "trinket2", "presence_of_mind", "arcane_power", "icy_veins", "cold_snap", "combustion", "berserking", "drums", "bloodlust", "mana_tide", "power_infusion", "innervate", "potion", "conjured"];
       if (_.get(cfg, "innervate_at") === 0) delete cfg.innervate_at;
-      if (_.get(cfg, "conjured_at") === 0 && cfg.conjured == this.conjureds.CONJURED_MANA_GEM) delete cfg.conjured_at;
+      if (_.get(cfg, "conjured_at") === 0 && cfg.conjured == this.conjureds.CONJURED_MANA_GEM) delete cfg.conjured_at; // Fire spec
+
+      if (_.get(cfg, "spec") == 1) {
+        if (_.get(cfg, "fire_rotation") == 1) cfg.main_rotation = this.main_rotations.MAIN_ROTATION_SC;else cfg.main_rotation = this.main_rotations.MAIN_ROTATION_FIB;
+      } // Frost spec
+
+
+      if (_.get(cfg, "spec") == 2) {
+        cfg.main_rotation = this.main_rotations.MAIN_ROTATION_FRB;
+      }
+
       var from, to;
 
       for (var i = 0; i < timings.length; i++) {
@@ -65624,6 +65657,47 @@ var render = function() {
                     _c("legend", [_vm._v("General")]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-item" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "btn-text",
+                          on: {
+                            click: function($event) {
+                              return _vm.setSpec("arcane")
+                            }
+                          }
+                        },
+                        [_vm._v("Arcane")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "btn-text",
+                          on: {
+                            click: function($event) {
+                              return _vm.setSpec("fire")
+                            }
+                          }
+                        },
+                        [_vm._v("Fire")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "btn-text",
+                          on: {
+                            click: function($event) {
+                              return _vm.setSpec("frost")
+                            }
+                          }
+                        },
+                        [_vm._v("Frost")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
                       _c("label", [_vm._v("Race")]),
                       _vm._v(" "),
                       _c(
@@ -65698,63 +65772,6 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-item" }, [
-                      _c("label", [_vm._v("Spec")]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.config.spec,
-                              expression: "config.spec"
-                            }
-                          ],
-                          on: {
-                            input: _vm.onSpecInput,
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.config,
-                                "spec",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c(
-                            "option",
-                            { domProps: { value: _vm.specs.SPEC_ARCANE } },
-                            [_vm._v("Arcane")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "option",
-                            { domProps: { value: _vm.specs.SPEC_FIRE } },
-                            [_vm._v("Fire")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "option",
-                            { domProps: { value: _vm.specs.SPEC_FROST } },
-                            [_vm._v("Frost")]
-                          )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-item" }, [
                       _c("label", [
                         _vm._v("Talents ("),
                         _c(
@@ -65777,7 +65794,96 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _vm.config.spec == _vm.specs.SPEC_ARCANE
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [_vm._v("Main spell")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.main_rotation,
+                              expression: "config.main_rotation"
+                            }
+                          ],
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.config,
+                                "main_rotation",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              domProps: {
+                                value: _vm.main_rotations.MAIN_ROTATION_AB
+                              }
+                            },
+                            [_vm._v("Arcane Blast")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            {
+                              domProps: {
+                                value: _vm.main_rotations.MAIN_ROTATION_AM
+                              }
+                            },
+                            [_vm._v("Arcane Missiles")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            {
+                              domProps: {
+                                value: _vm.main_rotations.MAIN_ROTATION_SC
+                              }
+                            },
+                            [_vm._v("Scorch")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            {
+                              domProps: {
+                                value: _vm.main_rotations.MAIN_ROTATION_FIB
+                              }
+                            },
+                            [_vm._v("Fireball")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            {
+                              domProps: {
+                                value: _vm.main_rotations.MAIN_ROTATION_FRB
+                              }
+                            },
+                            [_vm._v("Frostbolt")]
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.config.main_rotation ==
+                    _vm.main_rotations.MAIN_ROTATION_AB
                       ? [
                           _c("div", { staticClass: "form-item" }, [
                             _c("label", [_vm._v("Filler spells")]),
@@ -66074,130 +66180,210 @@ var render = function() {
                         ]
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.config.spec == _vm.specs.SPEC_FIRE
+                    _vm.config.main_rotation !=
+                      _vm.main_rotations.MAIN_ROTATION_AM &&
+                    _vm.hasTalent("clearcast")
                       ? [
                           _c("div", { staticClass: "form-item" }, [
-                            _c("label", [_vm._v("Main spell")]),
-                            _vm._v(" "),
                             _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.config.fire_rotation,
-                                    expression: "config.fire_rotation"
-                                  }
-                                ],
-                                on: {
-                                  change: function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      _vm.config,
-                                      "fire_rotation",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  }
-                                }
-                              },
+                              "label",
                               [
-                                _c(
-                                  "option",
-                                  {
-                                    domProps: {
-                                      value: _vm.fire_rotations.FIRE_ROTATION_FB
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.config.cc_am_queue,
+                                      expression: "config.cc_am_queue"
                                     }
+                                  ],
+                                  attrs: { type: "checkbox" },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      _vm.config.cc_am_queue
+                                    )
+                                      ? _vm._i(_vm.config.cc_am_queue, null) >
+                                        -1
+                                      : _vm.config.cc_am_queue
                                   },
-                                  [_vm._v("Fireball")]
-                                ),
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.config.cc_am_queue,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.config,
+                                              "cc_am_queue",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.config,
+                                              "cc_am_queue",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.config, "cc_am_queue", $$c)
+                                      }
+                                    }
+                                  }
+                                }),
                                 _vm._v(" "),
-                                _c(
-                                  "option",
-                                  {
-                                    domProps: {
-                                      value: _vm.fire_rotations.FIRE_ROTATION_SC
-                                    }
-                                  },
-                                  [_vm._v("Scorch")]
-                                )
-                              ]
+                                _c("span", [
+                                  _vm._v("Queue AM after clearcast")
+                                ]),
+                                _vm._v(" "),
+                                _c("help", [
+                                  _vm._v(
+                                    "\n                                        Queue Arcane Missiles after a spell with clearcast active has been cast."
+                                  ),
+                                  _c("br"),
+                                  _vm._v(
+                                    "\n                                        Arcane Missiles will gain the bonus from Arcane Potency but will still cost full mana."
+                                  ),
+                                  _c("br"),
+                                  _vm._v(
+                                    "\n                                        This does not work if the cast time of the spell that consumes CC is shorter than the GCD."
+                                  ),
+                                  _c("br"),
+                                  _vm._v(
+                                    "\n                                        Example: AB -> CC proc -> AB -> AM\n                                    "
+                                  )
+                                ])
+                              ],
+                              1
                             )
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-item" }, [
-                            _c("label", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.config.fire_blast_weave,
-                                    expression: "config.fire_blast_weave"
-                                  }
-                                ],
-                                attrs: { type: "checkbox" },
-                                domProps: {
-                                  checked: Array.isArray(
-                                    _vm.config.fire_blast_weave
-                                  )
-                                    ? _vm._i(
-                                        _vm.config.fire_blast_weave,
-                                        null
-                                      ) > -1
-                                    : _vm.config.fire_blast_weave
-                                },
-                                on: {
-                                  change: function($event) {
-                                    var $$a = _vm.config.fire_blast_weave,
-                                      $$el = $event.target,
-                                      $$c = $$el.checked ? true : false
-                                    if (Array.isArray($$a)) {
-                                      var $$v = null,
-                                        $$i = _vm._i($$a, $$v)
-                                      if ($$el.checked) {
-                                        $$i < 0 &&
-                                          _vm.$set(
-                                            _vm.config,
-                                            "fire_blast_weave",
-                                            $$a.concat([$$v])
-                                          )
-                                      } else {
-                                        $$i > -1 &&
-                                          _vm.$set(
-                                            _vm.config,
-                                            "fire_blast_weave",
-                                            $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1))
-                                          )
+                          _vm.config.cc_am_queue
+                            ? _c("div", { staticClass: "form-item" }, [
+                                _c("label", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.config.cc_am_repeat,
+                                        expression: "config.cc_am_repeat"
                                       }
-                                    } else {
-                                      _vm.$set(
-                                        _vm.config,
-                                        "fire_blast_weave",
-                                        $$c
+                                    ],
+                                    attrs: { type: "checkbox" },
+                                    domProps: {
+                                      checked: Array.isArray(
+                                        _vm.config.cc_am_repeat
                                       )
+                                        ? _vm._i(
+                                            _vm.config.cc_am_repeat,
+                                            null
+                                          ) > -1
+                                        : _vm.config.cc_am_repeat
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        var $$a = _vm.config.cc_am_repeat,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = null,
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.config,
+                                                "cc_am_repeat",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.config,
+                                                "cc_am_repeat",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(
+                                            _vm.config,
+                                            "cc_am_repeat",
+                                            $$c
+                                          )
+                                        }
+                                      }
                                     }
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", [_vm._v("Fire Blast weave")])
-                            ])
-                          ])
+                                  }),
+                                  _vm._v(" "),
+                                  _c("span", [
+                                    _vm._v("Repeat AM if it procs CC")
+                                  ])
+                                ])
+                              ])
+                            : _vm._e()
                         ]
                       : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.fire_blast_weave,
+                              expression: "config.fire_blast_weave"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.config.fire_blast_weave)
+                              ? _vm._i(_vm.config.fire_blast_weave, null) > -1
+                              : _vm.config.fire_blast_weave
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.config.fire_blast_weave,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "fire_blast_weave",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.config,
+                                      "fire_blast_weave",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.config, "fire_blast_weave", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Fire Blast weave")])
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-item" }, [
                       _c("label", [_vm._v("Fight duration (sec)")]),
@@ -66830,7 +67016,6 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm.config.spec == _vm.specs.SPEC_ARCANE &&
                   _vm.hasTalent("imp_scorch")
                     ? _c("div", { staticClass: "form-item" }, [
                         _c(

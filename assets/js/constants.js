@@ -7,11 +7,6 @@ export default {
         RACE_TROLL: 4,
         RACE_UNDEAD: 5
     },
-    specs: {
-        SPEC_ARCANE: 0,
-        SPEC_FIRE: 1,
-        SPEC_FROST: 2,
-    },
     regen_rotations: {
         REGEN_ROTATION_FB: 0,
         REGEN_ROTATION_AMFB: 1,
@@ -20,9 +15,12 @@ export default {
         REGEN_ROTATION_AMSC: 4,
         REGEN_ROTATION_AMAM: 5,
     },
-    fire_rotations: {
-        FIRE_ROTATION_FB: 0,
-        FIRE_ROTATION_SC: 1,
+    main_rotations: {
+        MAIN_ROTATION_AB: 0,
+        MAIN_ROTATION_AM: 1,
+        MAIN_ROTATION_SC: 2,
+        MAIN_ROTATION_FIB: 3,
+        MAIN_ROTATION_FRB: 4,
     },
     foods: {
         FOOD_NONE: 0,

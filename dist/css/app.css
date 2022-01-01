@@ -557,6 +557,7 @@ a:hover {
 }
 .btn:hover {
   background: #05b;
+  color: #fff;
 }
 .btn.block {
   display: block;
@@ -585,7 +586,7 @@ a:hover {
   white-space: nowrap;
   transition: opacity 0.2s ease, background 0.2s ease;
 }
-.btn-text:hover {
+.btn-text:hover, .btn-text.active {
   background: #05b;
 }
 

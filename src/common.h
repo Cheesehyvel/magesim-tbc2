@@ -1,3 +1,5 @@
+const double CC_SNAPSHOT_WINDOW = 0.01;
+
 enum RegenRotation : int
 {
     REGEN_ROTATION_FB,
@@ -8,10 +10,13 @@ enum RegenRotation : int
     REGEN_ROTATION_AMAM,
 };
 
-enum FireRotation : int
+enum MainRotation: int
 {
-    FIRE_ROTATION_FB,
-    FIRE_ROTATION_SC,
+    MAIN_ROTATION_AB,
+    MAIN_ROTATION_AM,
+    MAIN_ROTATION_SC,
+    MAIN_ROTATION_FIB,
+    MAIN_ROTATION_FRB,
 };
 
 enum Race : int
@@ -37,13 +42,6 @@ enum School : int
     SCHOOL_FROST,
     SCHOOL_FIRE,
     SCHOOL_NATURE,
-};
-
-enum Spec : int
-{
-    SPEC_ARCANE,
-    SPEC_FIRE,
-    SPEC_FROST,
 };
 
 enum MetaGem : int {
@@ -219,14 +217,6 @@ double hitRatingToChance(double rating)
 double hasteRatingToHaste(double rating)
 {
     return rating / 15.77;
-}
-
-double timingFor(std::vector<double>& v, int at = 0)
-{
-    if (at < 0 || at >= v.size())
-        return -1;
-
-    return v.at(at);
 }
 
 // Global rng generator

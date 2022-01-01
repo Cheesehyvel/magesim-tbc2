@@ -432,6 +432,11 @@
                         <fieldset>
                             <legend>General</legend>
                             <div class="form-item">
+                                <span class="btn-text" @click="setSpec('arcane')">Arcane</span>
+                                <span class="btn-text" @click="setSpec('fire')">Fire</span>
+                                <span class="btn-text" @click="setSpec('frost')">Frost</span>
+                            </div>
+                            <div class="form-item">
                                 <label>Race</label>
                                 <select v-model="config.race">
                                     <option :value="races.RACE_BLOOD_ELF">Blood elf</option>
@@ -443,18 +448,20 @@
                                 </select>
                             </div>
                             <div class="form-item">
-                                <label>Spec</label>
-                                <select v-model="config.spec" @input="onSpecInput">
-                                    <option :value="specs.SPEC_ARCANE">Arcane</option>
-                                    <option :value="specs.SPEC_FIRE">Fire</option>
-                                    <option :value="specs.SPEC_FROST">Frost</option>
-                                </select>
-                            </div>
-                            <div class="form-item">
                                 <label>Talents (<a :href="config.talents" target="_blank">link</a>)</label>
                                 <input type="text" :value="config.talents" @input="onTalentsInput">
                             </div>
-                            <template v-if="config.spec == specs.SPEC_ARCANE">
+                            <div class="form-item">
+                                <label>Main spell</label>
+                                <select v-model="config.main_rotation">
+                                    <option :value="main_rotations.MAIN_ROTATION_AB">Arcane Blast</option>
+                                    <option :value="main_rotations.MAIN_ROTATION_AM">Arcane Missiles</option>
+                                    <option :value="main_rotations.MAIN_ROTATION_SC">Scorch</option>
+                                    <option :value="main_rotations.MAIN_ROTATION_FIB">Fireball</option>
+                                    <option :value="main_rotations.MAIN_ROTATION_FRB">Frostbolt</option>
+                                </select>
+                            </div>
+                            <template v-if="config.main_rotation == main_rotations.MAIN_ROTATION_AB">
                                 <div class="form-item">
                                     <label>Filler spells</label>
                                     <select v-model="config.regen_rotation">
@@ -497,18 +504,29 @@
                                     <input type="text" v-model.number="config.ab_haste_stop">
                                 </div>
                             </template>
-                            <template v-if="config.spec == specs.SPEC_FIRE">
+                            <template v-if="config.main_rotation != main_rotations.MAIN_ROTATION_AM && hasTalent('clearcast')">
                                 <div class="form-item">
-                                    <label>Main spell</label>
-                                    <select v-model="config.fire_rotation">
-                                        <option :value="fire_rotations.FIRE_ROTATION_FB">Fireball</option>
-                                        <option :value="fire_rotations.FIRE_ROTATION_SC">Scorch</option>
-                                    </select>
+                                    <label>
+                                        <input type="checkbox" v-model="config.cc_am_queue">
+                                        <span>Queue AM after clearcast</span>
+                                        <help>
+                                            Queue Arcane Missiles after a spell with clearcast active has been cast.<br>
+                                            Arcane Missiles will gain the bonus from Arcane Potency but will still cost full mana.<br>
+                                            This does not work if the cast time of the spell that consumes CC is shorter than the GCD.<br>
+                                            Example: AB -> CC proc -> AB -> AM
+                                        </help>
+                                    </label>
                                 </div>
-                                <div class="form-item">
-                                    <label><input type="checkbox" v-model="config.fire_blast_weave"> <span>Fire Blast weave</span></label>
+                                <div class="form-item" v-if="config.cc_am_queue">
+                                    <label>
+                                        <input type="checkbox" v-model="config.cc_am_repeat">
+                                        <span>Repeat AM if it procs CC</span>
+                                    </label>
                                 </div>
                             </template>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="config.fire_blast_weave"> <span>Fire Blast weave</span></label>
+                            </div>
                             <div class="form-item">
                                 <label>Fight duration (sec)</label>
                                 <input type="text" v-model.number="config.duration">
@@ -577,7 +595,7 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.judgement_of_wisdom"> <span>Judgement of Wisdom</span></label>
                             </div>
-                            <div class="form-item" v-if="config.spec == specs.SPEC_ARCANE && hasTalent('imp_scorch')">
+                            <div class="form-item" v-if="hasTalent('imp_scorch')">
                                 <label><input type="checkbox" v-model="config.maintain_fire_vulnerability">
                                     <span>Keep up Fire Vulnerability</span>
                                     <help>Imp. Scorch from you</help>
@@ -1286,7 +1304,6 @@
             var default_config = {
                 iterations: 30000,
                 race: 5,
-                spec: 0,
 
                 duration: 180,
                 duration_variance: 0,
@@ -1362,14 +1379,16 @@
                 power_infusion: false,
                 symbol_of_hope: false,
 
+                main_rotation: 0,
+                regen_rotation: 0,
                 regen_mana_at: 20,
                 regen_stop_at: 30,
                 regen_ab_count: 3,
-                regen_rotation: 0,
                 ab_haste_stop: 0,
-
-                fire_rotation: 0,
                 fire_blast_weave: false,
+
+                cc_am_queue: false,
+                cc_am_repeat: false,
 
                 trinket1_t: Array(4),
                 trinket2_t: Array(4),
@@ -1522,6 +1541,16 @@
             foolsActive() {
                 var d = new Date;
                 return d.getMonth() == 3 && d.getDate() == 1;
+            },
+
+            spec() {
+                if (this.config.main_rotation <= this.main_rotations.MAIN_ROTATION_AM)
+                    return "arcane";
+                if (this.config.main_rotation <= this.main_rotations.MAIN_ROTATION_FIB)
+                    return "fire";
+                if (this.config.main_rotation <= this.main_rotations.MAIN_ROTATION_FRB)
+                    return "frost";
+                return null;
             },
 
             faction() {
@@ -2485,13 +2514,37 @@
                 if (color == "m")
                     return this.items.ids.CHAOTIC_SKYFIRE;
 
-                if (this.config.spec == this.specs.SPEC_ARCANE)
+                if (this.config.main_rotation == this.main_rotations.MAIN_ROTATION_AB)
                     return this.items.ids.BRILLIANT_DAWNSTONE;
                 return this.items.ids.RUNED_LIVING_RUBY;
             },
 
+            setSpec(spec) {
+                var talents = null;
+
+                if (spec == "arcane") {
+                    talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
+                    if (this.spec != "arcane")
+                        this.config.main_rotation = this.main_rotations.MAIN_ROTATION_AB;
+                }
+                else if (spec == "frost") {
+                    talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
+                    if (this.spec != "frost")
+                        this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FRB;
+                }
+                else if (spec == "fire") {
+                    talents = "https://tbc.wowhead.com/talent-calc/mage/2-505202012303331053125-043500001";
+                    if (this.spec != "fire")
+                        this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FIB;
+                }
+
+                if (talents)
+                    this.config.talents = talents;
+            },
+
             hasTalent(talent) {
                 var indexes = {
+                    clearcast: [0, 5],
                     presence_of_mind: [0, 13],
                     arcane_mind: [0, 14],
                     arcane_instability: [0, 16],
@@ -2573,27 +2626,6 @@
                 if (cmp2 && cmp2.dps && item.id !== this.items.ids.STAT_WEIGHT_BASE)
                     return cmp && cmp.dps ? "+"+_.round(cmp.dps-cmp2.dps, 2) : null;
                 return cmp && cmp.dps ? _.round(cmp.dps, 2) : null;
-            },
-
-            onSpecInput(e) {
-                var talents = null;
-                var spec = null;
-
-                if (e.target.value == this.specs.SPEC_ARCANE) {
-                    talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
-                    spec = "arcane";
-                }
-                else if (e.target.value == this.specs.SPEC_FROST) {
-                    talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
-                    spec = "frost";
-                }
-                else if (e.target.value == this.specs.SPEC_FIRE) {
-                    talents = "https://tbc.wowhead.com/talent-calc/mage/2-505202012303331053125-043500001";
-                    spec = "fire";
-                }
-
-                if (talents && confirm("Do you also wish to change talents to "+spec+"?"))
-                    this.config.talents = talents;
             },
 
             onTalentsInput(e) {
@@ -3232,6 +3264,18 @@
                     delete cfg.innervate_at;
                 if (_.get(cfg, "conjured_at") === 0 && cfg.conjured == this.conjureds.CONJURED_MANA_GEM)
                     delete cfg.conjured_at;
+
+                // Fire spec
+                if (_.get(cfg, "spec") == 1) {
+                    if (_.get(cfg, "fire_rotation") == 1)
+                        cfg.main_rotation = this.main_rotations.MAIN_ROTATION_SC;
+                    else
+                        cfg.main_rotation = this.main_rotations.MAIN_ROTATION_FIB;
+                }
+                // Frost spec
+                if (_.get(cfg, "spec") == 2) {
+                    cfg.main_rotation = this.main_rotations.MAIN_ROTATION_FRB;
+                }
 
                 var from, to;
                 for (var i=0; i<timings.length; i++) {

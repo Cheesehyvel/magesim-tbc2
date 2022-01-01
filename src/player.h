@@ -10,7 +10,6 @@ public:
     Talents talents;
     shared_ptr<Config> config;
     Race race = RACE_UNDEAD;
-    Spec spec = SPEC_ARCANE;
 
     Player(shared_ptr<Config> _config)
     {
@@ -219,27 +218,25 @@ public:
 
     void setDefaultTalents()
     {
-        if (spec == SPEC_ARCANE) {
-            talents.arcane_focus = 5;
-            talents.arcane_impact = 3;
-            talents.arcane_instability = 3;
-            talents.clearcast = 5;
-            talents.arcane_meditation = 3;
-            talents.arcane_potency = 3;
-            talents.arcane_mind = 5;
-            talents.spell_power = 2;
-            talents.presence_of_mind = 1;
-            talents.arcane_power = 1;
-            talents.mind_mastery = 5;
-            talents.empowered_arcane_missiles = 0;
-            talents.elemental_precision = 3;
-            talents.imp_frostbolt = 5;
-            talents.icy_veins = 1;
-            talents.cold_snap = 1;
-            talents.ice_shards = 5;
-            talents.piercing_ice = 3;
-            talents.frost_channeling = 3;
-        }
+        talents.arcane_focus = 5;
+        talents.arcane_impact = 3;
+        talents.arcane_instability = 3;
+        talents.clearcast = 5;
+        talents.arcane_meditation = 3;
+        talents.arcane_potency = 3;
+        talents.arcane_mind = 5;
+        talents.spell_power = 2;
+        talents.presence_of_mind = 1;
+        talents.arcane_power = 1;
+        talents.mind_mastery = 5;
+        talents.empowered_arcane_missiles = 0;
+        talents.elemental_precision = 3;
+        talents.imp_frostbolt = 5;
+        talents.icy_veins = 1;
+        talents.cold_snap = 1;
+        talents.ice_shards = 5;
+        talents.piercing_ice = 3;
+        talents.frost_channeling = 3;
     }
 
     void loadTalentsFromString(std::string str)

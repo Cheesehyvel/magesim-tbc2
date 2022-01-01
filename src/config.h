@@ -77,14 +77,16 @@ struct Config
     bool power_infusion = false;
     bool symbol_of_hope = false;
 
+    MainRotation main_rotation = MAIN_ROTATION_AB;
+    RegenRotation regen_rotation = REGEN_ROTATION_FB;
     double regen_mana_at = 20;
     double regen_stop_at = 30;
     int regen_ab_count = 3;
-    RegenRotation regen_rotation = REGEN_ROTATION_FB;
     double ab_haste_stop = 0;
-
-    FireRotation fire_rotation = FIRE_ROTATION_FB;
     bool fire_blast_weave = false;
+
+    bool cc_am_queue = false;
+    bool cc_am_repeat = false;
 
     std::vector<double> trinket1_t;
     std::vector<double> trinket2_t;
