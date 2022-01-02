@@ -310,7 +310,8 @@ public:
 
     double maxMana()
     {
-        return base_mana + stats.intellect*15;
+        // Subtract 280 because the first 20 intellect only gives 1 mana instead of 15
+        return base_mana + stats.intellect*15 - 280;
     }
 
     Faction faction()
