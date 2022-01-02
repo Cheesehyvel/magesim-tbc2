@@ -36,6 +36,7 @@ namespace buff
         ETERNAL_SAGE = 35084,
         SPELL_BLASTING = 25906,
         SKULL_GULDAN = 40396,
+        CRIMSON_SERPENT = 46783,
         SHRUNKEN_HEAD = 43712,
         NAARU_SLIVER = 45042,
         DRUMS_OF_BATTLE = 35476,
@@ -523,6 +524,19 @@ namespace buff
         {
             id = SKULL_GULDAN;
             name = "Fel Infusion";
+            duration = 20;
+        }
+
+    };
+
+    class CrimsonSerpent : public Buff
+    {
+
+    public:
+        CrimsonSerpent()
+        {
+            id = CRIMSON_SERPENT;
+            name = "Crimson Serpent";
             duration = 20;
         }
 

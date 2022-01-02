@@ -1278,6 +1278,8 @@ public:
             onBuffGain(make_shared<buff::PendantVioletEye>());
         if (trinket_id == TRINKET_SKULL_GULDAN)
             onBuffGain(make_shared<buff::SkullGuldan>());
+        if (trinket_id == TRINKET_CRIMSON_SERPENT)
+            onBuffGain(make_shared<buff::CrimsonSerpent>());
         if (trinket_id == TRINKET_SHRUNKEN_HEAD)
             onBuffGain(make_shared<buff::ShrunkenHead>());
 
@@ -1779,6 +1781,8 @@ public:
                 sp+= 132.0;
             if (state->hasBuff(buff::SPELL_POWER_BONUS))
                 sp+= 110.0;
+            if (state->hasBuff(buff::CRIMSON_SERPENT))
+                sp+= 150.0;
             if (state->hasBuff(buff::SHRUNKEN_HEAD))
                 sp+= 211.0;
             if (state->hasBuff(buff::NAARU_SLIVER))

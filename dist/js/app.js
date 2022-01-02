@@ -235,6 +235,7 @@ var ids = {
   VENGEANCE_ILLIDARI: 28040,
   ETERNAL_SAGE: 29305,
   WRATH_OF_CENARIUS: 21190,
+  CRIMSON_SERPENT: 35700,
   SKULL_GULDAN: 32483,
   SHRUNKEN_HEAD: 33829,
   SORCERERS_ALCHEMIST_STONE: 35749,
@@ -3068,6 +3069,12 @@ var equip = {
     id: ids.NAARU_SLIVER,
     title: "Shifting Naaru Sliver",
     haste: 54,
+    use: true,
+    phase: 5
+  }, {
+    id: ids.CRIMSON_SERPENT,
+    title: "Figurine - Crimson Serpent",
+    "int": 33,
     use: true,
     phase: 5
   }, {

@@ -28,6 +28,7 @@ var ids = {
     VENGEANCE_ILLIDARI: 28040,
     ETERNAL_SAGE: 29305,
     WRATH_OF_CENARIUS: 21190,
+    CRIMSON_SERPENT: 35700,
     SKULL_GULDAN: 32483,
     SHRUNKEN_HEAD: 33829,
     SORCERERS_ALCHEMIST_STONE: 35749,
@@ -420,6 +421,7 @@ var equip = {
     trinket: [
         { id: ids.SORCERERS_ALCHEMIST_STONE, title: "Sorcerer's Alchemist Stone", sp: 63, phase: 5 },
         { id: ids.NAARU_SLIVER, title: "Shifting Naaru Sliver", haste: 54, use: true, phase: 5 },
+        { id: ids.CRIMSON_SERPENT, title: "Figurine - Crimson Serpent", int: 33, use: true, phase: 5 },
         { id: ids.SKULL_GULDAN, title: "The Skull of Gul'dan", sp: 55, hit: 25, use: true, phase: 3 },
         { id: ids.ASHTONGUE_TALISMAN, title: "Ashtongue Talisman", phase: 3 },
         { id: ids.UNSTABLE_CURRENTS, title: "Sextant of Unstable Currents", crit: 40, phase: 2 },
