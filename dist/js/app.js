@@ -5375,6 +5375,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5385,6 +5399,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.loadGear();
     this.loadProfiles();
     this.finalStats();
+    this.checkDonation();
   },
   data: function data() {
     var default_config = {
@@ -5504,6 +5519,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var data = _objectSpread(_objectSpread({}, _constants__WEBPACK_IMPORTED_MODULE_3__["default"]), {}, {
       fools_open: 0,
       fools_remaining: 3,
+      donation_open: false,
       items: _items__WEBPACK_IMPORTED_MODULE_2__["default"],
       equipped: {},
       enchants: {},
@@ -5741,6 +5757,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (!this.foolsActive || !this.fools_remaining) return;
       this.fools_remaining = Math.max(this.fools_remaining - 1, 0);
       this.fools_open = 1;
+    },
+    checkDonation: function checkDonation() {
+      if (window.location.hash == "#donation") {
+        window.location.hash = "";
+        this.donation_open = true;
+      }
     },
     runMultiple: function runMultiple() {
       var self = this;
@@ -64290,6 +64312,21 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
+    _vm.donation_open
+      ? _c(
+          "div",
+          {
+            staticClass: "notice",
+            on: {
+              click: function($event) {
+                _vm.donation_open = false
+              }
+            }
+          },
+          [_vm._m(1)]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _vm.profile_status.open
       ? _c(
           "div",
@@ -64621,7 +64658,9 @@ var render = function() {
               ],
               2
             )
-          : _vm._e()
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._m(2)
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "main" }, [
@@ -65234,7 +65273,7 @@ var render = function() {
               _vm._v(" "),
               _vm.activeEnchants.length
                 ? _c("table", { staticClass: "mt-4" }, [
-                    _vm._m(1),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -65554,7 +65593,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("table", [
-                  _vm._m(2),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -71137,7 +71176,7 @@ var render = function() {
               _c("div", { staticClass: "title" }, [_vm._v("Equipped items")]),
               _vm._v(" "),
               _c("table", [
-                _vm._m(3),
+                _vm._m(5),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -71953,6 +71992,36 @@ var staticRenderFns = [
           }
         },
         [_vm._v("osthyvel")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "inner" }, [
+      _c("div", { staticClass: "title" }, [_vm._v("Thank you!")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "text mt-2" }, [
+        _vm._v("\n                For your donation.\n            ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "donate" }, [
+      _c(
+        "a",
+        {
+          attrs: {
+            href:
+              "https://www.paypal.com/donate/?hosted_button_id=CU9RF4LCMW8W6",
+            target: "_blank"
+          }
+        },
+        [_vm._v("\n                    Donate\n                ")]
       )
     ])
   },

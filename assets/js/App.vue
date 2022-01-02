@@ -41,6 +41,15 @@
             </div>
         </div>
 
+        <div class="notice" v-if="donation_open" @click="donation_open = false">
+            <div class="inner">
+                <div class="title">Thank you!</div>
+                <div class="text mt-2">
+                    For your donation.
+                </div>
+            </div>
+        </div>
+
         <div class="profile-status notice" v-if="profile_status.open" @click="profile_status.open = false">
             <div class="inner">
                 <div class="title">Profile loaded</div>
@@ -140,6 +149,11 @@
                             </span>
                         </div>
                     </template>
+                </div>
+                <div class="donate">
+                    <a href="https://www.paypal.com/donate/?hosted_button_id=CU9RF4LCMW8W6" target="_blank">
+                        Donate
+                    </a>
                 </div>
             </div>
             <div class="main">
@@ -1298,6 +1312,8 @@
             this.loadGear();
             this.loadProfiles();
             this.finalStats();
+
+            this.checkDonation();
         },
 
         data() {
@@ -1432,6 +1448,7 @@
                 ...constants,
                 fools_open: 0,
                 fools_remaining: 3,
+                donation_open: false,
                 items: items,
                 equipped: {},
                 enchants: {},
@@ -1688,6 +1705,13 @@
                     return;
                 this.fools_remaining = Math.max(this.fools_remaining-1, 0);
                 this.fools_open = 1;
+            },
+
+            checkDonation() {
+                if (window.location.hash == "#donation") {
+                    window.location.hash = "";
+                    this.donation_open = true;
+                }
             },
 
             runMultiple() {

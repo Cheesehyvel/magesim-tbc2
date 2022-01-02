@@ -805,6 +805,13 @@ table.simple th:last-child, table.simple td:last-child {
   cursor: pointer;
   font-size: 20px;
 }
+#app .wrapper .sidebar .donate {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
 #app .wrapper .main {
   position: relative;
   background: #1f1f28;
