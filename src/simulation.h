@@ -478,7 +478,17 @@ public:
                 return;
             }
 
-            onCastDmg(spell);
+            if (spell->aoe) {
+                for (int i=0; i<config->targets; i++)
+                    onCastDmg(spell);
+            }
+            else {
+                onCastDmg(spell);
+            }
+
+            if (!spell->channeling)
+                onCastSuccess(spell);
+
             if (!spell->done || spell->proc)
                 return;
 
@@ -520,7 +530,7 @@ public:
         else if (state->cc_snapshot)
             state->cc_snapshot = false;
 
-        if (has_cc && !spell->channeling)
+        if (has_cc && !spell->channeling && state->t_gcd - state->t < CC_SNAPSHOT_WINDOW)
             state->cc_queue = true;
         else if (state->cc_queue)
             state->cc_queue = false;
@@ -574,9 +584,6 @@ public:
 
             state->dmg+= spell->dmg;
         }
-
-        if (!spell->channeling)
-            onCastSuccess(spell);
 
         logSpellDmg(spell);
 
@@ -1076,7 +1083,7 @@ public:
 
         // Cream
         if (config->cc_am_queue && state->hasBuff(buff::CLEARCAST)) {
-            if (state->cc_queue && state->t_gcd - state->t < CC_SNAPSHOT_WINDOW)
+            if (state->cc_queue)
                 return make_shared<spell::ArcaneMissiles>();
             if (config->cc_am_repeat && prev != NULL && prev->id == spell::ARCANE_MISSILES)
                 return make_shared<spell::ArcaneMissiles>();
@@ -1178,6 +1185,9 @@ public:
             }
         }
 
+        if (config->main_rotation == MAIN_ROTATION_AE && !canCast(defaultSpell()))
+            next = make_shared<spell::ArcaneExplosion1>();
+
         if (next == NULL)
             next = defaultSpell();
 
@@ -1193,6 +1203,8 @@ public:
     {
         if (config->main_rotation == MAIN_ROTATION_AB)
             return make_shared<spell::ArcaneBlast>();
+        if (config->main_rotation == MAIN_ROTATION_AE)
+            return make_shared<spell::ArcaneExplosion>();
         if (config->main_rotation == MAIN_ROTATION_AM)
             return make_shared<spell::ArcaneMissiles>();
         if (config->main_rotation == MAIN_ROTATION_SC)
@@ -1585,6 +1597,9 @@ public:
     {
         double hit = 83.0 + player->stats.hit;
 
+        if (config->targets > 1)
+            hit+= 11;
+
         if (spell->school == SCHOOL_ARCANE && player->talents.arcane_focus)
             hit+= player->talents.arcane_focus*2.0;
 
@@ -1793,7 +1808,12 @@ public:
             dmg+= sp*coeff;
         }
 
-        return dmg * dmgMultiplier(spell);
+        dmg*= dmgMultiplier(spell);
+
+        if (spell->aoe && spell->aoe_cap > 0 && dmg > spell->aoe_cap/config->targets)
+            dmg = spell->aoe_cap/config->targets;
+
+        return dmg;
     }
 
     double spellDmgResist(shared_ptr<spell::Spell> spell)

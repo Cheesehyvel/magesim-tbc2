@@ -7,6 +7,7 @@ struct Config
     bool gcd_unlocked = false;
     bool avg_spell_dmg = false;
     bool additional_data = false;
+    int targets = 1;
 
     bool misery = true;
     bool curse_of_elements = true;

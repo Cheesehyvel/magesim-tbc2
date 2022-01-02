@@ -4,6 +4,8 @@ namespace spell
     enum ID : int
     {
         ARCANE_BLAST = 30451,
+        ARCANE_EXPLOSION = 27082,
+        ARCANE_EXPLOSION1 = 1449,
         ARCANE_MISSILES = 38699,
         FROSTBOLT = 27072,
         FIREBALL = 27070,
@@ -34,6 +36,8 @@ namespace spell
         bool channeling = false;
         bool proc = false;
         bool binary = false;
+        bool aoe = false;
+        double aoe_cap = 0;
         int ticks = 0;
         School school;
 
@@ -65,6 +69,46 @@ namespace spell
             cast_time = 2.5;
             coeff = 2.5/3.5;
             school = SCHOOL_ARCANE;
+        }
+
+    };
+
+    class ArcaneExplosion : public Spell
+    {
+
+    public:
+        ArcaneExplosion()
+        {
+            id = ARCANE_EXPLOSION;
+            name = "Arcane Explosion";
+            cost = 545;
+            min_dmg = 377;
+            max_dmg = 407;
+            cast_time = 0;
+            coeff = 1.5/3.5/2;
+            school = SCHOOL_ARCANE;
+            aoe = true;
+            aoe_cap = 10180;
+        }
+
+    };
+
+    class ArcaneExplosion1 : public Spell
+    {
+
+    public:
+        ArcaneExplosion1()
+        {
+            id = ARCANE_EXPLOSION1;
+            name = "Arcane Explosion (Rank 1)";
+            cost = 75;
+            min_dmg = 34;
+            max_dmg = 38;
+            cast_time = 0;
+            coeff = 0.064;
+            school = SCHOOL_ARCANE;
+            aoe = true;
+            aoe_cap = 1000; // Unknown aoe cap, so this is just a complete guess
         }
 
     };

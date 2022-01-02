@@ -17,6 +17,7 @@ enum MainRotation: int
     MAIN_ROTATION_SC,
     MAIN_ROTATION_FIB,
     MAIN_ROTATION_FRB,
+    MAIN_ROTATION_AE,
 };
 
 enum Race : int

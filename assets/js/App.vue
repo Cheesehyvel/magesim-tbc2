@@ -469,6 +469,7 @@
                                 <label>Main spell</label>
                                 <select v-model="config.main_rotation">
                                     <option :value="main_rotations.MAIN_ROTATION_AB">Arcane Blast</option>
+                                    <option :value="main_rotations.MAIN_ROTATION_AE">Arcane Explosion</option>
                                     <option :value="main_rotations.MAIN_ROTATION_AM">Arcane Missiles</option>
                                     <option :value="main_rotations.MAIN_ROTATION_SC">Scorch</option>
                                     <option :value="main_rotations.MAIN_ROTATION_FIB">Fireball</option>
@@ -518,7 +519,7 @@
                                     <input type="text" v-model.number="config.ab_haste_stop">
                                 </div>
                             </template>
-                            <template v-if="config.main_rotation != main_rotations.MAIN_ROTATION_AM && hasTalent('clearcast')">
+                            <template v-if="canCream">
                                 <div class="form-item">
                                     <label>
                                         <input type="checkbox" v-model="config.cc_am_queue">
@@ -540,6 +541,10 @@
                             </template>
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="config.fire_blast_weave"> <span>Fire Blast weave</span></label>
+                            </div>
+                            <div class="form-item">
+                                <label>No. of targets</label>
+                                <input type="text" v-model.number="config.targets">
                             </div>
                             <div class="form-item">
                                 <label>Fight duration (sec)</label>
@@ -1327,6 +1332,7 @@
                 gcd_unlocked: false,
                 avg_spell_dmg: false,
                 additional_data: false,
+                targets: 1,
 
                 misery: true,
                 curse_of_elements: true,
@@ -1568,6 +1574,12 @@
                 if (this.config.main_rotation <= this.main_rotations.MAIN_ROTATION_FRB)
                     return "frost";
                 return null;
+            },
+
+            canCream() {
+                return this.hasTalent('clearcast') &&
+                    this.config.main_rotation != this.main_rotations.MAIN_ROTATION_AM &&
+                    this.config.main_rotation != this.main_rotations.MAIN_ROTATION_AE;
             },
 
             faction() {
@@ -3292,14 +3304,21 @@
                 // Fire spec
                 if (_.get(cfg, "spec") == 1) {
                     if (_.get(cfg, "fire_rotation") == 1)
-                        cfg.main_rotation = this.main_rotations.MAIN_ROTATION_SC;
+                        this.config.main_rotation = this.main_rotations.MAIN_ROTATION_SC;
                     else
-                        cfg.main_rotation = this.main_rotations.MAIN_ROTATION_FIB;
+                        this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FIB;
                 }
                 // Frost spec
-                if (_.get(cfg, "spec") == 2) {
-                    cfg.main_rotation = this.main_rotations.MAIN_ROTATION_FRB;
+                else if (_.get(cfg, "spec") == 2) {
+                    this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FRB;
                 }
+                // Arcane spec
+                else if (!cfg.hasOwnProperty("main_rotation")) {
+                    this.config.main_rotation = this.main_rotations.MAIN_ROTATION_AB;
+                }
+
+                if (!cfg.hasOwnProperty("targets"))
+                    this.config.targets = 1;
 
                 var from, to;
                 for (var i=0; i<timings.length; i++) {

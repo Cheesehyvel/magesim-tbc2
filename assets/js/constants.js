@@ -21,6 +21,7 @@ export default {
         MAIN_ROTATION_SC: 2,
         MAIN_ROTATION_FIB: 3,
         MAIN_ROTATION_FRB: 4,
+        MAIN_ROTATION_AE: 5,
     },
     foods: {
         FOOD_NONE: 0,

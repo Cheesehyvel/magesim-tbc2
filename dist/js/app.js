@@ -114,7 +114,8 @@ __webpack_require__.r(__webpack_exports__);
     MAIN_ROTATION_AM: 1,
     MAIN_ROTATION_SC: 2,
     MAIN_ROTATION_FIB: 3,
-    MAIN_ROTATION_FRB: 4
+    MAIN_ROTATION_FRB: 4,
+    MAIN_ROTATION_AE: 5
   },
   foods: {
     FOOD_NONE: 0,
@@ -5389,6 +5390,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5411,6 +5417,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       gcd_unlocked: false,
       avg_spell_dmg: false,
       additional_data: false,
+      targets: 1,
       misery: true,
       curse_of_elements: true,
       malediction: false,
@@ -5631,6 +5638,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.config.main_rotation <= this.main_rotations.MAIN_ROTATION_FIB) return "fire";
       if (this.config.main_rotation <= this.main_rotations.MAIN_ROTATION_FRB) return "frost";
       return null;
+    },
+    canCream: function canCream() {
+      return this.hasTalent('clearcast') && this.config.main_rotation != this.main_rotations.MAIN_ROTATION_AM && this.config.main_rotation != this.main_rotations.MAIN_ROTATION_AE;
     },
     faction: function faction() {
       var alliance = [this.races.RACE_GNOME, this.races.RACE_HUMAN, this.races.RACE_DRAENEI];
@@ -7156,14 +7166,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (_.get(cfg, "conjured_at") === 0 && cfg.conjured == this.conjureds.CONJURED_MANA_GEM) delete cfg.conjured_at; // Fire spec
 
       if (_.get(cfg, "spec") == 1) {
-        if (_.get(cfg, "fire_rotation") == 1) cfg.main_rotation = this.main_rotations.MAIN_ROTATION_SC;else cfg.main_rotation = this.main_rotations.MAIN_ROTATION_FIB;
+        if (_.get(cfg, "fire_rotation") == 1) this.config.main_rotation = this.main_rotations.MAIN_ROTATION_SC;else this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FIB;
       } // Frost spec
-
-
-      if (_.get(cfg, "spec") == 2) {
-        cfg.main_rotation = this.main_rotations.MAIN_ROTATION_FRB;
+      else if (_.get(cfg, "spec") == 2) {
+        this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FRB;
+      } // Arcane spec
+      else if (!cfg.hasOwnProperty("main_rotation")) {
+        this.config.main_rotation = this.main_rotations.MAIN_ROTATION_AB;
       }
 
+      if (!cfg.hasOwnProperty("targets")) this.config.targets = 1;
       var from, to;
 
       for (var i = 0; i < timings.length; i++) {
@@ -65882,6 +65894,16 @@ var render = function() {
                             "option",
                             {
                               domProps: {
+                                value: _vm.main_rotations.MAIN_ROTATION_AE
+                              }
+                            },
+                            [_vm._v("Arcane Explosion")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            {
+                              domProps: {
                                 value: _vm.main_rotations.MAIN_ROTATION_AM
                               }
                             },
@@ -66219,9 +66241,7 @@ var render = function() {
                         ]
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.config.main_rotation !=
-                      _vm.main_rotations.MAIN_ROTATION_AM &&
-                    _vm.hasTalent("clearcast")
+                    _vm.canCream
                       ? [
                           _c("div", { staticClass: "form-item" }, [
                             _c(
@@ -66422,6 +66442,39 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [_vm._v("Fire Blast weave")])
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c("label", [_vm._v("No. of targets")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.number",
+                            value: _vm.config.targets,
+                            expression: "config.targets",
+                            modifiers: { number: true }
+                          }
+                        ],
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.config.targets },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.config,
+                              "targets",
+                              _vm._n($event.target.value)
+                            )
+                          },
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
+                          }
+                        }
+                      })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-item" }, [

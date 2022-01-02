@@ -41,6 +41,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .value("MAIN_ROTATION_SC", MAIN_ROTATION_SC)
         .value("MAIN_ROTATION_FIB", MAIN_ROTATION_FIB)
         .value("MAIN_ROTATION_FRB", MAIN_ROTATION_FRB)
+        .value("MAIN_ROTATION_AE", MAIN_ROTATION_AE)
         ;
 
     emscripten::enum_<RegenRotation>("RegenRotation")
@@ -160,6 +161,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("gcd_unlocked", &Config::gcd_unlocked)
         .property("avg_spell_dmg", &Config::avg_spell_dmg)
         .property("additional_data", &Config::additional_data)
+        .property("targets", &Config::targets)
 
         .property("misery", &Config::misery)
         .property("curse_of_elements", &Config::curse_of_elements)
