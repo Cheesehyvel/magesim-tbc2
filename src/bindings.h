@@ -294,6 +294,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .field("dps", &SimulationResult::dps)
         .field("evocated_at", &SimulationResult::evocated_at)
         .field("regened_at", &SimulationResult::regened_at)
+        .field("t_gcd_capped", &SimulationResult::t_gcd_capped)
         .field("log", &SimulationResult::log)
         ;
 

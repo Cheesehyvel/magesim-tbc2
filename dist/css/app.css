@@ -780,7 +780,7 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .sidebar {
   position: relative;
   background: #111;
-  padding: 30px;
+  padding: 30px 30px 60px;
 }
 #app .wrapper .sidebar .final-stats {
   margin-top: 30px;

@@ -57,6 +57,7 @@ public:
         double evocated_at = 0;
         double regened = 0;
         double regened_at = 0;
+        double t_gcd_capped = 0;
 
         if (config->additional_data)
             results << "DPS,Duration\n";
@@ -81,6 +82,8 @@ public:
                 regened++;
                 regened_at+= (r.regened_at - regened_at) / regened;
             }
+
+            t_gcd_capped+= (r.t_gcd_capped - t_gcd_capped) / (i+1);
 
             bin = floor(r.dps/bin_size)*bin_size;
             if (histogram.find(bin) != histogram.end())
@@ -113,7 +116,8 @@ public:
         ss.clear();
         ss << "{";
         ss << "\"evocated\":{\"t\":" << evocated_at << ",\"n\":" << evocated << "},";
-        ss << "\"regened\":{\"t\":" << regened_at << ",\"n\":" << regened << "}";
+        ss << "\"regened\":{\"t\":" << regened_at << ",\"n\":" << regened << "},";
+        ss << "\"t_gcd_capped\":" << t_gcd_capped;
         ss << "}";
         result.stats = ss.str();
 
@@ -188,6 +192,7 @@ public:
         result.dps = state->dmg/state->t;
         result.evocated_at = state->evocated_at;
         result.regened_at = state->regened_at;
+        result.t_gcd_capped = state->t_gcd_capped;
 
         if (logging)
             result.log = jsonLog();
@@ -444,12 +449,14 @@ public:
         if (canCast(spell)) {
             if (state->t_gcd > state->t) {
                 pushCast(spell, state->t_gcd - state->t);
+                if (!state->was_instant)
+                    state->t_gcd_capped+= state->t_gcd - state->t;
             }
             else {
+                useCooldowns();
+
                 if (!spell->proc)
                     state->t_gcd = state->t + gcd();
-
-                useCooldowns();
 
                 if (spell->channeling)
                     onCast(spell);
@@ -519,6 +526,11 @@ public:
         state->mana-= spell->actual_cost;
         if (spell->actual_cost > 0)
             state->t_mana_spent = state->t;
+
+        if (spell->cast_time == 0 || state->hasBuff(buff::PRESENCE_OF_MIND))
+            state->was_instant = true;
+        else if (state->was_instant)
+            state->was_instant = false;
 
         /**
          * Clearcast mechanics

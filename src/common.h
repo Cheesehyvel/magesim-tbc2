@@ -194,6 +194,7 @@ struct SimulationResult
     double dps;
     double evocated_at;
     double regened_at;
+    double t_gcd_capped;
     std::string log;
 };
 

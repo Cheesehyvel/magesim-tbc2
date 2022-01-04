@@ -5402,6 +5402,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -64581,6 +64589,24 @@ var render = function() {
                           ])
                         : _vm._e(),
                       _vm._v(" "),
+                      _vm.result.stats.t_gcd_capped
+                        ? _c(
+                            "div",
+                            { staticClass: "faded" },
+                            [
+                              _vm._v(
+                                "\n                        Wasted haste: " +
+                                  _vm._s(
+                                    _vm.$round(_vm.result.stats.t_gcd_capped, 2)
+                                  ) +
+                                  "s\n                        "
+                              ),
+                              _c("help", [_vm._v("Time spent gcd capped")])
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
                       _vm.result.histogram
                         ? _c(
                             "div",
@@ -64630,6 +64656,24 @@ var render = function() {
                                 _vm._s(_vm.$round(_vm.result.regened_at, 1))
                             )
                           ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.result.t_gcd_capped
+                        ? _c(
+                            "div",
+                            { staticClass: "faded" },
+                            [
+                              _vm._v(
+                                "\n                        Wasted haste: " +
+                                  _vm._s(
+                                    _vm.$round(_vm.result.t_gcd_capped, 2)
+                                  ) +
+                                  "s\n                        "
+                              ),
+                              _c("help", [_vm._v("Time spent gcd capped")])
+                            ],
+                            1
+                          )
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.result.log

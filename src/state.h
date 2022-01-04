@@ -21,6 +21,8 @@ public:
 
     double evocated_at = -1;
     double regened_at = -1;
+    double t_gcd_capped = 0;
+    bool was_instant = false;
 
     map<cooldown::ID, shared_ptr<cooldown::Cooldown>> cooldowns;
     map<buff::ID, shared_ptr<buff::Buff>> buffs;
@@ -51,6 +53,11 @@ public:
         duration+= -config->duration_variance + random<double>(0, config->duration_variance*2);
         cc_snapshot = false;
         cc_queue = false;
+
+        evocated_at = -1;
+        regened_at = -1;
+        t_gcd_capped = 0;
+        was_instant = false;
 
         buffs.clear();
         debuffs.clear();

@@ -128,6 +128,10 @@
                             Filler: {{ $round(result.stats.regened.t, 1) }}s
                             ({{ $round(result.stats.regened.n / result.iterations * 100, 1) }}%)
                         </div>
+                        <div class="faded" v-if="result.stats.t_gcd_capped">
+                            Wasted haste: {{ $round(result.stats.t_gcd_capped, 2) }}s
+                            <help>Time spent gcd capped</help>
+                        </div>
                         <div class="btn mt-1" v-if="result.histogram" @click="histogramToggle">Histogram</div>
                         <div class="btn mt-1" v-if="result.all_results" @click="allResults">Simulation data</div>
                     </template>
@@ -138,6 +142,10 @@
                         <div class="mt-1"></div>
                         <div class="faded" v-if="result.evocated_at > 0">Evocated at: {{ $round(result.evocated_at, 1) }}</div>
                         <div class="faded" v-if="result.regened_at > 0">Filler at: {{ $round(result.regened_at, 1) }}</div>
+                        <div class="faded" v-if="result.t_gcd_capped">
+                            Wasted haste: {{ $round(result.t_gcd_capped, 2) }}s
+                            <help>Time spent gcd capped</help>
+                        </div>
                         <div class="btn mt-1" v-if="result.log" @click="logToggle">Combat log</div>
                         <div class="btn mt-1" v-if="result.log" @click="managraphToggle">Mana graph</div>
                     </template>
