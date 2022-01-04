@@ -225,7 +225,7 @@ namespace cooldown
         EternalSage()
         {
             id = ETERNAL_SAGE;
-            duration = 45;
+            duration = 60;
         }
 
     };
