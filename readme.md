@@ -2,8 +2,8 @@
 
 Mage DPS simulator for WoW TBC Classic.
 
-Backend written in C++ and compiled with Emscripten into WebAssembly.\
-Frontend written in Vue.js and SCSS and compiled with Laravel mix.
+Backend is written in C++ and compiled with Emscripten into WebAssembly.\
+Frontend is written in Vue.js and SCSS and compiled with Laravel mix.
 
 ## Building the project
 Requirements for backend
