@@ -251,7 +251,8 @@ var ids = {
   BLADE_OF_WIZARDRY: 31336,
   ROBE_ELDER_SCRIBES: 28602,
   BURST_OF_KNOWLEDGE: 11832,
-  DARK_IRON_PIPE: 38290
+  DARK_IRON_PIPE: 38290,
+  BLADE_OF_ETERNAL_DARKNESS: 17780
 };
 var equip = {
   weapon: [{
@@ -540,6 +541,9 @@ var equip = {
     sp: 121,
     hit: 8,
     q: "rare"
+  }, {
+    id: ids.BLADE_OF_ETERNAL_DARKNESS,
+    title: "Blade of Eternal Darkness"
   }],
   off_hand: [{
     id: 34179,
@@ -5486,6 +5490,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       wrath_of_cenarius: false,
       blade_of_wizardry: false,
       robe_elder_scribes: false,
+      blade_of_eternal_darkness: false,
       mana_etched_4set: false,
       meta_gem: 0,
       trinket1: 0,
@@ -6243,6 +6248,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
       this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
       this.config.blade_of_wizardry = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDRY);
+      this.config.blade_of_eternal_darkness = this.isEquipped("weapon", this.items.ids.BLADE_OF_ETERNAL_DARKNESS);
       this.config.robe_elder_scribes = this.isEquipped("chest", this.items.ids.ROBE_ELDER_SCRIBES);
       if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT)) this.config.eye_of_the_night = true;
       if (this.isEquipped("neck", this.items.ids.CHAIN_OF_THE_TWILIGHT_OWL)) this.config.chain_of_the_twilight_owl = true;

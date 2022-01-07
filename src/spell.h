@@ -13,6 +13,7 @@ namespace spell
         FIRE_BLAST = 27079,
         PYROBLAST = 33938,
         LIGHTNING_CAPACITOR = 28785,
+        ENGULFING_SHADOWS = 21978,
     };
 
     enum Result : int
@@ -237,6 +238,24 @@ namespace spell
             max_dmg = 807;
             cast_time = 0;
             school = SCHOOL_NATURE;
+            coeff = 0;
+            proc = true;
+        }
+    };
+
+    class EngulfingShadows : public Spell
+    {
+
+    public:
+        EngulfingShadows()
+        {
+            id = ENGULFING_SHADOWS;
+            name = "Engulfing Shadows";
+            cost = 0;
+            min_dmg = 100;
+            max_dmg = 100;
+            cast_time = 0;
+            school = SCHOOL_SHADOW;
             coeff = 0;
             proc = true;
         }

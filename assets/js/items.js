@@ -45,6 +45,7 @@ var ids = {
     ROBE_ELDER_SCRIBES: 28602,
     BURST_OF_KNOWLEDGE: 11832,
     DARK_IRON_PIPE: 38290,
+    BLADE_OF_ETERNAL_DARKNESS: 17780,
 };
 
 var equip = {
@@ -86,6 +87,7 @@ var equip = {
         { id: 27512, title: "The Willbreaker", int: 14, sp: 121, crit: 17, q: "rare" },
         { id: 27899, title: "Mana Wrath", int: 18, sp: 126, q: "rare" },
         { id: 29185, title: "Continuum Blade", int: 11, sp: 121, hit: 8, q: "rare" },
+        { id: ids.BLADE_OF_ETERNAL_DARKNESS, title: "Blade of Eternal Darkness" },
     ],
     off_hand: [
         { id: 34179, title: "Heart of the Pit", int: 21, sp: 39, haste: 32, phase: 5 },

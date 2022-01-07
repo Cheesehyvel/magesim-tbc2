@@ -66,6 +66,7 @@ struct Config
     bool mana_etched_4set = false;
     bool blade_of_wizardry = false;
     bool robe_elder_scribes = false;
+    bool blade_of_eternal_darkness = false;
 
     Trinket trinket1 = TRINKET_NONE;
     Trinket trinket2 = TRINKET_NONE;

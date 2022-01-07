@@ -43,6 +43,7 @@ enum School : int
     SCHOOL_FROST,
     SCHOOL_FIRE,
     SCHOOL_NATURE,
+    SCHOOL_SHADOW,
 };
 
 enum MetaGem : int {

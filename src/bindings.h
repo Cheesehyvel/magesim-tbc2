@@ -221,6 +221,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("mana_etched_4set", &Config::mana_etched_4set)
         .property("blade_of_wizardry", &Config::blade_of_wizardry)
         .property("robe_elder_scribes", &Config::robe_elder_scribes)
+        .property("blade_of_eternal_darkness", &Config::blade_of_eternal_darkness)
 
         .property("trinket1", &Config::trinket1)
         .property("trinket2", &Config::trinket2)

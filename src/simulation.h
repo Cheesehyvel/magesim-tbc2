@@ -599,6 +599,9 @@ public:
 
         logSpellDmg(spell);
 
+        if (spell->id == spell::ENGULFING_SHADOWS)
+            onManaGain(100, "Engulfing Shadows");
+
         if (spell->proc)
             return;
 
@@ -640,6 +643,10 @@ public:
             if (spell->id == spell::PYROBLAST)
                 pushDot(make_shared<dot::Pyroblast>());
 
+            // 10% proc rate
+            if (config->blade_of_eternal_darkness && random<int>(0, 9) == 0) {
+                cast(make_shared<spell::EngulfingShadows>());
+            }
             // 10% proc rate
             if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && !state->hasCooldown(cooldown::QUAGMIRRANS_EYE) && random<int>(0, 9) == 0) {
                 onCooldownGain(make_shared<cooldown::QuagmirransEye>());

@@ -1398,6 +1398,7 @@
                 wrath_of_cenarius: false,
                 blade_of_wizardry: false,
                 robe_elder_scribes: false,
+                blade_of_eternal_darkness: false,
                 mana_etched_4set: false,
                 meta_gem: 0,
                 trinket1: 0,
@@ -2201,6 +2202,7 @@
                 this.config.eternal_sage = this.isEquipped("finger", this.items.ids.ETERNAL_SAGE);
                 this.config.wrath_of_cenarius = this.isEquipped("finger", this.items.ids.WRATH_OF_CENARIUS);
                 this.config.blade_of_wizardry = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDRY);
+                this.config.blade_of_eternal_darkness = this.isEquipped("weapon", this.items.ids.BLADE_OF_ETERNAL_DARKNESS);
                 this.config.robe_elder_scribes = this.isEquipped("chest", this.items.ids.ROBE_ELDER_SCRIBES);
 
                 if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT))
