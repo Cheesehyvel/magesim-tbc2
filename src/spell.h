@@ -49,6 +49,10 @@ namespace spell
         int tick = 0;
         bool done = false;
 
+        int misses = 0;
+        int hits = 0;
+        int crits = 0;
+
         double avgDmg()
         {
             return (min_dmg + max_dmg)/2.0;

@@ -575,12 +575,23 @@ public:
         // 2% proc rate
         if (hasTrinket(TRINKET_BLUE_DRAGON) && random<int>(0, 49) == 0)
             onBuffGain(make_shared<buff::BlueDragon>());
+        // 10% proc rate
+        if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && !state->hasCooldown(cooldown::QUAGMIRRANS_EYE) && random<int>(0, 9) == 0) {
+            onCooldownGain(make_shared<cooldown::QuagmirransEye>());
+            onBuffGain(make_shared<buff::QuagmirransEye>());
+        }
     }
 
     void onCastDmg(shared_ptr<spell::Spell> spell)
     {
         spell->done = true;
         spell->result = spellRoll(spell);
+        if (spell->result == spell::MISS)
+            spell->misses++;
+        else if (spell->result == spell::CRIT)
+            spell->crits++;
+        else
+            spell->hits++;
 
         if (spell->result != spell::MISS) {
             spell->dmg = spellDmg(spell);
@@ -646,11 +657,6 @@ public:
             // 10% proc rate
             if (config->blade_of_eternal_darkness && random<int>(0, 9) == 0) {
                 cast(make_shared<spell::EngulfingShadows>());
-            }
-            // 10% proc rate
-            if (hasTrinket(TRINKET_QUAGMIRRANS_EYE) && !state->hasCooldown(cooldown::QUAGMIRRANS_EYE) && random<int>(0, 9) == 0) {
-                onCooldownGain(make_shared<cooldown::QuagmirransEye>());
-                onBuffGain(make_shared<buff::QuagmirransEye>());
             }
             // 15% proc rate
             if (hasTrinket(TRINKET_MARK_OF_DEFIANCE) && !state->hasCooldown(cooldown::MARK_OF_DEFIANCE) && random<int>(0, 99) < 15) {
