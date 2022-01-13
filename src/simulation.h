@@ -1593,7 +1593,7 @@ public:
         if (state->hasBuff(buff::QUAGMIRRANS_EYE))
             rating+= 320;
         if (state->hasBuff(buff::FORGOTTEN_KNOWLEDGE))
-            rating+= 320;
+            rating+= 280;
         if (state->hasBuff(buff::MYSTICAL_SKYFIRE))
             rating+= 320;
         if (state->hasBuff(buff::MQG))
