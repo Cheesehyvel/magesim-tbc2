@@ -192,6 +192,11 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$copyToClipboard = functio
   document.body.removeChild(el);
 };
 
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$nullRound = function (value, dec) {
+  if (value === null || isNaN(value)) return "-";
+  return _.round(value, dec);
+};
+
 /***/ }),
 
 /***/ "./assets/js/items.js":
@@ -241,7 +246,6 @@ var ids = {
   SORCERERS_ALCHEMIST_STONE: 35749,
   ALCHEMIST_STONE: 13503,
   NAARU_SLIVER: 34429,
-  STAT_WEIGHT_BASE: 99990,
   DARKMOON_CRUSADE: 31856,
   EYE_OF_THE_NIGHT: 24116,
   CHAIN_OF_THE_TWILIGHT_OWL: 24121,
@@ -3234,50 +3238,6 @@ var equip = {
     sp: 12,
     use: true,
     q: "rare"
-  }],
-  stat_weight: [{
-    id: ids.STAT_WEIGHT_BASE,
-    title: "Base"
-  }, {
-    id: 99991,
-    title: "+10 Intellect",
-    "int": 10
-  }, {
-    id: 99992,
-    title: "+10 Spell power",
-    sp: 10
-  }, {
-    id: 99993,
-    title: "+10 Crit rating",
-    crit: 10
-  }, {
-    id: 99994,
-    title: "+10 Hit rating",
-    hit: 10
-  }, {
-    id: 99995,
-    title: "+10 Haste rating",
-    haste: 10
-  }, {
-    id: 99996,
-    title: "+10 Spirit",
-    spi: 10
-  }, {
-    id: 99997,
-    title: "+10 Mp5",
-    mp5: 10
-  }, {
-    id: 99998,
-    title: "+10 Arcane spell power",
-    sp_arcane: 10
-  }, {
-    id: 99999,
-    title: "+10 Fire spell power",
-    sp_fire: 10
-  }, {
-    id: 99900,
-    title: "+10 Frost spell power",
-    sp_frost: 10
   }]
 };
 var gems = [{
@@ -5414,6 +5374,74 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5608,6 +5636,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       equiplist_string: null,
       final_stats: null,
       result: null,
+      ep_result: null,
+      ep_weight: "dps",
       is_running: false,
       config_open: false,
       log_open: false,
@@ -5628,7 +5658,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       config: _.cloneDeep(default_config)
     });
 
-    var slots = ["weapon", "off_hand", "ranged", "head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "finger1", "finger2", "trinket1", "trinket2", "stat_weight"];
+    var slots = ["weapon", "off_hand", "ranged", "head", "neck", "shoulder", "back", "chest", "wrist", "hands", "waist", "legs", "feet", "finger1", "finger2", "trinket1", "trinket2"];
 
     for (var _i = 0, _slots = slots; _i < _slots.length; _i++) {
       var slot = _slots[_i];
@@ -5691,9 +5721,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.item_comparison.length > 1;
     },
     itemSlots: function itemSlots() {
-      return _.keys(this.items.equip).filter(function (s) {
-        return s != "stat_weight";
-      });
+      return _.keys(this.items.equip);
+    },
+    epCalc: function epCalc() {
+      if (!this.ep_result) return null;
+      var ep = {
+        "int": null,
+        spi: null,
+        mp5: null,
+        sp: null,
+        sp_arcane: null,
+        sp_frost: null,
+        sp_fire: null,
+        crit: null,
+        hit: null,
+        haste: null
+      };
+      if (!this.ep_result.base) return ep;
+
+      if (this.ep_weight == "dps") {
+        for (var stat in ep) {
+          if (this.ep_result[stat]) ep[stat] = (this.ep_result[stat] - this.ep_result.base) / 10;
+        }
+      } else {
+        if (_.get(this.ep_result, this.ep_weight, 0) - this.ep_result.base < 0.1) return ep;
+
+        for (var stat in ep) {
+          if (this.ep_result[stat]) {
+            if (stat == this.ep_weight) ep[stat] = 1;else ep[stat] = (this.ep_result[stat] - this.ep_result.base) / (this.ep_result[this.ep_weight] - this.ep_result.base);
+          }
+        }
+      }
+
+      return ep;
     }
   },
   methods: {
@@ -5825,20 +5885,144 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.is_running = true;
       sim.start(this.config);
     },
-    runComparisonFor: function runComparisonFor(item_id) {
+    runStat: function runStat(stat, value, rng_seed) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var self;
+        var self, addStats;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 self = _this2;
 
-                _this2.equip(_this2.active_slot, item_id, false);
+                addStats = function addStats(config, stats) {
+                  stats = _.merge({
+                    "int": 0,
+                    spi: 0,
+                    mp5: 0,
+                    crit: 0,
+                    hit: 0,
+                    sp: 0,
+                    haste: 0,
+                    sp_arcane: 0,
+                    sp_frost: 0,
+                    sp_fire: 0
+                  }, stats);
+                  config.stats.intellect += stats["int"];
+                  config.stats.spirit += stats.spi;
+                  config.stats.mp5 += stats.mp5;
+                  config.stats.spell_power += stats.sp;
+                  config.stats.spell_power_arcane += stats.sp_arcane;
+                  config.stats.spell_power_frost += stats.sp_frost;
+                  config.stats.spell_power_fire += stats.sp_fire;
+                  config.stats.crit += self.critRatingToChance(stats.crit);
+                  config.stats.hit += self.hitRatingToChance(stats.hit);
+                  config.stats.haste += self.hasteRatingToHaste(stats.haste);
+                };
 
                 return _context.abrupt("return", new Promise(function (resolve, reject) {
+                  var sim = new _simulation__WEBPACK_IMPORTED_MODULE_1__.SimulationWorkers(self.config.iterations, function (result) {
+                    self.is_running = false;
+                    resolve(result);
+                  }, function (error) {
+                    self.is_running = false;
+                    console.error(error);
+                    reject(error);
+                  });
+                  self.log_open = false;
+                  self.prepare();
+
+                  var config = _.cloneDeep(self.config);
+
+                  if (rng_seed) config.rng_seed = rng_seed;
+                  if (value) addStats(config, _defineProperty({}, stat, value));
+                  self.is_running = true;
+                  sim.start(config);
+                }));
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    runEP: function runEP() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var rng_seed, result, stat;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!_this3.is_running) {
+                  _context2.next = 2;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 2:
+                _this3.ep_result = {
+                  base: null,
+                  "int": null,
+                  spi: null,
+                  mp5: null,
+                  sp: null,
+                  sp_arcane: null,
+                  sp_frost: null,
+                  sp_fire: null,
+                  crit: null,
+                  hit: null,
+                  haste: null
+                };
+                rng_seed = Math.round(Math.random() * 100000);
+                _context2.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this3.ep_result);
+
+              case 5:
+                if ((_context2.t1 = _context2.t0()).done) {
+                  _context2.next = 13;
+                  break;
+                }
+
+                stat = _context2.t1.value;
+                _context2.next = 9;
+                return _this3.runStat(stat, stat == "base" ? 0 : 10, rng_seed);
+
+              case 9:
+                result = _context2.sent;
+                _this3.ep_result[stat] = result.avg_dps;
+                _context2.next = 5;
+                break;
+
+              case 13:
+                _this3.foolsOpen();
+
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    runComparisonFor: function runComparisonFor(item_id) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                self = _this4;
+
+                _this4.equip(_this4.active_slot, item_id, false);
+
+                return _context3.abrupt("return", new Promise(function (resolve, reject) {
                   var sim = new _simulation__WEBPACK_IMPORTED_MODULE_1__.SimulationWorkers(self.config.iterations, function (result) {
                     self.is_running = false;
                     resolve(result);
@@ -5855,64 +6039,64 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
               case "end":
-                return _context.stop();
+                return _context3.stop();
             }
           }
-        }, _callee);
+        }, _callee3);
       }))();
     },
     runComparison: function runComparison() {
-      var _this3 = this;
+      var _this5 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         var i, old_item_id, result, cmp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                if (!(!_this3.hasComparisons || _this3.is_running)) {
-                  _context2.next = 2;
+                if (!(!_this5.hasComparisons || _this5.is_running)) {
+                  _context4.next = 2;
                   break;
                 }
 
-                return _context2.abrupt("return");
+                return _context4.abrupt("return");
 
               case 2:
-                for (i in _this3.item_comparison) {
-                  _this3.item_comparison[i].dps = null;
+                for (i in _this5.item_comparison) {
+                  _this5.item_comparison[i].dps = null;
                 }
 
-                old_item_id = _this3.equipped[_this3.active_slot];
-                _context2.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this3.item_comparison);
+                old_item_id = _this5.equipped[_this5.active_slot];
+                _context4.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this5.item_comparison);
 
               case 5:
-                if ((_context2.t1 = _context2.t0()).done) {
-                  _context2.next = 14;
+                if ((_context4.t1 = _context4.t0()).done) {
+                  _context4.next = 14;
                   break;
                 }
 
-                i = _context2.t1.value;
-                cmp = _this3.item_comparison[i];
-                _context2.next = 10;
-                return _this3.runComparisonFor(cmp.id);
+                i = _context4.t1.value;
+                cmp = _this5.item_comparison[i];
+                _context4.next = 10;
+                return _this5.runComparisonFor(cmp.id);
 
               case 10:
-                result = _context2.sent;
-                _this3.item_comparison[i].dps = result.avg_dps;
-                _context2.next = 5;
+                result = _context4.sent;
+                _this5.item_comparison[i].dps = result.avg_dps;
+                _context4.next = 5;
                 break;
 
               case 14:
-                if (_this3.active_slot == "stat_weight") _this3.unequip(_this3.active_slot);else _this3.equip(_this3.active_slot, old_item_id);
+                _this5.equip(_this5.active_slot, old_item_id);
 
-                _this3.foolsOpen();
+                _this5.foolsOpen();
 
               case 16:
               case "end":
-                return _context2.stop();
+                return _context4.stop();
             }
           }
-        }, _callee2);
+        }, _callee4);
       }))();
     },
     prepare: function prepare() {
@@ -5990,7 +6174,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.getItem(slot, id);
     },
     activeGems: function activeGems(index) {
-      var _this4 = this;
+      var _this6 = this;
 
       if (this.activeSockets.length < index) return [];
       if (this.activeSockets[index] == "m") var gems = this.items.gems.filter(function (g) {
@@ -6000,7 +6184,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       if (!this.phase_filter) return gems;
       return gems.filter(function (g) {
-        return _.get(g, "phase", 1) <= _this4.phase_filter;
+        return _.get(g, "phase", 1) <= _this6.phase_filter;
       });
     },
     fillEmptyFields: function fillEmptyFields() {
@@ -6624,12 +6808,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
 
       if (index == -1) {
-        if (this.active_slot == "stat_weight" && item.id != this.items.ids.STAT_WEIGHT_BASE && _.findIndex(this.item_comparison, {
-          id: this.items.ids.STAT_WEIGHT_BASE
-        }) == -1) this.item_comparison.push({
-          id: this.items.ids.STAT_WEIGHT_BASE,
-          dps: null
-        });
         this.item_comparison.push({
           id: item.id,
           dps: null
@@ -6935,7 +7113,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     openCustomItem: function openCustomItem() {
       var slot = this.equipSlotToItemSlot(this.active_slot);
-      if (slot != "quicksets" && slot != "stat_weight") this.custom_item.slot = slot;
+      if (slot != "quicksets") this.custom_item.slot = slot;
       this.custom_item_open = true;
     },
     closeCustomItem: function closeCustomItem() {
@@ -64437,6 +64615,16 @@ var render = function() {
               on: { click: _vm.runMultiple }
             },
             [_vm._v("Run " + _vm._s(_vm.config.iterations) + " times")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn block mt-n",
+              class: [_vm.is_running ? "disabled" : ""],
+              on: { click: _vm.runEP }
+            },
+            [_vm._v("Run stat weights")]
           )
         ]),
         _vm._v(" "),
@@ -64530,7 +64718,290 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.result
+        _vm.epCalc
+          ? _c("div", { staticClass: "ep-stats" }, [
+              _c(
+                "div",
+                { staticClass: "title" },
+                [
+                  _c("span", [_vm._v("Stat weights")]),
+                  _vm._v(" "),
+                  _c("help", [
+                    _vm._v(
+                      "\n                        Stat weights are calculated by running " +
+                        _vm._s(_vm.config.iterations) +
+                        " iterations with +10 of each stat with the same RNG seed and comparing the dps gain."
+                    ),
+                    _c("br"),
+                    _vm._v(
+                      "\n                        Calculated stat weights are based on your config. Any changes to it or your items can change the weights."
+                    ),
+                    _c("br"),
+                    _vm._v(
+                      "\n                        The best way to find out if an item/gem/enchant is better is to equip it and run simulations.\n                    "
+                    )
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ep_weight,
+                      expression: "ep_weight"
+                    }
+                  ],
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.ep_weight = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "dps" } }, [_vm._v("DPS")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "int" } }, [
+                    _vm._v("Intellect (EP)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "spi" } }, [
+                    _vm._v("Spirit (EP)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "mp5" } }, [
+                    _vm._v("Mp5 (EP)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "sp" } }, [
+                    _vm._v("Spell power (EP)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "sp_arcane" } }, [
+                    _vm._v("SP Arcane (EP)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "sp_frost" } }, [
+                    _vm._v("SP Frost (EP)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "sp_fire" } }, [
+                    _vm._v("SP Fire (EP)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "crit" } }, [
+                    _vm._v("Crit rating (EP)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "hit" } }, [
+                    _vm._v("Hit rating (EP)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "haste" } }, [
+                    _vm._v("Haste rating (EP)")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("table", { staticClass: "simple mt-1" }, [
+                _c("tbody", [
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "int"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("Intellect")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.int, 2)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "spi"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("Spirit")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.spi, 2)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "mp5"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("Mp5")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.mp5, 2)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "sp"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("Spell power")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.sp, 2)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "sp_arcane"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("SP Arcane")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.sp_arcane, 2)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "sp_frost"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("SP Frost")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.sp_frost, 2)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "sp_fire"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("SP Fire")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.sp_fire, 2)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "sp_crit"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("Crit rating")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.crit, 2)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "spt_hit"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("Hit rating")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.hit, 2)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.ep_weight = "sp_haste"
+                        }
+                      }
+                    },
+                    [
+                      _c("td", [_vm._v("Haste rating")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$nullRound(_vm.epCalc.haste, 2)))
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          : _vm.result
           ? _c(
               "div",
               { staticClass: "result" },
@@ -71291,7 +71762,7 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.equipped, function(item_id, slot) {
-                    return item_id && slot != "stat_weight"
+                    return item_id
                       ? _c("tr", { staticClass: "equipped-item" }, [
                           _c("td", [_vm._v(_vm._s(_vm.formatKey(slot)))]),
                           _vm._v(" "),

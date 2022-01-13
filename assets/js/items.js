@@ -34,7 +34,6 @@ var ids = {
     SORCERERS_ALCHEMIST_STONE: 35749,
     ALCHEMIST_STONE: 13503,
     NAARU_SLIVER: 34429,
-    STAT_WEIGHT_BASE: 99990,
     DARKMOON_CRUSADE: 31856,
     EYE_OF_THE_NIGHT: 24116,
     CHAIN_OF_THE_TWILIGHT_OWL: 24121,
@@ -454,19 +453,6 @@ var equip = {
         { id: ids.VENGEANCE_ILLIDARI, title: "Vengeance of the Illidari", crit: 26, use: true, q: "rare" },
         { id: ids.NEXUS_HORN, title: "Shiffar's Nexus-Horn", crit: 30, q: "rare" },
         { id: ids.BURST_OF_KNOWLEDGE, title: "Burst of Knowledge", sp: 12, use: true, q: "rare" },
-    ],
-    stat_weight: [
-        { id: ids.STAT_WEIGHT_BASE, title: "Base"},
-        { id: 99991, title: "+10 Intellect", int: 10},
-        { id: 99992, title: "+10 Spell power", sp: 10},
-        { id: 99993, title: "+10 Crit rating", crit: 10},
-        { id: 99994, title: "+10 Hit rating", hit: 10},
-        { id: 99995, title: "+10 Haste rating", haste: 10},
-        { id: 99996, title: "+10 Spirit", spi: 10},
-        { id: 99997, title: "+10 Mp5", mp5: 10},
-        { id: 99998, title: "+10 Arcane spell power", sp_arcane: 10},
-        { id: 99999, title: "+10 Fire spell power", sp_fire: 10},
-        { id: 99900, title: "+10 Frost spell power", sp_frost: 10},
     ],
 };
 

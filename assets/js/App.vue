@@ -67,6 +67,7 @@
                     <div class="btn block" @click="configToggle" :class="[is_running ? 'disabled' : '']">Config</div>
                     <div class="btn block mt-n" @click="runSingle" :class="[is_running ? 'disabled' : '']">Run</div>
                     <div class="btn block mt-n" @click="runMultiple" :class="[is_running ? 'disabled' : '']">Run {{ config.iterations }} times</div>
+                    <div class="btn block mt-n" @click="runEP" :class="[is_running ? 'disabled' : '']">Run stat weights</div>
                 </div>
                 <div class="final-stats" v-if="final_stats">
                     <table class="simple">
@@ -114,7 +115,74 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="result" v-if="result">
+                <div class="ep-stats" v-if="epCalc">
+                    <div class="title">
+                        <span>Stat weights</span>
+                        <help>
+                            Stat weights are calculated by running {{ config.iterations }} iterations with +10 of each stat with the same RNG seed and comparing the dps gain.<br>
+                            Calculated stat weights are based on your config. Any changes to it or your items can change the weights.<br>
+                            The best way to find out if an item/gem/enchant is better is to equip it and run simulations.
+                        </help>
+                    </div>
+                    <select v-model="ep_weight">
+                        <option value="dps">DPS</option>
+                        <option value="int">Intellect (EP)</option>
+                        <option value="spi">Spirit (EP)</option>
+                        <option value="mp5">Mp5 (EP)</option>
+                        <option value="sp">Spell power (EP)</option>
+                        <option value="sp_arcane">SP Arcane (EP)</option>
+                        <option value="sp_frost">SP Frost (EP)</option>
+                        <option value="sp_fire">SP Fire (EP)</option>
+                        <option value="crit">Crit rating (EP)</option>
+                        <option value="hit">Hit rating (EP)</option>
+                        <option value="haste">Haste rating (EP)</option>
+                    </select>
+                    <table class="simple mt-1">
+                        <tbody>
+                            <tr @click="ep_weight = 'int'">
+                                <td>Intellect</td>
+                                <td>{{ $nullRound(epCalc.int, 2) }}</td>
+                            </tr>
+                            <tr @click="ep_weight = 'spi'">
+                                <td>Spirit</td>
+                                <td>{{ $nullRound(epCalc.spi, 2) }}</td>
+                            </tr>
+                            <tr @click="ep_weight = 'mp5'">
+                                <td>Mp5</td>
+                                <td>{{ $nullRound(epCalc.mp5, 2) }}</td>
+                            </tr>
+                            <tr @click="ep_weight = 'sp'">
+                                <td>Spell power</td>
+                                <td>{{ $nullRound(epCalc.sp, 2) }}</td>
+                            </tr>
+                            <tr @click="ep_weight = 'sp_arcane'">
+                                <td>SP Arcane</td>
+                                <td>{{ $nullRound(epCalc.sp_arcane, 2) }}</td>
+                            </tr>
+                            <tr @click="ep_weight = 'sp_frost'">
+                                <td>SP Frost</td>
+                                <td>{{ $nullRound(epCalc.sp_frost, 2) }}</td>
+                            </tr>
+                            <tr @click="ep_weight = 'sp_fire'">
+                                <td>SP Fire</td>
+                                <td>{{ $nullRound(epCalc.sp_fire, 2) }}</td>
+                            </tr>
+                            <tr @click="ep_weight = 'sp_crit'">
+                                <td>Crit rating</td>
+                                <td>{{ $nullRound(epCalc.crit, 2) }}</td>
+                            </tr>
+                            <tr @click="ep_weight = 'spt_hit'">
+                                <td>Hit rating</td>
+                                <td>{{ $nullRound(epCalc.hit, 2) }}</td>
+                            </tr>
+                            <tr @click="ep_weight = 'sp_haste'">
+                                <td>Haste rating</td>
+                                <td>{{ $nullRound(epCalc.haste, 2) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="result" v-else-if="result">
                     <template v-if="result.iterations">
                         <div>DPS</div>
                         <div>{{ $round(result.avg_dps, 2) }}</div>
@@ -1172,7 +1240,7 @@
                             <tr
                                 class="equipped-item"
                                 v-for="(item_id, slot) in equipped"
-                                v-if="item_id && slot != 'stat_weight'"
+                                v-if="item_id"
                             >
                                 <td>{{ formatKey(slot) }}</td>
                                 <td>
@@ -1525,6 +1593,8 @@
                 equiplist_string: null,
                 final_stats: null,
                 result: null,
+                ep_result: null,
+                ep_weight: "dps",
                 is_running: false,
                 config_open: false,
                 log_open: false,
@@ -1549,7 +1619,7 @@
                 "weapon", "off_hand", "ranged",
                 "head", "neck", "shoulder", "back", "chest", "wrist",
                 "hands", "waist", "legs", "feet",
-                "finger1", "finger2", "trinket1", "trinket2", "stat_weight",
+                "finger1", "finger2", "trinket1", "trinket2",
             ];
 
             for (var slot of slots) {
@@ -1636,7 +1706,50 @@
             },
 
             itemSlots() {
-                return _.keys(this.items.equip).filter(s => s != "stat_weight");
+                return _.keys(this.items.equip);
+            },
+
+            epCalc() {
+                if (!this.ep_result)
+                    return null;
+
+                var ep = {
+                    int: null,
+                    spi: null,
+                    mp5: null,
+                    sp: null,
+                    sp_arcane: null,
+                    sp_frost: null,
+                    sp_fire: null,
+                    crit: null,
+                    hit: null,
+                    haste: null,
+                };
+
+                if (!this.ep_result.base)
+                    return ep;
+
+                if (this.ep_weight == "dps") {
+                    for (var stat in ep) {
+                        if (this.ep_result[stat])
+                            ep[stat] = (this.ep_result[stat] - this.ep_result.base) / 10;
+                    }
+                }
+                else {
+                   if (_.get(this.ep_result, this.ep_weight, 0) - this.ep_result.base < 0.1)
+                        return ep;
+
+                    for (var stat in ep) {
+                        if (this.ep_result[stat]) {
+                            if (stat == this.ep_weight)
+                                ep[stat] = 1;
+                            else
+                                ep[stat] = (this.ep_result[stat] - this.ep_result.base) / (this.ep_result[this.ep_weight] - this.ep_result.base);
+                        }
+                    }
+                }
+
+                return ep;
             }
         },
 
@@ -1770,6 +1883,85 @@
                 sim.start(this.config);
             },
 
+            async runStat(stat, value, rng_seed) {
+                var self = this;
+
+                var addStats = function(config, stats) {
+                    stats = _.merge({
+                        int: 0,
+                        spi: 0,
+                        mp5: 0,
+                        crit: 0,
+                        hit: 0,
+                        sp: 0,
+                        haste: 0,
+                        sp_arcane: 0,
+                        sp_frost: 0,
+                        sp_fire: 0,
+                    }, stats);
+
+                    config.stats.intellect+= stats.int;
+                    config.stats.spirit+= stats.spi;
+                    config.stats.mp5+= stats.mp5;
+                    config.stats.spell_power+= stats.sp;
+                    config.stats.spell_power_arcane+= stats.sp_arcane;
+                    config.stats.spell_power_frost+= stats.sp_frost;
+                    config.stats.spell_power_fire+= stats.sp_fire;
+                    config.stats.crit+= self.critRatingToChance(stats.crit);
+                    config.stats.hit+= self.hitRatingToChance(stats.hit);
+                    config.stats.haste+= self.hasteRatingToHaste(stats.haste);
+                };
+
+                return new Promise((resolve, reject) => {
+                    var sim = new SimulationWorkers(self.config.iterations, (result) => {
+                        self.is_running = false;
+                        resolve(result);
+                    }, (error) => {
+                        self.is_running = false;
+                        console.error(error);
+                        reject(error);
+                    });
+
+                    self.log_open = false;
+                    self.prepare();
+                    var config = _.cloneDeep(self.config);
+                    if (rng_seed)
+                        config.rng_seed = rng_seed;
+                    if (value)
+                        addStats(config, {[stat]: value});
+                    self.is_running = true;
+                    sim.start(config);
+                });
+            },
+
+            async runEP() {
+                if (this.is_running)
+                    return;
+
+                this.ep_result = {
+                    base: null,
+                    int: null,
+                    spi: null,
+                    mp5: null,
+                    sp: null,
+                    sp_arcane: null,
+                    sp_frost: null,
+                    sp_fire: null,
+                    crit: null,
+                    hit: null,
+                    haste: null,
+                };
+
+                var rng_seed = Math.round(Math.random() * 100000);
+                var result;
+                for (var stat in this.ep_result) {
+                    result = await this.runStat(stat, stat == "base" ? 0 : 10, rng_seed);
+                    this.ep_result[stat] = result.avg_dps;
+                }
+
+                this.foolsOpen();
+            },
+
             async runComparisonFor(item_id) {
                 var self = this;
                 this.equip(this.active_slot, item_id, false);
@@ -1806,10 +1998,7 @@
                     this.item_comparison[i].dps = result.avg_dps;
                 }
 
-                if (this.active_slot == "stat_weight")
-                    this.unequip(this.active_slot);
-                else
-                    this.equip(this.active_slot, old_item_id);
+                this.equip(this.active_slot, old_item_id);
 
                 this.foolsOpen();
             },
@@ -2657,8 +2846,6 @@
             compareItem(item) {
                 var index = _.findIndex(this.item_comparison, {id: item.id});
                 if (index == -1) {
-                    if (this.active_slot == "stat_weight" && item.id != this.items.ids.STAT_WEIGHT_BASE && _.findIndex(this.item_comparison, {id: this.items.ids.STAT_WEIGHT_BASE}) == -1)
-                        this.item_comparison.push({id: this.items.ids.STAT_WEIGHT_BASE, dps: null});
                     this.item_comparison.push({id: item.id, dps: null});
                 }
                 else {
@@ -3024,7 +3211,7 @@
 
             openCustomItem() {
                 var slot = this.equipSlotToItemSlot(this.active_slot);
-                if (slot != "quicksets" && slot != "stat_weight")
+                if (slot != "quicksets")
                     this.custom_item.slot = slot;
                 this.custom_item_open = true;
             },

@@ -15,3 +15,9 @@ Vue.prototype.$copyToClipboard = function(str) {
     document.execCommand('copy')
     document.body.removeChild(el);
 };
+
+Vue.prototype.$nullRound = function(value, dec) {
+    if (value === null || isNaN(value))
+        return "-";
+    return _.round(value, dec);
+};

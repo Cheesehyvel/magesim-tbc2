@@ -785,6 +785,9 @@ table.simple th:last-child, table.simple td:last-child {
 #app .wrapper .sidebar .final-stats {
   margin-top: 30px;
 }
+#app .wrapper .sidebar .ep-stats {
+  margin-top: 30px;
+}
 #app .wrapper .sidebar .result {
   margin-top: 60px;
   text-align: center;
