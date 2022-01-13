@@ -5866,6 +5866,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       this.managraph_open = false;
       this.log_open = false;
+      this.ep_result = null;
       this.prepare();
       this.is_running = true;
       sim.start(this.config);
@@ -5881,6 +5882,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.error(error);
       });
       this.histogram_open = false;
+      this.ep_result = null;
       this.prepare();
       this.is_running = true;
       sim.start(this.config);
@@ -5966,6 +5968,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _context2.abrupt("return");
 
               case 2:
+                _this3.result = null;
                 _this3.ep_result = {
                   base: null,
                   "int": null,
@@ -5982,26 +5985,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 rng_seed = Math.round(Math.random() * 100000);
                 _context2.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this3.ep_result);
 
-              case 5:
+              case 6:
                 if ((_context2.t1 = _context2.t0()).done) {
-                  _context2.next = 13;
+                  _context2.next = 14;
                   break;
                 }
 
                 stat = _context2.t1.value;
-                _context2.next = 9;
+                _context2.next = 10;
                 return _this3.runStat(stat, stat == "base" ? 0 : 10, rng_seed);
 
-              case 9:
+              case 10:
                 result = _context2.sent;
                 _this3.ep_result[stat] = result.avg_dps;
-                _context2.next = 5;
+                _context2.next = 6;
                 break;
 
-              case 13:
+              case 14:
                 _this3.foolsOpen();
 
-              case 14:
+              case 15:
               case "end":
                 return _context2.stop();
             }

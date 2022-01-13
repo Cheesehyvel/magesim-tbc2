@@ -1861,6 +1861,7 @@
 
                 this.managraph_open = false;
                 this.log_open = false;
+                this.ep_result = null;
                 this.prepare();
                 this.is_running = true;
                 sim.start(this.config);
@@ -1878,6 +1879,7 @@
                 });
 
                 this.histogram_open = false;
+                this.ep_result = null;
                 this.prepare();
                 this.is_running = true;
                 sim.start(this.config);
@@ -1938,6 +1940,7 @@
                 if (this.is_running)
                     return;
 
+                this.result = null;
                 this.ep_result = {
                     base: null,
                     int: null,
