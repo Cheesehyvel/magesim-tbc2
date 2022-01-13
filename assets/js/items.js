@@ -464,6 +464,7 @@ var gems = [
     { id: 25890, title: "Destructive Skyfire Diamond", color: "m", sp: 14, desc: "1% Spell reflect", req: {b: 2, y: 2, r: 2} },
     { id: 32641, title: "Imbued Unstable Diamond", color: "m", sp: 14, desc: "5% stun resist", phase: 2, req: {y: 3} },
     { id: 28557, title: "Swift Skyfire Diamond", color: "m", sp: 12, desc: "Minor run speed", req: {y: 2, r: 1} },
+    { id: 22459, title: "Void Sphere", color: "a", desc: "+4 all res" },
     { id: 33133, title: "Don Julio's Heart", color: "r", sp: 14, unique: true },
     { id: 28118, title: "Runed Ornate Ruby", color: "r", sp: 12, unique: true },
     { id: 32196, title: "Runed Crimson Spinel", color: "r", sp: 12, phase: 3 },

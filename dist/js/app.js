@@ -3308,6 +3308,11 @@ var gems = [{
     r: 1
   }
 }, {
+  id: 22459,
+  title: "Void Sphere",
+  color: "a",
+  desc: "+4 all res"
+}, {
   id: 33133,
   title: "Don Julio's Heart",
   color: "r",
@@ -6712,6 +6717,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.finalStats();
     },
     matchSocketColor: function matchSocketColor(sock, gem) {
+      if (gem == "a") return true;
       if (sock == gem) return true;
       if (sock == "r" && ["o", "p"].indexOf(gem) != -1) return true;
       if (sock == "y" && ["o", "g"].indexOf(gem) != -1) return true;
@@ -7342,14 +7348,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       a.download = "simdata.csv";
       a.click();
     },
-    refreshTooltips: function refreshTooltips(save) {
-      if (window.$WowheadPower) window.$WowheadPower.refreshLinks();
-
-      if (save) {
-        var self = this;
-        setTimeout(function () {
-          self.saveConfig();
-        }, 50);
+    refreshTooltips: function refreshTooltips() {
+      if (window.$WowheadPower) {
+        window.$WowheadPower.refreshLinks();
+        this.$nextTick(function () {
+          window.$WowheadPower.refreshLinks();
+        });
       }
     },
     convertEnchants: function convertEnchants(enchants) {

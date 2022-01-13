@@ -2628,6 +2628,8 @@
             },
 
             matchSocketColor(sock, gem) {
+                if (gem == "a")
+                    return true;
                 if (sock == gem)
                     return true;
                 if (sock == "r" && ["o", "p"].indexOf(gem) != -1)
@@ -3356,15 +3358,12 @@
                 a.click();
             },
 
-            refreshTooltips(save) {
-                if (window.$WowheadPower)
+            refreshTooltips() {
+                if (window.$WowheadPower) {
                     window.$WowheadPower.refreshLinks();
-
-                if (save) {
-                    var self = this;
-                    setTimeout(function() {
-                        self.saveConfig();
-                    }, 50);
+                    this.$nextTick(function() {
+                        window.$WowheadPower.refreshLinks();
+                    });
                 }
             },
 
