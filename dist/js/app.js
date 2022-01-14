@@ -5547,6 +5547,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7078,6 +7086,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     closeImport: function closeImport() {
       this.import_profile.open = false;
       this.import_profile.string = null;
+    },
+    moveProfile: function moveProfile(index, dir) {
+      var pos = (this.profiles.length + index + dir) % this.profiles.length;
+      this.profiles.splice(pos, 0, this.profiles.splice(index, 1)[0]);
+      this.saveProfiles();
     },
     saveProfile: function saveProfile(profile) {
       profile.equipped = _.cloneDeep(this.equipped);
@@ -71309,14 +71322,14 @@ var render = function() {
                   2
                 ),
                 _vm._v(" "),
-                _c("fieldset", [
+                _c("fieldset", { staticClass: "profiles-fieldset" }, [
                   _c("legend", [_vm._v("Profiles")]),
                   _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "profiles" },
                     [
-                      _vm._l(_vm.profiles, function(profile) {
+                      _vm._l(_vm.profiles, function(profile, index) {
                         return _c(
                           "div",
                           { key: profile.id, staticClass: "profile" },
@@ -71335,6 +71348,54 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("div", { staticClass: "actions" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "move move-up",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.moveProfile(index, -1)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "material-icons" },
+                                    [_vm._v("")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("tooltip", { attrs: { position: "t" } }, [
+                                    _vm._v("Move up")
+                                  ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "move move-down",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.moveProfile(index, 1)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "material-icons" },
+                                    [_vm._v("")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("tooltip", { attrs: { position: "t" } }, [
+                                    _vm._v("Move down")
+                                  ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
                               _c(
                                 "div",
                                 {

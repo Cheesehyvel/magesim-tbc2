@@ -1015,6 +1015,9 @@ table.simple th:last-child, table.simple td:last-child {
   grid-gap: 10px;
   grid-template-columns: repeat(5, 1fr);
 }
+#app .profiles-fieldset {
+  grid-column: 1/3;
+}
 #app .profiles .profile {
   background: #2f2f48;
   padding: 5px 10px;
