@@ -175,7 +175,8 @@ enum LogType : int
     LOG_BUFF,
     LOG_DOT,
     LOG_DEBUG,
-    LOG_WAIT
+    LOG_WAIT,
+    LOG_GCD_CAP,
 };
 
 struct LogEntry

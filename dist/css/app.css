@@ -1106,7 +1106,8 @@ table.simple th:last-child, table.simple td:last-child {
 #app .log table tr.type-4 td:nth-child(4) {
   color: #aaa;
 }
-#app .log table tr.type-6 td:nth-child(4) {
+#app .log table tr.type-6 td:nth-child(4),
+#app .log table tr.type-7 td:nth-child(4) {
   color: #b88;
 }
 #app .managr,

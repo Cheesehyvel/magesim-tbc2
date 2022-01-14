@@ -470,6 +470,9 @@
                             <div class="form-item">
                                 <label><input type="checkbox" v-model="log_filter[3]"> <span>Show buffs</span></label>
                             </div>
+                            <div class="form-item">
+                                <label><input type="checkbox" v-model="log_filter[7]"> <span>Show GCD cap</span></label>
+                            </div>
                         </div>
                         <table>
                             <thead>
@@ -1618,6 +1621,7 @@
                     "4": true,
                     "5": true,
                     "6": true,
+                    "7": true,
                 },
                 default_config: default_config,
                 config: _.cloneDeep(default_config),

@@ -449,8 +449,10 @@ public:
         if (canCast(spell)) {
             if (state->t_gcd > state->t) {
                 pushCast(spell, state->t_gcd - state->t);
-                if (!state->was_instant)
+                if (!state->was_instant) {
                     state->t_gcd_capped+= state->t_gcd - state->t;
+                    logGCD(state->t_gcd - state->t);
+                }
             }
             else {
                 useCooldowns();
@@ -2202,6 +2204,19 @@ public:
         s << "Gained " << mana << " mana from " << source;
 
         addLog(LOG_MANA, s.str());
+    }
+
+    void logGCD(double t)
+    {
+        if (!logging)
+            return;
+
+        ostringstream s;
+
+        s << fixed << setprecision(2);
+        s << "Waited " << t << "s due to GCD cap.";
+
+        addLog(LOG_GCD_CAP, s.str());
     }
 
     string jsonLog()
