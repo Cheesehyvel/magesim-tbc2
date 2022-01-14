@@ -2692,7 +2692,12 @@
                                 if (this.gems[slot][i]) {
                                     var gem = this.getGem(this.gems[slot][i]);
                                     if (gem) {
-                                        if (gem.color == "o") {
+                                        if (gem.color == "a") {
+                                            colors.b++;
+                                            colors.r++;
+                                            colors.y++;
+                                        }
+                                        else if (gem.color == "o") {
                                             colors.r++;
                                             colors.y++;
                                         }
@@ -2723,7 +2728,6 @@
                         return colors.b > colors.y;
                     }
                 }
-
                 return true;
             },
 
