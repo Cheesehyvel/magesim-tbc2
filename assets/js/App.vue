@@ -1140,12 +1140,20 @@
                                 </div>
                             </template>
                         </fieldset>
-                        <fieldset>
+                        <fieldset class="profiles-fieldset">
                             <legend>Profiles</legend>
                             <div class="profiles">
-                                <div class="profile" v-for="profile in profiles" :key="profile.id">
+                                <div class="profile" v-for="(profile, index) in profiles" :key="profile.id">
                                     <div class="name" @click="loadProfile(profile)">{{ profile.name }}</div>
                                     <div class="actions">
+                                        <div class="move move-up" @click="moveProfile(index, -1)">
+                                            <span class="material-icons">&#xe316;</span>
+                                            <tooltip position="t">Move up</tooltip>
+                                        </div>
+                                        <div class="move move-down" @click="moveProfile(index, 1)">
+                                            <span class="material-icons">&#xe313;</span>
+                                            <tooltip position="t">Move down</tooltip>
+                                        </div>
                                         <div class="load-items" @click="loadProfile(profile, 'items')">
                                             <span class="material-icons">&#xe84e;</span>
                                             <tooltip position="t">Load items only</tooltip>
@@ -3066,6 +3074,12 @@
             closeImport() {
                 this.import_profile.open = false;
                 this.import_profile.string = null;
+            },
+
+            moveProfile(index, dir) {
+                var pos = (this.profiles.length + index + dir) % this.profiles.length;
+                this.profiles.splice(pos, 0, this.profiles.splice(index, 1)[0]);
+                this.saveProfiles();
             },
 
             saveProfile(profile) {
