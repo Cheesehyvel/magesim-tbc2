@@ -551,6 +551,7 @@ var enchants = {
     ],
     finger: [
         { id: 27924, title: "Spellpower", sp: 12 },
+        { id: 27927, title: "Stats", int: 4, spi: 4 },
     ],
     back: [
         { id: 25084, title: "Subtlety", q: "rare"}
