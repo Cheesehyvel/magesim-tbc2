@@ -363,6 +363,8 @@ var equip = {
         { id: 32239, title: "Slippers of the Seacaller", int: 18, spi: 18, sp: 44, crit: 29, sockets: ["y", "b"], bonus: { sp: 4 }, phase: 3 },
         { id: 34919, title: "Boots of Incantations", int: 26, spi: 23, sp: 47, hit: 17, sockets: ["y"], bonus: { sp: 2 }, phase: 5 },
         { id: 30894, title: "Blue Suede Shoes", int: 32, sp: 56, hit: 18, phase: 3 },
+        { id: 33914, title: "Vindicator's Silk Footguards", int: 30, sp: 35, crit: 28, phase: 3 },
+        { id: 33884, title: "Vindicator's Dreadweave Stalkers", int: 32, sp: 41, phase: 3 },
         { id: 30067, title: "Velvet Boots of the Guardian", int: 21, spi: 15, sp: 49, crit: 24, phase: 2 },
         { id: 30037, title: "Boots of Blasting", int: 25, sp: 39, crit: 25, hit: 18, phase: 2 },
         { id: 33357, title: "Footpads of Madness", int: 22, sp: 50, haste: 25, phase: 4 },

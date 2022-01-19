@@ -2705,6 +2705,19 @@ var equip = {
     hit: 18,
     phase: 3
   }, {
+    id: 33914,
+    title: "Vindicator's Silk Footguards",
+    "int": 30,
+    sp: 35,
+    crit: 28,
+    phase: 3
+  }, {
+    id: 33884,
+    title: "Vindicator's Dreadweave Stalkers",
+    "int": 32,
+    sp: 41,
+    phase: 3
+  }, {
     id: 30067,
     title: "Velvet Boots of the Guardian",
     "int": 21,
