@@ -746,6 +746,12 @@ var equip = {
     crit: 10,
     q: "rare"
   }, {
+    id: 33764,
+    title: "Vengeful Gladiator's Touch of Defeat",
+    "int": 14,
+    sp: 18,
+    phase: 3
+  }, {
     id: 32962,
     title: "Merciless Gladiator's Touch of Defeat",
     "int": 13,

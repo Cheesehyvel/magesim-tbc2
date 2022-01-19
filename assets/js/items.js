@@ -121,6 +121,7 @@ var equip = {
         { id: 28386, title: "Nether Core's Control Rod", int: 10, sp: 13, hit: 8, q: "rare" },
         { id: 25806, title: "Nethekurse's Rod of Torment", int: 10, sp: 11, crit: 10, q: "rare" },
         { id: 25808, title: "Rod of Dire Shadows", int: 10, sp: 11, crit: 10, q: "rare" },
+        { id: 33764, title: "Vengeful Gladiator's Touch of Defeat", int: 14, sp: 18, phase: 3 },
         { id: 32962, title: "Merciless Gladiator's Touch of Defeat", int: 13, sp: 16, phase: 2 },
         { id: 28320, title: "Gladiator's Touch of Defeat", int: 11, sp: 14 },
         { id: 30859, title: "Wand of the Seer", int: 8, spi: 5, sp: 18, q: "rare" },
