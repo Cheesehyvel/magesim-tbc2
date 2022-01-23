@@ -194,8 +194,10 @@ public:
         result.regened_at = state->regened_at;
         result.t_gcd_capped = state->t_gcd_capped;
 
-        if (logging)
+        if (logging) {
             result.log = jsonLog();
+            result.spells = spellStats();
+        }
 
         return result;
     }
@@ -534,6 +536,10 @@ public:
         else if (state->was_instant)
             state->was_instant = false;
 
+        if (state->spells.find(spell->id) == state->spells.end())
+            state->spells[spell->id].name = spell->name;
+        state->spells[spell->id].casts++;
+
         /**
          * Clearcast mechanics
          * */
@@ -586,14 +592,23 @@ public:
 
     void onCastDmg(shared_ptr<spell::Spell> spell)
     {
+        if (state->spells.find(spell->id) == state->spells.end())
+            state->spells[spell->id].name = spell->name;
+
         spell->done = true;
         spell->result = spellRoll(spell);
-        if (spell->result == spell::MISS)
+        if (spell->result == spell::MISS) {
             spell->misses++;
-        else if (spell->result == spell::CRIT)
+            state->spells[spell->id].misses++;
+        }
+        else if (spell->result == spell::CRIT) {
             spell->crits++;
-        else
+            state->spells[spell->id].crits++;
+        }
+        else {
             spell->hits++;
+            state->spells[spell->id].hits++;
+        }
 
         if (spell->result != spell::MISS) {
             spell->dmg = spellDmg(spell);
@@ -608,6 +623,12 @@ public:
             spell->dmg = round(spell->dmg);
 
             state->dmg+= spell->dmg;
+
+            state->spells[spell->id].dmg+= spell->dmg;
+            if (spell->dmg > state->spells[spell->id].max_dmg)
+                state->spells[spell->id].max_dmg = spell->dmg;
+            if (spell->dmg < state->spells[spell->id].min_dmg || state->spells[spell->id].min_dmg == 0)
+                state->spells[spell->id].min_dmg = spell->dmg;
         }
 
         logSpellDmg(spell);
@@ -2271,6 +2292,33 @@ public:
     void clearLog()
     {
         log.clear();
+    }
+
+    string spellStats()
+    {
+        ostringstream s;
+
+        s << "[";
+
+        for (auto itr = state->spells.begin(); itr != state->spells.end(); itr++) {
+            if (itr != state->spells.begin())
+                s << ",";
+            s << "{";
+            s << "\"id\":" << itr->first << ",";
+            s << "\"name\":\"" << itr->second.name << "\",";
+            s << "\"casts\":" << itr->second.casts << ",";
+            s << "\"misses\":" << itr->second.misses << ",";
+            s << "\"hits\":" << itr->second.hits << ",";
+            s << "\"crits\":" << itr->second.crits << ",";
+            s << "\"min_dmg\":" << itr->second.min_dmg << ",";
+            s << "\"max_dmg\":" << itr->second.max_dmg << ",";
+            s << "\"dmg\":" << itr->second.dmg;
+            s << "}";
+        }
+
+        s << "]";
+
+        return s.str();
     }
 
 };

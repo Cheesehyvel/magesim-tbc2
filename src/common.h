@@ -189,6 +189,18 @@ struct LogEntry
     int dmg;
 };
 
+struct SpellStats
+{
+    std::string name;
+    int casts = 0;
+    int misses = 0;
+    int hits = 0;
+    int crits = 0;
+    double dmg = 0;
+    double min_dmg = 0;
+    double max_dmg = 0;
+};
+
 struct SimulationResult
 {
     int dmg;
@@ -198,6 +210,7 @@ struct SimulationResult
     double regened_at;
     double t_gcd_capped;
     std::string log;
+    std::string spells;
 };
 
 struct SimulationsResult

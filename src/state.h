@@ -27,6 +27,7 @@ public:
     map<cooldown::ID, shared_ptr<cooldown::Cooldown>> cooldowns;
     map<buff::ID, shared_ptr<buff::Buff>> buffs;
     map<debuff::ID, shared_ptr<debuff::Debuff>> debuffs;
+    map<spell::ID, SpellStats> spells;
 
     shared_ptr<Config> config;
 
@@ -62,6 +63,7 @@ public:
         buffs.clear();
         debuffs.clear();
         cooldowns.clear();
+        spells.clear();
     }
 
     double dps()

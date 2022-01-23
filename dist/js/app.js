@@ -4124,6 +4124,8 @@ var SimulationWorkers = /*#__PURE__*/function () {
               sum.stats.regened.t = (sum.stats.regened.t * sum.stats.regened.n + result.stats.regened.t * result.stats.regened.n) / (sum.stats.regened.n + result.stats.regened.n);
               sum.stats.regened.n += result.stats.regened.n;
             }
+
+            sum.stats.t_gcd_capped = (sum.stats.t_gcd_capped * sum.iterations + result.stats.t_gcd_capped * result.iterations) / (sum.iterations + result.iterations);
           }
         }
 
@@ -4188,6 +4190,43 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5782,6 +5821,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       config_open: false,
       log_open: false,
       managraph_open: false,
+      spells_open: false,
       histogram_open: false,
       item_source: "wowhead",
       phase_filter: 0,
@@ -5863,6 +5903,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     itemSlots: function itemSlots() {
       return _.keys(this.items.equip);
+    },
+    numCasts: function numCasts() {
+      if (!this.result || !this.result.spells) return 0;
+      return _.sumBy(this.result.spells, "casts");
     },
     epCalc: function epCalc() {
       if (!this.ep_result) return null;
@@ -6006,6 +6050,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.error(error);
       });
       this.managraph_open = false;
+      this.spells_open = false;
       this.log_open = false;
       this.ep_result = null;
       this.prepare();
@@ -7360,6 +7405,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     configToggle: function configToggle() {
       this.managraph_open = false;
+      this.spells_open = false;
       this.histogram_open = false;
       this.log_open = false;
       this.config_open = !this.config_open;
@@ -7371,6 +7417,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     logToggle: function logToggle() {
       this.managraph_open = false;
+      this.spells_open = false;
       this.histogram_open = false;
       this.config_open = false;
       this.log_open = !this.log_open;
@@ -7379,13 +7426,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.log_open = false;
       this.config_open = false;
       this.managraph_open = false;
+      this.spells_open = false;
       this.histogram_open = !this.histogram_open;
     },
     managraphToggle: function managraphToggle() {
       this.log_open = false;
       this.config_open = false;
       this.histogram_open = false;
+      this.spells_open = false;
       this.managraph_open = !this.managraph_open;
+    },
+    spellsToggle: function spellsToggle() {
+      this.log_open = false;
+      this.config_open = false;
+      this.histogram_open = false;
+      this.managraph_open = false;
+      this.spells_open = !this.spells_open;
     },
     allResults: function allResults() {
       var a = document.createElement("a");
@@ -65325,6 +65381,17 @@ var render = function() {
                             },
                             [_vm._v("Mana graph")]
                           )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.result.spells
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "btn mt-1",
+                              on: { click: _vm.spellsToggle }
+                            },
+                            [_vm._v("Spells")]
+                          )
                         : _vm._e()
                     ],
                 _vm._v(" "),
@@ -66401,6 +66468,108 @@ var render = function() {
               ],
               1
             )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.spells_open
+          ? _c("div", { staticClass: "spells" }, [
+              _c("div", { staticClass: "spells-wrapper" }, [
+                _c("table", [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.result.spells, function(spell) {
+                      return _c("tr", [
+                        _c("td", [_vm._v(_vm._s(spell.name))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(spell.casts) +
+                              " (" +
+                              _vm._s(
+                                _vm.$round(
+                                  (spell.casts / _vm.numCasts) * 100,
+                                  1
+                                )
+                              ) +
+                              "%)"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(spell.misses) +
+                              " (" +
+                              _vm._s(
+                                _vm.$round(
+                                  (spell.misses / spell.casts) * 100,
+                                  2
+                                )
+                              ) +
+                              "%)"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(spell.hits))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(spell.crits) +
+                              " (" +
+                              _vm._s(
+                                _vm.$round((spell.crits / spell.casts) * 100, 2)
+                              ) +
+                              "%)"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm.$round(spell.dmg, 0)) +
+                              " (" +
+                              _vm._s(
+                                _vm.$round(
+                                  (spell.dmg / _vm.result.dmg) * 100,
+                                  2
+                                )
+                              ) +
+                              "%)"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm.$round(spell.min_dmg, 0)))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$round(
+                                spell.dmg / (spell.casts - spell.misses),
+                                0
+                              )
+                            )
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(_vm.$round(spell.max_dmg, 0)))])
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "close", on: { click: _vm.spellsToggle } },
+                [
+                  _c("span", { staticClass: "material-icons" }, [
+                    _vm._v("\n                        \n                    ")
+                  ])
+                ]
+              )
+            ])
           : _vm._e(),
         _vm._v(" "),
         _vm.histogram_open
@@ -72004,7 +72173,7 @@ var render = function() {
               _c("div", { staticClass: "title" }, [_vm._v("Equipped items")]),
               _vm._v(" "),
               _c("table", [
-                _vm._m(5),
+                _vm._m(6),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -72887,6 +73056,30 @@ var staticRenderFns = [
       _c("th", [_vm._v("DPS")]),
       _vm._v(" "),
       _c("th", [_vm._v("Event")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("Spell")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Casts")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Misses")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Hits")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Crits")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Damage")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Min dmg")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Avg dmg")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Max dmg")])
     ])
   },
   function() {

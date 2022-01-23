@@ -65,6 +65,7 @@ class SimulationWorkers {
                             sum.stats.regened.t = (sum.stats.regened.t * sum.stats.regened.n + result.stats.regened.t * result.stats.regened.n) / (sum.stats.regened.n + result.stats.regened.n);
                             sum.stats.regened.n+= result.stats.regened.n;
                         }
+                        sum.stats.t_gcd_capped = (sum.stats.t_gcd_capped * sum.iterations + result.stats.t_gcd_capped * result.iterations) / (sum.iterations + result.iterations);
                     }
                 }
 

@@ -216,6 +216,7 @@
                         </div>
                         <div class="btn mt-1" v-if="result.log" @click="logToggle">Combat log</div>
                         <div class="btn mt-1" v-if="result.log" @click="managraphToggle">Mana graph</div>
+                        <div class="btn mt-1" v-if="result.spells" @click="spellsToggle">Spells</div>
                     </template>
                     <template v-if="!isMetaGemActive()">
                         <div class="meta-warning mt-2">
@@ -505,6 +506,42 @@
                 <div class="managr" v-if="managraph_open">
                     <managraph ref="managraph" :log="result.log"></managraph>
                     <div class="close" @click="managraphToggle">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
+                </div>
+
+                <div class="spells" v-if="spells_open">
+                    <div class="spells-wrapper">
+                        <table>
+                            <thead>
+                                <th>Spell</th>
+                                <th>Casts</th>
+                                <th>Misses</th>
+                                <th>Hits</th>
+                                <th>Crits</th>
+                                <th>Damage</th>
+                                <th>Min dmg</th>
+                                <th>Avg dmg</th>
+                                <th>Max dmg</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="spell in result.spells">
+                                    <td>{{ spell.name }}</td>
+                                    <td>{{ spell.casts }} ({{ $round(spell.casts / numCasts * 100, 1) }}%)</td>
+                                    <td>{{ spell.misses }} ({{ $round(spell.misses/spell.casts*100, 2) }}%)</td>
+                                    <td>{{ spell.hits }}</td>
+                                    <td>{{ spell.crits }} ({{ $round(spell.crits/spell.casts*100, 2) }}%)</td>
+                                    <td>{{ $round(spell.dmg, 0) }} ({{ $round(spell.dmg / result.dmg * 100, 2) }}%)</td>
+                                    <td>{{ $round(spell.min_dmg, 0) }}</td>
+                                    <td>{{ $round(spell.dmg / (spell.casts - spell.misses), 0) }}</td>
+                                    <td>{{ $round(spell.max_dmg, 0) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="close" @click="spellsToggle">
                         <span class="material-icons">
                             &#xe5cd;
                         </span>
@@ -1610,6 +1647,7 @@
                 config_open: false,
                 log_open: false,
                 managraph_open: false,
+                spells_open: false,
                 histogram_open: false,
                 item_source: "wowhead",
                 phase_filter: 0,
@@ -1719,6 +1757,12 @@
 
             itemSlots() {
                 return _.keys(this.items.equip);
+            },
+
+            numCasts() {
+                if (!this.result || !this.result.spells)
+                    return 0;
+                return _.sumBy(this.result.spells, "casts");
             },
 
             epCalc() {
@@ -1872,6 +1916,7 @@
                 });
 
                 this.managraph_open = false;
+                this.spells_open = false;
                 this.log_open = false;
                 this.ep_result = null;
                 this.prepare();
@@ -3343,6 +3388,7 @@
 
             configToggle() {
                 this.managraph_open = false;
+                this.spells_open = false;
                 this.histogram_open = false;
                 this.log_open = false;
                 this.config_open = !this.config_open;
@@ -3354,6 +3400,7 @@
 
             logToggle() {
                 this.managraph_open = false;
+                this.spells_open = false;
                 this.histogram_open = false;
                 this.config_open = false;
                 this.log_open = !this.log_open;
@@ -3363,6 +3410,7 @@
                 this.log_open = false;
                 this.config_open = false;
                 this.managraph_open = false;
+                this.spells_open = false;
                 this.histogram_open = !this.histogram_open;
             },
 
@@ -3370,7 +3418,16 @@
                 this.log_open = false;
                 this.config_open = false;
                 this.histogram_open = false;
+                this.spells_open = false;
                 this.managraph_open = !this.managraph_open;
+            },
+
+            spellsToggle() {
+                this.log_open = false;
+                this.config_open = false;
+                this.histogram_open = false;
+                this.managraph_open = false;
+                this.spells_open = !this.spells_open;
             },
 
             allResults() {

@@ -989,6 +989,7 @@ table.simple th:last-child, table.simple td:last-child {
 #app .config .close,
 #app .histog .close,
 #app .managr .close,
+#app .spells .close,
 #app .lightbox .close {
   position: absolute;
   top: 0;
@@ -1109,6 +1110,19 @@ table.simple th:last-child, table.simple td:last-child {
 #app .log table tr.type-6 td:nth-child(4),
 #app .log table tr.type-7 td:nth-child(4) {
   color: #b88;
+}
+#app .spells {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: #1f1f28;
+  z-index: 102;
+}
+#app .spells .spells-wrapper {
+  padding: 60px 30px 30px;
 }
 #app .managr,
 #app .histog {

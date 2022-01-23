@@ -485,6 +485,7 @@ table {
     .config,
     .histog,
     .managr,
+    .spells,
     .lightbox {
         .close {
             position: absolute;
@@ -630,6 +631,21 @@ table {
             tr.type-7 td:nth-child(4) {
                 color: #b88;
             }
+        }
+    }
+
+    .spells {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+        background: #1f1f28;
+        z-index: 102;
+
+        .spells-wrapper {
+            padding: $spacer $spacer*0.5 $spacer*0.5;
         }
     }
 
