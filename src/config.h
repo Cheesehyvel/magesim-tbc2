@@ -43,6 +43,7 @@ struct Config
     bool scroll_of_spirit = false;
     bool kreegs = false;
     bool bloodthistle = false;
+    bool scourgebane = false;
     bool imp_sanctity = false;
     int ferocious_inspiration = 0;
 

@@ -936,6 +936,13 @@
                                     <help>10sp buff, only usable by Blood Elfs</help>
                                 </label>
                             </div>
+                            <div class="form-item">
+                                <label>
+                                    <input type="checkbox" v-model="config.scourgebane">
+                                    <span>Scourgebane Infusion</span>
+                                    <help>15sp buff against undead</help>
+                                </label>
+                            </div>
                         </fieldset>
                         <fieldset>
                             <legend>Cooldowns</legend>
@@ -1503,6 +1510,7 @@
                 scroll_of_spirit: false,
                 kreegs: false,
                 bloodthistle: false,
+                scourgebane: false,
 
                 tirisfal_2set: true,
                 tirisfal_4set: true,
@@ -2269,6 +2277,8 @@
                     stats.spell_power+= 15;
                 if (this.config.bloodthistle && this.config.race == this.races.RACE_BLOOD_ELF)
                     stats.spell_power+= 10;
+                if (this.config.scourgebane)
+                    stats.spell_power+= 15;
 
                 // Spell crit
                 var critrating = 0;

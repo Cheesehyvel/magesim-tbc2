@@ -182,6 +182,8 @@ public:
             stats.spell_power+= 15.0;
         if (config->bloodthistle && race == RACE_BLOOD_ELF)
             stats.spell_power+= 10.0;
+        if (config->scourgebane)
+            stats.spell_power+= 15.0;
 
         // Spell crit
         double critrating = 0;

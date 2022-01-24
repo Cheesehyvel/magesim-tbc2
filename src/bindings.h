@@ -200,6 +200,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("scroll_of_spirit", &Config::scroll_of_spirit)
         .property("kreegs", &Config::kreegs)
         .property("bloodthistle", &Config::bloodthistle)
+        .property("scourgebane", &Config::scourgebane)
 
         .property("food", &Config::food)
         .property("flask", &Config::flask)
