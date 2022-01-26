@@ -68,6 +68,8 @@ struct Config
     bool blade_of_wizardry = false;
     bool robe_elder_scribes = false;
     bool blade_of_eternal_darkness = false;
+    bool sunwell_neck_aldor = false;
+    bool sunwell_neck_scryer = false;
 
     Trinket trinket1 = TRINKET_NONE;
     Trinket trinket2 = TRINKET_NONE;

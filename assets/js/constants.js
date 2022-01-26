@@ -7,6 +7,10 @@ export default {
         RACE_TROLL: 4,
         RACE_UNDEAD: 5
     },
+    factions: {
+        FACTION_ALDOR: 0,
+        FACTION_SCRYER: 1
+    },
     regen_rotations: {
         REGEN_ROTATION_FB: 0,
         REGEN_ROTATION_AMFB: 1,

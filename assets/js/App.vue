@@ -578,6 +578,16 @@
                                 </select>
                             </div>
                             <div class="form-item">
+                                <label>
+                                    <span>Shattrath Faction</span>
+                                    <help>Controls the proc from Shattered Sun Pendant of Acumen necklace</help>
+                                </label>
+                                <select v-model="config.shatt_faction">
+                                    <option :value="factions.FACTION_ALDOR">Aldor</option>
+                                    <option :value="factions.FACTION_SCRYER">Scryer</option>
+                                </select>
+                            </div>
+                            <div class="form-item">
                                 <label>Talents (<a :href="config.talents" target="_blank">link</a>)</label>
                                 <input type="text" :value="config.talents" @input="onTalentsInput">
                             </div>
@@ -1456,6 +1466,7 @@
             var default_config = {
                 iterations: 30000,
                 race: 5,
+                shatt_faction: 0,
 
                 duration: 180,
                 duration_variance: 0,
@@ -1523,6 +1534,8 @@
                 blade_of_wizardry: false,
                 robe_elder_scribes: false,
                 blade_of_eternal_darkness: false,
+                sunwell_neck_aldor: false,
+                sunwell_neck_scryer: false,
                 mana_etched_4set: false,
                 meta_gem: 0,
                 trinket1: 0,
@@ -2463,6 +2476,9 @@
                 this.config.blade_of_wizardry = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDRY);
                 this.config.blade_of_eternal_darkness = this.isEquipped("weapon", this.items.ids.BLADE_OF_ETERNAL_DARKNESS);
                 this.config.robe_elder_scribes = this.isEquipped("chest", this.items.ids.ROBE_ELDER_SCRIBES);
+
+                this.config.sunwell_neck_aldor = (this.isEquipped("neck", this.items.ids.PENDANT_OF_ACUMEN) && this.config.shatt_faction == this.factions.FACTION_ALDOR);
+                this.config.sunwell_neck_scryer = (this.isEquipped("neck", this.items.ids.PENDANT_OF_ACUMEN) && this.config.shatt_faction == this.factions.FACTION_SCRYER);
 
                 if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT))
                     this.config.eye_of_the_night = true;

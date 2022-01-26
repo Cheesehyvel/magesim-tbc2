@@ -30,6 +30,8 @@ namespace cooldown
         CALL_OF_THE_NEXUS = 34320,
         FORGOTTEN_KNOWLEDGE = 38319,
         POWER_OF_ARCANAGOS = 34598,
+        LIGHTS_WRATH = 45479,
+        ARCANE_BOLT = 45429,
     };
 
 
@@ -336,6 +338,32 @@ namespace cooldown
         {
             id = POWER_OF_ARCANAGOS;
             duration = 50;
+        }
+
+    };
+
+    // Shattered Sun Pendant of Acumen (Sunwell Neck: Scryer)
+    class ArcaneBolt : public Cooldown
+    {
+
+    public:
+        ArcaneBolt()
+        {
+            id = ARCANE_BOLT;
+            duration = 45;
+        }
+
+    };
+
+    // Shattered Sun Pendant of Acumen (Sunwell Neck: Aldor)
+    class LightsWrath : public Cooldown
+    {
+
+    public:
+        LightsWrath()
+        {
+            id = LIGHTS_WRATH;
+            duration = 45;
         }
 
     };

@@ -55,6 +55,7 @@ namespace buff
         FEL_ACHE = 38927,
         BURST_OF_KNOWLEDGE = 15646,
         DARK_IRON_PIPE = 51953,
+        LIGHTS_WRATH = 45479,
     };
 
 
@@ -759,6 +760,20 @@ namespace buff
         {
             id = BURST_OF_KNOWLEDGE;
             name = "Burst of Knowledge";
+            duration = 10;
+        }
+
+    };
+
+    // Shattered Sun Pendant of Acumen (Sunwell Neck: Aldor)
+    class LightsWrath : public Buff
+    {
+
+    public:
+        LightsWrath()
+        {
+            id = LIGHTS_WRATH;
+            name = "Light's Wrath";
             duration = 10;
         }
 

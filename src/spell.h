@@ -14,6 +14,7 @@ namespace spell
         PYROBLAST = 33938,
         LIGHTNING_CAPACITOR = 28785,
         ENGULFING_SHADOWS = 21978,
+        ARCANE_BOLT = 45429,
     };
 
     enum Result : int
@@ -260,6 +261,25 @@ namespace spell
             max_dmg = 100;
             cast_time = 0;
             school = SCHOOL_SHADOW;
+            coeff = 0;
+            proc = true;
+        }
+    };
+
+    // Shattered Sun Pendant of Acumen (Sunwell Neck: Scryer)
+    class ArcaneBolt : public Spell
+    {
+
+    public:
+        ArcaneBolt()
+        {
+            id = ARCANE_BOLT;
+            name = "Arcane Bolt";
+            cost = 0;
+            min_dmg = 333;
+            max_dmg = 367;
+            cast_time = 0;
+            school = SCHOOL_ARCANE;
             coeff = 0;
             proc = true;
         }

@@ -223,6 +223,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("blade_of_wizardry", &Config::blade_of_wizardry)
         .property("robe_elder_scribes", &Config::robe_elder_scribes)
         .property("blade_of_eternal_darkness", &Config::blade_of_eternal_darkness)
+        .property("sunwell_neck_aldor", &Config::sunwell_neck_aldor)
+        .property("sunwell_neck_scryer", &Config::sunwell_neck_scryer)
 
         .property("trinket1", &Config::trinket1)
         .property("trinket2", &Config::trinket2)

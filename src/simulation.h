@@ -720,6 +720,18 @@ public:
             if (hasTrinket(TRINKET_DARKMOON_CRUSADE))
                 onBuffGain(make_shared<buff::DarkmoonCrusade>());
 
+            // 15% proc rate
+            if (config->sunwell_neck_scryer && !state->hasCooldown(cooldown::ARCANE_BOLT) && random<int>(0, 19) < 3) {
+                onCooldownGain(make_shared<cooldown::ArcaneBolt>());
+                cast(make_shared<spell::ArcaneBolt>());
+            }
+
+            // 15% proc rate
+            if (config->sunwell_neck_aldor && !state->hasCooldown(cooldown::LIGHTS_WRATH) && random<int>(0, 19) < 3) {
+                onBuffGain(make_shared<buff::LightsWrath>());
+                onCooldownGain(make_shared<cooldown::LightsWrath>());
+            }
+
             if (spell->result == spell::CRIT) {
                 // 20% proc rate
                 if (hasTrinket(TRINKET_UNSTABLE_CURRENTS) && !state->hasCooldown(cooldown::UNSTABLE_CURRENTS) && random<int>(0, 4) == 0) {
@@ -1843,6 +1855,8 @@ public:
                 sp+= 120.0;
             if (state->hasBuff(buff::DARKMOON_CRUSADE))
                 sp+= state->buffStacks(buff::DARKMOON_CRUSADE) * 8.0;
+            if (state->hasBuff(buff::LIGHTS_WRATH))
+                sp+= 120.0;
 
             if (state->hasBuff(buff::FEL_ACHE))
                 sp-= 25.0;

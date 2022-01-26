@@ -45,6 +45,7 @@ var ids = {
     BURST_OF_KNOWLEDGE: 11832,
     DARK_IRON_PIPE: 38290,
     BLADE_OF_ETERNAL_DARKNESS: 17780,
+    PENDANT_OF_ACUMEN: 34678,
 };
 
 var equip = {
@@ -155,6 +156,7 @@ var equip = {
         { id: 22498, title: "Frostfire Circlet", int: 23, sp: 35, crit: 28, hit: 8 },
     ],
     neck: [
+        { id: 34678, title: "Shattered Sun Pendant of Acumen", int: 18, sp: 37, phase: 5 },
         { id: 34359, title: "Pendant of Sunfire", int: 19, sp: 34, crit: 25, haste: 25, sockets: ["y"], bonus: { sp: 2 }, phase: 5 },
         { id: 34204, title: "Amulet of Unfettered Magics", int: 17, sp: 39, hit: 15, haste: 32, phase: 5 },
         { id: 32349, title: "Translucent Spellthread Necklace", sp: 46, crit: 24, hit: 15, phase: 3 },
