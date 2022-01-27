@@ -101,6 +101,10 @@ __webpack_require__.r(__webpack_exports__);
     RACE_TROLL: 4,
     RACE_UNDEAD: 5
   },
+  factions: {
+    FACTION_ALDOR: 0,
+    FACTION_SCRYER: 1
+  },
   regen_rotations: {
     REGEN_ROTATION_FB: 0,
     REGEN_ROTATION_AMFB: 1,
@@ -256,7 +260,8 @@ var ids = {
   ROBE_ELDER_SCRIBES: 28602,
   BURST_OF_KNOWLEDGE: 11832,
   DARK_IRON_PIPE: 38290,
-  BLADE_OF_ETERNAL_DARKNESS: 17780
+  BLADE_OF_ETERNAL_DARKNESS: 17780,
+  PENDANT_OF_ACUMEN: 34678
 };
 var equip = {
   weapon: [{
@@ -1021,6 +1026,12 @@ var equip = {
     hit: 8
   }],
   neck: [{
+    id: 34678,
+    title: "Shattered Sun Pendant of Acumen",
+    "int": 18,
+    sp: 37,
+    phase: 5
+  }, {
     id: 34359,
     title: "Pendant of Sunfire",
     "int": 19,
@@ -5628,6 +5639,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5644,6 +5665,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var default_config = {
       iterations: 30000,
       race: 5,
+      shatt_faction: 0,
       duration: 180,
       duration_variance: 0,
       rng_seed: 0,
@@ -5706,6 +5728,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       blade_of_wizardry: false,
       robe_elder_scribes: false,
       blade_of_eternal_darkness: false,
+      sunwell_neck_aldor: false,
+      sunwell_neck_scryer: false,
       mana_etched_4set: false,
       meta_gem: 0,
       trinket1: 0,
@@ -6632,6 +6656,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.config.blade_of_wizardry = this.isEquipped("weapon", this.items.ids.BLADE_OF_WIZARDRY);
       this.config.blade_of_eternal_darkness = this.isEquipped("weapon", this.items.ids.BLADE_OF_ETERNAL_DARKNESS);
       this.config.robe_elder_scribes = this.isEquipped("chest", this.items.ids.ROBE_ELDER_SCRIBES);
+      this.config.sunwell_neck_aldor = this.isEquipped("neck", this.items.ids.PENDANT_OF_ACUMEN) && this.config.shatt_faction == this.factions.FACTION_ALDOR;
+      this.config.sunwell_neck_scryer = this.isEquipped("neck", this.items.ids.PENDANT_OF_ACUMEN) && this.config.shatt_faction == this.factions.FACTION_SCRYER;
       if (this.isEquipped("neck", this.items.ids.EYE_OF_THE_NIGHT)) this.config.eye_of_the_night = true;
       if (this.isEquipped("neck", this.items.ids.CHAIN_OF_THE_TWILIGHT_OWL)) this.config.chain_of_the_twilight_owl = true;
       if (this.isEquipped("neck", this.items.ids.JADE_PENDANT_OF_BLASTING)) this.config.jade_pendant_of_blasting = true;
@@ -66722,6 +66748,70 @@ var render = function() {
                             "option",
                             { domProps: { value: _vm.races.RACE_UNDEAD } },
                             [_vm._v("Undead")]
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-item" }, [
+                      _c(
+                        "label",
+                        [
+                          _c("span", [_vm._v("Shattrath Faction")]),
+                          _vm._v(" "),
+                          _c("help", [
+                            _vm._v(
+                              "Controls the proc from Shattered Sun Pendant of Acumen necklace"
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.config.shatt_faction,
+                              expression: "config.shatt_faction"
+                            }
+                          ],
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.config,
+                                "shatt_faction",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { domProps: { value: _vm.factions.FACTION_ALDOR } },
+                            [_vm._v("Aldor")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            {
+                              domProps: { value: _vm.factions.FACTION_SCRYER }
+                            },
+                            [_vm._v("Scryer")]
                           )
                         ]
                       )
