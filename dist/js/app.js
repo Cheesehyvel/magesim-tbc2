@@ -2923,6 +2923,20 @@ var equip = {
     crit: 24,
     phase: 3
   }, {
+    id: 29304,
+    title: "Band of Eternity",
+    "int": 25,
+    sp: 34,
+    crit: 24,
+    phase: 3
+  }, {
+    id: 29303,
+    title: "Band of Eternity",
+    "int": 23,
+    sp: 32,
+    crit: 22,
+    phase: 3
+  }, {
     id: 29302,
     title: "Band of Eternity",
     "int": 22,
