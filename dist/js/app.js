@@ -3570,6 +3570,12 @@ var gems = [{
   mp5: 2,
   unique: true
 }, {
+  id: 30583,
+  title: "Timeless Chrysoprase",
+  color: "g",
+  "int": 5,
+  unique: true
+}, {
   id: 24065,
   title: "Dazzling Talasite",
   color: "g",

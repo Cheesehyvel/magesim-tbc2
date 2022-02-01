@@ -506,6 +506,7 @@ var gems = [
     { id: 30606, title: "Lambent Chrysoprase", color: "g", hit: 5, mp5: 2, unique: true },
     { id: 30560, title: "Rune Covered Chrysoprase", color: "g", crit: 5, mp5: 2, unique: true },
     { id: 30589, title: "Dazzling Chrysoprase", color: "g", int: 5, mp5: 2, unique: true },
+    { id: 30583, title: "Timeless Chrysoprase", color: "g", int: 5, unique: true },
     { id: 24065, title: "Dazzling Talasite", color: "g", int: 4, mp5: 2 },
     { id: 32201, title: "Sparkling Empyrean Sapphire", color: "b", spi: 10, phase: 3 },
     { id: 24035, title: "Sparkling Star of Elune", color: "b", spi: 8 },
