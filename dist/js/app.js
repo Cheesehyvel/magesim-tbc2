@@ -5696,6 +5696,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -5897,6 +5900,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       ep_result: null,
       ep_weight: "dps",
       is_running: false,
+      is_running_ep: false,
       config_open: false,
       log_open: false,
       managraph_open: false,
@@ -6225,14 +6229,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                if (_this3.is_running_ep) _this3.is_running_ep = false;
+
                 if (!_this3.is_running) {
-                  _context2.next = 2;
+                  _context2.next = 3;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 2:
+              case 3:
+                _this3.is_running_ep = true;
                 _this3.result = null;
                 _this3.ep_result = {
                   base: null,
@@ -6250,26 +6257,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 rng_seed = Math.round(Math.random() * 100000);
                 _context2.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this3.ep_result);
 
-              case 6:
+              case 8:
                 if ((_context2.t1 = _context2.t0()).done) {
-                  _context2.next = 14;
+                  _context2.next = 18;
                   break;
                 }
 
                 stat = _context2.t1.value;
-                _context2.next = 10;
+                _context2.next = 12;
                 return _this3.runStat(stat, stat == "base" ? 0 : 10, rng_seed);
 
-              case 10:
+              case 12:
                 result = _context2.sent;
                 _this3.ep_result[stat] = result.avg_dps;
-                _context2.next = 6;
+
+                if (_this3.is_running_ep) {
+                  _context2.next = 16;
+                  break;
+                }
+
+                return _context2.abrupt("break", 18);
+
+              case 16:
+                _context2.next = 8;
                 break;
 
-              case 14:
+              case 18:
+                _this3.is_running_ep = false;
+
                 _this3.foolsOpen();
 
-              case 15:
+              case 20:
               case "end":
                 return _context2.stop();
             }
@@ -64911,10 +64929,15 @@ var render = function() {
             "div",
             {
               staticClass: "btn block mt-n",
-              class: [_vm.is_running ? "disabled" : ""],
+              class: [_vm.is_running && !_vm.is_running_ep ? "disabled" : ""],
               on: { click: _vm.runEP }
             },
-            [_vm._v("Run stat weights")]
+            [
+              !_vm.is_running_ep
+                ? [_vm._v("Run stat weights")]
+                : [_vm._v("Stop")]
+            ],
+            2
           )
         ]),
         _vm._v(" "),

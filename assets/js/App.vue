@@ -67,7 +67,10 @@
                     <div class="btn block" @click="configToggle" :class="[is_running ? 'disabled' : '']">Config</div>
                     <div class="btn block mt-n" @click="runSingle" :class="[is_running ? 'disabled' : '']">Run</div>
                     <div class="btn block mt-n" @click="runMultiple" :class="[is_running ? 'disabled' : '']">Run {{ config.iterations }} times</div>
-                    <div class="btn block mt-n" @click="runEP" :class="[is_running ? 'disabled' : '']">Run stat weights</div>
+                    <div class="btn block mt-n" @click="runEP" :class="[is_running && !is_running_ep ? 'disabled' : '']">
+                        <template v-if="!is_running_ep">Run stat weights</template>
+                        <template v-else>Stop</template>
+                    </div>
                 </div>
                 <div class="final-stats" v-if="final_stats">
                     <table class="simple">
@@ -1665,6 +1668,7 @@
                 ep_result: null,
                 ep_weight: "dps",
                 is_running: false,
+                is_running_ep: false,
                 config_open: false,
                 log_open: false,
                 managraph_open: false,
@@ -2015,9 +2019,13 @@
             },
 
             async runEP() {
+                if (this.is_running_ep)
+                    this.is_running_ep = false;
+
                 if (this.is_running)
                     return;
 
+                this.is_running_ep = true;
                 this.result = null;
                 this.ep_result = {
                     base: null,
@@ -2038,7 +2046,11 @@
                 for (var stat in this.ep_result) {
                     result = await this.runStat(stat, stat == "base" ? 0 : 10, rng_seed);
                     this.ep_result[stat] = result.avg_dps;
+                    if (!this.is_running_ep)
+                        break;
                 }
+
+                this.is_running_ep = false;
 
                 this.foolsOpen();
             },
