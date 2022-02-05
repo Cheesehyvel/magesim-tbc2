@@ -304,6 +304,12 @@ var equip = {
     haste: 23,
     phase: 5
   }, {
+    id: 34895,
+    title: "Scryer's Blade of Focus",
+    "int": 28,
+    sp: 247,
+    phase: 4
+  }, {
     id: 34540,
     title: "Vengeful Gladiator's Battle Staff",
     "int": 46,
@@ -1470,6 +1476,20 @@ var equip = {
     "int": 20,
     sp: 27,
     haste: 25,
+    phase: 4
+  }, {
+    id: 35321,
+    title: "Cloak of Arcane Alacrity",
+    "int": 15,
+    sp: 27,
+    haste: 16,
+    phase: 4
+  }, {
+    id: 33304,
+    title: "Cloak of Subjugated Power",
+    "int": 15,
+    sp: 27,
+    crit: 16,
     phase: 4
   }, {
     id: 29992,
