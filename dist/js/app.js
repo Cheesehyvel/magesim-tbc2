@@ -3407,6 +3407,13 @@ var gems = [{
   crit: 5,
   phase: 3
 }, {
+  id: 32219,
+  title: "Luminous Pyrestone",
+  color: "o",
+  sp: 4,
+  "int": 5,
+  phase: 3
+}, {
   id: 30551,
   title: "Infused Fire Opal",
   color: "o",

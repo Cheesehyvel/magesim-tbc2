@@ -480,6 +480,7 @@ var gems = [
     { id: 35760, title: "Reckless Pyrestone", color: "o", sp: 6, haste: 5, phase: 5 },
     { id: 32221, title: "Veiled Pyrestone", color: "o", sp: 6, hit: 5, phase: 3 },
     { id: 32218, title: "Potent Pyrestone", color: "o", sp: 6, crit: 5, phase: 3 },
+    { id: 32219, title: "Luminous Pyrestone", color: "o", sp: 4, int: 5, phase: 3 },
     { id: 30551, title: "Infused Fire Opal", color: "o", int: 4, sp: 6, unique: true },
     { id: 30564, title: "Shining Fire Opal", color: "o", sp: 6, hit: 5, unique: true },
     { id: 30588, title: "Potent Fire Opal", color: "o", sp: 6, crit: 4, unique: true },
