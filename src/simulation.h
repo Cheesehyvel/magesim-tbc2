@@ -1682,9 +1682,6 @@ public:
         double crit = player->stats.crit;
         double rating = 0;
 
-        if (state->hasBuff(buff::UNSTABLE_CURRENTS))
-            rating+= 190;
-
         if (rating)
             crit+= critRatingToChance(rating);
 
@@ -1829,6 +1826,8 @@ public:
                 sp+= 225.0;
             if (state->hasBuff(buff::SPELLSTRIKE))
                 sp+= 92.0;
+            if (state->hasBuff(buff::UNSTABLE_CURRENTS))
+                sp+= 190.0;
             if (state->hasBuff(buff::EYE_OF_MAGTHERIDON))
                 sp+= 170.0;
             if (state->hasBuff(buff::RESTRAINED_ESSENCE))
