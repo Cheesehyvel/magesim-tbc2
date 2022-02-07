@@ -93,6 +93,8 @@ struct Config
     bool cc_am_queue = false;
     bool cc_am_repeat = false;
 
+    bool bugged_ashtongue = false;
+
     std::vector<double> trinket1_t;
     std::vector<double> trinket2_t;
     std::vector<double> presence_of_mind_t;

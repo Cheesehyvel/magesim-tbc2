@@ -747,8 +747,12 @@ public:
                 if (hasTrinket(TRINKET_LIGHTNING_CAPACITOR) && !state->hasCooldown(cooldown::LIGHTNING_CAPACITOR))
                     onBuffGain(make_shared<buff::LightningCapacitor>());
                 // 50% proc rate
-                if (hasTrinket(TRINKET_ASHTONGUE_TALISMAN) && random<int>(0, 1) == 0)
-                    onBuffGain(make_shared<buff::AshtongueTalisman>());
+                if (hasTrinket(TRINKET_ASHTONGUE_TALISMAN) && random<int>(0, 1) == 0) {
+                    if (config->bugged_ashtongue)
+                        pushBuffGain(make_shared<buff::AshtongueTalisman>(), 0.01);
+                    else
+                        onBuffGain(make_shared<buff::AshtongueTalisman>());
+                }
 
                 if (config->tirisfal_4set)
                     onBuffGain(make_shared<buff::ArcaneMadness>());
