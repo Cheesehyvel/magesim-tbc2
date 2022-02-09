@@ -67271,7 +67271,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("help", [
                                   _vm._v(
-                                    "\n                                        This will cast frostbolt/fireball when above a certain haste %."
+                                    "\n                                        This will cast frostbolt/fireball/arcane missiles when above a certain haste %."
                                   ),
                                   _c("br"),
                                   _vm._v(

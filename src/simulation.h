@@ -1161,6 +1161,8 @@ public:
             if (config->ab_haste_stop && 1.0 / (config->ab_haste_stop/100.0 + 1) >= castHaste()) {
                 if (player->talents.imp_frostbolt < player->talents.imp_fireball)
                     return make_shared<spell::Fireball>();
+                if (player->talents.empowered_arcane_missiles == 3)
+                    return make_shared<spell::ArcaneMissiles>();
                 return make_shared<spell::Frostbolt>();
             }
 

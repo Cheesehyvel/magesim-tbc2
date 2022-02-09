@@ -641,7 +641,7 @@
                                     <label>
                                         <span>Stop Arcane Blast at haste %</span>
                                         <help>
-                                            This will cast frostbolt/fireball when above a certain haste %.<br>
+                                            This will cast frostbolt/fireball/arcane missiles when above a certain haste %.<br>
                                             At 100% haste you will reach GCD cap of 1 second.
                                         </help>
                                     </label>
