@@ -38,6 +38,7 @@ export default {
         FLASK_BLINDING_LIGHT: 22861,
         FLASK_PURE_DEATH: 22866,
         FLASK_DISTILLED_WISDOM: 13511,
+        FLASK_CHROMATIC_WONDER: 33208,
     },
     elixirs: {
         ELIXIR_NONE: 0,
