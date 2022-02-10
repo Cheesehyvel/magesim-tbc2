@@ -387,6 +387,7 @@ var equip = {
         { id: 28410, title: "General's Silk Footguards", int: 23, sp: 28, crit: 24 },
         { id: 27821, title: "Extravagant Boots of Malice", int: 24, sp: 30, hit: 14, q: "rare" },
         { id: 28670, title: "Boots of the Infernal Coven", int: 27, spi: 23, sp: 34 },
+        { id: 35581, title: "Rocket Boots Xtreme Lite", sp: 47, q: "rare" },
         { id: 22500, title: "Frostfire Sandals", int: 18, spi: 10, sp: 28, crit: 14 },
         { id: 21344, title: "Enigma Boots", int: 15, spi: 6, sp: 28, hit: 8, mp5: 4 },
     ],
