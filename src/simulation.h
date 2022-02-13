@@ -1760,7 +1760,7 @@ public:
         if (config->imp_sanctity)
             multi*= 1.02;
         for (int i=0; i<config->ferocious_inspiration; i++)
-            multi*= 1.01;
+            multi*= 1.03;
 
         if (player->talents.arcane_instability)
             multi*= 1 + (player->talents.arcane_instability * 0.01);
