@@ -1316,8 +1316,10 @@ public:
         if (!state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA && isTimerReady(config->potion_t))
             usePotion();
 
-        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE && isTimerReady(config->conjured_t))
-            useConjured();
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE) {
+            if (config->conjured == CONJURED_MANA_GEM && isTimerReadyExplicit(config->conjured_t) || config->conjured != CONJURED_MANA_GEM && isTimerReady(config->conjured_t))
+                useConjured();
+        }
 
         if (!state->hasCooldown(cooldown::TRINKET1) && isTimerReady(config->trinket1_t))
             useTrinket(config->trinket1, cooldown::TRINKET1);
@@ -2146,6 +2148,22 @@ public:
         }
 
         return true;
+    }
+
+    bool isTimerReadyExplicit(vector<double>& v, double t = -1)
+    {
+        if (t == -1)
+            t = state->t;
+
+        for (int i=0; i<v.size(); i++) {
+            if (v.at(i) > t)
+                return false;
+            // We give it a 20 second window to pop, otherwise it's an old timer
+            if (v.at(i) <= t && v.at(i) + 20 > t)
+                return true;
+        }
+
+        return false;
     }
 
     void logSpellDmg(shared_ptr<spell::Spell> spell)
