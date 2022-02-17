@@ -106,6 +106,10 @@ public:
         }
         if (config->flask == FLASK_DISTILLED_WISDOM)
             stats.intellect+= 65;
+        if (config->flask == FLASK_CHROMATIC_WONDER) {
+            stats.intellect+= 18;
+            stats.spirit+= 18;
+        }
         if (config->food == FOOD_SPELL_POWER || config->food == FOOD_SPELL_CRIT)
             stats.spirit+= 20;
         if (config->scroll_of_spirit)

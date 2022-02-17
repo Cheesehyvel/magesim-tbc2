@@ -865,6 +865,7 @@
                                     <option :value="flasks.FLASK_BLINDING_LIGHT">Blinding Light (80 arc)</option>
                                     <option :value="flasks.FLASK_PURE_DEATH">Pure Death (80 fire/frost)</option>
                                     <option :value="flasks.FLASK_DISTILLED_WISDOM">Distilled Wisdom (65 int)</option>
+                                    <option :value="flasks.FLASK_CHROMATIC_WONDER">Chromatic Wonder (18 all stats)</option>
                                 </select>
                             </div>
                             <div class="form-item" v-if="!config.flask">
@@ -2235,6 +2236,10 @@
                 }
                 if (this.config.flask == this.flasks.FLASK_DISTILLED_WISDOM)
                     stats.intellect+= 65;
+                if (this.config.flask == this.flasks.FLASK_CHROMATIC_WONDER) {
+                    stats.intellect+= 18;
+                    stats.spirit+= 18;
+                }
                 if (this.config.food == this.foods.FOOD_SPELL_POWER || this.config.food == this.foods.FOOD_SPELL_CRIT)
                     stats.spirit+= 20;
                 if (this.config.scroll_of_spirit)
