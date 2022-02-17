@@ -131,7 +131,8 @@ __webpack_require__.r(__webpack_exports__);
     FLASK_SUPREME_POWER: 13512,
     FLASK_BLINDING_LIGHT: 22861,
     FLASK_PURE_DEATH: 22866,
-    FLASK_DISTILLED_WISDOM: 13511
+    FLASK_DISTILLED_WISDOM: 13511,
+    FLASK_CHROMATIC_WONDER: 33208
   },
   elixirs: {
     ELIXIR_NONE: 0,
@@ -2874,6 +2875,11 @@ var equip = {
     "int": 27,
     spi: 23,
     sp: 34
+  }, {
+    id: 35581,
+    title: "Rocket Boots Xtreme Lite",
+    sp: 47,
+    q: "rare"
   }, {
     id: 22500,
     title: "Frostfire Sandals",
@@ -5706,6 +5712,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -6513,6 +6520,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       if (this.config.flask == this.flasks.FLASK_DISTILLED_WISDOM) stats.intellect += 65;
+
+      if (this.config.flask == this.flasks.FLASK_CHROMATIC_WONDER) {
+        stats.intellect += 18;
+        stats.spirit += 18;
+      }
+
       if (this.config.food == this.foods.FOOD_SPELL_POWER || this.config.food == this.foods.FOOD_SPELL_CRIT) stats.spirit += 20;
       if (this.config.scroll_of_spirit) stats.spirit += 30;
 
@@ -69793,6 +69806,16 @@ var render = function() {
                                 }
                               },
                               [_vm._v("Distilled Wisdom (65 int)")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: _vm.flasks.FLASK_CHROMATIC_WONDER
+                                }
+                              },
+                              [_vm._v("Chromatic Wonder (18 all stats)")]
                             )
                           ]
                         )
