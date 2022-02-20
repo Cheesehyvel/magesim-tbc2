@@ -8,6 +8,7 @@ enum RegenRotation : int
     REGEN_ROTATION_SCFB,
     REGEN_ROTATION_AMSC,
     REGEN_ROTATION_AMAM,
+    REGEN_ROTATION_FB11,
 };
 
 enum MainRotation: int

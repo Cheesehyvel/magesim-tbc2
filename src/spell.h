@@ -8,6 +8,7 @@ namespace spell
         ARCANE_EXPLOSION1 = 1449,
         ARCANE_MISSILES = 38699,
         FROSTBOLT = 27072,
+        FROSTBOLT11 = 25304,
         FIREBALL = 27070,
         SCORCH = 27074,
         FIRE_BLAST = 27079,
@@ -150,6 +151,25 @@ namespace spell
             cost = 330;
             min_dmg = 600;
             max_dmg = 647;
+            cast_time = 3;
+            coeff = 3/3.5 * 0.95;
+            school = SCHOOL_FROST;
+            binary = true;
+        }
+
+    };
+
+    class Frostbolt11 : public Spell
+    {
+
+    public:
+        Frostbolt11()
+        {
+            id = FROSTBOLT11;
+            name = "Frostbolt (Rank 11)";
+            cost = 290;
+            min_dmg = 527;
+            max_dmg = 568;
             cast_time = 3;
             coeff = 3/3.5 * 0.95;
             school = SCHOOL_FROST;

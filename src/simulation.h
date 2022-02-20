@@ -1193,6 +1193,14 @@ public:
                     else if (state->regen_cycle == config->regen_ab_count + 2)
                         is_done = true;
                 }
+                else if (config->regen_rotation == REGEN_ROTATION_FB11) {
+                    if (state->regen_cycle == 3 && !willDropArcaneBlast())
+                        state->regen_cycle--;
+                    if (state->regen_cycle < 3)
+                        next = make_shared<spell::Frostbolt11>();
+                    else if (state->regen_cycle == config->regen_ab_count + 2)
+                        is_done = true;
+                }
                 else if (config->regen_rotation == REGEN_ROTATION_AMFB) {
                     if (state->regen_cycle == 2 && !willDropArcaneBlast())
                         state->regen_cycle--;

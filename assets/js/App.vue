@@ -610,6 +610,7 @@
                                     <label>Filler spells</label>
                                     <select v-model="config.regen_rotation">
                                         <option :value="regen_rotations.REGEN_ROTATION_FB">3xFrB</option>
+                                        <option :value="regen_rotations.REGEN_ROTATION_FB11">3xFrB (rank 11)</option>
                                         <option :value="regen_rotations.REGEN_ROTATION_AMFB">1xAM, 1xFrB</option>
                                         <option :value="regen_rotations.REGEN_ROTATION_AMSC">1xAM, 1xScorch</option>
                                         <option :value="regen_rotations.REGEN_ROTATION_AMAM">2xAM</option>
