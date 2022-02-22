@@ -6558,7 +6558,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (x = this.hasTalent("mind_mastery")) int_multi += x * 0.05;
       if (this.config.spellfire_set) int_multi += 0.07;
       if (int_multi > 0) stats.spell_power += Math.round(stats.intellect * int_multi);
-      if (this.config.improved_divine_spirit) stats.spell_power += stats.spirit * 0.1;
+      if (this.config.improved_divine_spirit && this.config.divine_spirit) stats.spell_power += stats.spirit * 0.1;
       if (this.config.wrath_of_air) stats.spell_power += 101;
       if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD) stats.spell_power += 36;
       if (this.config.weapon_oil == this.weapon_oils.OIL_SUPERIOR_WIZARD) stats.spell_power += 42;

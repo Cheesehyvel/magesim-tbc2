@@ -152,7 +152,7 @@ public:
         if (int_multi > 0)
             stats.spell_power+= round(stats.intellect * int_multi);
 
-        if (config->improved_divine_spirit)
+        if (config->improved_divine_spirit && config->divine_spirit)
             stats.spell_power+= stats.spirit*0.1;
         if (config->wrath_of_air)
             stats.spell_power+= 101.0;

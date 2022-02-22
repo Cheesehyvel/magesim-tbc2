@@ -2283,7 +2283,7 @@
                 if (int_multi > 0)
                     stats.spell_power+= Math.round(stats.intellect * int_multi);
 
-                if (this.config.improved_divine_spirit)
+                if (this.config.improved_divine_spirit && this.config.divine_spirit)
                     stats.spell_power+= stats.spirit*0.1;
                 if (this.config.wrath_of_air)
                     stats.spell_power+= 101;
