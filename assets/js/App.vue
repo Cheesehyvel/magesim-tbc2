@@ -218,7 +218,7 @@
                             <help>Time spent gcd capped</help>
                         </div>
                         <div class="btn mt-1" v-if="result.log" @click="logToggle">Combat log</div>
-                        <div class="btn mt-1" v-if="result.log" @click="managraphToggle">Mana graph</div>
+                        <div class="btn mt-1" v-if="result.log" @click="timelineToggle">Timeline</div>
                         <div class="btn mt-1" v-if="result.spells" @click="spellsToggle">Spells</div>
                     </template>
                     <template v-if="!isMetaGemActive()">
@@ -506,9 +506,9 @@
                     </div>
                 </div>
 
-                <div class="managr" v-if="managraph_open">
-                    <managraph ref="managraph" :log="result.log"></managraph>
-                    <div class="close" @click="managraphToggle">
+                <div class="timel" v-if="timeline_open">
+                    <timeline ref="timeline" :result="result"></timeline>
+                    <div class="close" @click="timelineToggle">
                         <span class="material-icons">
                             &#xe5cd;
                         </span>
@@ -1682,7 +1682,7 @@
                 is_running_ep: false,
                 config_open: false,
                 log_open: false,
-                managraph_open: false,
+                timeline_open: false,
                 spells_open: false,
                 histogram_open: false,
                 item_source: "wowhead",
@@ -1951,7 +1951,7 @@
                     console.error(error);
                 });
 
-                this.managraph_open = false;
+                this.timeline_open = false;
                 this.spells_open = false;
                 this.log_open = false;
                 this.ep_result = null;
@@ -3440,7 +3440,7 @@
             },
 
             configToggle() {
-                this.managraph_open = false;
+                this.timeline_open = false;
                 this.spells_open = false;
                 this.histogram_open = false;
                 this.log_open = false;
@@ -3452,7 +3452,7 @@
             },
 
             logToggle() {
-                this.managraph_open = false;
+                this.timeline_open = false;
                 this.spells_open = false;
                 this.histogram_open = false;
                 this.config_open = false;
@@ -3462,24 +3462,24 @@
             histogramToggle() {
                 this.log_open = false;
                 this.config_open = false;
-                this.managraph_open = false;
+                this.timeline_open = false;
                 this.spells_open = false;
                 this.histogram_open = !this.histogram_open;
             },
 
-            managraphToggle() {
+            timelineToggle() {
                 this.log_open = false;
                 this.config_open = false;
                 this.histogram_open = false;
                 this.spells_open = false;
-                this.managraph_open = !this.managraph_open;
+                this.timeline_open = !this.timeline_open;
             },
 
             spellsToggle() {
                 this.log_open = false;
                 this.config_open = false;
                 this.histogram_open = false;
-                this.managraph_open = false;
+                this.timeline_open = false;
                 this.spells_open = !this.spells_open;
             },
 

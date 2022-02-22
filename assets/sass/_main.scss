@@ -35,6 +35,10 @@ a {
     }
 }
 
+.graph.buffs canvas {
+    height: 200px;
+}
+
 .sort-link {
     cursor: pointer;
 
@@ -484,7 +488,7 @@ table {
     .log,
     .config,
     .histog,
-    .managr,
+    .timel,
     .spells,
     .lightbox {
         .close {
@@ -649,7 +653,7 @@ table {
         }
     }
 
-    .managr,
+    .timel,
     .histog {
         position: absolute;
         left: 0;

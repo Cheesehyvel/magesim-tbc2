@@ -11,8 +11,8 @@ var map = {
 	"./CheckItem.vue": "./assets/js/components/CheckItem.vue",
 	"./Help.vue": "./assets/js/components/Help.vue",
 	"./Histogram.vue": "./assets/js/components/Histogram.vue",
-	"./Managraph.vue": "./assets/js/components/Managraph.vue",
 	"./SortLink.vue": "./assets/js/components/SortLink.vue",
+	"./Timeline.vue": "./assets/js/components/Timeline.vue",
 	"./TimingHelper.vue": "./assets/js/components/TimingHelper.vue",
 	"./Tooltip.vue": "./assets/js/components/Tooltip.vue"
 };
@@ -5920,7 +5920,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       is_running_ep: false,
       config_open: false,
       log_open: false,
-      managraph_open: false,
+      timeline_open: false,
       spells_open: false,
       histogram_open: false,
       item_source: "wowhead",
@@ -6149,7 +6149,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         self.is_running = false;
         console.error(error);
       });
-      this.managraph_open = false;
+      this.timeline_open = false;
       this.spells_open = false;
       this.log_open = false;
       this.ep_result = null;
@@ -7527,7 +7527,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.log_filter[log.type];
     },
     configToggle: function configToggle() {
-      this.managraph_open = false;
+      this.timeline_open = false;
       this.spells_open = false;
       this.histogram_open = false;
       this.log_open = false;
@@ -7539,7 +7539,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     logToggle: function logToggle() {
-      this.managraph_open = false;
+      this.timeline_open = false;
       this.spells_open = false;
       this.histogram_open = false;
       this.config_open = false;
@@ -7548,22 +7548,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     histogramToggle: function histogramToggle() {
       this.log_open = false;
       this.config_open = false;
-      this.managraph_open = false;
+      this.timeline_open = false;
       this.spells_open = false;
       this.histogram_open = !this.histogram_open;
     },
-    managraphToggle: function managraphToggle() {
+    timelineToggle: function timelineToggle() {
       this.log_open = false;
       this.config_open = false;
       this.histogram_open = false;
       this.spells_open = false;
-      this.managraph_open = !this.managraph_open;
+      this.timeline_open = !this.timeline_open;
     },
     spellsToggle: function spellsToggle() {
       this.log_open = false;
       this.config_open = false;
       this.histogram_open = false;
-      this.managraph_open = false;
+      this.timeline_open = false;
       this.spells_open = !this.spells_open;
     },
     allResults: function allResults() {
@@ -7927,198 +7927,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__.Line],
-  mounted: function mounted() {
-    this.draw();
-  },
-  watch: {
-    log: function log() {
-      this.draw();
-    }
-  },
-  props: ['log'],
-  methods: {
-    draw: function draw() {
-      var data = {
-        datasets: []
-      };
-
-      var last = _.last(this.log); // CDs
-
-
-      var cds = [{
-        title: "Arcane Power",
-        color: "#d3f"
-      }, {
-        title: "Icy Veins",
-        color: "#5af"
-      }, {
-        title: "Bloodlust",
-        color: "#d55"
-      }, {
-        title: "Innervate",
-        color: "#00f"
-      }, {
-        title: "Mana Tide",
-        color: "#aef"
-      }, {
-        title: "Destruction",
-        color: "#93d"
-      }, {
-        title: "Burst of Knowledge",
-        color: "#939"
-      }, {
-        title: "Power Infusion",
-        color: "#dd0"
-      }, {
-        title: "Drums of Battle",
-        color: "#993"
-      }, {
-        title: "Drums of War",
-        color: "#993"
-      }, {
-        title: "Drums of Restoration",
-        color: "#993"
-      }, {
-        title: "Evocation",
-        color: "#6d6"
-      }];
-      var delta = 0;
-      var start, end;
-
-      for (var i = 0; i < cds.length; i++) {
-        start = _.filter(this.log, {
-          text: "Gained " + cds[i].title
-        });
-        end = _.filter(this.log, {
-          text: "Lost " + cds[i].title
-        });
-
-        for (var j = 0; j < start.length; j++) {
-          data.datasets.push({
-            data: [{
-              x: start[j].t,
-              y: delta
-            }, {
-              x: end.length > j ? end[j].t : last.t,
-              y: delta
-            }],
-            borderColor: cds[i].color,
-            pointRadius: 0,
-            borderWidth: 5,
-            label: j == 0 ? cds[i].title : '',
-            fill: false
-          });
-        }
-
-        if (start.length) delta += 1;
-      } // Mana gained
-
-
-      var gains = [{
-        title: "Mana Potion",
-        color: "#ff0"
-      }, {
-        title: "Mana Gem",
-        color: "#5fa"
-      }];
-
-      for (var i = 0; i < gains.length; i++) {
-        start = _.filter(this.log, function (a) {
-          return a.text.indexOf(" mana from " + gains[i].title) > 0;
-        });
-
-        for (var j = 0; j < start.length; j++) {
-          data.datasets.push({
-            data: [{
-              x: start[j].t,
-              y: delta
-            }, {
-              x: start[j].t + 1,
-              y: delta
-            }],
-            borderColor: gains[i].color,
-            pointRadius: 0,
-            label: j == 0 ? gains[i].title : '',
-            fill: false
-          });
-        }
-
-        if (start.length) delta += 1;
-      }
-
-      var options = {
-        legend: {
-          display: true,
-          labels: {
-            filter: function filter(item, chart) {
-              return item.text != "";
-            }
-          }
-        },
-        tooltips: {
-          enabled: false
-        },
-        scales: {
-          xAxes: [{
-            type: "linear",
-            scaleLabel: {
-              enabled: true,
-              labelString: "Time (s)"
-            }
-          }],
-          yAxes: [{
-            type: "linear",
-            scaleLabel: {
-              enabled: true,
-              labelString: "Mana (%)"
-            }
-          }]
-        }
-      }; // Mana
-
-      var d = [];
-
-      for (var i = 0; i < this.log.length; i++) {
-        d.push({
-          x: this.log[i].t,
-          y: this.log[i].mana_percent
-        });
-      }
-
-      data.datasets.push({
-        data: d,
-        borderColor: "#08f",
-        pointRadius: 1,
-        label: "Mana"
-      });
-      this.renderChart(data, options);
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=script&lang=js& ***!
@@ -8169,6 +7977,448 @@ __webpack_require__.r(__webpack_exports__);
     },
     flipOrder: function flipOrder(order) {
       return order == "asc" ? "desc" : "asc";
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Timeline.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Timeline.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__.Line],
+  mounted: function mounted() {
+    this.addPlugin({
+      id: "custom-plugin",
+      afterRender: this.afterRender
+    });
+    this.draw();
+  },
+  watch: {
+    result: function result() {
+      this.draw();
+    }
+  },
+  props: ['result'],
+  data: function data() {
+    return {
+      has_drawn: false,
+      buff_padding: 1.5,
+      buff_start_pos: 2,
+      cds: [{
+        title: "Bloodlust",
+        color: "rgba(255,70,70,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_bloodlust.jpg"
+      }, {
+        title: "Icy Veins",
+        color: "rgba(85,170,255,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_frost_coldhearted.jpg"
+      }, {
+        title: "Arcane Power",
+        color: "rgba(221,51,255,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_lightning.jpg"
+      }, {
+        title: "Band of Eternal Sage",
+        color: "rgba(255, 128, 0, 0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_jewelry_ring_55.jpg"
+      }, {
+        title: "Destruction",
+        color: "rgba(153, 51, 221, 0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_potion_107.jpg"
+      }, {
+        title: "Mana Tide",
+        color: "rgba(200, 200, 200, 0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_frost_summonwaterelemental.jpg"
+      }, {
+        title: "Power Infusion",
+        color: "rgba(255, 255, 0, 0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_powerinfusion.jpg"
+      }, {
+        title: "Drums of Battle",
+        color: "rgba(160,160,60,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_drum_02.jpg"
+      }, {
+        title: "Drums of War",
+        color: "rgba(160,160,60,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_drum_03.jpg"
+      }, {
+        title: "Drums of Restoration",
+        color: "rgba(160,160,60,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_drum_07.jpg"
+      }, {
+        title: "Innervate",
+        color: "rgba(0,0,0,255,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_lightning.jpg"
+      }, {
+        title: "Evocation",
+        color: "rgba(105,221,105,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_purge.jpg"
+      }],
+      trinkets: [{
+        title: "Fel Infusion",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_bone_elfskull_01.jpg"
+      }, {
+        title: "Burst of Knowledge",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_jewelry_amulet_07.jpg"
+      }, {
+        title: "Silver Crescent",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_trinket_naxxramas06.jpg"
+      }, {
+        title: "Essence of the Martyr",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_trinket_naxxramas01.jpg"
+      }, {
+        title: "Serpent Coil",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_arcane_arcanetorrent.jpg"
+      }, {
+        title: "Dark Iron Pipeweed",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_pipe_01.jpg"
+      }, {
+        title: "Recurring Power",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_mindvision.jpg"
+      }, {
+        title: "Essence of Sapphiron",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_trinket_naxxramas06.jpg"
+      }, {
+        title: "Spell Haste",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_searinglight.jpg"
+      }, {
+        title: "Unstable Currents",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_mindvision.jpg"
+      }, {
+        title: "Spell Power",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_mindvision.jpg"
+      }, {
+        title: "Focused Power",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_mindvision.jpg"
+      }, {
+        title: "Enlightenment",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_gem_pearl_04.jpg"
+      }, {
+        title: "Arcane Energy",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_mindvision.jpg"
+      }, {
+        title: "Crimson Serpent",
+        img: "https://wow.zamimg.com/images/wow/icons/large/ability_hunter_pet_windserpent.jpg"
+      }, {
+        title: "Mojo Madness",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_head_troll_01.jpg"
+      }, {
+        title: "Aura of the Crusade",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_shadow_siphonmana.jpg"
+      }, {
+        title: "Insight of the Ashtongue",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_elvencoins.jpg"
+      }, {
+        title: "Call of the Nexus",
+        img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_mindvision.jpg"
+      }],
+      mana_gains: [{
+        title: "Mana Gem",
+        color: "rgba(85,255,85,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_gem_stone_01.jpg"
+      }, {
+        title: "Mana Potion",
+        color: "rgba(255,255,0,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_potion_137.jpg"
+      }]
+    };
+  },
+  methods: {
+    afterRender: function afterRender() {
+      this.drawImages();
+    },
+    draw: function draw() {
+      this.has_drawn = false;
+      var self = this;
+      var data = {
+        datasets: []
+      };
+      var options = {
+        legend: {
+          display: true,
+          labels: {
+            filter: function filter(item, chart) {
+              return item.text != "";
+            }
+          }
+        },
+        tooltips: {
+          enabled: false
+        },
+        elements: {
+          line: {
+            tension: 0
+          }
+        },
+        scales: {
+          xAxes: [{
+            type: "linear",
+            ticks: {
+              max: this.result.t
+            },
+            scaleLabel: {
+              display: true,
+              labelString: "Time (s)"
+            }
+          }],
+          yAxes: [{
+            type: "linear",
+            scaleLabel: {
+              display: true,
+              labelString: "Mana (%)"
+            }
+          }, {
+            id: "dps",
+            type: "linear",
+            position: "right",
+            ticks: {
+              beginAtZero: true
+            },
+            scaleLabel: {
+              display: true,
+              labelString: "DPS"
+            }
+          }]
+        }
+      }; // Mana
+
+      var d = [];
+      var mana_smooth = true;
+
+      if (mana_smooth) {
+        for (var i = 0; i < this.result.log.length; i++) {
+          if (this.result.log[i].text.indexOf("Vampiric Touch") != -1) d.push({
+            x: this.result.log[i].t,
+            y: this.result.log[i].mana_percent
+          });
+        }
+
+        if (!d.length) {
+          for (var i = 0; i < this.result.log.length; i++) {
+            if (this.result.log[i].text.indexOf("Mana Regen") != -1) d.push({
+              x: this.result.log[i].t,
+              y: this.result.log[i].mana_percent
+            });
+          }
+        }
+
+        d.push({
+          x: this.result.t,
+          y: _.last(this.result.log).mana_percent
+        });
+      } else {
+        for (var i = 0; i < this.result.log.length; i++) {
+          d.push({
+            x: this.result.log[i].t,
+            y: this.result.log[i].mana_percent
+          });
+        }
+      }
+
+      data.datasets.push({
+        data: d,
+        borderColor: "#08f",
+        borderWidth: 0.5,
+        pointRadius: 0,
+        hitRadius: 0,
+        label: "Mana"
+      }); // DPS
+
+      d = [];
+      d.push({
+        x: 0,
+        y: 0
+      });
+
+      for (var i = 0; i < this.result.log.length; i++) {
+        if (this.result.log[i].type == 1 && this.result.log[i].t) d.push({
+          x: this.result.log[i].t,
+          y: this.result.log[i].dmg / this.result.log[i].t
+        });
+      }
+
+      d.push({
+        x: this.result.t,
+        y: this.result.dps
+      });
+      data.datasets.push({
+        data: d,
+        borderColor: "#f00",
+        borderWidth: 0.5,
+        pointRadius: 0,
+        label: "DPS",
+        fill: false,
+        yAxisID: "dps"
+      });
+      var delta = 0;
+      var start, end;
+      var buff_width = 5; // CDs
+
+      for (var i = 0; i < this.cds.length; i++) {
+        start = _.filter(this.result.log, {
+          text: "Gained " + this.cds[i].title
+        });
+        end = _.filter(this.result.log, {
+          text: "Lost " + this.cds[i].title
+        });
+
+        for (var j = 0; j < start.length; j++) {
+          data.datasets.push({
+            data: [{
+              x: start[j].t,
+              y: delta * this.buff_padding + this.buff_start_pos
+            }, {
+              x: end.length > j ? end[j].t : this.result.t,
+              y: delta * this.buff_padding + this.buff_start_pos
+            }],
+            borderColor: this.cds[i].color,
+            borderWidth: buff_width,
+            pointRadius: 0,
+            hitRadius: 0,
+            // label: j == 0 ? this.cds[i].title : '',
+            label: '',
+            fill: false
+          });
+        }
+
+        if (start.length) delta++;
+      } // Trinkets
+
+
+      var trinket_colors = ["rgba(255,255,255,0.6)", "rgba(160,60,160,0.6)"];
+      var t = 0;
+
+      for (var i = 0; i < this.trinkets.length; i++) {
+        start = _.filter(this.result.log, {
+          text: "Gained " + this.trinkets[i].title
+        });
+        end = _.filter(this.result.log, {
+          text: "Lost " + this.trinkets[i].title
+        });
+
+        for (var j = 0; j < start.length; j++) {
+          data.datasets.push({
+            data: [{
+              x: start[j].t,
+              y: delta * this.buff_padding + this.buff_start_pos
+            }, {
+              x: end.length > j ? end[j].t : this.result.t,
+              y: delta * this.buff_padding + this.buff_start_pos
+            }],
+            borderColor: trinket_colors[t],
+            borderWidth: buff_width,
+            pointRadius: 0,
+            hitRadius: 0,
+            // label: j == 0 ? this.trinkets[i].title : '',
+            label: '',
+            fill: false
+          });
+        }
+
+        if (start.length) {
+          delta++;
+          t++;
+          if (t > 1) break;
+        }
+      } // Mana gained
+
+      /*
+      for (var i=0; i<this.mana_gains.length; i++) {
+          start = _.filter(this.result.log, function(a) { return a.text.indexOf(" mana from "+self.mana_gains[i].title) > 0; });
+          for (var j=0; j<start.length; j++) {
+              data.datasets.push({
+                  data: [
+                      {x: start[j].t, y: delta*this.buff_padding + this.buff_start_pos},
+                      {x: start[j].t+1, y: delta*this.buff_padding + this.buff_start_pos}
+                  ],
+                  borderColor: this.mana_gains[i].color,
+                  borderWidth: buff_width,
+                  pointRadius: 0,
+                  hitRadius: 0,
+                  label: '',
+                  fill: false,
+              });
+          }
+          if (start.length)
+              delta++;
+      }
+      */
+
+
+      this.renderChart(data, options);
+    },
+    drawImages: function drawImages() {
+      var self = this;
+      var x, y, start;
+      var delta = 0;
+      var px = 12;
+
+      var buffs = _.concat(this.cds, this.trinkets);
+
+      for (var i = 0; i < buffs.length; i++) {
+        start = _.filter(this.result.log, {
+          text: "Gained " + buffs[i].title
+        });
+
+        if (buffs[i].img) {
+          for (var j = 0; j < start.length; j++) {
+            x = this.$data._chart.scales["x-axis-0"].getPixelForValue(start[j].t) - px;
+            y = this.$data._chart.scales["y-axis-0"].getPixelForValue(delta * this.buff_padding + this.buff_start_pos) - px / 2;
+            var im = new Image();
+
+            im.onload = function (xx, yy, img) {
+              setTimeout(function () {
+                self.$refs.canvas.getContext("2d").drawImage(img, xx, yy, 12, 12);
+              }, 100);
+            }(x, y, im);
+
+            im.src = buffs[i].img;
+          }
+        }
+
+        if (start.length) delta++;
+      }
+
+      for (var i = 0; i < this.mana_gains.length; i++) {
+        start = _.filter(this.result.log, function (a) {
+          return a.text.indexOf(" mana from " + self.mana_gains[i].title) > 0;
+        });
+
+        if (this.mana_gains[i].img) {
+          for (var j = 0; j < start.length; j++) {
+            x = this.$data._chart.scales["x-axis-0"].getPixelForValue(start[j].t) - px;
+            y = this.$data._chart.scales["y-axis-0"].getPixelForValue(delta * this.buff_padding + this.buff_start_pos) - px / 2;
+            var im = new Image();
+
+            im.onload = function (xx, yy, img) {
+              setTimeout(function () {
+                self.$refs.canvas.getContext("2d").drawImage(img, xx, yy, 12, 12);
+              }, 100);
+            }(x, y, im);
+
+            im.src = this.mana_gains[i].img;
+          }
+        }
+
+        if (start.length) delta++;
+      }
     }
   }
 });
@@ -64323,45 +64573,6 @@ component.options.__file = "assets/js/components/Histogram.vue"
 
 /***/ }),
 
-/***/ "./assets/js/components/Managraph.vue":
-/*!********************************************!*\
-  !*** ./assets/js/components/Managraph.vue ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Managraph.vue?vue&type=template&id=43a58316& */ "./assets/js/components/Managraph.vue?vue&type=template&id=43a58316&");
-/* harmony import */ var _Managraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Managraph.vue?vue&type=script&lang=js& */ "./assets/js/components/Managraph.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Managraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "assets/js/components/Managraph.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
 /***/ "./assets/js/components/SortLink.vue":
 /*!*******************************************!*\
   !*** ./assets/js/components/SortLink.vue ***!
@@ -64397,6 +64608,45 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "assets/js/components/SortLink.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/js/components/Timeline.vue":
+/*!*******************************************!*\
+  !*** ./assets/js/components/Timeline.vue ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Timeline_vue_vue_type_template_id_c46e7a3c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Timeline.vue?vue&type=template&id=c46e7a3c& */ "./assets/js/components/Timeline.vue?vue&type=template&id=c46e7a3c&");
+/* harmony import */ var _Timeline_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Timeline.vue?vue&type=script&lang=js& */ "./assets/js/components/Timeline.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Timeline_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Timeline_vue_vue_type_template_id_c46e7a3c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Timeline_vue_vue_type_template_id_c46e7a3c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/js/components/Timeline.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -64543,22 +64793,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./assets/js/components/Managraph.vue?vue&type=script&lang=js&":
-/*!*********************************************************************!*\
-  !*** ./assets/js/components/Managraph.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Managraph.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
 /***/ "./assets/js/components/SortLink.vue?vue&type=script&lang=js&":
 /*!********************************************************************!*\
   !*** ./assets/js/components/SortLink.vue?vue&type=script&lang=js& ***!
@@ -64572,6 +64806,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SortLink.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/js/components/Timeline.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./assets/js/components/Timeline.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Timeline_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Timeline.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Timeline.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Timeline_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -64675,23 +64925,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./assets/js/components/Managraph.vue?vue&type=template&id=43a58316&":
-/*!***************************************************************************!*\
-  !*** ./assets/js/components/Managraph.vue?vue&type=template&id=43a58316& ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Managraph_vue_vue_type_template_id_43a58316___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Managraph.vue?vue&type=template&id=43a58316& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=template&id=43a58316&");
-
-
-/***/ }),
-
 /***/ "./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e&":
 /*!**************************************************************************!*\
   !*** ./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e& ***!
@@ -64705,6 +64938,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SortLink_vue_vue_type_template_id_e5d8144e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SortLink.vue?vue&type=template&id=e5d8144e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e&");
+
+
+/***/ }),
+
+/***/ "./assets/js/components/Timeline.vue?vue&type=template&id=c46e7a3c&":
+/*!**************************************************************************!*\
+  !*** ./assets/js/components/Timeline.vue?vue&type=template&id=c46e7a3c& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Timeline_vue_vue_type_template_id_c46e7a3c___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Timeline_vue_vue_type_template_id_c46e7a3c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Timeline_vue_vue_type_template_id_c46e7a3c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Timeline.vue?vue&type=template&id=c46e7a3c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Timeline.vue?vue&type=template&id=c46e7a3c&");
 
 
 /***/ }),
@@ -65505,9 +65755,9 @@ var render = function() {
                             "div",
                             {
                               staticClass: "btn mt-1",
-                              on: { click: _vm.managraphToggle }
+                              on: { click: _vm.timelineToggle }
                             },
-                            [_vm._v("Mana graph")]
+                            [_vm._v("Timeline")]
                           )
                         : _vm._e(),
                       _vm._v(" "),
@@ -66572,19 +66822,19 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.managraph_open
+        _vm.timeline_open
           ? _c(
               "div",
-              { staticClass: "managr" },
+              { staticClass: "timel" },
               [
-                _c("managraph", {
-                  ref: "managraph",
-                  attrs: { log: _vm.result.log }
+                _c("timeline", {
+                  ref: "timeline",
+                  attrs: { result: _vm.result }
                 }),
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "close", on: { click: _vm.managraphToggle } },
+                  { staticClass: "close", on: { click: _vm.timelineToggle } },
                   [
                     _c("span", { staticClass: "material-icons" }, [
                       _vm._v(
@@ -73547,33 +73797,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=template&id=43a58316&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Managraph.vue?vue&type=template&id=43a58316& ***!
-  \******************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "managraph" }, [
-    _c("canvas", { ref: "canvas" })
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/SortLink.vue?vue&type=template&id=e5d8144e& ***!
@@ -73607,6 +73830,33 @@ var render = function() {
       )
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Timeline.vue?vue&type=template&id=c46e7a3c&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/js/components/Timeline.vue?vue&type=template&id=c46e7a3c& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "graph values" }, [
+    _c("canvas", { ref: "canvas" })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
