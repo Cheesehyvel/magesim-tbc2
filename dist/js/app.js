@@ -5715,6 +5715,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5844,7 +5853,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         spell_power: 1000,
         spell_power_arcane: 50,
         spell_power_frost: 0,
-        spell_power_fire: 0
+        spell_power_fire: 0,
+        crit_rating: 0,
+        hit_rating: 0,
+        haste_rating: 0
       },
       tooltips: false
     };
@@ -6581,18 +6593,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.config.bloodthistle && this.config.race == this.races.RACE_BLOOD_ELF) stats.spell_power += 10;
       if (this.config.scourgebane) stats.spell_power += 15; // Spell crit
 
-      var critrating = 0;
+      var crit_rating = 0;
       if (this.config.judgement_of_the_crusader) stats.crit += 3;
       if (this.config.moonkin_aura) stats.crit += 5;
       if (this.config.totem_of_wrath) stats.crit += 3;
       if (this.config.molten_armor) stats.crit += 3;
       if (this.config.chain_of_the_twilight_owl) stats.crit += 2;
-      if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) critrating += 24;
-      if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD) critrating += 14;
-      if (this.config.food == this.foods.FOOD_SPELL_CRIT) critrating += 20;
-      if (this.config.atiesh_mage) critrating += 28;
-      if (critrating > 0) stats.crit += this.critRatingToChance(critrating);
+      if (this.config.battle_elixir == this.elixirs.ELIXIR_ADEPTS) crit_rating += 24;
+      if (this.config.weapon_oil == this.weapon_oils.OIL_BRILLIANT_WIZARD) crit_rating += 14;
+      if (this.config.food == this.foods.FOOD_SPELL_CRIT) crit_rating += 20;
+      if (this.config.atiesh_mage) crit_rating += 28;
       if (x = this.hasTalent("arcane_instability")) stats.crit += x;
+
+      if (crit_rating > 0) {
+        stats.crit += this.critRatingToChance(crit_rating);
+        stats.crit_rating += crit_rating;
+      }
+
       stats.crit += stats.intellect / 80; // Spell hit
 
       if (this.config.totem_of_wrath) stats.hit += 3;
@@ -6611,7 +6628,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         spell_power: 0,
         spell_power_arcane: 0,
         spell_power_frost: 0,
-        spell_power_fire: 0
+        spell_power_fire: 0,
+        crit_rating: 0,
+        hit_rating: 0,
+        haste_rating: 0
       };
 
       if (this.config.race == this.races.RACE_TROLL) {
@@ -6724,6 +6744,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       stats.crit += this.critRatingToChance(item_stats.crit);
       stats.hit += this.hitRatingToChance(item_stats.hit);
       stats.haste += this.hasteRatingToHaste(item_stats.haste);
+      stats.crit_rating = item_stats.crit;
+      stats.hit_rating = item_stats.hit;
+      stats.haste_rating = item_stats.haste;
       stats.crit = stats.crit;
       stats.hit = stats.hit;
       stats.haste = stats.haste;
@@ -65279,25 +65302,68 @@ var render = function() {
                   _c("tr", [
                     _c("td", [_vm._v("Crit")]),
                     _vm._v(" "),
-                    _c("td", [
-                      _vm._v(_vm._s(_vm.$round(_vm.final_stats.crit, 2)) + "%")
-                    ])
+                    _c(
+                      "td",
+                      [
+                        _c("span", [
+                          _vm._v(
+                            _vm._s(_vm.$round(_vm.final_stats.crit, 2)) + "%"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("tooltip", { attrs: { position: "r" } }, [
+                          _vm._v(
+                            _vm._s(_vm.final_stats.crit_rating) + " crit rating"
+                          )
+                        ])
+                      ],
+                      1
+                    )
                   ]),
                   _vm._v(" "),
                   _c("tr", [
                     _c("td", [_vm._v("Hit")]),
                     _vm._v(" "),
-                    _c("td", [
-                      _vm._v(_vm._s(_vm.$round(_vm.final_stats.hit, 2)) + "%")
-                    ])
+                    _c(
+                      "td",
+                      [
+                        _c("span", [
+                          _vm._v(
+                            _vm._s(_vm.$round(_vm.final_stats.hit, 2)) + "%"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("tooltip", { attrs: { position: "r" } }, [
+                          _vm._v(
+                            _vm._s(_vm.final_stats.hit_rating) + " hit rating"
+                          )
+                        ])
+                      ],
+                      1
+                    )
                   ]),
                   _vm._v(" "),
                   _c("tr", [
                     _c("td", [_vm._v("Haste")]),
                     _vm._v(" "),
-                    _c("td", [
-                      _vm._v(_vm._s(_vm.$round(_vm.final_stats.haste, 2)) + "%")
-                    ])
+                    _c(
+                      "td",
+                      [
+                        _c("span", [
+                          _vm._v(
+                            _vm._s(_vm.$round(_vm.final_stats.haste, 2)) + "%"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("tooltip", { attrs: { position: "r" } }, [
+                          _vm._v(
+                            _vm._s(_vm.final_stats.haste_rating) +
+                              " haste rating"
+                          )
+                        ])
+                      ],
+                      1
+                    )
                   ])
                 ])
               ])
