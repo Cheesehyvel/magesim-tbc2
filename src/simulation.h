@@ -1753,19 +1753,9 @@ public:
         return (base - 1) * talents + 1;
     }
 
-    double dmgMultiplier(shared_ptr<spell::Spell> spell)
+    double buffDmgMultiplier(shared_ptr<spell::Spell> spell)
     {
         double multi = 1;
-
-        if (config->misery)
-            multi*= 1.05;
-
-        if (config->curse_of_elements && (spell->school == SCHOOL_FROST || spell->school == SCHOOL_FIRE || spell->school == SCHOOL_ARCANE)) {
-            if (config->malediction)
-                multi*= 1.13;
-            else
-                multi*= 1.1;
-        }
 
         if (config->imp_sanctity)
             multi*= 1.02;
@@ -1786,9 +1776,6 @@ public:
         if (player->talents.molten_fury && state->t / state->duration >= 0.8)
             multi*= 1 + (player->talents.molten_fury * 0.1);
 
-        if (spell->school == SCHOOL_FIRE && state->hasDebuff(debuff::FIRE_VULNERABILITY))
-            multi*= (1 + state->debuffStacks(debuff::FIRE_VULNERABILITY) * 0.03);
-
         if (state->hasBuff(buff::ARCANE_POWER) && !spell->proc)
             multi*= 1.3;
 
@@ -1797,6 +1784,26 @@ public:
 
         if ((spell->id == spell::ARCANE_MISSILES || spell->id == spell::FROSTBOLT || spell->id == spell::FIREBALL) && config->tempest_4set)
             multi*= 1.05;
+
+        return multi;
+    }
+
+    double debuffDmgMultiplier(shared_ptr<spell::Spell> spell)
+    {
+        double multi = 1;
+
+        if (config->misery)
+            multi*= 1.05;
+
+        if (config->curse_of_elements && (spell->school == SCHOOL_FROST || spell->school == SCHOOL_FIRE || spell->school == SCHOOL_ARCANE)) {
+            if (config->malediction)
+                multi*= 1.13;
+            else
+                multi*= 1.1;
+        }
+
+        if (spell->school == SCHOOL_FIRE && state->hasDebuff(debuff::FIRE_VULNERABILITY))
+            multi*= (1 + state->debuffStacks(debuff::FIRE_VULNERABILITY) * 0.03);
 
         return multi;
     }
@@ -1889,10 +1896,12 @@ public:
             dmg+= sp*coeff;
         }
 
-        dmg*= dmgMultiplier(spell);
+        dmg*= buffDmgMultiplier(spell);
 
         if (spell->aoe && spell->aoe_cap > 0 && dmg > spell->aoe_cap/config->targets)
             dmg = spell->aoe_cap/config->targets;
+
+        dmg*= debuffDmgMultiplier(spell);
 
         return dmg;
     }
