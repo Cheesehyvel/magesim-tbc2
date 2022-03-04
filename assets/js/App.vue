@@ -682,13 +682,6 @@
                                 <label><input type="checkbox" v-model="config.fire_blast_weave"> <span>Fire Blast weave</span></label>
                             </div>
                             <div class="form-item">
-                                <label>
-                                    <input type="checkbox" v-model="config.bugged_ashtongue">
-                                    <span>Bugged Ashtongue Talisman</span>
-                                    <help>This will delay the haste proc slightly to mimic the current bugged behavior in the game</help>
-                                </label>
-                            </div>
-                            <div class="form-item">
                                 <label>No. of targets</label>
                                 <input type="text" v-model.number="config.targets">
                             </div>
@@ -1579,7 +1572,7 @@
                 cc_am_queue: false,
                 cc_am_repeat: false,
 
-                bugged_ashtongue: false,
+                bis_ashtongue: false,
 
                 trinket1_t: Array(4),
                 trinket2_t: Array(4),

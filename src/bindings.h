@@ -251,7 +251,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("cc_am_queue", &Config::cc_am_queue)
         .property("cc_am_repeat", &Config::cc_am_repeat)
 
-        .property("bugged_ashtongue", &Config::bugged_ashtongue)
+        .property("bis_ashtongue", &Config::bis_ashtongue)
 
         .property("trinket1_t", &Config::trinket1_t)
         .property("trinket2_t", &Config::trinket2_t)

@@ -93,7 +93,7 @@ struct Config
     bool cc_am_queue = false;
     bool cc_am_repeat = false;
 
-    bool bugged_ashtongue = false;
+    bool bis_ashtongue = false;
 
     std::vector<double> trinket1_t;
     std::vector<double> trinket2_t;
