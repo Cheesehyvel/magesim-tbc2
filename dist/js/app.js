@@ -8144,6 +8144,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: "Call of the Nexus",
         img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_mindvision.jpg"
+      }, {
+        title: "Power Circle",
+        img: "https://wow.zamimg.com/images/wow/icons/large/inv_jewelry_talisman_15.jpg"
       }],
       mana_gains: [{
         title: "Mana Gem",

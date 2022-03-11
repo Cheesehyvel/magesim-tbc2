@@ -65,6 +65,7 @@
                     { title: "Aura of the Crusade", img: "https://wow.zamimg.com/images/wow/icons/large/spell_shadow_siphonmana.jpg" },
                     { title: "Insight of the Ashtongue", img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_elvencoins.jpg" },
                     { title: "Call of the Nexus", img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_mindvision.jpg" },
+                    { title: "Power Circle", img: "https://wow.zamimg.com/images/wow/icons/large/inv_jewelry_talisman_15.jpg" },
                 ],
                 mana_gains: [
                     { title: "Mana Gem", color: "rgba(85,255,85,0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_gem_stone_01.jpg" },
