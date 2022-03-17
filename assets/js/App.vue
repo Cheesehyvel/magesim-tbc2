@@ -213,6 +213,7 @@
                             <help>Time spent gcd capped</help>
                         </div>
                         <div class="btn mt-1" v-if="result.histogram" @click="histogramToggle">Histogram</div>
+                        <div class="btn mt-1" @click="findAvg(result.avg_dps)">Find avg fight</div>
                         <div class="btn mt-1" v-if="result.all_results" @click="allResults">Simulation data</div>
                     </template>
                     <template v-else>
@@ -1981,6 +1982,39 @@
                 this.prepare();
                 this.is_running = true;
                 sim.start(this.config);
+            },
+
+            async findAvg(avg) {
+                this.histogram_open = false;
+                this.ep_result = null;
+                this.prepare();
+                this.is_running = true;
+
+                var result;
+                while (true) {
+                    result = await this.runAvg(avg);
+                    if (Math.abs(result.dps - avg) <= avg*0.005) {
+                        this.is_running = false;
+                        this.result = result;
+                        break;
+                    }
+                }
+            },
+
+            async runAvg(avg) {
+                var self = this;
+
+                return new Promise(function(resolve, reject) {
+                    var sim = new SimulationWorker((result) => {
+                        resolve(result);
+                    }, (error) => {
+                        self.is_running = false;
+                        console.error(error);
+                    });
+
+                    self.is_running = true;
+                    sim.start(self.config);
+                });
             },
 
             async runStat(stat, value, rng_seed) {

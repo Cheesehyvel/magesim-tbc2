@@ -5717,6 +5717,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -6178,16 +6179,91 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.is_running = true;
       sim.start(this.config);
     },
-    runStat: function runStat(stat, value, rng_seed) {
+    findAvg: function findAvg(avg) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var self, addStats;
+        var result;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                self = _this2;
+                _this2.histogram_open = false;
+                _this2.ep_result = null;
+
+                _this2.prepare();
+
+                _this2.is_running = true;
+
+              case 4:
+                if (false) {}
+
+                _context.next = 7;
+                return _this2.runAvg(avg);
+
+              case 7:
+                result = _context.sent;
+
+                if (!(Math.abs(result.dps - avg) <= avg * 0.005)) {
+                  _context.next = 12;
+                  break;
+                }
+
+                _this2.is_running = false;
+                _this2.result = result;
+                return _context.abrupt("break", 14);
+
+              case 12:
+                _context.next = 4;
+                break;
+
+              case 14:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    runAvg: function runAvg(avg) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                self = _this3;
+                return _context2.abrupt("return", new Promise(function (resolve, reject) {
+                  var sim = new _simulation__WEBPACK_IMPORTED_MODULE_1__.SimulationWorker(function (result) {
+                    resolve(result);
+                  }, function (error) {
+                    self.is_running = false;
+                    console.error(error);
+                  });
+                  self.is_running = true;
+                  sim.start(self.config);
+                }));
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    runStat: function runStat(stat, value, rng_seed) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var self, addStats;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                self = _this4;
 
                 addStats = function addStats(config, stats) {
                   stats = _.merge({
@@ -6214,7 +6290,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   config.stats.haste += self.hasteRatingToHaste(stats.haste);
                 };
 
-                return _context.abrupt("return", new Promise(function (resolve, reject) {
+                return _context3.abrupt("return", new Promise(function (resolve, reject) {
                   var sim = new _simulation__WEBPACK_IMPORTED_MODULE_1__.SimulationWorkers(self.config.iterations, function (result) {
                     self.is_running = false;
                     resolve(result);
@@ -6236,34 +6312,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
               case "end":
-                return _context.stop();
+                return _context3.stop();
             }
           }
-        }, _callee);
+        }, _callee3);
       }))();
     },
     runEP: function runEP() {
-      var _this3 = this;
+      var _this5 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         var rng_seed, result, stat;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                if (_this3.is_running_ep) _this3.is_running_ep = false;
+                if (_this5.is_running_ep) _this5.is_running_ep = false;
 
-                if (!_this3.is_running) {
-                  _context2.next = 3;
+                if (!_this5.is_running) {
+                  _context4.next = 3;
                   break;
                 }
 
-                return _context2.abrupt("return");
+                return _context4.abrupt("return");
 
               case 3:
-                _this3.is_running_ep = true;
-                _this3.result = null;
-                _this3.ep_result = {
+                _this5.is_running_ep = true;
+                _this5.result = null;
+                _this5.ep_result = {
                   base: null,
                   "int": null,
                   spi: null,
@@ -6277,60 +6353,60 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   haste: null
                 };
                 rng_seed = Math.round(Math.random() * 100000);
-                _context2.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this3.ep_result);
+                _context4.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this5.ep_result);
 
               case 8:
-                if ((_context2.t1 = _context2.t0()).done) {
-                  _context2.next = 18;
+                if ((_context4.t1 = _context4.t0()).done) {
+                  _context4.next = 18;
                   break;
                 }
 
-                stat = _context2.t1.value;
-                _context2.next = 12;
-                return _this3.runStat(stat, stat == "base" ? 0 : 10, rng_seed);
+                stat = _context4.t1.value;
+                _context4.next = 12;
+                return _this5.runStat(stat, stat == "base" ? 0 : 10, rng_seed);
 
               case 12:
-                result = _context2.sent;
-                _this3.ep_result[stat] = result.avg_dps;
+                result = _context4.sent;
+                _this5.ep_result[stat] = result.avg_dps;
 
-                if (_this3.is_running_ep) {
-                  _context2.next = 16;
+                if (_this5.is_running_ep) {
+                  _context4.next = 16;
                   break;
                 }
 
-                return _context2.abrupt("break", 18);
+                return _context4.abrupt("break", 18);
 
               case 16:
-                _context2.next = 8;
+                _context4.next = 8;
                 break;
 
               case 18:
-                _this3.is_running_ep = false;
+                _this5.is_running_ep = false;
 
-                _this3.foolsOpen();
+                _this5.foolsOpen();
 
               case 20:
               case "end":
-                return _context2.stop();
+                return _context4.stop();
             }
           }
-        }, _callee2);
+        }, _callee4);
       }))();
     },
     runComparisonFor: function runComparisonFor(item_id) {
-      var _this4 = this;
+      var _this6 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                self = _this4;
+                self = _this6;
 
-                _this4.equip(_this4.active_slot, item_id, false);
+                _this6.equip(_this6.active_slot, item_id, false);
 
-                return _context3.abrupt("return", new Promise(function (resolve, reject) {
+                return _context5.abrupt("return", new Promise(function (resolve, reject) {
                   var sim = new _simulation__WEBPACK_IMPORTED_MODULE_1__.SimulationWorkers(self.config.iterations, function (result) {
                     self.is_running = false;
                     resolve(result);
@@ -6347,64 +6423,64 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
               case "end":
-                return _context3.stop();
+                return _context5.stop();
             }
           }
-        }, _callee3);
+        }, _callee5);
       }))();
     },
     runComparison: function runComparison() {
-      var _this5 = this;
+      var _this7 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
         var i, old_item_id, result, cmp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                if (!(!_this5.hasComparisons || _this5.is_running)) {
-                  _context4.next = 2;
+                if (!(!_this7.hasComparisons || _this7.is_running)) {
+                  _context6.next = 2;
                   break;
                 }
 
-                return _context4.abrupt("return");
+                return _context6.abrupt("return");
 
               case 2:
-                for (i in _this5.item_comparison) {
-                  _this5.item_comparison[i].dps = null;
+                for (i in _this7.item_comparison) {
+                  _this7.item_comparison[i].dps = null;
                 }
 
-                old_item_id = _this5.equipped[_this5.active_slot];
-                _context4.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this5.item_comparison);
+                old_item_id = _this7.equipped[_this7.active_slot];
+                _context6.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(_this7.item_comparison);
 
               case 5:
-                if ((_context4.t1 = _context4.t0()).done) {
-                  _context4.next = 14;
+                if ((_context6.t1 = _context6.t0()).done) {
+                  _context6.next = 14;
                   break;
                 }
 
-                i = _context4.t1.value;
-                cmp = _this5.item_comparison[i];
-                _context4.next = 10;
-                return _this5.runComparisonFor(cmp.id);
+                i = _context6.t1.value;
+                cmp = _this7.item_comparison[i];
+                _context6.next = 10;
+                return _this7.runComparisonFor(cmp.id);
 
               case 10:
-                result = _context4.sent;
-                _this5.item_comparison[i].dps = result.avg_dps;
-                _context4.next = 5;
+                result = _context6.sent;
+                _this7.item_comparison[i].dps = result.avg_dps;
+                _context6.next = 5;
                 break;
 
               case 14:
-                _this5.equip(_this5.active_slot, old_item_id);
+                _this7.equip(_this7.active_slot, old_item_id);
 
-                _this5.foolsOpen();
+                _this7.foolsOpen();
 
               case 16:
               case "end":
-                return _context4.stop();
+                return _context6.stop();
             }
           }
-        }, _callee4);
+        }, _callee6);
       }))();
     },
     prepare: function prepare() {
@@ -6482,7 +6558,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.getItem(slot, id);
     },
     activeGems: function activeGems(index) {
-      var _this6 = this;
+      var _this8 = this;
 
       if (this.activeSockets.length < index) return [];
       if (this.activeSockets[index] == "m") var gems = this.items.gems.filter(function (g) {
@@ -6492,7 +6568,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       if (!this.phase_filter) return gems;
       return gems.filter(function (g) {
-        return _.get(g, "phase", 1) <= _this6.phase_filter;
+        return _.get(g, "phase", 1) <= _this8.phase_filter;
       });
     },
     fillEmptyFields: function fillEmptyFields() {
@@ -65742,6 +65818,19 @@ var render = function() {
                             [_vm._v("Histogram")]
                           )
                         : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn mt-1",
+                          on: {
+                            click: function($event) {
+                              return _vm.findAvg(_vm.result.avg_dps)
+                            }
+                          }
+                        },
+                        [_vm._v("Find avg fight")]
+                      ),
                       _vm._v(" "),
                       _vm.result.all_results
                         ? _c(
