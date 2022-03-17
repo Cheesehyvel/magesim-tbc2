@@ -65823,6 +65823,7 @@ var render = function() {
                         "div",
                         {
                           staticClass: "btn mt-1",
+                          class: [_vm.is_running ? "disabled" : ""],
                           on: {
                             click: function($event) {
                               return _vm.findAvg(_vm.result.avg_dps)

@@ -213,7 +213,7 @@
                             <help>Time spent gcd capped</help>
                         </div>
                         <div class="btn mt-1" v-if="result.histogram" @click="histogramToggle">Histogram</div>
-                        <div class="btn mt-1" @click="findAvg(result.avg_dps)">Find avg fight</div>
+                        <div class="btn mt-1" :class="[is_running ? 'disabled' : '']" @click="findAvg(result.avg_dps)">Find avg fight</div>
                         <div class="btn mt-1" v-if="result.all_results" @click="allResults">Simulation data</div>
                     </template>
                     <template v-else>
