@@ -8,6 +8,7 @@ namespace cooldown
         CONJURED = 2,
         TRINKET1 = 3,
         TRINKET2 = 4,
+        TRINKET_SHARED = 5,
         EVOCATION = 12051,
         COLD_SNAP = 11958,
         BERSERKING = 20554,
@@ -71,6 +72,18 @@ namespace cooldown
         Conjured(double _duration = 120)
         {
             id = CONJURED;
+            duration = _duration;
+        }
+
+    };
+
+    class TrinketShared : public Cooldown
+    {
+
+    public:
+        TrinketShared(double _duration = 20)
+        {
+            id = TRINKET_SHARED;
             duration = _duration;
         }
 

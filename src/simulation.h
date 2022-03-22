@@ -1329,58 +1329,83 @@ public:
                 useConjured();
         }
 
-        if (!state->hasCooldown(cooldown::TRINKET1) && isTimerReady(config->trinket1_t))
+        if (!state->hasCooldown(cooldown::TRINKET1) && !isTrinketOnSharedCD(config->trinket1) && isTimerReady(config->trinket1_t))
             useTrinket(config->trinket1, cooldown::TRINKET1);
 
-        if (!state->hasCooldown(cooldown::TRINKET2) && isTimerReady(config->trinket2_t))
+        if (!state->hasCooldown(cooldown::TRINKET2) && !isTrinketOnSharedCD(config->trinket2) && isTimerReady(config->trinket2_t))
             useTrinket(config->trinket2, cooldown::TRINKET2);
     }
 
     void useTrinket(Trinket trinket_id, cooldown::ID cd)
     {
         double duration = 120; // Most trinkets are 2 min
+        shared_ptr<buff::Buff> buff = NULL;
 
         if (trinket_id == TRINKET_RESTRAINED_ESSENCE)
-            onBuffGain(make_shared<buff::RestrainedEssence>());
+            buff = make_shared<buff::RestrainedEssence>();
         if (trinket_id == TRINKET_SILVER_CRESCENT)
-            onBuffGain(make_shared<buff::SilverCrescent>());
+           buff = make_shared<buff::SilverCrescent>();
         if (trinket_id == TRINKET_SMOKING_PIPE)
-            onBuffGain(make_shared<buff::DarkIronPipe>());
+           buff = make_shared<buff::DarkIronPipe>();
         if (trinket_id == TRINKET_ESSENCE_MARTYR)
-            onBuffGain(make_shared<buff::EssenceMartyr>());
+           buff = make_shared<buff::EssenceMartyr>();
         if (trinket_id == TRINKET_CRYSTAL_TALISMAN)
-            onBuffGain(make_shared<buff::CrystalTalisman>());
+           buff = make_shared<buff::CrystalTalisman>();
         if (trinket_id == TRINKET_PENDANT_VIOLET_EYE)
-            onBuffGain(make_shared<buff::PendantVioletEye>());
+           buff = make_shared<buff::PendantVioletEye>();
         if (trinket_id == TRINKET_SKULL_GULDAN)
-            onBuffGain(make_shared<buff::SkullGuldan>());
+           buff = make_shared<buff::SkullGuldan>();
         if (trinket_id == TRINKET_CRIMSON_SERPENT)
-            onBuffGain(make_shared<buff::CrimsonSerpent>());
+           buff = make_shared<buff::CrimsonSerpent>();
         if (trinket_id == TRINKET_SHRUNKEN_HEAD)
-            onBuffGain(make_shared<buff::ShrunkenHead>());
+           buff = make_shared<buff::ShrunkenHead>();
 
         if (trinket_id == TRINKET_SCRYERS_BLOODGEM || trinket_id == TRINKET_XIRIS_GIFT) {
-            onBuffGain(make_shared<buff::SpellPower>());
+            buff = make_shared<buff::SpellPower>();
             duration = 90;
         }
         if (trinket_id == TRINKET_MQG) {
-            onBuffGain(make_shared<buff::MindQuickening>());
+            buff = make_shared<buff::MindQuickening>();
             duration = 300;
         }
         if (trinket_id == TRINKET_VENGEANCE_ILLIDARI) {
-            onBuffGain(make_shared<buff::VengeanceIllidari>());
+            buff = make_shared<buff::VengeanceIllidari>();
             duration = 90;
         }
         if (trinket_id == TRINKET_NAARU_SLIVER) {
-            onBuffGain(make_shared<buff::NaaruSliver>());
+            buff = make_shared<buff::NaaruSliver>();
             duration = 90;
         }
         if (trinket_id == TRINKET_BURST_OF_KNOWLEDGE) {
-            onBuffGain(make_shared<buff::BurstOfKnowledge>());
+            buff = make_shared<buff::BurstOfKnowledge>();
             duration = 900;
         }
 
-        onCooldownGain(make_shared<cooldown::Cooldown>(cd, duration));
+        if (buff != NULL) {
+            onBuffGain(buff);
+            onCooldownGain(make_shared<cooldown::Cooldown>(cd, duration));
+            if (trinketSharesCD(trinket_id))
+                onCooldownGain(make_shared<cooldown::TrinketShared>(buff->duration));
+        }
+    }
+
+    bool isTrinketOnSharedCD(Trinket trinket_id)
+    {
+        if (!trinketSharesCD(trinket_id))
+            return false;
+        return state->hasCooldown(cooldown::TRINKET_SHARED);
+    }
+
+    bool trinketSharesCD(Trinket trinket_id)
+    {
+        if (trinket_id == TRINKET_ESSENCE_MARTYR)
+            return false;
+        if (trinket_id == TRINKET_BURST_OF_KNOWLEDGE)
+            return false;
+        if (trinket_id == TRINKET_PENDANT_VIOLET_EYE)
+            return false;
+
+        return true;
     }
 
     void useDrums()

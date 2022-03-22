@@ -67703,7 +67703,7 @@ var render = function() {
                                   ),
                                   _c("br"),
                                   _vm._v(
-                                    "\n                                        At 100% haste you will reach GCD cap of 1 second.\n                                    "
+                                    "\n                                        At 50% haste you will reach GCD cap of 1 second.\n                                    "
                                   )
                                 ])
                               ],
