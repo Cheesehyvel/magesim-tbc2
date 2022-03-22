@@ -451,7 +451,7 @@ public:
         if (canCast(spell)) {
             if (state->t_gcd > state->t) {
                 pushCast(spell, state->t_gcd - state->t);
-                if (!state->was_instant) {
+                if (!state->was_instant && !spell->proc) {
                     state->t_gcd_capped+= state->t_gcd - state->t;
                     logGCD(state->t_gcd - state->t);
                 }
