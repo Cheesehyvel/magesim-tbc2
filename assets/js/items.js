@@ -506,6 +506,7 @@ var gems = [
     { id: 30555, title: "Glowing Tanzanite", color: "p", sp: 6, unique: true },
     { id: 31116, title: "Infused Amethyst", color: "p", sp: 6, unique: true },
     { id: 24056, title: "Glowing Nightseye", color: "p", sp: 5 },
+    { id: 35759, title: "Forceful Seaspray Emerald", color: "g", haste: 5, phase: 5 },
     { id: 32225, title: "Dazzling Seaspray Emerald", color: "g", int: 5, mp5: 2, phase: 3 },
     { id: 30586, title: "Seer's Chrysoprase", color: "g", int: 4, spi: 5, unique: true },
     { id: 30606, title: "Lambent Chrysoprase", color: "g", hit: 5, mp5: 2, unique: true },

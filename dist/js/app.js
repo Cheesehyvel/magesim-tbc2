@@ -3569,6 +3569,12 @@ var gems = [{
   color: "p",
   sp: 5
 }, {
+  id: 35759,
+  title: "Forceful Seaspray Emerald",
+  color: "g",
+  haste: 5,
+  phase: 5
+}, {
   id: 32225,
   title: "Dazzling Seaspray Emerald",
   color: "g",
