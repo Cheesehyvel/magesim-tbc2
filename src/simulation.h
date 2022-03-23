@@ -182,6 +182,9 @@ public:
             }
         }
 
+        useCooldowns();
+        workCurrent();
+
         cast(nextSpell());
 
         work();
@@ -200,6 +203,19 @@ public:
         }
 
         return result;
+    }
+
+    void workCurrent()
+    {
+        shared_ptr<Event> event;
+
+        while (true) {
+            event = queue.front();
+            if (event->t != state->t)
+                return;
+            queue.pop_front();
+            tick(event);
+        }
     }
 
     void work()
