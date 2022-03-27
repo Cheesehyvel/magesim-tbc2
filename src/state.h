@@ -74,6 +74,11 @@ public:
         return dmg / t;
     }
 
+    bool hasManaGem()
+    {
+        return mana_emerald > 0 || mana_ruby > 0;
+    }
+
     bool hasCooldown(cooldown::ID id)
     {
         return cooldowns.find(id) != cooldowns.end();

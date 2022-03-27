@@ -2162,7 +2162,7 @@ public:
         if (state->hasCooldown(cooldown::POTION) || state->hasBuff(buff::INNERVATE))
             return false;
 
-        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured == CONJURED_MANA_GEM && config->conjured_t.size() > 0)
+        if (!state->hasCooldown(cooldown::CONJURED) && config->conjured == CONJURED_MANA_GEM && config->conjured_t.size() > 0 && state->hasManaGem())
             return false;
 
         double max = 3000;
