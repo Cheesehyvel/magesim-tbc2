@@ -65154,7 +65154,7 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.fools_open == 2
-      ? _c("div", { staticClass: "fools2" }, [
+      ? _c("div", { staticClass: "fools" }, [
           _c("div", { staticClass: "inner" }, [
             _c("div", { staticClass: "title" }, [_vm._v("Please buy premium")]),
             _vm._v(" "),

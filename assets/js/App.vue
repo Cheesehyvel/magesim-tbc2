@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div class="fools2" v-if="fools_open == 2">
+        <div class="fools" v-if="fools_open == 2">
             <div class="inner">
                 <div class="title">Please buy premium</div>
                 <div class="text mt-2">
