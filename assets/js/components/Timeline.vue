@@ -36,6 +36,7 @@
                     { title: "Icy Veins", color: "rgba(85,170,255,0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/spell_frost_coldhearted.jpg" },
                     { title: "Arcane Power", color: "rgba(221,51,255,0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_lightning.jpg" },
                     { title: "Band of Eternal Sage", color: "rgba(255, 128, 0, 0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/inv_jewelry_ring_55.jpg" },
+                    { title: "Light's Wrath", color: "rgba(190, 70, 10, 0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/classic_spell_holy_blessingofprotection.jpg" },
                     { title: "Destruction", color: "rgba(153, 51, 221, 0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/inv_potion_107.jpg" },
                     { title: "Mana Tide", color: "rgba(200, 200, 200, 0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/spell_frost_summonwaterelemental.jpg" },
                     { title: "Power Infusion", color: "rgba(255, 255, 0, 0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_powerinfusion.jpg" },
