@@ -267,6 +267,14 @@ var ids = {
 };
 var equip = {
   weapon: [{
+    id: 34336,
+    title: "Sunflare",
+    "int": 20,
+    sp: 292,
+    crit: 30,
+    haste: 23,
+    phase: 5
+  }, {
     id: 34182,
     title: "Grand Magister's Staff of Torrents",
     "int": 52,
@@ -298,12 +306,11 @@ var equip = {
     twohand: true,
     phase: 4
   }, {
-    id: 34336,
-    title: "Sunflare",
-    "int": 20,
-    sp: 292,
-    crit: 30,
-    haste: 23,
+    id: 35102,
+    title: "Brutal Gladiator's Spellblade",
+    "int": 33,
+    sp: 266,
+    hit: 19,
     phase: 5
   }, {
     id: 34895,
@@ -570,6 +577,12 @@ var equip = {
     haste: 32,
     phase: 5
   }, {
+    id: 35008,
+    title: "Brutal Gladiator's Endgame",
+    "int": 25,
+    sp: 40,
+    phase: 5
+  }, {
     id: 30872,
     title: "Chronicle of Dark Secrets",
     "int": 12,
@@ -687,13 +700,6 @@ var equip = {
     },
     phase: 5
   }, {
-    id: 29982,
-    title: "Wand of the Forgotten Star",
-    sp: 23,
-    crit: 14,
-    hit: 11,
-    phase: 2
-  }, {
     id: 33192,
     title: "Carved Witch Doctor's Stick",
     "int": 15,
@@ -703,6 +709,12 @@ var equip = {
       sp: 2
     },
     phase: 4
+  }, {
+    id: 35107,
+    title: "Brutal Gladiator's Touch of Defeat",
+    "int": 15,
+    sp: 20,
+    phase: 5
   }, {
     id: 32343,
     title: "Wand of Prismatic Focus",
@@ -715,6 +727,13 @@ var equip = {
     "int": 11,
     sp: 16,
     crit: 14
+  }, {
+    id: 29982,
+    title: "Wand of the Forgotten Star",
+    sp: 23,
+    crit: 14,
+    hit: 11,
+    phase: 2
   }, {
     id: 28673,
     title: "Tirisfal Wand of Ascendency",
@@ -1705,6 +1724,17 @@ var equip = {
     haste: 35,
     phase: 4
   }, {
+    id: 35099,
+    title: "Brutal Gladiator's Silk Raiment",
+    "int": 21,
+    sp: 46,
+    crit: 39,
+    sockets: ["r", "y", "y"],
+    bonus: {
+      crit: 4
+    },
+    phase: 5
+  }, {
     id: 33760,
     title: "Vengeful Gladiator's Silk Raiment",
     "int": 15,
@@ -1887,6 +1917,17 @@ var equip = {
       sp: 2
     },
     phase: 4
+  }, {
+    id: 35179,
+    title: "Guardian's Silk Cuffs",
+    "int": 25,
+    sp: 30,
+    crit: 18,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    },
+    phase: 3
   }, {
     id: 33913,
     title: "Vindicator's Silk Cuffs",
@@ -2327,6 +2368,13 @@ var equip = {
     crit: 20,
     sockets: ["r", "y"]
   }, {
+    id: 35164,
+    title: "Guardians Silk Belt",
+    "int": 35,
+    sp: 40,
+    crit: 32,
+    phase: 5
+  }, {
     id: 33912,
     title: "Vindicator's Silk Belt",
     "int": 30,
@@ -2599,6 +2647,20 @@ var equip = {
       hit: 4
     }
   }, {
+    id: 35100,
+    title: "Brutal Gladiator's Silk Trousers",
+    "int": 40,
+    sp: 60,
+    crit: 39,
+    phase: 5
+  }, {
+    id: 33761,
+    title: "Vengeful Gladiator's Silk Trousers",
+    "int": 34,
+    sp: 53,
+    crit: 33,
+    phase: 3
+  }, {
     id: 32051,
     title: "Merciless Gladiator's Silk Trousers",
     "int": 36,
@@ -2737,6 +2799,13 @@ var equip = {
     sp: 56,
     hit: 18,
     phase: 3
+  }, {
+    id: 35149,
+    title: "Guardian's Silk Footguards",
+    "int": 35,
+    sp: 40,
+    crit: 32,
+    phase: 5
   }, {
     id: 33914,
     title: "Vindicator's Silk Footguards",
