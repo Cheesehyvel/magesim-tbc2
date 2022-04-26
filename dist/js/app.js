@@ -3514,22 +3514,19 @@ var gems = [{
   title: "Infused Fire Opal",
   color: "o",
   "int": 4,
-  sp: 6,
-  unique: true
+  sp: 6
 }, {
   id: 30564,
   title: "Shining Fire Opal",
   color: "o",
   sp: 6,
-  hit: 5,
-  unique: true
+  hit: 5
 }, {
   id: 30588,
   title: "Potent Fire Opal",
   color: "o",
   sp: 6,
-  crit: 4,
-  unique: true
+  crit: 4
 }, {
   id: 28123,
   title: "Potent Ornate Topaz",
@@ -3618,14 +3615,12 @@ var gems = [{
   title: "Fluorescent Tanzanite",
   color: "p",
   spi: 4,
-  sp: 6,
-  unique: true
+  sp: 6
 }, {
   id: 30555,
   title: "Glowing Tanzanite",
   color: "p",
-  sp: 6,
-  unique: true
+  sp: 6
 }, {
   id: 31116,
   title: "Infused Amethyst",
@@ -3655,35 +3650,30 @@ var gems = [{
   title: "Seer's Chrysoprase",
   color: "g",
   "int": 4,
-  spi: 5,
-  unique: true
+  spi: 5
 }, {
   id: 30606,
   title: "Lambent Chrysoprase",
   color: "g",
   hit: 5,
-  mp5: 2,
-  unique: true
+  mp5: 2
 }, {
   id: 30560,
   title: "Rune Covered Chrysoprase",
   color: "g",
   crit: 5,
-  mp5: 2,
-  unique: true
+  mp5: 2
 }, {
   id: 30589,
   title: "Dazzling Chrysoprase",
   color: "g",
   "int": 5,
-  mp5: 2,
-  unique: true
+  mp5: 2
 }, {
   id: 30583,
   title: "Timeless Chrysoprase",
   color: "g",
-  "int": 5,
-  unique: true
+  "int": 5
 }, {
   id: 24065,
   title: "Dazzling Talasite",
