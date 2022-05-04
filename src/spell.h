@@ -16,6 +16,7 @@ namespace spell
         LIGHTNING_CAPACITOR = 28785,
         ENGULFING_SHADOWS = 21978,
         ARCANE_BOLT = 45429,
+        TIMBALS_SHADOW_BOLT = 45055,
     };
 
     enum Result : int
@@ -300,6 +301,24 @@ namespace spell
             max_dmg = 367;
             cast_time = 0;
             school = SCHOOL_ARCANE;
+            coeff = 0;
+            proc = true;
+        }
+    };
+
+    class TimbalsShadowBolt : public Spell
+    {
+
+    public:
+        TimbalsShadowBolt()
+        {
+            id = TIMBALS_SHADOW_BOLT;
+            name = "Shadow Bolt";
+            cost = 0;
+            min_dmg = 285;
+            max_dmg = 475;
+            cast_time = 0;
+            school = SCHOOL_SHADOW;
             coeff = 0;
             proc = true;
         }

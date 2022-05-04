@@ -33,6 +33,7 @@ namespace cooldown
         POWER_OF_ARCANAGOS = 34598,
         LIGHTS_WRATH = 45479,
         ARCANE_BOLT = 45429,
+        TIMBALS_SHADOW_BOLT = 45055,
     };
 
 
@@ -377,6 +378,18 @@ namespace cooldown
         {
             id = LIGHTS_WRATH;
             duration = 45;
+        }
+
+    };
+
+    class TimbalsShadowBolt : public Cooldown
+    {
+
+    public:
+        TimbalsShadowBolt()
+        {
+            id = TIMBALS_SHADOW_BOLT;
+            duration = 15;
         }
 
     };

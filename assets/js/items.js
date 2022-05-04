@@ -46,6 +46,7 @@ var ids = {
     DARK_IRON_PIPE: 38290,
     BLADE_OF_ETERNAL_DARKNESS: 17780,
     PENDANT_OF_ACUMEN: 34678,
+    TIMBALS_FOCUSING_CRYSTAL: 34470,
 };
 
 var equip = {
@@ -449,6 +450,7 @@ var equip = {
         { id: ids.SERPENT_COIL, title: "Serpent-Coil Braid", crit: 30, hit: 12, phase: 2 },
         { id: ids.SHRUNKEN_HEAD, title: "Hex Shrunken Head", sp: 53, use: true, phase: 4 },
         { id: ids.SILVER_CRESCENT, title: "Icon of the Silver Crescent", sp: 43, use: true, unique: true },
+        { id: ids.TIMBALS_FOCUSING_CRYSTAL, title: "Timbal's Focusing Crystal", sp: 44 },
         { id: ids.DARKMOON_CRUSADE, title: "Darkmoon Card: Crusade", phase: 2 },
         { id: ids.QUAGMIRRANS_EYE, title: "Quagmirran's Eye", sp: 37, q: "rare" },
         { id: ids.XIRIS_GIFT, title: "Xi'ri's Gift", crit: 32, q: "rare", use: true },

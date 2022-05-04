@@ -845,6 +845,11 @@ public:
         state->dmg+= dot->dmg;
         logDotDmg(dot);
 
+        if (hasTrinket(TRINKET_TIMBALS_FOCUSING_CRYSTAL) && !state->hasCooldown(cooldown::TIMBALS_SHADOW_BOLT) && random<int>(0, 9) == 0) {
+            onCooldownGain(make_shared<cooldown::TimbalsShadowBolt>());
+            cast(make_shared<spell::TimbalsShadowBolt>());
+        }
+
         dot->onTick();
 
         if (dot->tick < dot->ticks)

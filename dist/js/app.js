@@ -263,7 +263,8 @@ var ids = {
   BURST_OF_KNOWLEDGE: 11832,
   DARK_IRON_PIPE: 38290,
   BLADE_OF_ETERNAL_DARKNESS: 17780,
-  PENDANT_OF_ACUMEN: 34678
+  PENDANT_OF_ACUMEN: 34678,
+  TIMBALS_FOCUSING_CRYSTAL: 34470
 };
 var equip = {
   weapon: [{
@@ -3259,6 +3260,10 @@ var equip = {
     sp: 43,
     use: true,
     unique: true
+  }, {
+    id: ids.TIMBALS_FOCUSING_CRYSTAL,
+    title: "Timbal's Focusing Crystal",
+    sp: 44
   }, {
     id: ids.DARKMOON_CRUSADE,
     title: "Darkmoon Card: Crusade",
