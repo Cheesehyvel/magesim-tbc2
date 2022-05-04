@@ -1636,6 +1636,29 @@ var equip = {
     },
     phase: 5
   }, {
+    id: 34936,
+    title: "Tormented Demonsoul Robes",
+    "int": 38,
+    sp: 62,
+    crit: 50,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    },
+    phase: 5
+  }, {
+    id: 34917,
+    title: "Shroud of the Lore`nial",
+    "int": 35,
+    spi: 33,
+    sp: 61,
+    hit: 29,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
+    },
+    phase: 5
+  }, {
     id: 31057,
     itemset: ids.TEMPEST_SET,
     title: "Robes of the Tempest",
@@ -2087,6 +2110,17 @@ var equip = {
     sockets: ["r", "r"],
     bonus: {
       sp: 4
+    },
+    phase: 5
+  }, {
+    id: 34938,
+    title: "Enslaved Doomguard Soulgrips",
+    "int": 27,
+    sp: 46,
+    crit: 30,
+    sockets: ["y"],
+    bonus: {
+      sp: 2
     },
     phase: 5
   }, {
