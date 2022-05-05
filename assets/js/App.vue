@@ -135,6 +135,9 @@
                             Calculated stat weights are based on your config. Any changes to it or your items can change the weights.<br>
                             The best way to find out if an item/gem/enchant is better is to equip it and run simulations.
                         </help>
+                        <span class="link fr" @click="openJsonStats()" v-if="epCalc && !is_running">
+                            json
+                        </span>
                     </div>
                     <select v-model="ep_weight">
                         <option value="dps">DPS</option>
@@ -1266,6 +1269,21 @@
                 </div>
             </div>
 
+            <div class="lightbox" v-if="json_stats_open">
+                <div class="inner">
+                    <div class="title">Stats</div>
+                    <div class="form-item">
+                        <textarea v-model="json_stats_string" ref="json_stats_input"></textarea>
+                    </div>
+                    <div class="btn mt-2" @click="closeJsonStats">Close</div>
+                    <div class="close" @click="closeJsonStats">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             <div class="lightbox" v-if="export_profile.open">
                 <div class="inner">
                     <div class="title">Export</div>
@@ -1691,6 +1709,8 @@
                 timeline_open: false,
                 spells_open: false,
                 histogram_open: false,
+                json_stats_open: false,
+                json_stats_string: null,
                 item_source: "wowhead",
                 phase_filter: 0,
                 log_filter: {
@@ -3115,6 +3135,48 @@
 
             round(num) {
                 return Math.round(num);
+            },
+
+            openJsonStats() {
+                if (!this.epCalc)
+                    return;
+
+                var weight = this.ep_weight;
+                this.ep_weight = "sp";
+
+                var epRound = function(value) {
+                    if (value === null || isNaN(value))
+                        return 0;
+                    return _.round(value, 2);
+                };
+
+                var data = {
+                    spellDamage: epRound(this.epCalc.sp),
+                    arcaneDamage: epRound(this.epCalc.sp_arcane),
+                    fireDamage: epRound(this.epCalc.sp_fire),
+                    frostDamage: epRound(this.epCalc.sp_frost),
+                    spellCritRating: epRound(this.epCalc.crit),
+                    spellHasteRating: epRound(this.epCalc.haste),
+                    spellHitRating: epRound(this.epCalc.hit),
+                    intellect: epRound(this.epCalc.int),
+                    mp5: epRound(this.epCalc.mp5),
+                    spirit: epRound(this.epCalc.spi),
+                    redSockets: epRound(this.epCalc.sp * 12),
+                    yellowSockets: epRound(this.epCalc.sp * 12),
+                    blueSockets: epRound(this.epCalc.sp * 12),
+                };
+
+                this.json_stats_string = JSON.stringify(data, null, 4);
+                this.ep_weight = weight;
+                this.json_stats_open = true;
+
+                this.$nextTick(function() {
+                    this.$refs.json_string_input.select();
+                });
+            },
+
+            closeJsonStats() {
+                this.json_stats_open = false;
             },
 
             exportString() {

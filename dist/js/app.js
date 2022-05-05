@@ -5822,6 +5822,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6033,6 +6051,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       timeline_open: false,
       spells_open: false,
       histogram_open: false,
+      json_stats_open: false,
+      json_stats_string: null,
       item_source: "wowhead",
       phase_filter: 0,
       log_filter: {
@@ -7402,6 +7422,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     round: function round(num) {
       return Math.round(num);
+    },
+    openJsonStats: function openJsonStats() {
+      if (!this.epCalc) return;
+      var weight = this.ep_weight;
+      this.ep_weight = "sp";
+
+      var epRound = function epRound(value) {
+        if (value === null || isNaN(value)) return 0;
+        return _.round(value, 2);
+      };
+
+      var data = {
+        spellDamage: epRound(this.epCalc.sp),
+        arcaneDamage: epRound(this.epCalc.sp_arcane),
+        fireDamage: epRound(this.epCalc.sp_fire),
+        frostDamage: epRound(this.epCalc.sp_frost),
+        spellCritRating: epRound(this.epCalc.crit),
+        spellHasteRating: epRound(this.epCalc.haste),
+        spellHitRating: epRound(this.epCalc.hit),
+        intellect: epRound(this.epCalc["int"]),
+        mp5: epRound(this.epCalc.mp5),
+        spirit: epRound(this.epCalc.spi),
+        redSockets: epRound(this.epCalc.sp * 12),
+        yellowSockets: epRound(this.epCalc.sp * 12),
+        blueSockets: epRound(this.epCalc.sp * 12)
+      };
+      this.json_stats_string = JSON.stringify(data, null, 4);
+      this.ep_weight = weight;
+      this.json_stats_open = true;
+      this.$nextTick(function () {
+        this.$refs.json_string_input.select();
+      });
+    },
+    closeJsonStats: function closeJsonStats() {
+      this.json_stats_open = false;
     },
     exportString: function exportString() {
       var data = {
@@ -65572,7 +65627,26 @@ var render = function() {
                     _vm._v(
                       "\n                        The best way to find out if an item/gem/enchant is better is to equip it and run simulations.\n                    "
                     )
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.epCalc && !_vm.is_running
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "link fr",
+                          on: {
+                            click: function($event) {
+                              return _vm.openJsonStats()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        json\n                    "
+                          )
+                        ]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -72631,6 +72705,53 @@ var render = function() {
             ])
           : _vm._e()
       ]),
+      _vm._v(" "),
+      _vm.json_stats_open
+        ? _c("div", { staticClass: "lightbox" }, [
+            _c("div", { staticClass: "inner" }, [
+              _c("div", { staticClass: "title" }, [_vm._v("Stats")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-item" }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.json_stats_string,
+                      expression: "json_stats_string"
+                    }
+                  ],
+                  ref: "json_stats_input",
+                  domProps: { value: _vm.json_stats_string },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.json_stats_string = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "btn mt-2", on: { click: _vm.closeJsonStats } },
+                [_vm._v("Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "close", on: { click: _vm.closeJsonStats } },
+                [
+                  _c("span", { staticClass: "material-icons" }, [
+                    _vm._v("\n                        \n                    ")
+                  ])
+                ]
+              )
+            ])
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm.export_profile.open
         ? _c("div", { staticClass: "lightbox" }, [

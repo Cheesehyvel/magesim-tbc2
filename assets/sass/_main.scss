@@ -35,6 +35,10 @@ a {
     }
 }
 
+.fr {
+    float: right;
+}
+
 .graph.buffs canvas {
     height: 200px;
 }
@@ -286,6 +290,11 @@ table {
 
             .ep-stats {
                 margin-top: $spacer*0.5;
+
+                .link {
+                    color: #08f;
+                    cursor: pointer;
+                }
             }
 
             .result {

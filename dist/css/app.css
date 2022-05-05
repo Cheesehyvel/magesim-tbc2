@@ -530,6 +530,10 @@ a:hover {
   transform: rotateX(180deg);
 }
 
+.fr {
+  float: right;
+}
+
 .graph.buffs canvas {
   height: 200px;
 }
@@ -791,6 +795,10 @@ table.simple th:last-child, table.simple td:last-child {
 }
 #app .wrapper .sidebar .ep-stats {
   margin-top: 30px;
+}
+#app .wrapper .sidebar .ep-stats .link {
+  color: #08f;
+  cursor: pointer;
 }
 #app .wrapper .sidebar .result {
   margin-top: 60px;
