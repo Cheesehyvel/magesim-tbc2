@@ -2122,6 +2122,9 @@ public:
         if (manaPercent() > 20.0)
             return false;
 
+        if (config->tempest_2set && manaPercent() > 10.0)
+            return false;
+
         if (state->hasBuff(buff::BLOODLUST) && manaPercent() > 10.0)
             return false;
 
