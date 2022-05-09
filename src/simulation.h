@@ -1190,12 +1190,28 @@ public:
             if (canBlast())
                 return defaultSpell();
 
-            if (!state->regen_active && state->buffStacks(buff::ARCANE_BLAST) >= min(3, config->regen_ab_count) && !state->hasBuff(buff::INNERVATE)) {
-                double regen_at = config->regen_mana_at;
-                if (state->hasBuff(buff::BLOODLUST))
-                    regen_at = min(regen_at, 10.0);
+            if (!state->regen_active) {
+                bool regen_start = false;
 
-                if (regen_at >= manaPercent()) {
+                // Check timings
+                for (int i=0; i<config->filler_start_t.size(); i++) {
+                    if (state->t >= config->filler_start_t[i] && (config->filler_end_t.size() < i+1 || state->t < config->filler_end_t[i])) {
+                        regen_start = true;
+                        break;
+                    }
+                }
+
+                // Check mana threshold
+                if (!regen_start && state->buffStacks(buff::ARCANE_BLAST) >= min(3, config->regen_ab_count) && !state->hasBuff(buff::INNERVATE)) {
+                    double regen_at = config->regen_mana_at;
+                    if (state->hasBuff(buff::BLOODLUST))
+                        regen_at = min(regen_at, 10.0);
+
+                    if (regen_at >= manaPercent())
+                        regen_start = true;
+                }
+
+                if (regen_start) {
                     state->regen_active = true;
                     state->regen_cycle = 0;
                     if (state->regened_at < 0)

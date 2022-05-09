@@ -5840,6 +5840,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5955,6 +5975,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       innervate_t: Array(4),
       potion_t: Array(4),
       conjured_t: Array(4),
+      filler_start_t: Array(),
+      filler_end_t: Array(),
       symbol_of_hope_at: 0,
       evocation_at: 0,
       evo_ticks: 0,
@@ -7377,6 +7399,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return talents;
+    },
+    addFillerTiming: function addFillerTiming() {
+      this.config.filler_start_t.push(null);
+      this.config.filler_end_t.push(null);
+    },
+    deleteFillerTiming: function deleteFillerTiming(index) {
+      this.config.filler_start_t.splice(index, 1);
+      this.config.filler_end_t.splice(index, 1);
     },
     formatStats: function formatStats(item) {
       var stats = [];
@@ -67920,7 +67950,138 @@ var render = function() {
                                 }
                               }
                             })
-                          ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-item" }, [
+                            _c(
+                              "label",
+                              [
+                                _c("span", [_vm._v("Filler timings")]),
+                                _vm._v(" "),
+                                _c("help", [
+                                  _vm._v(
+                                    "Add specific times when you cast your filler rotation."
+                                  )
+                                ])
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.config.filler_start_t, function(s, i) {
+                            return _c(
+                              "div",
+                              {
+                                staticClass: "form-row dyn-timing",
+                                class: [i == 0 ? "mt-0" : ""]
+                              },
+                              [
+                                _c("div", { staticClass: "form-item" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model.number",
+                                        value: _vm.config.filler_start_t[i],
+                                        expression: "config.filler_start_t[i]",
+                                        modifiers: { number: true }
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Start at"
+                                    },
+                                    domProps: {
+                                      value: _vm.config.filler_start_t[i]
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.config.filler_start_t,
+                                          i,
+                                          _vm._n($event.target.value)
+                                        )
+                                      },
+                                      blur: function($event) {
+                                        return _vm.$forceUpdate()
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-item" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model.number",
+                                        value: _vm.config.filler_end_t[i],
+                                        expression: "config.filler_end_t[i]",
+                                        modifiers: { number: true }
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "End at"
+                                    },
+                                    domProps: {
+                                      value: _vm.config.filler_end_t[i]
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.config.filler_end_t,
+                                          i,
+                                          _vm._n($event.target.value)
+                                        )
+                                      },
+                                      blur: function($event) {
+                                        return _vm.$forceUpdate()
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "delete",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteFillerTiming(i)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { staticClass: "material-icons" },
+                                      [_vm._v("")]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "btn mt-n",
+                              on: { click: _vm.addFillerTiming }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Add filler timing\n                            "
+                              )
+                            ]
+                          )
                         ]
                       : _vm._e(),
                     _vm._v(" "),

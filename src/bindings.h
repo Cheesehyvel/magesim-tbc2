@@ -268,6 +268,8 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("innervate_t", &Config::innervate_t)
         .property("potion_t", &Config::potion_t)
         .property("conjured_t", &Config::conjured_t)
+        .property("filler_start_t", &Config::filler_start_t)
+        .property("filler_end_t", &Config::filler_end_t)
 
         .property("symbol_of_hope_at", &Config::symbol_of_hope_at)
         .property("evocation_at", &Config::evocation_at)

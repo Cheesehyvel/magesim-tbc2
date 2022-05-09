@@ -110,6 +110,8 @@ struct Config
     std::vector<double> innervate_t;
     std::vector<double> potion_t;
     std::vector<double> conjured_t;
+    std::vector<double> filler_start_t;
+    std::vector<double> filler_end_t;
 
     double symbol_of_hope_at = 0;
     double evocation_at = 0;

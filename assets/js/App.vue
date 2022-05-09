@@ -661,6 +661,26 @@
                                     </label>
                                     <input type="text" v-model.number="config.ab_haste_stop">
                                 </div>
+                                <div class="form-item">
+                                    <label>
+                                        <span>Filler timings</span>
+                                        <help>Add specific times when you cast your filler rotation.</help>
+                                    </label>
+                                </div>
+                                <div class="form-row dyn-timing" :class="[i == 0 ? 'mt-0' : '']" v-for="(s, i) in config.filler_start_t">
+                                    <div class="form-item">
+                                        <input type="text" v-model.number="config.filler_start_t[i]" placeholder="Start at">
+                                    </div>
+                                    <div class="form-item">
+                                        <input type="text" v-model.number="config.filler_end_t[i]" placeholder="End at">
+                                    </div>
+                                    <div class="delete" @click="deleteFillerTiming(i)">
+                                        <span class="material-icons">&#xe872;</span>
+                                    </div>
+                                </div>
+                                <div class="btn mt-n" @click="addFillerTiming">
+                                    Add filler timing
+                                </div>
                             </template>
                             <template v-if="canCream">
                                 <div class="form-item">
@@ -1608,6 +1628,8 @@
                 innervate_t: Array(4),
                 potion_t: Array(4),
                 conjured_t: Array(4),
+                filler_start_t: Array(),
+                filler_end_t: Array(),
 
                 symbol_of_hope_at: 0,
                 evocation_at: 0,
@@ -3062,6 +3084,16 @@
                 }
 
                 return talents;
+            },
+
+            addFillerTiming() {
+                this.config.filler_start_t.push(null);
+                this.config.filler_end_t.push(null);
+            },
+
+            deleteFillerTiming(index) {
+                this.config.filler_start_t.splice(index, 1);
+                this.config.filler_end_t.splice(index, 1);
             },
 
             formatStats(item) {
