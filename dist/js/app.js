@@ -305,7 +305,7 @@ var equip = {
     crit: 50,
     hit: 32,
     twohand: true,
-    phase: 4
+    phase: 5
   }, {
     id: 35102,
     title: "Brutal Gladiator's Spellblade",
@@ -318,7 +318,7 @@ var equip = {
     title: "Scryer's Blade of Focus",
     "int": 28,
     sp: 247,
-    phase: 4
+    phase: 5
   }, {
     id: 34540,
     title: "Vengeful Gladiator's Battle Staff",
@@ -2404,7 +2404,7 @@ var equip = {
     sockets: ["r", "y"]
   }, {
     id: 35164,
-    title: "Guardians Silk Belt",
+    title: "Guardian's Silk Belt",
     "int": 35,
     sp: 40,
     crit: 32,
