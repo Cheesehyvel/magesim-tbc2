@@ -115,6 +115,7 @@ var equip = {
     ],
     ranged: [
         { id: 34347, title: "Wand of the Demonsoul", int: 10, sp: 22, haste: 18, sockets: ["y"], bonus: { sp: 2 }, phase: 5 },
+        { id: 34348, title: "Wand of Cleansing Light", int: 8, spi: 18, sp: 14, haste: 8, sockets: ["r"], bonus: { spi: 2 }, phase: 5 },
         { id: 33192, title: "Carved Witch Doctor's Stick", int: 15, sp: 18, sockets: ["b"], bonus: { sp: 2 }, phase: 4 },
         { id: 35107, title: "Brutal Gladiator's Touch of Defeat", int: 15, sp: 20, phase: 5 },
         { id: 32343, title: "Wand of Prismatic Focus", sp: 25, hit: 13, phase: 3 },

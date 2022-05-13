@@ -701,6 +701,18 @@ var equip = {
     },
     phase: 5
   }, {
+    id: 34348,
+    title: "Wand of Cleansing Light",
+    "int": 8,
+    spi: 18,
+    sp: 14,
+    haste: 8,
+    sockets: ["r"],
+    bonus: {
+      spi: 2
+    },
+    phase: 5
+  }, {
     id: 33192,
     title: "Carved Witch Doctor's Stick",
     "int": 15,
