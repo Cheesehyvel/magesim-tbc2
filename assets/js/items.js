@@ -413,6 +413,7 @@ var equip = {
         { id: 32247, title: "Ring of Captured Storms", sp: 42, crit: 29, hit: 19, phase: 3 },
         { id: 34889, title: "Fused Nethergon Band", int: 19, sp: 35, hit: 28, phase: 5 },
         { id: ids.ETERNAL_SAGE, title: "Band of the Eternal Sage", int: 25, sp: 34, crit: 24, phase: 3 },
+        { id: 35733, title: "Ring of Harmonic Beauty", int: 22, sp: 25, spi: 32, phase: 5 },
         { id: 29304, title: "Band of Eternity", int: 25, sp: 34, crit: 24, phase: 3 },
         { id: 29303, title: "Band of Eternity", int: 23, sp: 32, crit: 22, phase: 3 },
         { id: 29302, title: "Band of Eternity", int: 22, sp: 29, crit: 21, phase: 2 },
