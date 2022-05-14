@@ -3066,6 +3066,13 @@ var equip = {
     crit: 24,
     phase: 3
   }, {
+    id: 35733,
+    title: "Ring of Harmonic Beauty",
+    "int": 22,
+    sp: 25,
+    spi: 32,
+    phase: 5
+  }, {
     id: 29304,
     title: "Band of Eternity",
     "int": 25,
@@ -3661,6 +3668,13 @@ var gems = [{
   color: "p",
   sp: 6,
   phase: 3
+}, {
+  id: 37503,
+  title: "Purified Shadowsong Amethyst",
+  color: "p",
+  sp: 4,
+  spi: 5,
+  phase: 5
 }, {
   id: 30600,
   title: "Fluorescent Tanzanite",

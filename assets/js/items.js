@@ -518,6 +518,7 @@ var gems = [
     { id: 24050, title: "Gleaming Dawnstone", color: "y", crit: 8 },
     { id: ids.BRILLIANT_DAWNSTONE, title: "Brilliant Dawnstone", color: "y", int: 8 },
     { id: 32215, title: "Glowing Shadowsong Amethyst", color: "p", sp: 6, phase: 3 },
+    { id: 37503, title: "Purified Shadowsong Amethyst", color: "p", sp: 4, spi: 5, phase: 5 },
     { id: 30600, title: "Fluorescent Tanzanite", color: "p", spi: 4, sp: 6 },
     { id: 30555, title: "Glowing Tanzanite", color: "p", sp: 6 },
     { id: 31116, title: "Infused Amethyst", color: "p", sp: 6, unique: true },
@@ -533,7 +534,6 @@ var gems = [
     { id: 32201, title: "Sparkling Empyrean Sapphire", color: "b", spi: 10, phase: 3 },
     { id: 24035, title: "Sparkling Star of Elune", color: "b", spi: 8 },
     { id: 24037, title: "Lustrous Star of Elune", color: "b", mp5: 3 },
-    { id: 37503, title: "Purified Shadowsong Amethyst", color: "p", sp: 4, spi: 5 },
 ];
 
 var enchants = {
