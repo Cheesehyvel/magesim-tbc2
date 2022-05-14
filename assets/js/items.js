@@ -532,6 +532,7 @@ var gems = [
     { id: 32201, title: "Sparkling Empyrean Sapphire", color: "b", spi: 10, phase: 3 },
     { id: 24035, title: "Sparkling Star of Elune", color: "b", spi: 8 },
     { id: 24037, title: "Lustrous Star of Elune", color: "b", mp5: 3 },
+    { id: 37503, title: "Purified Shadowsong Amethyst", color: "p", sp: 4, spi: 5 },
 ];
 
 var enchants = {
