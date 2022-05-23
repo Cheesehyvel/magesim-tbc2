@@ -956,6 +956,18 @@
                                 </select>
                             </div>
                             <div class="form-item">
+                                <label>
+                                    <span>First potion</span>
+                                    <help>Allows you to use a different potion for the first use</help>
+                                </label>
+                                <select v-model="config.first_potion">
+                                    <option :value="potions.POTION_NONE">Same</option>
+                                    <option :value="potions.POTION_MANA">Mana potion</option>
+                                    <option :value="potions.POTION_FEL_MANA">Fel Mana potion</option>
+                                    <option :value="potions.POTION_DESTRUCTION">Destruction potion</option>
+                                </select>
+                            </div>
+                            <div class="form-item">
                                 <label>Conjured</label>
                                 <select v-model="config.conjured">
                                     <option :value="conjureds.CONJURED_NONE">None</option>
@@ -1072,7 +1084,7 @@
                                     </div>
                                 </div>
                             </template>
-                            <template v-if="config.potion && config.potion != potions.POTION_MANA && config.potion != potions.POTION_FEL_MANA">
+                            <template v-if="showPotionT">
                                 <div class="form-item">
                                     <label>
                                         <span>Potion timings</span>
@@ -1565,6 +1577,7 @@
                 drums: 0,
                 drums_friend: false,
                 potion: 22832,
+                first_potion: 0,
                 conjured: 22044,
                 atiesh_mage: false,
                 atiesh_warlock: false,
@@ -1890,6 +1903,11 @@
                 }
 
                 return ep;
+            },
+
+            showPotionT() {
+                return this.config.potion && this.config.potion != constants.potions.POTION_MANA && this.config.potion != constants.potions.POTION_FEL_MANA ||
+                    this.config.first_potion && this.config.first_potion != constants.potions.POTION_MANA && this.config.first_potion != constants.potions.POTION_FEL_MANA;
             }
         },
 

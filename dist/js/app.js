@@ -5886,6 +5886,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5944,6 +5956,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       drums: 0,
       drums_friend: false,
       potion: 22832,
+      first_potion: 0,
       conjured: 22044,
       atiesh_mage: false,
       atiesh_warlock: false,
@@ -6217,6 +6230,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return ep;
+    },
+    showPotionT: function showPotionT() {
+      return this.config.potion && this.config.potion != _constants__WEBPACK_IMPORTED_MODULE_3__["default"].potions.POTION_MANA && this.config.potion != _constants__WEBPACK_IMPORTED_MODULE_3__["default"].potions.POTION_FEL_MANA || this.config.first_potion && this.config.first_potion != _constants__WEBPACK_IMPORTED_MODULE_3__["default"].potions.POTION_MANA && this.config.first_potion != _constants__WEBPACK_IMPORTED_MODULE_3__["default"].potions.POTION_FEL_MANA;
     }
   },
   methods: {
@@ -71021,6 +71037,82 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-item" }, [
+                    _c(
+                      "label",
+                      [
+                        _c("span", [_vm._v("First potion")]),
+                        _vm._v(" "),
+                        _c("help", [
+                          _vm._v(
+                            "Allows you to use a different potion for the first use"
+                          )
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.config.first_potion,
+                            expression: "config.first_potion"
+                          }
+                        ],
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.config,
+                              "first_potion",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.potions.POTION_NONE } },
+                          [_vm._v("Same")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.potions.POTION_MANA } },
+                          [_vm._v("Mana potion")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { domProps: { value: _vm.potions.POTION_FEL_MANA } },
+                          [_vm._v("Fel Mana potion")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            domProps: { value: _vm.potions.POTION_DESTRUCTION }
+                          },
+                          [_vm._v("Destruction potion")]
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-item" }, [
                     _c("label", [_vm._v("Conjured")]),
                     _vm._v(" "),
                     _c(
@@ -71684,9 +71776,7 @@ var render = function() {
                         ]
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.config.potion &&
-                    _vm.config.potion != _vm.potions.POTION_MANA &&
-                    _vm.config.potion != _vm.potions.POTION_FEL_MANA
+                    _vm.showPotionT
                       ? [
                           _c("div", { staticClass: "form-item" }, [
                             _c(

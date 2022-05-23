@@ -18,6 +18,7 @@ public:
     double duration;
     bool cc_snapshot;
     bool cc_queue;
+    bool used_pot;
 
     double evocated_at = -1;
     double regened_at = -1;
@@ -54,6 +55,7 @@ public:
         duration+= -config->duration_variance + random<double>(0, config->duration_variance*2);
         cc_snapshot = false;
         cc_queue = false;
+        used_pot = false;
 
         evocated_at = -1;
         regened_at = -1;

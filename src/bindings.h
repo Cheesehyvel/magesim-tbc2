@@ -212,6 +212,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
         .property("weapon_oil", &Config::weapon_oil)
         .property("drums", &Config::drums)
         .property("potion", &Config::potion)
+        .property("first_potion", &Config::first_potion)
         .property("conjured", &Config::conjured)
 
         .property("tirisfal_2set", &Config::tirisfal_2set)

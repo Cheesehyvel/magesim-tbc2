@@ -54,6 +54,7 @@ struct Config
     WeaponOil weapon_oil;
     Drums drums;
     Potion potion;
+    Potion first_potion;
     Conjured conjured;
 
     bool tirisfal_2set = true;

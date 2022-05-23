@@ -950,6 +950,8 @@ public:
         removeCooldownExpiration(cooldown);
         state->addCooldown(cooldown);
         pushCooldownExpire(cooldown);
+        if (cooldown->id == cooldown::POTION && !state->used_pot)
+            state->used_pot = true;
     }
 
     void onCooldownExpire(shared_ptr<cooldown::Cooldown> cooldown)
@@ -959,7 +961,7 @@ public:
 
     void useManaPotion()
     {
-        if (config->potion == POTION_FEL_MANA)
+        if (nextPotion() == POTION_FEL_MANA)
             useFelManaPotion();
         else
             useRegularManaPotion();
@@ -1358,7 +1360,7 @@ public:
         if (isTimerReady(config->berserking_t) && !state->hasCooldown(cooldown::BERSERKING) && player->race == RACE_TROLL)
             useBerserking();
 
-        if (!state->hasCooldown(cooldown::POTION) && config->potion != POTION_NONE && config->potion != POTION_MANA && isTimerReady(config->potion_t))
+        if (!state->hasCooldown(cooldown::POTION) && nextPotion() != POTION_NONE && nextPotion() != POTION_MANA && isTimerReady(config->potion_t))
             usePotion();
 
         if (!state->hasCooldown(cooldown::CONJURED) && config->conjured != CONJURED_NONE) {
@@ -1470,7 +1472,7 @@ public:
 
     void usePotion()
     {
-        if (config->potion == POTION_DESTRUCTION)
+        if (nextPotion() == POTION_DESTRUCTION)
             onBuffGain(make_shared<buff::DestructionPotion>());
         else
             return;
@@ -2180,7 +2182,7 @@ public:
 
     bool shouldUseManaPotion()
     {
-        if (config->potion != POTION_MANA && config->potion != POTION_FEL_MANA)
+        if (nextPotion() != POTION_MANA && nextPotion() != POTION_FEL_MANA)
             return false;
 
         if (state->hasCooldown(cooldown::POTION) || state->hasBuff(buff::INNERVATE))
@@ -2214,6 +2216,13 @@ public:
         }
 
         return player->maxMana() - state->mana >= max;
+    }
+
+    Potion nextPotion()
+    {
+        if (state->used_pot || config->first_potion == POTION_NONE)
+            return config->potion;
+        return config->first_potion;
     }
 
     bool isTimerReady(vector<double>& v, double t = -1)
