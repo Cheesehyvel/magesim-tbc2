@@ -721,7 +721,7 @@ namespace buff
         {
             id = MYSTICAL_SKYFIRE;
             name = "Focus";
-            duration = 6;
+            duration = 4;
         }
 
     };
