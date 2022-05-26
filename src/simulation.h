@@ -1204,13 +1204,18 @@ public:
                 }
 
                 // Check mana threshold
-                if (!regen_start && state->buffStacks(buff::ARCANE_BLAST) >= min(3, config->regen_ab_count) && !state->hasBuff(buff::INNERVATE)) {
-                    double regen_at = config->regen_mana_at;
-                    if (state->hasBuff(buff::BLOODLUST))
-                        regen_at = min(regen_at, 10.0);
+                if (!regen_start) {
+                    // Check evocation timing
+                    if (state->hasCooldown(cooldown::EVOCATION) || config->evocation_at > state->t+10) {
+                        if (state->buffStacks(buff::ARCANE_BLAST) >= min(3, config->regen_ab_count) && !state->hasBuff(buff::INNERVATE)) {
+                            double regen_at = config->regen_mana_at;
+                            if (state->hasBuff(buff::BLOODLUST))
+                                regen_at = min(regen_at, 10.0);
 
-                    if (regen_at >= manaPercent())
-                        regen_start = true;
+                            if (regen_at >= manaPercent())
+                                regen_start = true;
+                        }
+                    }
                 }
 
                 if (regen_start) {
