@@ -3813,7 +3813,7 @@ var enchants = {
     q: "epic"
   }, {
     id: 35405,
-    title: "Inscription of the Orb (Aldor)",
+    title: "Inscription of Discipline (Aldor)",
     sp: 15
   }, {
     id: 35436,
@@ -4371,6 +4371,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _simulation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./simulation */ "./assets/js/simulation.js");
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./items */ "./assets/js/items.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./assets/js/constants.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4385,6 +4391,26 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6079,6 +6105,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         missing_items: [],
         config: true
       },
+      import_seventy_upgrades: {
+        open: false,
+        string: null,
+        items: true,
+        config: false
+      },
       custom_item: {
         id: null,
         title: null,
@@ -6134,14 +6166,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     for (var _i = 0, _slots = slots; _i < _slots.length; _i++) {
       var slot = _slots[_i];
-      var islot = slot;
-      var i = 0;
-
-      if (slot.indexOf("finger") === 0 || slot.indexOf("trinket") === 0) {
-        islot = slot.substr(0, slot.length - 1);
-        i = parseInt(slot.substr(slot.length - 1)) - 1;
-      }
-
       data.equipped[slot] = null;
       data.enchants[slot] = null;
       data.gems[slot] = [null, null, null];
@@ -6729,15 +6753,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         id: id
       }, null);
     },
+    searchItem: function searchItem(slot, title) {
+      var eslot = this.equipSlotToItemSlot(slot);
+      return _.find(this.items.equip[eslot], {
+        title: title
+      }, null);
+    },
     getGem: function getGem(id) {
       return _.find(this.items.gems, {
         id: id
+      }, null);
+    },
+    searchGem: function searchGem(title) {
+      return _.find(this.items.gems, {
+        title: title
       }, null);
     },
     getEnchant: function getEnchant(slot, id) {
       var eslot = this.equipSlotToItemSlot(slot);
       return _.find(this.items.enchants[eslot], {
         id: id
+      }, null);
+    },
+    searchEnchant: function searchEnchant(slot, title) {
+      var eslot = this.equipSlotToItemSlot(slot);
+      return _.find(this.items.enchants[eslot], {
+        title: title
       }, null);
     },
     equippedItem: function equippedItem(slot) {
@@ -7609,6 +7650,297 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     closeImport: function closeImport() {
       this.import_profile.open = false;
       this.import_profile.string = null;
+    },
+    openSeventyUpgradesImport: function openSeventyUpgradesImport() {
+      this.import_seventy_upgrades.string = null;
+      this.import_seventy_upgrades.open = true;
+      this.$nextTick(function () {
+        this.$refs.import_seventy_upgrades_input.focus();
+      });
+    },
+    closeSeventyUpgradesImport: function closeSeventyUpgradesImport() {
+      this.import_seventy_upgrades.open = false;
+      this.import_seventy_upgrades.string = null;
+    },
+    doSeventyUpgradesImport: function doSeventyUpgradesImport() {
+      if (this.import_seventy_upgrades.string && this.importSeventyUpgradesString(this.import_seventy_upgrades.string)) this.closeSeventyUpgradesImport();
+    },
+    importSeventyUpgradesError: function importSeventyUpgradesError(err) {
+      alert(err);
+      this.import_seventy_upgrades.string = null;
+      this.$refs.import_seventy_upgrades_input.focus();
+      return false;
+    },
+    importSeventyUpgradesString: function importSeventyUpgradesString(str) {
+      try {
+        var data = JSON.parse(str);
+      } catch (e) {
+        return this.importSeventyUpgradesError("Could not parse import string");
+      }
+
+      if (!data) return this.importSeventyUpgradesError("Could not parse import string");
+      if (!data.items) return this.importSeventyUpgradesError("Invalid import string");
+      var profile = {
+        items: null,
+        enchants: null,
+        gems: null,
+        config: null
+      };
+
+      if (this.import_seventy_upgrades.items) {
+        profile.equipped = {};
+        profile.enchants = {};
+        profile.gems = {};
+
+        for (var key in this.equipped) {
+          profile.equipped[key] = null;
+          profile.enchants[key] = null;
+          profile.gems[key] = [null, null, null];
+        }
+
+        for (var i = 0; i < data.items.length; i++) {
+          var slot = this.getSlotFromSeventyUpgrades(data.items[i]);
+          if (!slot) continue;
+          var item = this.getItem(slot, data.items[i].id);
+          if (!item) item = this.searchItem(data.items[i].name);
+          if (!item) return this.importSeventyUpgradesError("Could not find item: " + data.items[i].name);
+          profile.equipped[slot] = item.id;
+
+          if (data.items[i].enchant) {
+            var enchant = this.getEnchantFromSeventyUpgrades(slot, data.items[i].enchant);
+            if (!enchant) return this.importSeventyUpgradesError("Could not find enchant: " + data.items[i].enchant.name);
+            profile.enchants[slot] = enchant.id;
+          }
+
+          if (data.items[i].gems) {
+            for (var j = 0; j < data.items[i].gems.length; j++) {
+              var gem = this.getGem(data.items[i].gems[j].id);
+              if (!gem) gem = this.searchGem(data.items[i].gems[j].name);
+              if (!gem) return this.importSeventyUpgradesError("Could not find gem: " + data.items[i].gems[j].name);
+              profile.gems[slot][j] = gem.id;
+            }
+          }
+        }
+      }
+
+      if (this.import_seventy_upgrades.config && data.exportOptions.buffs) {
+        profile.config = {
+          scroll_of_spirit: false,
+          battle_elixir: 0,
+          guardian_elixir: 0,
+          flask: 0,
+          food: 0,
+          weapon_oil: 0,
+          mage_armor: false,
+          molten_armor: false,
+          arcane_intellect: false,
+          blessing_of_kings: false,
+          blessing_of_wisdom: false,
+          divine_spirit: false,
+          improved_divine_spirit: false,
+          totem_of_wrath: false,
+          wrath_of_air: false,
+          inspiring_presence: false,
+          mark_of_the_wild: false,
+          moonkin_aura: false
+        };
+        if (data.character.race == "BLOODELF") profile.race = _constants__WEBPACK_IMPORTED_MODULE_3__["default"].races.RACE_BLOOD_ELF;else if (data.character.race == "DRAENEI") profile.race = _constants__WEBPACK_IMPORTED_MODULE_3__["default"].races.RACE_DRAENEI;else if (data.character.race == "GNOME") profile.race = _constants__WEBPACK_IMPORTED_MODULE_3__["default"].races.RACE_GNOME;else if (data.character.race == "HUMAN") profile.race = _constants__WEBPACK_IMPORTED_MODULE_3__["default"].races.RACE_HUMAN;else if (data.character.race == "TROLL") profile.race = _constants__WEBPACK_IMPORTED_MODULE_3__["default"].races.RACE_TROLL;else if (data.character.race == "UNDEAD") profile.race = _constants__WEBPACK_IMPORTED_MODULE_3__["default"].races.RACE_UNDEAD;else return this.importSeventyUpgradesError("Unknown race: " + data.character.race); // Consumes
+
+        var guardian = [_constants__WEBPACK_IMPORTED_MODULE_3__["default"].elixirs.ELIXIR_MAJOR_MAGEBLOOD, _constants__WEBPACK_IMPORTED_MODULE_3__["default"].elixirs.ELIXIR_DRAENIC_WISDOM];
+
+        var elixirs = _.values(_constants__WEBPACK_IMPORTED_MODULE_3__["default"].elixirs);
+
+        var flasks = _.values(_constants__WEBPACK_IMPORTED_MODULE_3__["default"].flasks);
+
+        var foods = _.values(_constants__WEBPACK_IMPORTED_MODULE_3__["default"].foods);
+
+        var weapon_oils = _.values(_constants__WEBPACK_IMPORTED_MODULE_3__["default"].weapon_oils);
+
+        var _iterator = _createForOfIteratorHelper(data.consumables),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var consume = _step.value;
+
+            if (weapon_oils.indexOf(consume.id) != -1) {
+              profile.config.weapon_oil = consume.id;
+            } else if (foods.indexOf(consume.id) != -1) {
+              profile.config.food = consume.id;
+            } else if (flasks.indexOf(consume.id) != -1) {
+              profile.config.flask = consume.id;
+            } else if (elixirs.indexOf(consume.id) != -1) {
+              if (guardian.indexOf(consume.id) != -1) profile.config.guardian_elixir = consume.id;else profile.config.battle_elixir = consume.id;
+            } else if (consume.id == 27501) {
+              profile.config.scroll_of_spirit = true;
+            }
+          } // buffs
+
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+
+        var _iterator2 = _createForOfIteratorHelper(data.buffs),
+            _step2;
+
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var buff = _step2.value;
+            if (buff.id == 27125) profile.config.mage_armor = true;else if (buff.id == 30482) profile.config.molten_armor = true;else if (buff.id == 3738) profile.config.wrath_of_air = true;else if (buff.id == 30706) profile.config.totem_of_wrath = true;else if (buff.id == 26990) profile.config.mark_of_the_wild = true;else if (buff.id == 27126) profile.config.arcane_intellect = true;else if (buff.id == 20217) profile.config.blessing_of_kings = true;else if (buff.id == 27142) profile.config.blessing_of_wisdom = true;else if (buff.id == 28878 && data.character.faction == "ALLIANCE") profile.config.inspiring_presence = true;else if (buff.id == 25312) {
+              profile.config.scroll_of_spirit = false;
+              profile.config.divine_spirit = true;
+              if (buff.improvements && buff.improvements.length) profile.config.improved_divine_spirit = true;
+            }
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+
+        if (profile.config.mage_armor && profile.config.molten_armor) profile.config.molten_armor = false;
+      }
+
+      if (this.import_seventy_upgrades.config && data.exportOptions.talents) {
+        var talents = ["00000000000000000000000", "0000000000000000000000", "0000000000000000000000"];
+        var tmap = {
+          "Arcane Subtlety": [0, 0],
+          "Arcane Focus": [0, 1],
+          "Improved Arcane Missiles": [0, 2],
+          "Wand Specialization": [0, 3],
+          "Magic Absorption": [0, 4],
+          "Arcane Concentration": [0, 5],
+          "Magic Attunement": [0, 6],
+          "Arcane Impact": [0, 7],
+          "Arcane Fortitude": [0, 8],
+          "Improved Mana Shield": [0, 9],
+          "Improved Counterspell": [0, 10],
+          "Arcane Meditation": [0, 11],
+          "Improved Blink": [0, 12],
+          "Presence of Mind": [0, 13],
+          "Arcane Mind": [0, 14],
+          "Prismatic Cloak": [0, 15],
+          "Arcane Instability": [0, 16],
+          "Arcane Potency": [0, 17],
+          "Empowered Arcane Missiles": [0, 18],
+          "Arcane Power": [0, 19],
+          "Spell Power": [0, 20],
+          "Mind Mastery": [0, 20],
+          "Slow": [0, 22],
+          "Improved Fireball": [1, 0],
+          "Impact": [1, 1],
+          "Ignite": [1, 2],
+          "Flame Throwing": [1, 3],
+          "Improved Fire Blast": [1, 4],
+          "Incineration": [1, 5],
+          "Incinerate": [1, 5],
+          "Improved Flamestrike": [1, 6],
+          "Pyroblast": [1, 7],
+          "Burning Soul": [1, 8],
+          "Improved Scorch": [1, 9],
+          "Molten Shields": [1, 10],
+          "Improved Fire Ward": [1, 10],
+          "Master of Elements": [1, 11],
+          "Playing with Fire": [1, 12],
+          "Critical Mass": [1, 13],
+          "Blast Wave": [1, 14],
+          "Blazing Speed": [1, 15],
+          "Fire Power": [1, 16],
+          "Pyromaniac": [1, 17],
+          "Combustion": [1, 18],
+          "Molten Fury": [1, 19],
+          "Empowered Fireball": [1, 20],
+          "Dragon's Breath": [1, 21],
+          "Frost Warding": [2, 0],
+          "Improved Frostbolt": [2, 1],
+          "Elemental Precision": [2, 2],
+          "Ice Shards": [2, 3],
+          "Frostbite": [2, 4],
+          "Improved Frost Nova": [2, 5],
+          "Permafrost": [2, 6],
+          "Piercing Ice": [2, 7],
+          "Icy Veins": [2, 8],
+          "Improved Blizzard": [2, 9],
+          "Arctic Reach": [2, 10],
+          "Frost Channeling": [2, 11],
+          "Shatter": [2, 12],
+          "Frozen Core": [2, 13],
+          "Cold Snap": [2, 14],
+          "Improved Cone of Cold": [2, 15],
+          "Ice Floes": [2, 16],
+          "Winter's Chill": [2, 17],
+          "Ice Barrier": [2, 18],
+          "Arctic Winds": [2, 19],
+          "Empowered Frostbolt": [2, 20],
+          "Summon Water Elemental": [2, 21]
+        };
+
+        var _iterator3 = _createForOfIteratorHelper(data.talents),
+            _step3;
+
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var talent = _step3.value;
+            if (!tmap.hasOwnProperty(talent.name)) return this.importSeventyUpgradesError("Unknown talent: " + talent.name);
+            var t = tmap[talent.name];
+            talents[t[0]] = talents[t[0]].substr(0, t[1]) + talent.rank + talents[t[0]].substr(t[1] + 1);
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
+        }
+
+        var tstring = talents[0] + "-" + talents[1] + "-" + talents[2];
+        tstring = tstring.replace(/0+\-/g, "-");
+        tstring = tstring.replace(/0+$/g, "");
+        tstring = "https://tbc.wowhead.com/talent-calc/mage/" + tstring;
+        profile.config.talents = tstring;
+      }
+
+      this.loadProfile(profile);
+      return true;
+    },
+    getSlotFromSeventyUpgrades: function getSlotFromSeventyUpgrades(data) {
+      var slot = _.isString(data) ? data : data.slot;
+      slot = slot.toLowerCase();
+      slot = slot.replace("finger_", "finger");
+      slot = slot.replace("trinket_", "trinket");
+      if (slot == "main_hand") slot = "weapon";
+      if (!this.equipped.hasOwnProperty(slot)) return null;
+      return slot;
+    },
+    getItemFromSeventyUpgrades: function getItemFromSeventyUpgrades(data) {
+      var slot = this.getSlotFromSeventyUpgrades(data.slot);
+      if (!slot) return null;
+      return this.getItem(slot, data.id);
+    },
+    getEnchantFromSeventyUpgrades: function getEnchantFromSeventyUpgrades(slot, data) {
+      if (!data.spellId) {
+        if (data.itemId) {
+          var map = {
+            28886: 35406,
+            28909: 35437,
+            23545: 29467,
+            28881: 35405,
+            28903: 35436,
+            29191: 35447,
+            19787: 24164,
+            24274: 31372,
+            24273: 31371
+          };
+          if (map.hasOwnProperty(data.itemId)) return this.getEnchant(slot, map[data.itemId]);
+          return this.searchEnchant(slot, data.name);
+        } else {
+          return this.searchEnchant(slot, data.name);
+        }
+      }
+
+      var enchant = this.getEnchant(slot, data.spellId);
+      if (!enchant) enchant = this.searchEnchant(slot, data.name);
+      return enchant;
     },
     moveProfile: function moveProfile(index, dir) {
       var pos = (this.profiles.length + index + dir) % this.profiles.length;
@@ -72962,6 +73294,19 @@ var render = function() {
                             }
                           },
                           [_vm._v("Import")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "btn ml-n",
+                            on: {
+                              click: function($event) {
+                                return _vm.openSeventyUpgradesImport()
+                              }
+                            }
+                          },
+                          [_vm._v("Import from 70up")]
                         )
                       ])
                     ],
@@ -73337,6 +73682,169 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "close", on: { click: _vm.closeImport } },
+                [
+                  _c("span", { staticClass: "material-icons" }, [
+                    _vm._v("\n                        \n                    ")
+                  ])
+                ]
+              )
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.import_seventy_upgrades.open
+        ? _c("div", { staticClass: "lightbox" }, [
+            _c("div", { staticClass: "inner" }, [
+              _c("div", { staticClass: "title" }, [
+                _vm._v("Import from SeventyUpgrades.com")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-item" }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.import_seventy_upgrades.string,
+                      expression: "import_seventy_upgrades.string"
+                    }
+                  ],
+                  ref: "import_seventy_upgrades_input",
+                  domProps: { value: _vm.import_seventy_upgrades.string },
+                  on: {
+                    input: [
+                      function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.import_seventy_upgrades,
+                          "string",
+                          $event.target.value
+                        )
+                      },
+                      _vm.checkImportString
+                    ]
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-item" }, [
+                _c("label", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.import_seventy_upgrades.items,
+                        expression: "import_seventy_upgrades.items"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.import_seventy_upgrades.items)
+                        ? _vm._i(_vm.import_seventy_upgrades.items, null) > -1
+                        : _vm.import_seventy_upgrades.items
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.import_seventy_upgrades.items,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.import_seventy_upgrades,
+                                "items",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.import_seventy_upgrades,
+                                "items",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.import_seventy_upgrades, "items", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Include items")])
+                ]),
+                _vm._v(" "),
+                _c("label", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.import_seventy_upgrades.config,
+                        expression: "import_seventy_upgrades.config"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.import_seventy_upgrades.config)
+                        ? _vm._i(_vm.import_seventy_upgrades.config, null) > -1
+                        : _vm.import_seventy_upgrades.config
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.import_seventy_upgrades.config,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.import_seventy_upgrades,
+                                "config",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.import_seventy_upgrades,
+                                "config",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.import_seventy_upgrades, "config", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Include config")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "btn mt-2",
+                  class: [_vm.import_seventy_upgrades.string ? "" : "disabled"],
+                  on: { click: _vm.doSeventyUpgradesImport }
+                },
+                [_vm._v("Import")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "close",
+                  on: { click: _vm.closeSeventyUpgradesImport }
+                },
                 [
                   _c("span", { staticClass: "material-icons" }, [
                     _vm._v("\n                        \n                    ")

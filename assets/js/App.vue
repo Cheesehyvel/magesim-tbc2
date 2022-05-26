@@ -1289,6 +1289,7 @@
                                 <div class="export-import mt-1">
                                     <div class="btn" @click="openExport()">Export</div>
                                     <div class="btn ml-n" @click="openImport()">Import</div>
+                                    <div class="btn ml-n" @click="openSeventyUpgradesImport()">Import from 70up</div>
                                 </div>
                             </div>
                         </fieldset>
@@ -1347,6 +1348,25 @@
                     </div>
                     <div class="btn mt-2" :class="[import_profile.string ? '' : 'disabled']" @click="doImport">Import</div>
                     <div class="close" @click="closeImport">
+                        <span class="material-icons">
+                            &#xe5cd;
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lightbox" v-if="import_seventy_upgrades.open">
+                <div class="inner">
+                    <div class="title">Import from SeventyUpgrades.com</div>
+                    <div class="form-item">
+                        <textarea v-model="import_seventy_upgrades.string" ref="import_seventy_upgrades_input" @input="checkImportString"></textarea>
+                    </div>
+                    <div class="form-item">
+                        <label><input type="checkbox" v-model="import_seventy_upgrades.items"> <span>Include items</span></label>
+                        <label><input type="checkbox" v-model="import_seventy_upgrades.config"> <span>Include config</span></label>
+                    </div>
+                    <div class="btn mt-2" :class="[import_seventy_upgrades.string ? '' : 'disabled']" @click="doSeventyUpgradesImport">Import</div>
+                    <div class="close" @click="closeSeventyUpgradesImport">
                         <span class="material-icons">
                             &#xe5cd;
                         </span>
@@ -1711,6 +1731,12 @@
                     missing_items: [],
                     config: true,
                 },
+                import_seventy_upgrades: {
+                    open: false,
+                    string: null,
+                    items: true,
+                    config: false,
+                },
                 custom_item: {
                     id: null,
                     title: null,
@@ -1770,12 +1796,6 @@
             ];
 
             for (var slot of slots) {
-                var islot = slot;
-                var i = 0;
-                if (slot.indexOf("finger") === 0 || slot.indexOf("trinket") === 0) {
-                    islot = slot.substr(0, slot.length-1);
-                    i = parseInt(slot.substr(slot.length-1))-1;
-                }
                 data.equipped[slot] = null;
                 data.enchants[slot] = null;
                 data.gems[slot] = [null, null, null];
@@ -2272,13 +2292,27 @@
                 return _.find(this.items.equip[eslot], {id: id}, null);
             },
 
+            searchItem(slot, title) {
+                var eslot = this.equipSlotToItemSlot(slot);
+                return _.find(this.items.equip[eslot], {title: title}, null);
+            },
+
             getGem(id) {
                 return _.find(this.items.gems, {id: id}, null);
+            },
+
+            searchGem(title) {
+                return _.find(this.items.gems, {title: title}, null);
             },
 
             getEnchant(slot, id) {
                 var eslot = this.equipSlotToItemSlot(slot);
                 return _.find(this.items.enchants[eslot], {id: id}, null);
+            },
+
+            searchEnchant(slot, title) {
+                var eslot = this.equipSlotToItemSlot(slot);
+                return _.find(this.items.enchants[eslot], {title: title}, null);
             },
 
             equippedItem(slot) {
@@ -3336,6 +3370,336 @@
             closeImport() {
                 this.import_profile.open = false;
                 this.import_profile.string = null;
+            },
+
+            openSeventyUpgradesImport() {
+                this.import_seventy_upgrades.string = null;
+                this.import_seventy_upgrades.open = true;
+
+                this.$nextTick(function() {
+                    this.$refs.import_seventy_upgrades_input.focus();
+                });
+            },
+
+            closeSeventyUpgradesImport() {
+                this.import_seventy_upgrades.open = false;
+                this.import_seventy_upgrades.string = null;
+            },
+
+            doSeventyUpgradesImport() {
+                if (this.import_seventy_upgrades.string && this.importSeventyUpgradesString(this.import_seventy_upgrades.string))
+                    this.closeSeventyUpgradesImport();
+            },
+
+            importSeventyUpgradesError(err) {
+                alert(err);
+                this.import_seventy_upgrades.string = null;
+                this.$refs.import_seventy_upgrades_input.focus();
+                return false;
+            },
+
+            importSeventyUpgradesString(str) {
+                try {
+                    var data = JSON.parse(str);
+                }
+                catch (e) {
+                    return this.importSeventyUpgradesError("Could not parse import string");
+                }
+
+                if (!data)
+                    return this.importSeventyUpgradesError("Could not parse import string");
+
+                if (!data.items)
+                    return this.importSeventyUpgradesError("Invalid import string");
+
+                var profile = {
+                    items: null,
+                    enchants: null,
+                    gems: null,
+                    config: null,
+                };
+
+                if (this.import_seventy_upgrades.items) {
+                    profile.equipped = {};
+                    profile.enchants = {};
+                    profile.gems = {};
+
+                    for (var key in this.equipped) {
+                        profile.equipped[key] = null;
+                        profile.enchants[key] = null;
+                        profile.gems[key] = [null, null, null];
+                    }
+
+                    for (var i=0; i<data.items.length; i++) {
+                        var slot = this.getSlotFromSeventyUpgrades(data.items[i]);
+                        if (!slot)
+                            continue;
+                        var item = this.getItem(slot, data.items[i].id);
+                        if (!item)
+                            item = this.searchItem(data.items[i].name);
+                        if (!item)
+                            return this.importSeventyUpgradesError("Could not find item: "+data.items[i].name);
+                        profile.equipped[slot] = item.id;
+
+                        if (data.items[i].enchant) {
+                            var enchant = this.getEnchantFromSeventyUpgrades(slot, data.items[i].enchant);
+                            if (!enchant)
+                                return this.importSeventyUpgradesError("Could not find enchant: "+data.items[i].enchant.name);
+                            profile.enchants[slot] = enchant.id;
+                        }
+
+                        if (data.items[i].gems) {
+                            for (var j=0; j<data.items[i].gems.length; j++) {
+                                var gem = this.getGem(data.items[i].gems[j].id);
+                                if (!gem)
+                                    gem = this.searchGem(data.items[i].gems[j].name);
+                                if (!gem)
+                                    return this.importSeventyUpgradesError("Could not find gem: "+data.items[i].gems[j].name);
+                                profile.gems[slot][j] = gem.id;
+                            }
+                        }
+                    }
+                }
+
+                if (this.import_seventy_upgrades.config && data.exportOptions.buffs) {
+                    profile.config = {
+                        scroll_of_spirit: false,
+                        battle_elixir: 0,
+                        guardian_elixir: 0,
+                        flask: 0,
+                        food: 0,
+                        weapon_oil: 0,
+                        mage_armor: false,
+                        molten_armor: false,
+                        arcane_intellect: false,
+                        blessing_of_kings: false,
+                        blessing_of_wisdom: false,
+                        divine_spirit: false,
+                        improved_divine_spirit: false,
+                        totem_of_wrath: false,
+                        wrath_of_air: false,
+                        inspiring_presence: false,
+                        mark_of_the_wild: false,
+                        moonkin_aura: false,
+                    };
+
+                    if (data.character.race == "BLOODELF")
+                        profile.race = constants.races.RACE_BLOOD_ELF;
+                    else if (data.character.race == "DRAENEI")
+                        profile.race = constants.races.RACE_DRAENEI;
+                    else if (data.character.race == "GNOME")
+                        profile.race = constants.races.RACE_GNOME;
+                    else if (data.character.race == "HUMAN")
+                        profile.race = constants.races.RACE_HUMAN;
+                    else if (data.character.race == "TROLL")
+                        profile.race = constants.races.RACE_TROLL;
+                    else if (data.character.race == "UNDEAD")
+                        profile.race = constants.races.RACE_UNDEAD;
+                    else
+                        return this.importSeventyUpgradesError("Unknown race: "+data.character.race);
+
+                    // Consumes
+                    var guardian = [constants.elixirs.ELIXIR_MAJOR_MAGEBLOOD, constants.elixirs.ELIXIR_DRAENIC_WISDOM]
+                    var elixirs = _.values(constants.elixirs);
+                    var flasks = _.values(constants.flasks);
+                    var foods = _.values(constants.foods);
+                    var weapon_oils = _.values(constants.weapon_oils);
+                    for (var consume of data.consumables) {
+                        if (weapon_oils.indexOf(consume.id) != -1) {
+                            profile.config.weapon_oil = consume.id;
+                        }
+                        else if (foods.indexOf(consume.id) != -1) {
+                            profile.config.food = consume.id;
+                        }
+                        else if (flasks.indexOf(consume.id) != -1) {
+                            profile.config.flask = consume.id;
+                        }
+                        else if (elixirs.indexOf(consume.id) != -1) {
+                            if (guardian.indexOf(consume.id) != -1)
+                                profile.config.guardian_elixir = consume.id;
+                            else
+                                profile.config.battle_elixir = consume.id;
+                        }
+                        else if (consume.id == 27501) {
+                            profile.config.scroll_of_spirit = true;
+                        }
+                    }
+
+                    // buffs
+                    for (var buff of data.buffs) {
+                        if (buff.id == 27125)
+                            profile.config.mage_armor = true;
+                        else if (buff.id == 30482)
+                            profile.config.molten_armor = true;
+                        else if (buff.id == 3738)
+                            profile.config.wrath_of_air = true;
+                        else if (buff.id == 30706)
+                            profile.config.totem_of_wrath = true;
+                        else if (buff.id == 26990)
+                            profile.config.mark_of_the_wild = true;
+                        else if (buff.id == 27126)
+                            profile.config.arcane_intellect = true;
+                        else if (buff.id == 20217)
+                            profile.config.blessing_of_kings = true;
+                        else if (buff.id == 27142)
+                            profile.config.blessing_of_wisdom = true;
+                        else if (buff.id == 28878 && data.character.faction == "ALLIANCE")
+                            profile.config.inspiring_presence = true;
+                        else if (buff.id == 25312) {
+                            profile.config.scroll_of_spirit = false;
+                            profile.config.divine_spirit = true;
+                            if (buff.improvements && buff.improvements.length)
+                                profile.config.improved_divine_spirit = true;
+                        }
+                    }
+                    if (profile.config.mage_armor && profile.config.molten_armor)
+                        profile.config.molten_armor = false;
+                }
+
+                if (this.import_seventy_upgrades.config && data.exportOptions.talents) {
+                    var talents = [
+                        "00000000000000000000000",
+                        "0000000000000000000000",
+                        "0000000000000000000000",
+                    ];
+
+                    var tmap = {
+                        "Arcane Subtlety": [0, 0],
+                        "Arcane Focus": [0, 1],
+                        "Improved Arcane Missiles": [0, 2],
+                        "Wand Specialization": [0, 3],
+                        "Magic Absorption": [0, 4],
+                        "Arcane Concentration": [0, 5],
+                        "Magic Attunement": [0, 6],
+                        "Arcane Impact": [0, 7],
+                        "Arcane Fortitude": [0, 8],
+                        "Improved Mana Shield": [0, 9],
+                        "Improved Counterspell": [0, 10],
+                        "Arcane Meditation": [0, 11],
+                        "Improved Blink": [0, 12],
+                        "Presence of Mind": [0, 13],
+                        "Arcane Mind": [0, 14],
+                        "Prismatic Cloak": [0, 15],
+                        "Arcane Instability": [0, 16],
+                        "Arcane Potency": [0, 17],
+                        "Empowered Arcane Missiles": [0, 18],
+                        "Arcane Power": [0, 19],
+                        "Spell Power": [0, 20],
+                        "Mind Mastery": [0, 20],
+                        "Slow": [0, 22],
+                        "Improved Fireball": [1, 0],
+                        "Impact": [1, 1],
+                        "Ignite": [1, 2],
+                        "Flame Throwing": [1, 3],
+                        "Improved Fire Blast": [1, 4],
+                        "Incineration": [1, 5],
+                        "Incinerate": [1, 5],
+                        "Improved Flamestrike": [1, 6],
+                        "Pyroblast": [1, 7],
+                        "Burning Soul": [1, 8],
+                        "Improved Scorch": [1, 9],
+                        "Molten Shields": [1, 10],
+                        "Improved Fire Ward": [1, 10],
+                        "Master of Elements": [1, 11],
+                        "Playing with Fire": [1, 12],
+                        "Critical Mass": [1, 13],
+                        "Blast Wave": [1, 14],
+                        "Blazing Speed": [1, 15],
+                        "Fire Power": [1, 16],
+                        "Pyromaniac": [1, 17],
+                        "Combustion": [1, 18],
+                        "Molten Fury": [1, 19],
+                        "Empowered Fireball": [1, 20],
+                        "Dragon's Breath": [1, 21],
+                        "Frost Warding": [2, 0],
+                        "Improved Frostbolt": [2, 1],
+                        "Elemental Precision": [2, 2],
+                        "Ice Shards": [2, 3],
+                        "Frostbite": [2, 4],
+                        "Improved Frost Nova": [2, 5],
+                        "Permafrost": [2, 6],
+                        "Piercing Ice": [2, 7],
+                        "Icy Veins": [2, 8],
+                        "Improved Blizzard": [2, 9],
+                        "Arctic Reach": [2, 10],
+                        "Frost Channeling": [2, 11],
+                        "Shatter": [2, 12],
+                        "Frozen Core": [2, 13],
+                        "Cold Snap": [2, 14],
+                        "Improved Cone of Cold": [2, 15],
+                        "Ice Floes": [2, 16],
+                        "Winter's Chill": [2, 17],
+                        "Ice Barrier": [2, 18],
+                        "Arctic Winds": [2, 19],
+                        "Empowered Frostbolt": [2, 20],
+                        "Summon Water Elemental": [2, 21],
+                    };
+
+                    for (var talent of data.talents) {
+                        if (!tmap.hasOwnProperty(talent.name))
+                            return this.importSeventyUpgradesError("Unknown talent: "+talent.name);
+                        var t = tmap[talent.name]
+                        talents[t[0]] = talents[t[0]].substr(0, t[1]) + talent.rank + talents[t[0]].substr(t[1]+1);
+                    }
+
+                    var tstring = talents[0]+"-"+talents[1]+"-"+talents[2];
+                    tstring = tstring.replace(/0+\-/g, "-");
+                    tstring = tstring.replace(/0+$/g, "");
+                    tstring = "https://tbc.wowhead.com/talent-calc/mage/"+tstring;
+                    profile.config.talents = tstring;
+                }
+
+                this.loadProfile(profile);
+
+                return true;
+            },
+
+            getSlotFromSeventyUpgrades(data) {
+                var slot = _.isString(data) ? data : data.slot;
+                slot = slot.toLowerCase();
+                slot = slot.replace("finger_", "finger");
+                slot = slot.replace("trinket_", "trinket");
+                if (slot == "main_hand")
+                    slot = "weapon";
+                if (!this.equipped.hasOwnProperty(slot))
+                    return null;
+                return slot;
+            },
+
+            getItemFromSeventyUpgrades(data) {
+                var slot = this.getSlotFromSeventyUpgrades(data.slot);
+                if (!slot)
+                    return null;
+                return this.getItem(slot, data.id);
+            },
+
+            getEnchantFromSeventyUpgrades(slot, data) {
+                if (!data.spellId) {
+                    if (data.itemId) {
+                        var map = {
+                            28886: 35406,
+                            28909: 35437,
+                            23545: 29467,
+                            28881: 35405,
+                            28903: 35436,
+                            29191: 35447,
+                            19787: 24164,
+                            24274: 31372,
+                            24273: 31371
+                        };
+                        if (map.hasOwnProperty(data.itemId))
+                            return this.getEnchant(slot, map[data.itemId]);
+                        return this.searchEnchant(slot, data.name);
+                    }
+                    else {
+                        return this.searchEnchant(slot, data.name);
+                    }
+                }
+
+                var enchant = this.getEnchant(slot, data.spellId);
+                if (!enchant)
+                    enchant = this.searchEnchant(slot, data.name);
+                return enchant;
             },
 
             moveProfile(index, dir) {
