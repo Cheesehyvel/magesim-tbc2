@@ -1206,7 +1206,7 @@ public:
                 // Check mana threshold
                 if (!regen_start) {
                     // Check evocation timing
-                    if (state->hasCooldown(cooldown::EVOCATION) || config->evocation_at > state->t+10) {
+                    if (state->hasCooldown(cooldown::EVOCATION) || config->evocation_at > state->t+8 || manaPercent() < 8) {
                         if (state->buffStacks(buff::ARCANE_BLAST) >= min(3, config->regen_ab_count) && !state->hasBuff(buff::INNERVATE)) {
                             double regen_at = config->regen_mana_at;
                             if (state->hasBuff(buff::BLOODLUST))
