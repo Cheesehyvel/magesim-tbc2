@@ -8682,6 +8682,10 @@ __webpack_require__.r(__webpack_exports__);
         color: "rgba(255,70,70,0.6)",
         img: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_bloodlust.jpg"
       }, {
+        title: "Berserking",
+        color: "rgba(190,170,170,0.6)",
+        img: "https://wow.zamimg.com/images/wow/icons/large/racial_troll_berserk.jpg"
+      }, {
         title: "Icy Veins",
         color: "rgba(85,170,255,0.6)",
         img: "https://wow.zamimg.com/images/wow/icons/large/spell_frost_coldhearted.jpg"

@@ -33,6 +33,7 @@
                 buff_start_pos: 2,
                 cds: [
                     { title: "Bloodlust", color: "rgba(255,70,70,0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_bloodlust.jpg" },
+                    { title: "Berserking", color: "rgba(190,170,170,0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/racial_troll_berserk.jpg" },
                     { title: "Icy Veins", color: "rgba(85,170,255,0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/spell_frost_coldhearted.jpg" },
                     { title: "Arcane Power", color: "rgba(221,51,255,0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_lightning.jpg" },
                     { title: "Band of Eternal Sage", color: "rgba(255, 128, 0, 0.6)", img: "https://wow.zamimg.com/images/wow/icons/large/inv_jewelry_ring_55.jpg" },
