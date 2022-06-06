@@ -309,7 +309,7 @@ var equip = {
   }, {
     id: 35102,
     title: "Brutal Gladiator's Spellblade",
-    "int": 33,
+    "int": 21,
     sp: 266,
     hit: 19,
     phase: 5

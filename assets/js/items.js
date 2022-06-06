@@ -55,7 +55,7 @@ var equip = {
         { id: 34182, title: "Grand Magister's Staff of Torrents", int: 52, sp: 266, crit: 49, hit: 50, twohand: true, sockets: ["y", "y", "y"], bonus: { sp: 5 }, phase: 5 },
         { id: 32374, title: "Zhar'doom, Greatstaff of the Devourer", int: 47, sp: 259, crit: 36, haste: 55, twohand: true, phase: 3 },
         { id: 34987, title: "Brutal Gladiator's Battle Staff", int: 50, sp: 266, crit: 50, hit: 32, twohand: true, phase: 5 },
-        { id: 35102, title: "Brutal Gladiator's Spellblade", int: 33, sp: 266, hit: 19, phase: 5 },
+        { id: 35102, title: "Brutal Gladiator's Spellblade", int: 21, sp: 266, hit: 19, phase: 5 },
         { id: 34895, title: "Scryer's Blade of Focus", int: 28, sp: 247, phase: 5 },
         { id: 34540, title: "Vengeful Gladiator's Battle Staff", int: 46, sp: 247, crit: 46, hit: 28, twohand: true, phase: 3 },
         { id: 30910, title: "Tempest of Chaos", int: 22, sp: 259, crit: 24, hit: 17, phase: 3 },
