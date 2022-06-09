@@ -1115,6 +1115,14 @@ var equip = {
     sockets: ["y"],
     phase: 5
   }, {
+    id: 35132,
+    title: "Guardian's Pendant of Conquest",
+    "int": 18,
+    sp: 28,
+    crit: 24,
+    sockets: ["y"],
+    phase: 5
+  }, {
     id: 35290,
     title: "Sin'dorei Pendant of Conquest",
     "int": 19,

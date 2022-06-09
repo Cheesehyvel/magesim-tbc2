@@ -168,6 +168,7 @@ var equip = {
         { id: 32349, title: "Translucent Spellthread Necklace", sp: 46, crit: 24, hit: 15, phase: 3 },
         { id: 33281, title: "Brooch of Nature's Mercy", int: 24, spi: 19, sp: 25, haste: 33, phase: 4 },
         { id: 37928, title: "Guardian's Pendant of Subjugation", int: 18, sp: 28, haste: 24, sockets: ["y"], phase: 5 },
+        { id: 35132, title: "Guardian's Pendant of Conquest", int: 18, sp: 28, crit: 24, sockets: ["y"], phase: 5 },
         { id: 35290, title: "Sin'dorei Pendant of Conquest", int: 19, sp: 34, crit: 19, sockets: ["b"], bonus: { sp: 2 }, phase: 5 },
         { id: 33466, title: "Loop of Cursed Bones", int: 20, sp: 32, haste: 27, phase: 4 },
         { id: 30015, title: "The Sun King's Talisman", int: 16, sp: 41, crit: 24, phase: 2 },
