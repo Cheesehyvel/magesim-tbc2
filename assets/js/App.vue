@@ -2788,15 +2788,16 @@
 
                 this.equipped[slot] = item.id;
 
-                if (this.item_gems.hasOwnProperty(item.id)) {
-                    this.gems[slot] = this.item_gems[item.id];
-                }
-                else {
-                    this.gems[slot] = [null, null, null];
-                    if (item.sockets) {
-                        this.gems[slot] = this.defaultGems(item);
-                        this.item_gems[item.id] = this.gems[slot];
+                this.gems[slot] = [null, null, null];
+                if (item.sockets) {
+                    this.gems[slot] = this.defaultGems(item);
+                    if (this.item_gems.hasOwnProperty(item.id)) {
+                        for (var i=0; i<item.sockets.length; i++) {
+                            if (i < this.item_gems[item.id].length)
+                                this.gems[slot][i] = this.item_gems[item.id][i];
+                        }
                     }
+                    this.item_gems[item.id] = this.gems[slot];
                 }
 
                 this.finalStats();
@@ -3013,6 +3014,16 @@
                 if (this.config.main_rotation == this.main_rotations.MAIN_ROTATION_AB)
                     return this.items.ids.BRILLIANT_DAWNSTONE;
                 return this.items.ids.RUNED_LIVING_RUBY;
+            },
+
+            confirmGems() {
+                for (var slot in this.gems) {
+                    var item = this.equippedItem(slot);
+                    var n = item && item.sockets ? item.sockets.length : 0;
+                    for (var i=n; i<3; i++) {
+                        this.gems[slot][i] = null;
+                    }
+                }
             },
 
             setSpec(spec) {
@@ -3763,6 +3774,7 @@
                         }
                     }
                     _.merge(this.gems, profile.gems);
+                    this.confirmGems();
                 }
 
                 if (profile.config && (!only || only == "config")) {
@@ -4114,6 +4126,7 @@
                         gems = this.convertGems(gems);
                         _.merge(this.gems, _.pick(gems, _.keys(this.gems)));
                     }
+                    this.confirmGems();
                 }
 
                 if (!equipped)
