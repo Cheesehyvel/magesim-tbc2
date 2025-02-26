@@ -1668,7 +1668,7 @@
                 evocation_at: 0,
                 evo_ticks: 0,
 
-                talents: "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001",
+                talents: "https://www.wowhead.com/tbc/talent-calc/mage/2500250300030150330125--053500031003001",
 
                 stats: {
                     intellect: 465,
@@ -3030,17 +3030,17 @@
                 var talents = null;
 
                 if (spec == "arcane") {
-                    talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
+                    talents = "https://www.wowhead.com/tbc/talent-calc/mage/2500250300030150330125--053500031003001";
                     if (this.spec != "arcane")
                         this.config.main_rotation = this.main_rotations.MAIN_ROTATION_AB;
                 }
                 else if (spec == "frost") {
-                    talents = "https://tbc.wowhead.com/talent-calc/mage/2500250300030150330125--053500031003001";
+                    talents = "https://www.wowhead.com/tbc/talent-calc/mage/2500250300030150330125--053500031003001";
                     if (this.spec != "frost")
                         this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FRB;
                 }
                 else if (spec == "fire") {
-                    talents = "https://tbc.wowhead.com/talent-calc/mage/2-505202012303331053125-043500001";
+                    talents = "https://www.wowhead.com/tbc/talent-calc/mage/2-505202012303331053125-043500001";
                     if (this.spec != "fire")
                         this.config.main_rotation = this.main_rotations.MAIN_ROTATION_FIB;
                 }
@@ -3066,7 +3066,7 @@
                 if (!indexes.hasOwnProperty(talent))
                     return false;
 
-                var m = this.config.talents.match(/tbc\.wowhead\.com.*mage\/([0-9\-]+)$/);
+                var m = this.config.talents.match(/talent-calc\/mage\/(.*)/i);
                 if (m) {
                     var str = m[1];
                     var tree = 0, t = 0;
@@ -3143,7 +3143,7 @@
 
                 if (m = talents.match(/tbcdb\.com.*mage\&([0-9]+)/i)) {
                     var fn = function(str) { return str.replace(/[0]+$/, ""); }
-                    talents = "https://tbc.wowhead.com/talent-calc/mage/"+fn(m[1].substr(0, 23))+"-"+fn(m[1].substr(23, 22))+"-"+fn(m[1].substr(45));
+                    talents = "https://www.wowhead.com/tbc/talent-calc/mage/"+fn(m[1].substr(0, 23))+"-"+fn(m[1].substr(23, 22))+"-"+fn(m[1].substr(45));
                 }
 
                 return talents;
@@ -3656,7 +3656,7 @@
                     var tstring = talents[0]+"-"+talents[1]+"-"+talents[2];
                     tstring = tstring.replace(/0+\-/g, "-");
                     tstring = tstring.replace(/0+$/g, "");
-                    tstring = "https://tbc.wowhead.com/talent-calc/mage/"+tstring;
+                    tstring = "https://www.wowhead.com/tbc/talent-calc/mage/"+tstring;
                     profile.config.talents = tstring;
                 }
 
