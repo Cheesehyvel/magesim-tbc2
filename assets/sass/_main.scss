@@ -276,22 +276,6 @@ table {
 }
 
 #app {
-    .github {
-        display: block;
-        width: 64px;
-        height: 86px;
-        position: absolute;
-        right: 0;
-        top: 0;
-        z-index: 10;
-        background: url("../img/GitHub-Mark-Light-64px.png") no-repeat center center;
-        background-size: 32px auto;
-
-        @media all and (max-width: 1220px) {
-            display: none;
-        }
-    }
-
     .wrapper {
         display: grid;
         grid-template-columns: 200px auto;
@@ -338,6 +322,17 @@ table {
                         font-size: 20px;
                     }
                 }
+            }
+
+            .github {
+                display: block;
+                height: 86px;
+                position: absolute;
+                right: 0;
+                left: 0;
+                bottom: 40px;
+                background: url("../img/GitHub-Mark-Light-64px.png") no-repeat center center;
+                background-size: 32px auto;
             }
 
             .donate {
@@ -388,6 +383,18 @@ table {
                             font-size: 14px;
                         }
                     }
+
+                    .btn-splitview {
+                        cursor: pointer;
+                        position: absolute;
+                        right: 25px;
+                        top: 28px;
+                    }
+                }
+
+                .gear-wrapper {
+                    display: grid;
+                    grid-template-columns: 1fr;
                 }
 
                 .items {
@@ -426,6 +433,7 @@ table {
                         &.color-o { background: #f80; }
                         &.color-p { background: #f0f; }
                         &.color-g { background: #0f0; }
+                        &.color-a { background: #eee; }
 
                         &:nth-child(n+2) {
                             margin-left: 5px;
@@ -505,6 +513,177 @@ table {
                                 white-space: nowrap;
                                 text-align: center;
                             }
+                        }
+                    }
+                }
+
+                .character {
+                    padding: $spacer*0.5;
+
+                    .paperdoll {
+                        @include clearfix();
+
+                        .left {
+                            float: left;
+
+                            .paperslot:nth-last-child(3) {
+                                margin-top: 30px;
+                            }
+                        }
+                        .right {
+                            float: right;
+
+                            .paperslot .papers {
+                                left: auto;
+                                right: 60px;
+                            }
+                        }
+
+                        .paperslot {
+                            position: relative;
+                            margin-bottom: 5px;
+
+                            &.active .paperitem {
+                                border-color: #08f;
+                            }
+
+                            .paperv {
+                                position: relative;
+                                background-size: cover;
+                                background-repeat: no-repeat;
+                                cursor: pointer;
+                            }
+
+                            a {
+                                @include position-cover(absolute);
+                                display: block;
+                                width: auto;
+                                height: auto;
+
+                                span:last-child {
+                                    display: none;
+                                }
+
+                                * {
+                                    @include position-cover(absolute);
+                                    display: block;
+                                    width: auto;
+                                    height: auto;
+                                }
+
+                                ins {
+                                    background-size: cover;
+                                    background-repeat: no-repeat;
+                                }
+
+                                del {
+                                    display: none;
+                                }
+                            }
+
+                            .paperitem {
+                                width: 50px;
+                                height: 50px;
+                                border: 2px solid rgba(255,255,255,0.2);
+                            }
+
+                            .papers {
+                                @include clearfix();
+                                position: absolute;
+                                left: 60px;
+                                bottom: 0;
+                                white-space: nowrap;
+
+                                .paperv {
+                                    display: inline-block;
+                                    width: 16px;
+                                    height: 16px;
+                                    border: 1px solid rgba(255,255,255,0.2);
+
+                                    &:nth-child(n+2) {
+                                        margin-left: 2px;
+                                    }
+                                }
+                            }
+
+                            .paperenchant {
+                                background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_enchant.jpg");
+                            }
+
+                            .papersocket {
+                                background-image: url("https://wow.zamimg.com/images/Icon/small/socket/background.jpg");
+                                background-size: auto 18px;
+
+                                &.papersocket-color-m { border-color: rgba(255,255,255,0.4); background-position: -1 0; }
+                                &.papersocket-color-r { border-color: rgba(255,0,0,0.4); background-position: -19px 0; }
+                                &.papersocket-color-y { border-color: rgba(255,255,0,0.4); background-position: -37px 0; }
+                                &.papersocket-color-b { border-color: rgba(0,0,255,0.4); background-position: -55px 0; }
+                                &.papersocket-color-a { border-color: rgba(255,255,255,0.4); background-position: -73px 0; }
+                            }
+
+                            &.head .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_head.jpg"); }
+                            &.neck .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_neck.jpg"); }
+                            &.shoulder .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_shoulder.jpg"); }
+                            &.chest .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_chest.jpg"); }
+                            &.wrist .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_wrists.jpg"); }
+                            &.hands .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_hands.jpg"); }
+                            &.waist .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_waist.jpg"); }
+                            &.legs .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_legs.jpg"); }
+                            &.feet .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_feet.jpg"); }
+                            &.finger1 .paperitem,
+                            &.finger2 .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_finger.jpg"); }
+                            &.trinket1 .paperitem,
+                            &.trinket2 .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_trinket.jpg"); }
+                            &.weapon .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_mainhand.jpg"); }
+                            &.off_hand .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_offhand.jpg"); }
+                            &.ranged .paperitem { background-image: url("https://wow.zamimg.com/images/wow/icons/large/inventoryslot_ranged.jpg"); }
+                        }
+                    }
+                }
+
+                &.splitview {
+                    .gear-wrapper {
+                        grid-template-columns: 1fr 350px;
+                    }
+
+                    .items {
+                        .items-table {
+                            td, th {
+                                @media all and (max-width: 1800px) {
+                                    &:nth-last-child(-n+1) {
+                                        display: none;
+                                    }
+                                }
+                                @media all and (max-width: 1700px) {
+                                    &:nth-last-child(-n+2) {
+                                        display: none;
+                                    }
+                                }
+                                @media all and (max-width: 1650px) {
+                                    &:nth-last-child(-n+3) {
+                                        display: none;
+                                    }
+                                }
+                                @media all and (max-width: 1600px) {
+                                    &:nth-last-child(-n+4) {
+                                        display: none;
+                                    }
+                                }
+                                @media all and (max-width: 1550px) {
+                                    &:nth-last-child(-n+5) {
+                                        display: none;
+                                    }
+                                }
+                                @media all and (max-width: 1500px) {
+                                    &:nth-last-child(-n+6) {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+
+                        .enchants-table tr > :nth-child(n+2) {
+                            display: none;
                         }
                     }
                 }

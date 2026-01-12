@@ -1,7 +1,5 @@
 <template>
     <div id="app">
-        <a class="github" href="https://github.com/Cheesehyvel/magesim-tbc2" target="_blank"></a>
-
         <div class="fools" v-if="fools_open == 1">
             <div class="inner">
                 <div class="title">Buy premium</div>
@@ -243,6 +241,7 @@
                         </div>
                     </template>
                 </div>
+                <a class="github" href="https://github.com/Cheesehyvel/magesim-tbc2" target="_blank"></a>
                 <div class="donate">
                     <a href="https://www.paypal.com/donate/?hosted_button_id=CU9RF4LCMW8W6" target="_blank">
                         Donate
@@ -250,7 +249,7 @@
                 </div>
             </div>
             <div class="main">
-                <div class="gear">
+                <div class="gear" :class="{splitview}">
                     <div class="slots">
                         <div
                             class="slot"
@@ -258,220 +257,267 @@
                             v-for="slot in slots"
                             @click="setActiveSlot(slot);"
                         >{{ formatKey(slot) }}</div>
+                        <div class="btn btn-splitview" @click="toggleSplitview">
+                            <template v-if="splitview">
+                                <span>Paperdoll</span>
+                                <span class="material-icons">&#xe5e1;</span>
+                            </template>
+                            <template v-else>
+                                <span class="material-icons">&#xe5e0;</span>
+                                <span>Paperdoll</span>
+                            </template>
+                        </div>
                     </div>
-                    <div class="items">
-                        <div class="items-wrapper">
-                            <div class="top">
-                                <div class="form-item">
-                                    <select v-model="phase_filter">
-                                        <option :value="0">- Filter by content phase -</option>
-                                        <option :value="1">Phase 1 - KZ, Gruul, Mag, Arena S1</option>
-                                        <option :value="2">Phase 2 - SSC, TK, Arena S2</option>
-                                        <option :value="3">Phase 3 - MH, BT, Arena S3</option>
-                                        <option :value="4">Phase 4 - Zul'Aman</option>
-                                        <option :value="5">Phase 5 - SWP, Arena S4</option>
-                                    </select>
+                    <div class="gear-wrapper">
+                        <div class="items" ref="items">
+                            <div class="items-wrapper">
+                                <div class="top">
+                                    <div class="form-item">
+                                        <select v-model="phase_filter">
+                                            <option :value="0">- Filter by content phase -</option>
+                                            <option :value="1">Phase 1 - KZ, Gruul, Mag, Arena S1</option>
+                                            <option :value="2">Phase 2 - SSC, TK, Arena S2</option>
+                                            <option :value="3">Phase 3 - MH, BT, Arena S3</option>
+                                            <option :value="4">Phase 4 - Zul'Aman</option>
+                                            <option :value="5">Phase 5 - SWP, Arena S4</option>
+                                        </select>
+                                    </div>
+                                    <div class="btn" :class="[!hasComparisons || is_running ? 'disabled' : '']" @click="runComparison">
+                                        Run item comparison
+                                    </div>
+                                    <div class="btn" @click="openEquiplist">
+                                        Equipped items overview
+                                    </div>
+                                    <div class="btn" @click="openCustomItem">
+                                        Add custom item
+                                    </div>
                                 </div>
-                                <div class="btn" :class="[!hasComparisons || is_running ? 'disabled' : '']" @click="runComparison">
-                                    Run item comparison
-                                </div>
-                                <div class="btn" @click="openEquiplist">
-                                    Equipped items overview
-                                </div>
-                                <div class="btn" @click="openCustomItem">
-                                    Add custom item
+
+                                <table class="mt-2">
+                                    <thead>
+                                        <tr>
+                                            <th class="min">
+                                                <span class="compare" @click.stop="compareAll()" v-if="activeItems">
+                                                    <help icon="e915">Compare all items</help>
+                                                </span>
+                                            </th>
+                                            <th class="min"></th>
+                                            <th class="title">
+                                                <sort-link v-model="item_sort" name="title">Name</sort-link>
+                                            </th>
+                                            <th v-if="hasComparisons">
+                                                <sort-link v-model="item_sort" name="dps" order="desc">DPS</sort-link>
+                                            </th>
+                                            <th>
+                                                <sort-link v-model="item_sort" name="phase">{{ splitviewShort("Phase", "P") }}</sort-link>
+                                            </th>
+                                            <th>
+                                                <sort-link v-model="item_sort" name="sockets" order="desc">Sockets</sort-link>
+                                            </th>
+                                            <th>
+                                                <sort-link v-model="item_sort" name="sp" order="desc">{{ splitviewShort("Spell power", "SP") }}</sort-link>
+                                            </th>
+                                            <th>
+                                                <sort-link v-model="item_sort" name="crit" order="desc">{{ splitviewShort("Crit rating", "Crit") }}</sort-link>
+                                            </th>
+                                            <th>
+                                                <sort-link v-model="item_sort" name="hit" order="desc">{{ splitviewShort("Hit rating", "Hit") }}</sort-link>
+                                            </th>
+                                            <th>
+                                                <sort-link v-model="item_sort" name="haste" order="desc">{{ splitviewShort("Haste rating", "Haste") }}</sort-link>
+                                            </th>
+                                            <th>
+                                                <sort-link v-model="item_sort" name="int" order="desc">{{ splitviewShort("Intellect", "Int") }}</sort-link>
+                                            </th>
+                                            <th>
+                                                <sort-link v-model="item_sort" name="spi" order="desc">{{ splitviewShort("Spirit", "Spi") }}</sort-link>
+                                            </th>
+                                            <th>
+                                                <sort-link v-model="item_sort" name="mp5" order="desc">Mp5</sort-link>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            class="item"
+                                            :class="[isEquipped(active_slot, item.id) ? 'active' : '']"
+                                            v-for="item in activeItems"
+                                            @click="equipToggle(active_slot, item)"
+                                            :key="item.id"
+                                        >
+                                            <td class="min">
+                                                <span class="compare" :class="[isComparing(item) ? 'active' : '']" @click.stop="compareItem(item)">
+                                                    <help icon="e915">Add to comparison</help>
+                                                </span>
+                                            </td>
+                                            <td class="min">
+                                                <span class="delete" @click.stop="deleteCustomItem(item)" v-if="$get(item, 'custom')">
+                                                    <help icon="e872">Delete custom item</help>
+                                                </span>
+                                            </td>
+                                            <td class="title">
+                                                <a :href="itemUrl(item)" :class="['quality-'+$get(item, 'q', 'epic')]" target="_blank" @click.prevent>
+                                                    {{ item.title }}
+                                                </a>
+                                                <span class="link" @click.stop="openItem(item)">
+                                                    <span class="material-icons">
+                                                        &#xe895;
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <th v-if="hasComparisons">
+                                                {{ comparisonDps(item) }}
+                                            </th>
+                                            <th>{{ $get(item, "phase", 1) }}</th>
+                                            <td>
+                                                <template v-if="item.sockets">
+                                                    <div class="socket-color" :class="['color-'+socket]" v-for="socket in item.sockets"></div>
+                                                </template>
+                                                <span class="ml-n" v-if="item.bonus" :class="[hasSocketBonus(active_slot) ? 'socket-bonus' : '']">
+                                                    +{{ formatStats(item.bonus) }}
+                                                </span>
+                                            </td>
+                                            <td>{{ formatSP(item) }}</td>
+                                            <td>{{ $get(item, "crit", "") }}</td>
+                                            <td>{{ $get(item, "hit", "") }}</td>
+                                            <td>{{ $get(item, "haste", "") }}</td>
+                                            <td>{{ $get(item, "int", "") }}</td>
+                                            <td>{{ $get(item, "spi", "") }}</td>
+                                            <td>{{ $get(item, "mp5", "") }}</td>
+                                        </tr>
+                                        <tr
+                                            class="item"
+                                            @click="quickset(set)"
+                                            v-for="(set, key) in items.quicksets"
+                                            v-if="active_slot == 'quicksets'"
+                                        >
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ set.title }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="mt-4" ref="enchantAnchor"></div>
+
+                                <table class="enchants-table" v-if="activeEnchants.length">
+                                    <thead>
+                                        <tr>
+                                            <th>Enchant</th>
+                                            <th>Spell power</th>
+                                            <th>Crit rating</th>
+                                            <th>Hit rating</th>
+                                            <th>Intellect</th>
+                                            <th>Spirit</th>
+                                            <th>Mp5</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            class="item"
+                                            :class="[isEnchanted(active_slot, item.id) ? 'active' : '']"
+                                            v-for="item in activeEnchants"
+                                            :key="item.id"
+                                            @click="enchant(active_slot, item)"
+                                        >
+                                            <td>
+                                                <a :href="spellUrl(item)" :class="['quality-'+$get(item, 'q', 'uncommon')]" target="_blank" @click.stop>
+                                                    {{ item.title }}
+                                                </a>
+                                            </td>
+                                            <td>{{ formatSP(item) }}</td>
+                                            <td>{{ $get(item, "crit", "") }}</td>
+                                            <td>{{ $get(item, "hit", "") }}</td>
+                                            <td>{{ $get(item, "int", "") }}</td>
+                                            <td>{{ $get(item, "spi", "") }}</td>
+                                            <td>{{ $get(item, "mp5", "") }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="mt-4" ref="gemsAnchor"></div>
+
+                                <div class="sockets" v-if="activeSockets.length">
+                                    <div class="socket" v-for="(socket, index) in activeSockets">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="min">
+                                                        <span class="socket-color" :class="['color-'+socket]"></span>
+                                                    </th>
+                                                    <th>Gem</th>
+                                                    <th>Stats</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr
+                                                    :class="[isSocketed(active_slot, gem.id, index) ? 'active' : '']"
+                                                    v-for="gem in activeGems(index)"
+                                                    @click="setSocket(active_slot, gem, index)"
+                                                    :key="gem.id"
+                                                >
+                                                    <td class="min">
+                                                        <span class="socket-color" :class="['color-'+gem.color]"></span>
+                                                    </td>
+                                                    <td>
+                                                        <a :href="itemUrl(gem)" class="gem-color" :class="['color-'+gem.color]" target="_blank" @click.prevent>
+                                                            {{ gem.title }}
+                                                        </a>
+                                                    </td>
+                                                    <td>{{ formatStats(gem) }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-
-                            <table class="mt-2">
-                                <thead>
-                                    <tr>
-                                        <th class="min">
-                                            <span class="compare" @click.stop="compareAll()" v-if="activeItems">
-                                                <help icon="e915">Compare all items</help>
-                                            </span>
-                                        </th>
-                                        <th class="min"></th>
-                                        <th class="title">
-                                            <sort-link v-model="item_sort" name="title">Name</sort-link>
-                                        </th>
-                                        <th v-if="hasComparisons">
-                                            <sort-link v-model="item_sort" name="dps" order="desc">DPS</sort-link>
-                                        </th>
-                                        <th>
-                                            <sort-link v-model="item_sort" name="phase">Phase</sort-link>
-                                        </th>
-                                        <th>
-                                            <sort-link v-model="item_sort" name="sockets" order="desc">Sockets</sort-link>
-                                        </th>
-                                        <th>
-                                            <sort-link v-model="item_sort" name="sp" order="desc">Spell power</sort-link>
-                                        </th>
-                                        <th>
-                                            <sort-link v-model="item_sort" name="crit" order="desc">Crit rating</sort-link>
-                                        </th>
-                                        <th>
-                                            <sort-link v-model="item_sort" name="hit" order="desc">Hit rating</sort-link>
-                                        </th>
-                                        <th>
-                                            <sort-link v-model="item_sort" name="haste" order="desc">Haste rating</sort-link>
-                                        </th>
-                                        <th>
-                                            <sort-link v-model="item_sort" name="int" order="desc">Intellect</sort-link>
-                                        </th>
-                                        <th>
-                                            <sort-link v-model="item_sort" name="spi" order="desc">Spirit</sort-link>
-                                        </th>
-                                        <th>
-                                            <sort-link v-model="item_sort" name="mp5" order="desc">Mp5</sort-link>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        class="item"
-                                        :class="[isEquipped(active_slot, item.id) ? 'active' : '']"
-                                        v-for="item in activeItems"
-                                        @click="equipToggle(active_slot, item)"
-                                        :key="item.id"
-                                    >
-                                        <td class="min">
-                                            <span class="compare" :class="[isComparing(item) ? 'active' : '']" @click.stop="compareItem(item)">
-                                                <help icon="e915">Add to comparison</help>
-                                            </span>
-                                        </td>
-                                        <td class="min">
-                                            <span class="delete" @click.stop="deleteCustomItem(item)" v-if="$get(item, 'custom')">
-                                                <help icon="e872">Delete custom item</help>
-                                            </span>
-                                        </td>
-                                        <td class="title">
-                                            <a :href="itemUrl(item)" :class="['quality-'+$get(item, 'q', 'epic')]" target="_blank" @click.prevent>
-                                                {{ item.title }}
-                                            </a>
-                                            <span class="link" @click.stop="openItem(item)">
-                                                <span class="material-icons">
-                                                    &#xe895;
-                                                </span>
-                                            </span>
-                                        </td>
-                                        <th v-if="hasComparisons">
-                                            {{ comparisonDps(item) }}
-                                        </th>
-                                        <th>{{ $get(item, "phase", 1) }}</th>
-                                        <td>
-                                            <template v-if="item.sockets">
-                                                <div class="socket-color" :class="['color-'+socket]" v-for="socket in item.sockets"></div>
-                                            </template>
-                                            <span class="ml-n" v-if="item.bonus" :class="[hasSocketBonus(active_slot) ? 'socket-bonus' : '']">
-                                                +{{ formatStats(item.bonus) }}
-                                            </span>
-                                        </td>
-                                        <td>{{ formatSP(item) }}</td>
-                                        <td>{{ $get(item, "crit", "") }}</td>
-                                        <td>{{ $get(item, "hit", "") }}</td>
-                                        <td>{{ $get(item, "haste", "") }}</td>
-                                        <td>{{ $get(item, "int", "") }}</td>
-                                        <td>{{ $get(item, "spi", "") }}</td>
-                                        <td>{{ $get(item, "mp5", "") }}</td>
-                                    </tr>
-                                    <tr
-                                        class="item"
-                                        @click="quickset(set)"
-                                        v-for="(set, key) in items.quicksets"
-                                        v-if="active_slot == 'quicksets'"
-                                    >
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{ set.title }}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <table class="mt-4" v-if="activeEnchants.length">
-                                <thead>
-                                    <tr>
-                                        <th>Enchant</th>
-                                        <th>Spell power</th>
-                                        <th>Crit rating</th>
-                                        <th>Hit rating</th>
-                                        <th>Intellect</th>
-                                        <th>Spirit</th>
-                                        <th>Mp5</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        class="item"
-                                        :class="[isEnchanted(active_slot, item.id) ? 'active' : '']"
-                                        v-for="item in activeEnchants"
-                                        :key="item.id"
-                                        @click="enchant(active_slot, item)"
-                                    >
-                                        <td>
-                                            <a :href="spellUrl(item)" :class="['quality-'+$get(item, 'q', 'uncommon')]" target="_blank" @click.stop>
-                                                {{ item.title }}
-                                            </a>
-                                        </td>
-                                        <td>{{ formatSP(item) }}</td>
-                                        <td>{{ $get(item, "crit", "") }}</td>
-                                        <td>{{ $get(item, "hit", "") }}</td>
-                                        <td>{{ $get(item, "int", "") }}</td>
-                                        <td>{{ $get(item, "spi", "") }}</td>
-                                        <td>{{ $get(item, "mp5", "") }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <div class="sockets mt-4" v-if="activeSockets.length">
-                                <div class="socket" v-for="(socket, index) in activeSockets">
-                                    <div class="title">
-                                        <span>Socket {{ (index+1) }}</span>
-                                        <span class="socket-color" :class="['color-'+socket]"></span>
+                        </div>
+                        <div class="character" v-if="splitview">
+                            <div class="paperdoll">
+                                <div :class="pos" v-for="pos in ['left', 'right']">
+                                    <div class="paperslot" :class="[slot, active_slot == slot ? 'active' : '']" v-for="slot in dollSlots(pos)">
+                                        <div class="paperv paperitem" @click="paperClick(slot)">
+                                            <a
+                                                v-if="equipped[slot]"
+                                                :href="equippedUrl(slot)"
+                                                data-wh-icon-size="large"
+                                                @click="$event.preventDefault()"
+                                            ></a>
+                                        </div>
+                                        <div class="papers">
+                                            <div class="paperv paperenchant" v-if="items.enchants.hasOwnProperty(equipSlotToItemSlot(slot)) && pos == 'left'" @click="paperClick(slot, 'enchant')">
+                                                <a
+                                                    v-if="enchants[slot]"
+                                                    :href="spellUrl(enchants[slot])"
+                                                    data-wh-icon-size="large"
+                                                    @click="$event.preventDefault()"
+                                                ></a>
+                                            </div>
+                                            <div class="paperv papersocket" :class="['papersocket-color-'+socket]" v-for="(socket, index) in slotSockets(slot)" @click="paperClick(slot, 'gems')">
+                                                <a
+                                                    v-if="gems[slot][index]"
+                                                    :href="itemUrl(gems[slot][index])"
+                                                    data-wh-icon-size="large"
+                                                    @click="$event.preventDefault()"
+                                                ></a>
+                                            </div>
+                                            <div class="paperv paperenchant" v-if="items.enchants.hasOwnProperty(equipSlotToItemSlot(slot)) && pos == 'right'" @click="paperClick(slot, 'enchant')">
+                                                <a
+                                                    v-if="enchants[slot]"
+                                                    :href="spellUrl(enchants[slot])"
+                                                    data-wh-icon-size="large"
+                                                    @click="$event.preventDefault()"
+                                                ></a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Gem</th>
-                                                <th>Stats</th>
-                                                <th v-if="socket == 'm'">Requires</th>
-                                                <th v-else>Unique</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr
-                                                :class="[isSocketed(active_slot, gem.id, index) ? 'active' : '']"
-                                                v-for="gem in activeGems(index)"
-                                                @click="setSocket(active_slot, gem, index)"
-                                                :key="gem.id"
-                                            >
-                                                <td>
-                                                    <a :href="itemUrl(gem)" class="gem-color" :class="['color-'+gem.color]" target="_blank" @click.stop>
-                                                        {{ gem.title }}
-                                                    </a>
-                                                </td>
-                                                <td>{{ formatStats(gem) }}</td>
-                                                <td v-if="socket == 'm'">
-                                                    <template v-if="gem.req">
-                                                        <template v-if="metaGemHasCustomReq(gem)">
-                                                            {{ gem.req }}
-                                                        </template>
-                                                        <template v-else>
-                                                            <div class="socket-text-color" :class="['color-'+c]" v-for="(n, c) in gem.req">{{ n }}</div>
-                                                        </template>
-                                                    </template>
-                                                </td>
-                                                <td v-else><template v-if="gem.unique">Yes</template></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -1548,6 +1594,8 @@
         },
 
         data() {
+            var splitview = localStorage.getItem("splitview") == "true" ? true : false;
+
             var default_config = {
                 iterations: 30000,
                 race: 5,
@@ -1784,6 +1832,7 @@
                     "6": true,
                     "7": true,
                 },
+                splitview: splitview,
                 default_config: default_config,
                 config: _.cloneDeep(default_config),
             };
@@ -2024,6 +2073,21 @@
                     window.location.hash = "";
                     this.donation_open = true;
                 }
+            },
+
+            setSplitview(value) {
+                localStorage.setItem("splitview", value);
+                this.splitview = value;
+                if (this.splitview)
+                    this.refreshTooltips();
+            },
+
+            toggleSplitview(e) {
+                this.setSplitview(!this.splitview);
+            },
+
+            splitviewShort(long, short) {
+                return this.splitview ? short : long;
             },
 
             runMultiple() {
@@ -2321,6 +2385,31 @@
                     return null;
 
                 return this.getItem(slot, id);
+            },
+
+            dollSlots(pos) {
+                if (pos == "left") {
+                    return [
+                        "head", "neck", "shoulder",
+                        "back", "chest", "wrist",
+                        "weapon", "off_hand", "ranged",
+                    ];
+                }
+                if (pos == "right") {
+                    return [
+                        "hands", "waist", "legs", "feet",
+                        "finger1", "finger2", "trinket1", "trinket2",
+                    ];
+                }
+            },
+
+            slotSockets(slot, item) {
+                if (!item)
+                    item = this.equippedItem(slot);
+                var sockets = [];
+                if (item && item.sockets)
+                    sockets = _.clone(item.sockets);
+                return sockets;
             },
 
             activeGems(index) {
@@ -2700,6 +2789,40 @@
                 return "https://tbc.wowhead.com/?spell="+id;
             },
 
+            equippedUrl(slot) {
+                if (!this.equipped[slot])
+                    return null;
+                var url = this.itemUrl(this.equipped[slot]);
+                var item = this.getItem(slot, this.equipped[slot]);
+
+                var sockets = this.slotSockets(slot);
+                if (sockets.length) {
+                    var gems = [];
+                    for (var i=0; i<sockets.length; i++)
+                        gems.push(this.gems[slot][i] ? this.gems[slot][i] : "");
+                    url+= "&gems="+gems.join(":");
+                }
+
+                if (_.get(this.enchants, slot)) {
+                    var enchant = this.getEnchant(slot, this.enchants[slot]);
+                    if (enchant)
+                        url+= "&ench="+enchant.enchantmentId;
+                }
+
+                if (item.itemset) {
+                    var pcs = [];
+                    for (var key in this.equipped) {
+                        var itm = this.getItem(key, this.equipped[key]);
+                        if (_.get(itm, "itemset") == item.itemset)
+                            pcs.push(itm.id);
+                    }
+                    if (pcs.length)
+                        url+= "&pcs="+pcs.join(":");
+                }
+
+                return url;
+            },
+
             critRatingToChance(rating) {
                 return rating / 22.08;
             },
@@ -2878,6 +3001,7 @@
 
                 this.saveGear();
                 this.finalStats();
+                this.refreshTooltips();
             },
 
             matchSocketColor(sock, gem) {
@@ -3095,6 +3219,50 @@
                     return true;
 
                 return false;
+            },
+
+            paperClick(slot, what) {
+                this.setActiveSlot(slot);
+
+                if (what == "enchant") {
+                    this.$nextTick(function() {
+                        this.scrollToEnchant();
+                    });
+                }
+                else if (what == "gems") {
+                    this.$nextTick(function() {
+                        this.scrollToGems();
+                    });
+                }
+                else {
+                    this.$nextTick(function() {
+                        this.scrollToItems();
+                    });
+                }
+            },
+
+            scrollToItems() {
+                if (this.$refs.enchantAnchor && this.$refs.items) {
+                    this.$refs.items.scrollTo(0, 0);
+                }
+            },
+
+            scrollToEnchant() {
+                if (this.$refs.enchantAnchor && this.$refs.items) {
+                    this.$refs.items.scrollTo({
+                        top: this.$refs.enchantAnchor.offsetTop - this.$refs.items.offsetTop - 30,
+                        behavior: "smooth"
+                    });
+                }
+            },
+
+            scrollToGems() {
+                if (this.$refs.gemsAnchor && this.$refs.items) {
+                    this.$refs.items.scrollTo({
+                        top: this.$refs.gemsAnchor.offsetTop - this.$refs.items.offsetTop - 30,
+                        behavior: "smooth"
+                    });
+                }
             },
 
             isComparing(item) {
