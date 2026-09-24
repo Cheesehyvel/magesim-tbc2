@@ -55,6 +55,7 @@ namespace buff
         FEL_ACHE = 38927,
         BURST_OF_KNOWLEDGE = 15646,
         DARK_IRON_PIPE = 51953,
+        DARK_IRON_PIPE_TBC_ANNI = 1312270,
         LIGHTS_WRATH = 45479,
     };
 
@@ -221,6 +222,19 @@ namespace buff
         DarkIronPipe()
         {
             id = DARK_IRON_PIPE;
+            name = "Dark Iron Pipeweed";
+            duration = 20;
+        }
+
+    };
+
+   class DarkIronPipeTBCAnni : public Buff
+    {
+
+    public:
+        DarkIronPipeTBCAnni()
+        {
+            id = DARK_IRON_PIPE_TBC_ANNI;
             name = "Dark Iron Pipeweed";
             duration = 20;
         }

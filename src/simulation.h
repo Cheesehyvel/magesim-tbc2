@@ -1391,6 +1391,8 @@ public:
            buff = make_shared<buff::SilverCrescent>();
         if (trinket_id == TRINKET_SMOKING_PIPE)
            buff = make_shared<buff::DarkIronPipe>();
+        if (trinket_id == TRINKET_SMOKING_PIPE_TBC_ANNI)
+           buff = make_shared<buff::DarkIronPipeTBCAnni>();
         if (trinket_id == TRINKET_ESSENCE_MARTYR)
            buff = make_shared<buff::EssenceMartyr>();
         if (trinket_id == TRINKET_CRYSTAL_TALISMAN)
@@ -1908,6 +1910,8 @@ public:
                 sp+= 155.0;
             if (state->hasBuff(buff::DARK_IRON_PIPE))
                 sp+= 155.0;
+            if (state->hasBuff(buff::DARK_IRON_PIPE_TBC_ANNI))
+                sp+= 210.0;
             if (state->hasBuff(buff::ESSENCE_MARTYR))
                 sp+= 99.0;
             if (state->hasBuff(buff::SPELL_POWER))

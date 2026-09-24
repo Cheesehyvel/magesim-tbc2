@@ -2766,7 +2766,7 @@
             itemUrl(id) {
                 if (typeof(id) == "object")
                     id = id.id;
-                if (id > 99900)
+                if (id > 299999)
                     return null;
                 if (this.item_source == "tbcdb")
                     return "https://tbcdb.com/?item="+id;
