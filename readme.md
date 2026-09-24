@@ -2,8 +2,10 @@
 
 Mage DPS simulator for WoW TBC Classic.
 
+[Live sim website](https://cheesehyvel.github.io/magesim-tbc2/)
+
 Backend is written in C++ and compiled with Emscripten into WebAssembly.\
-Frontend is written in Vue.js and SCSS and compiled with Laravel mix.
+Frontend is built with Vue and compiled with Vite.
 
 ## Building the project
 Requirements for backend
@@ -15,8 +17,5 @@ Requirements for frontend
 
 Standing in the root folder of the project.\
 Build backend: `$ make`\
-Build frontend: `$ npx mix`
-
-## Common issues
-Some browsers have issues with WebAssembly when simply opening the file in the browser. This is when the url is something like `C://Users/Name/Downloads/magesim-tbc/index.html`.\
-To solve this, run the project through a web server. If you have Python3 installed you can simply run `$ python3 -m http.server` in the project folder to start a simple web server.
+Build frontend: `$ npm run build`\
+Frontend development: `$ npm run dev`

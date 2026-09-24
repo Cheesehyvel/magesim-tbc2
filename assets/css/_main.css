@@ -284,14 +284,14 @@ table {
         .sidebar {
             position: relative;
             background: #111;
-            padding: $spacer*0.5 $spacer*0.5 $spacer;
+            padding: calc(var(--spacer)*0.5) calc(var(--spacer)*0.5) var(--spacer);
 
             .final-stats {
-                margin-top: $spacer*0.5;
+                margin-top: calc(var(--spacer)*0.5);
             }
 
             .ep-stats {
-                margin-top: $spacer*0.5;
+                margin-top: calc(var(--spacer)*0.5);
 
                 .link {
                     color: #08f;
@@ -300,7 +300,7 @@ table {
             }
 
             .result {
-                margin-top: $spacer;
+                margin-top: var(--spacer);
                 text-align: center;
 
                 > div:nth-child(1) {
@@ -331,7 +331,7 @@ table {
                 right: 0;
                 left: 0;
                 bottom: 40px;
-                background: url("../img/GitHub-Mark-Light-64px.png") no-repeat center center;
+                background: url("/img/GitHub-Mark-Light-64px.png") no-repeat center center;
                 background-size: 32px auto;
             }
 
@@ -351,13 +351,13 @@ table {
             .gear {
                 .slots {
                     background: #121220;
-                    padding: $spacer*0.5 $spacer $spacer*0.5 $spacer*0.5;
+                    padding: calc(var(--spacer)*0.5) var(--spacer) calc(var(--spacer)*0.5) calc(var(--spacer)*0.5);
 
                     .slot {
                         display: inline-block;
                         font-weight: 700;
                         font-size: 16px;
-                        margin-right: $spacer*0.5;
+                        margin-right: calc(var(--spacer)*0.5);
                         cursor: pointer;
                         color: rgba(255,255,255,0.5);
                         border-bottom: 2px solid transparent;
@@ -403,14 +403,14 @@ table {
                     box-sizing: border-box;
 
                     .items-wrapper {
-                        padding: $spacer*0.5;
+                        padding: calc(var(--spacer)*0.5);
 
                         > .top {
-                            @include clearfix();
+                            @mixin clearfix;
 
                             > * {
                                 float: left;
-                                margin-right: $spacer*0.25;
+                                margin-right: calc(var(--spacer)*0.25);
                             }
 
                             select {
@@ -486,7 +486,7 @@ table {
                     }
 
                     .sockets {
-                        @include clearfix();
+                        @mixin clearfix;
 
                         .socket {
                             float: left;
@@ -518,10 +518,10 @@ table {
                 }
 
                 .character {
-                    padding: $spacer*0.5;
+                    padding: calc(var(--spacer)*0.5);
 
                     .paperdoll {
-                        @include clearfix();
+                        @mixin clearfix;
 
                         .left {
                             float: left;
@@ -555,7 +555,8 @@ table {
                             }
 
                             a {
-                                @include position-cover(absolute);
+                                @mixin cover;
+                                position: absolute;
                                 display: block;
                                 width: auto;
                                 height: auto;
@@ -565,7 +566,8 @@ table {
                                 }
 
                                 * {
-                                    @include position-cover(absolute);
+                                    @mixin cover;
+                                    position: absolute;
                                     display: block;
                                     width: auto;
                                     height: auto;
@@ -588,7 +590,7 @@ table {
                             }
 
                             .papers {
-                                @include clearfix();
+                                @mixin clearfix;
                                 position: absolute;
                                 left: 60px;
                                 bottom: 0;
@@ -716,7 +718,7 @@ table {
         right: 0;
         bottom: 0;
         overflow: auto;
-        padding: $spacer*0.5;
+        padding: calc(var(--spacer)*0.5);
         background: #1f1f28;
         z-index: 100;
 
@@ -783,7 +785,7 @@ table {
         .new-profile {
             display: grid;
             grid-template-columns: 1fr min-content;
-            grid-gap: $spacer*0.25;
+            grid-gap: calc(var(--spacer)*0.25);
         }
     }
 
@@ -798,15 +800,15 @@ table {
         z-index: 102;
 
         .log-wrapper {
-            padding: $spacer $spacer*0.5 $spacer*0.5;
+            padding: var(--spacer) calc(var(--spacer)*0.5) calc(var(--spacer)*0.5);
 
             .filter {
-                @include clearfix();
-                margin-bottom: $spacer*0.5;
+                @mixin clearfix;
+                margin-bottom: calc(var(--spacer)*0.5);
 
                 .form-item {
                     float: left;
-                    margin: 0 $spacer*0.5 0 0;
+                    margin: 0 calc(var(--spacer)*0.5) 0 0;
                 }
             }
         }
@@ -855,7 +857,7 @@ table {
         z-index: 102;
 
         .spells-wrapper {
-            padding: $spacer $spacer*0.5 $spacer*0.5;
+            padding: var(--spacer) calc(var(--spacer)*0.5) calc(var(--spacer)*0.5);
         }
     }
 
@@ -869,7 +871,7 @@ table {
         overflow: auto;
         background: #1f1f28;
         z-index: 102;
-        padding: $spacer;
+        padding: var(--spacer);
     }
 
     .lightbox {
@@ -890,20 +892,20 @@ table {
             bottom: 10%;
             width: 80vw;
             background: #161620;
-            padding: $spacer*0.5;
+            padding: calc(var(--spacer)*0.5);
             box-sizing: border-box;
             overflow: auto;
             animation: moveInFromBelow 0.4s ease forwards;
 
             > .title {
                 font-size: 18px;
-                margin-bottom: $spacer*0.25;
+                margin-bottom: calc(var(--spacer)*0.25);
                 font-weight: 700;
             }
 
             > .description {
-                margin-top: -$spacer*0.25;
-                margin-bottom: $spacer*0.25;
+                margin-top: -calc(var(--spacer)*0.25);
+                margin-bottom: calc(var(--spacer)*0.25);
             }
 
             textarea {
@@ -937,7 +939,7 @@ table {
     > .inner {
         position: absolute;
         background: #161620;
-        padding: $spacer;
+        padding: var(--spacer);
         top: calc(50vh - 200px);
         left: 50%;
         margin-left: -300px;
@@ -946,13 +948,13 @@ table {
 
         .title {
             font-size: 30px;
-            margin-bottom: $spacer*0.5;
+            margin-bottom: calc(var(--spacer)*0.5);
             font-weight: 700;
         }
 
         .text {
             font-size: 18px;
-            margin-bottom: $spacer*0.5;
+            margin-bottom: calc(var(--spacer)*0.5);
 
             b {
                 font-weight: 700;
@@ -972,17 +974,17 @@ table {
 
     > .inner {
         background: #161620;
-        padding: $spacer*0.5;
+        padding: calc(var(--spacer)*0.5);
         text-align: center;
 
         .title {
             font-size: 24px;
-            margin-bottom: $spacer*0.25;
+            margin-bottom: calc(var(--spacer)*0.25);
             font-weight: 700;
         }
 
         .text {
-            margin-bottom: $spacer*0.25;
+            margin-bottom: calc(var(--spacer)*0.25);
 
             b {
                 font-weight: 700;

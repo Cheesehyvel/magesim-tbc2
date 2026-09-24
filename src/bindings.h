@@ -1,5 +1,3 @@
-#ifdef __EMSCRIPTEN__
-
 #include <emscripten.h>
 #include <emscripten/bind.h>
 
@@ -325,5 +323,3 @@ EMSCRIPTEN_BINDINGS(my_module) {
     emscripten::function("runSimulation", &runSimulation);
     emscripten::function("runSimulations", &runSimulations);
 }
-
-#endif

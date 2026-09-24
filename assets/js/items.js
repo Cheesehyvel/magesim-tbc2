@@ -541,54 +541,54 @@ var gems = [
 
 var enchants = {
     weapon: [
-        { id: 27981, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
-        { id: 27982, title: "Soulfrost", sp_frost: 54 },
-        { id: 27975, title: "Major Spellpower", sp: 40 },
-        { id: 27968, title: "Major Intellect", int: 30 },
+        { id: 27981, enchantmentId: 2671, title: "Sunfire", sp_arcane: 50, sp_fire: 50 },
+        { id: 27982, enchantmentId: 2672, title: "Soulfrost", sp_frost: 54 },
+        { id: 27975, enchantmentId: 2669, title: "Major Spellpower", sp: 40 },
+        { id: 27968, enchantmentId: 2666, title: "Major Intellect", int: 30 },
     ],
     head: [
-        { id: 35447, title: "Glyph of Power", sp: 22, hit: 14 },
-        { id: 24164, title: "Presence of Sight", sp: 18, hit: 8, q: "rare" },
+        { id: 35447, enchantmentId: 3002, title: "Glyph of Power", sp: 22, hit: 14 },
+        { id: 24164, enchantmentId: 2588, title: "Presence of Sight", sp: 18, hit: 8, q: "rare" },
     ],
     shoulder: [
-        { id: 35406, title: "Greater Inscription of Discipline (Aldor)", sp: 18, crit: 10, q: "rare" },
-        { id: 35437, title: "Greater Inscription of the Orb (Scryer)", sp: 12, crit: 15, q: "rare" },
-        { id: 29467, title: "Power of the Scourge", sp: 15, crit: 14, q: "epic" },
-        { id: 35405, title: "Inscription of Discipline (Aldor)", sp: 15 },
-        { id: 35436, title: "Inscription of the Orb (Scryer)", crit: 13 },
+        { id: 35406, enchantmentId: 2982, title: "Greater Inscription of Discipline (Aldor)", sp: 18, crit: 10, q: "rare" },
+        { id: 35437, enchantmentId: 2995, title: "Greater Inscription of the Orb (Scryer)", sp: 12, crit: 15, q: "rare" },
+        { id: 29467, enchantmentId: 2721, title: "Power of the Scourge", sp: 15, crit: 14, q: "epic" },
+        { id: 35405, enchantmentId: 2981, title: "Inscription of Discipline (Aldor)", sp: 15 },
+        { id: 35436, enchantmentId: 2994, title: "Inscription of the Orb (Scryer)", crit: 13 },
     ],
     chest: [
-        { id: 27960, title: "Exceptional Stats", int: 6, spi: 6 },
-        { id: 33990, title: "Major Spirit", spi: 15 },
-        { id: 33991, title: "Restore Mana Prime", mp5: 6 },
+        { id: 27960, enchantmentId: 2661, title: "Exceptional Stats", int: 6, spi: 6 },
+        { id: 33990, enchantmentId: 1144, title: "Major Spirit", spi: 15 },
+        { id: 33991, enchantmentId: 3150, title: "Restore Mana Prime", mp5: 6 },
     ],
     wrist: [
-        { id: 27917, title: "Spellpower", sp: 15 },
-        { id: 34001, title: "Major Intellect", int: 12 },
-        { id: 27913, title: "Restore Mana Prime", mp5: 6 },
+        { id: 27917, enchantmentId: 2650, title: "Spellpower", sp: 15 },
+        { id: 34001, enchantmentId: 369, title: "Major Intellect", int: 12 },
+        { id: 27913, enchantmentId: 2679, title: "Restore Mana Prime", mp5: 6 },
     ],
     hands: [
-        { id: 33997, title: "Major Spellpower", sp: 20 },
-        { id: 33994, title: "Spell Strike", hit: 15 },
-        { id: 33993, title: "Blasting", crit: 10 },
+        { id: 33997, enchantmentId: 2937, title: "Major Spellpower", sp: 20 },
+        { id: 33994, enchantmentId: 2935, title: "Spell Strike", hit: 15 },
+        { id: 33993, enchantmentId: 2934, title: "Blasting", crit: 10 },
     ],
     legs: [
-        { id: 31372, title: "Runic Spellthread", sp: 35, q: "epic" },
-        { id: 31371, title: "Mystic Spellthread", sp: 25, q: "rare" },
-        { id: 24164, title: "Presence of Sight", sp: 18, hit: 8, q: "epic" },
+        { id: 31372, enchantmentId: 2748, title: "Runic Spellthread", sp: 35, q: "epic" },
+        { id: 31371, enchantmentId: 2747, title: "Mystic Spellthread", sp: 25, q: "rare" },
+        { id: 24164, enchantmentId: 2588, title: "Presence of Sight", sp: 18, hit: 8, q: "epic" },
     ],
     feet: [
-        { id: 34008, title: "Boar's Speed", q: "rare" },
-        { id: 27948, title: "Vitality", mp5: 4 },
-        { id: 32399, title: "Magister's Armor Kit", mp5: 3, q: "common" },
-        { id: 20024, title: "Spirit", spi: 5 },
+        { id: 34008, enchantmentId: 2940, title: "Boar's Speed", q: "rare" },
+        { id: 27948, enchantmentId: 2656, title: "Vitality", mp5: 4 },
+        { id: 32399, enchantmentId: 2794, title: "Magister's Armor Kit", mp5: 3, q: "common" },
+        { id: 20024, enchantmentId: 851, title: "Spirit", spi: 5 },
     ],
     finger: [
-        { id: 27924, title: "Spellpower", sp: 12 },
-        { id: 27927, title: "Stats", int: 4, spi: 4 },
+        { id: 27924, enchantmentId: 2928, title: "Spellpower", sp: 12 },
+        { id: 27927, enchantmentId: 2931, title: "Stats", int: 4, spi: 4 },
     ],
     back: [
-        { id: 25084, title: "Subtlety", q: "rare"}
+        { id: 25084, enchantmentId: 2621, title: "Subtlety", q: "rare"}
     ]
 };
 

@@ -104,21 +104,21 @@
                             <tr>
                                 <td>Crit</td>
                                 <td>
-                                    <span>{{ $round(final_stats.crit, 2) }}%</span>
+                                    <span>{{ round(final_stats.crit, 2) }}%</span>
                                     <tooltip position="r">{{ final_stats.crit_rating }} crit rating</tooltip>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Hit</td>
                                 <td>
-                                    <span>{{ $round(final_stats.hit, 2) }}%</span>
+                                    <span>{{ round(final_stats.hit, 2) }}%</span>
                                     <tooltip position="r">{{ final_stats.hit_rating }} hit rating</tooltip>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Haste</td>
                                 <td>
-                                    <span>{{ $round(final_stats.haste, 2) }}%</span>
+                                    <span>{{ round(final_stats.haste, 2) }}%</span>
                                     <tooltip position="r">{{ final_stats.haste_rating }} haste rating</tooltip>
                                 </td>
                             </tr>
@@ -154,43 +154,43 @@
                         <tbody>
                             <tr @click="ep_weight = 'int'">
                                 <td>Intellect</td>
-                                <td>{{ $nullRound(epCalc.int, 2) }}</td>
+                                <td>{{ nullRound(epCalc.int, 2) }}</td>
                             </tr>
                             <tr @click="ep_weight = 'spi'">
                                 <td>Spirit</td>
-                                <td>{{ $nullRound(epCalc.spi, 2) }}</td>
+                                <td>{{ nullRound(epCalc.spi, 2) }}</td>
                             </tr>
                             <tr @click="ep_weight = 'mp5'">
                                 <td>Mp5</td>
-                                <td>{{ $nullRound(epCalc.mp5, 2) }}</td>
+                                <td>{{ nullRound(epCalc.mp5, 2) }}</td>
                             </tr>
                             <tr @click="ep_weight = 'sp'">
                                 <td>Spell power</td>
-                                <td>{{ $nullRound(epCalc.sp, 2) }}</td>
+                                <td>{{ nullRound(epCalc.sp, 2) }}</td>
                             </tr>
                             <tr @click="ep_weight = 'sp_arcane'">
                                 <td>SP Arcane</td>
-                                <td>{{ $nullRound(epCalc.sp_arcane, 2) }}</td>
+                                <td>{{ nullRound(epCalc.sp_arcane, 2) }}</td>
                             </tr>
                             <tr @click="ep_weight = 'sp_frost'">
                                 <td>SP Frost</td>
-                                <td>{{ $nullRound(epCalc.sp_frost, 2) }}</td>
+                                <td>{{ nullRound(epCalc.sp_frost, 2) }}</td>
                             </tr>
                             <tr @click="ep_weight = 'sp_fire'">
                                 <td>SP Fire</td>
-                                <td>{{ $nullRound(epCalc.sp_fire, 2) }}</td>
+                                <td>{{ nullRound(epCalc.sp_fire, 2) }}</td>
                             </tr>
                             <tr @click="ep_weight = 'sp_crit'">
                                 <td>Crit rating</td>
-                                <td>{{ $nullRound(epCalc.crit, 2) }}</td>
+                                <td>{{ nullRound(epCalc.crit, 2) }}</td>
                             </tr>
                             <tr @click="ep_weight = 'spt_hit'">
                                 <td>Hit rating</td>
-                                <td>{{ $nullRound(epCalc.hit, 2) }}</td>
+                                <td>{{ nullRound(epCalc.hit, 2) }}</td>
                             </tr>
                             <tr @click="ep_weight = 'sp_haste'">
                                 <td>Haste rating</td>
-                                <td>{{ $nullRound(epCalc.haste, 2) }}</td>
+                                <td>{{ nullRound(epCalc.haste, 2) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -198,19 +198,19 @@
                 <div class="result" v-else-if="result">
                     <template v-if="result.iterations">
                         <div>DPS</div>
-                        <div>{{ $round(result.avg_dps, 2) }}</div>
-                        <div class="faded">{{ $round(result.min_dps, 2) }} - {{ $round(result.max_dps, 2) }}</div>
+                        <div>{{ round(result.avg_dps, 2) }}</div>
+                        <div class="faded">{{ round(result.min_dps, 2) }} - {{ round(result.max_dps, 2) }}</div>
                         <div class="mt-1"></div>
                         <div class="faded" v-if="result.stats.evocated.n">
-                            Evocated: {{ $round(result.stats.evocated.t, 1) }}s
-                            ({{ $round(result.stats.evocated.n / result.iterations * 100, 1) }}%)
+                            Evocated: {{ round(result.stats.evocated.t, 1) }}s
+                            ({{ round(result.stats.evocated.n / result.iterations * 100, 1) }}%)
                         </div>
                         <div class="faded" v-if="result.stats.regened.n">
-                            Filler: {{ $round(result.stats.regened.t, 1) }}s
-                            ({{ $round(result.stats.regened.n / result.iterations * 100, 1) }}%)
+                            Filler: {{ round(result.stats.regened.t, 1) }}s
+                            ({{ round(result.stats.regened.n / result.iterations * 100, 1) }}%)
                         </div>
                         <div class="faded" v-if="result.stats.t_gcd_capped">
-                            Wasted haste: {{ $round(result.stats.t_gcd_capped, 2) }}s
+                            Wasted haste: {{ round(result.stats.t_gcd_capped, 2) }}s
                             <help>Time spent gcd capped</help>
                         </div>
                         <div class="btn mt-1" v-if="result.histogram" @click="histogramToggle">Histogram</div>
@@ -219,13 +219,13 @@
                     </template>
                     <template v-else>
                         <div>DPS</div>
-                        <div>{{ $round(result.dps, 2) }}</div>
+                        <div>{{ round(result.dps, 2) }}</div>
                         <div>Damage: {{ result.dmg }}</div>
                         <div class="mt-1"></div>
-                        <div class="faded" v-if="result.evocated_at > 0">Evocated at: {{ $round(result.evocated_at, 1) }}</div>
-                        <div class="faded" v-if="result.regened_at > 0">Filler at: {{ $round(result.regened_at, 1) }}</div>
+                        <div class="faded" v-if="result.evocated_at > 0">Evocated at: {{ round(result.evocated_at, 1) }}</div>
+                        <div class="faded" v-if="result.regened_at > 0">Filler at: {{ round(result.regened_at, 1) }}</div>
                         <div class="faded" v-if="result.t_gcd_capped">
-                            Wasted haste: {{ $round(result.t_gcd_capped, 2) }}s
+                            Wasted haste: {{ round(result.t_gcd_capped, 2) }}s
                             <help>Time spent gcd capped</help>
                         </div>
                         <div class="btn mt-1" v-if="result.log" @click="logToggle">Combat log</div>
@@ -242,11 +242,6 @@
                     </template>
                 </div>
                 <a class="github" href="https://github.com/Cheesehyvel/magesim-tbc2" target="_blank"></a>
-                <div class="donate">
-                    <a href="https://www.paypal.com/donate/?hosted_button_id=CU9RF4LCMW8W6" target="_blank">
-                        Donate
-                    </a>
-                </div>
             </div>
             <div class="main">
                 <div class="gear" :class="{splitview}">
@@ -351,12 +346,12 @@
                                                 </span>
                                             </td>
                                             <td class="min">
-                                                <span class="delete" @click.stop="deleteCustomItem(item)" v-if="$get(item, 'custom')">
+                                                <span class="delete" @click.stop="deleteCustomItem(item)" v-if="get(item, 'custom')">
                                                     <help icon="e872">Delete custom item</help>
                                                 </span>
                                             </td>
                                             <td class="title">
-                                                <a :href="itemUrl(item)" :class="['quality-'+$get(item, 'q', 'epic')]" target="_blank" @click.prevent>
+                                                <a :href="itemUrl(item)" :class="['quality-'+get(item, 'q', 'epic')]" target="_blank" @click.prevent>
                                                     {{ item.title }}
                                                 </a>
                                                 <span class="link" @click.stop="openItem(item)">
@@ -365,10 +360,10 @@
                                                     </span>
                                                 </span>
                                             </td>
-                                            <th v-if="hasComparisons">
+                                            <td v-if="hasComparisons">
                                                 {{ comparisonDps(item) }}
-                                            </th>
-                                            <th>{{ $get(item, "phase", 1) }}</th>
+                                            </td>
+                                            <td>{{ get(item, "phase", 1) }}</td>
                                             <td>
                                                 <template v-if="item.sockets">
                                                     <div class="socket-color" :class="['color-'+socket]" v-for="socket in item.sockets"></div>
@@ -378,12 +373,12 @@
                                                 </span>
                                             </td>
                                             <td>{{ formatSP(item) }}</td>
-                                            <td>{{ $get(item, "crit", "") }}</td>
-                                            <td>{{ $get(item, "hit", "") }}</td>
-                                            <td>{{ $get(item, "haste", "") }}</td>
-                                            <td>{{ $get(item, "int", "") }}</td>
-                                            <td>{{ $get(item, "spi", "") }}</td>
-                                            <td>{{ $get(item, "mp5", "") }}</td>
+                                            <td>{{ get(item, "crit", "") }}</td>
+                                            <td>{{ get(item, "hit", "") }}</td>
+                                            <td>{{ get(item, "haste", "") }}</td>
+                                            <td>{{ get(item, "int", "") }}</td>
+                                            <td>{{ get(item, "spi", "") }}</td>
+                                            <td>{{ get(item, "mp5", "") }}</td>
                                         </tr>
                                         <tr
                                             class="item"
@@ -428,16 +423,16 @@
                                             @click="enchant(active_slot, item)"
                                         >
                                             <td>
-                                                <a :href="spellUrl(item)" :class="['quality-'+$get(item, 'q', 'uncommon')]" target="_blank" @click.stop>
+                                                <a :href="spellUrl(item)" :class="['quality-'+get(item, 'q', 'uncommon')]" target="_blank" @click.stop>
                                                     {{ item.title }}
                                                 </a>
                                             </td>
                                             <td>{{ formatSP(item) }}</td>
-                                            <td>{{ $get(item, "crit", "") }}</td>
-                                            <td>{{ $get(item, "hit", "") }}</td>
-                                            <td>{{ $get(item, "int", "") }}</td>
-                                            <td>{{ $get(item, "spi", "") }}</td>
-                                            <td>{{ $get(item, "mp5", "") }}</td>
+                                            <td>{{ get(item, "crit", "") }}</td>
+                                            <td>{{ get(item, "hit", "") }}</td>
+                                            <td>{{ get(item, "int", "") }}</td>
+                                            <td>{{ get(item, "spi", "") }}</td>
+                                            <td>{{ get(item, "mp5", "") }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -539,10 +534,12 @@
                         </div>
                         <table>
                             <thead>
-                                <th>Time</th>
-                                <th>Mana</th>
-                                <th>DPS</th>
-                                <th>Event</th>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Mana</th>
+                                    <th>DPS</th>
+                                    <th>Event</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr
@@ -578,27 +575,29 @@
                     <div class="spells-wrapper">
                         <table>
                             <thead>
-                                <th>Spell</th>
-                                <th>Casts</th>
-                                <th>Misses</th>
-                                <th>Hits</th>
-                                <th>Crits</th>
-                                <th>Damage</th>
-                                <th>Min dmg</th>
-                                <th>Avg dmg</th>
-                                <th>Max dmg</th>
+                                <tr>
+                                    <th>Spell</th>
+                                    <th>Casts</th>
+                                    <th>Misses</th>
+                                    <th>Hits</th>
+                                    <th>Crits</th>
+                                    <th>Damage</th>
+                                    <th>Min dmg</th>
+                                    <th>Avg dmg</th>
+                                    <th>Max dmg</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="spell in result.spells">
                                     <td>{{ spell.name }}</td>
-                                    <td>{{ spell.casts }} ({{ $round(spell.casts / numCasts * 100, 1) }}%)</td>
-                                    <td>{{ spell.misses }} ({{ $round(spell.misses/spell.casts*100, 2) }}%)</td>
+                                    <td>{{ spell.casts }} ({{ round(spell.casts / numCasts * 100, 1) }}%)</td>
+                                    <td>{{ spell.misses }} ({{ round(spell.misses/spell.casts*100, 2) }}%)</td>
                                     <td>{{ spell.hits }}</td>
-                                    <td>{{ spell.crits }} ({{ $round(spell.crits/spell.casts*100, 2) }}%)</td>
-                                    <td>{{ $round(spell.dmg, 0) }} ({{ $round(spell.dmg / result.dmg * 100, 2) }}%)</td>
-                                    <td>{{ $round(spell.min_dmg, 0) }}</td>
-                                    <td>{{ $round(spell.dmg / (spell.casts - spell.misses), 0) }}</td>
-                                    <td>{{ $round(spell.max_dmg, 0) }}</td>
+                                    <td>{{ spell.crits }} ({{ round(spell.crits/spell.casts*100, 2) }}%)</td>
+                                    <td>{{ round(spell.dmg, 0) }} ({{ round(spell.dmg / result.dmg * 100, 2) }}%)</td>
+                                    <td>{{ round(spell.min_dmg, 0) }}</td>
+                                    <td>{{ round(spell.dmg / (spell.casts - spell.misses), 0) }}</td>
+                                    <td>{{ round(spell.max_dmg, 0) }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1440,13 +1439,13 @@
                             >
                                 <td>{{ formatKey(slot) }}</td>
                                 <td>
-                                    <a :href="itemUrl(item_id)" target="_blank" :class="['quality-'+$get(getItem(slot, item_id), 'q', 'epic')]">
+                                    <a :href="itemUrl(item_id)" target="_blank" :class="['quality-'+get(getItem(slot, item_id), 'q', 'epic')]">
                                         {{ getItem(slot, item_id).title }}
                                     </a>
                                 </td>
                                 <td>
-                                    <template v-if="$get(enchants, slot)">
-                                        <a :href="spellUrl(enchants[slot])" target="_blank" :class="['quality-'+$get(getEnchant(slot, enchants[slot]), 'q', 'uncommon')]">
+                                    <template v-if="get(enchants, slot)">
+                                        <a :href="spellUrl(enchants[slot])" target="_blank" :class="['quality-'+get(getEnchant(slot, enchants[slot]), 'q', 'uncommon')]">
                                             {{ getEnchant(slot, enchants[slot]).title }}
                                         </a>
                                     </template>
@@ -1581,6 +1580,7 @@
     import { SimulationWorker, SimulationWorkers } from "./simulation";
     import items from "./items";
     import constants from "./constants";
+    import get from "lodash/get";
 
     export default {
         mounted() {
@@ -2107,7 +2107,7 @@
                 this.ep_result = null;
                 this.prepare();
                 this.is_running = true;
-                sim.start(this.config);
+                sim.start(_.cloneDeep(this.config));
             },
 
             runSingle() {
@@ -2125,7 +2125,7 @@
                 this.ep_result = null;
                 this.prepare();
                 this.is_running = true;
-                sim.start(this.config);
+                sim.start(_.cloneDeep(this.config));
             },
 
             async findAvg(avg) {
@@ -2766,7 +2766,7 @@
             itemUrl(id) {
                 if (typeof(id) == "object")
                     id = id.id;
-                if (id > 299999)
+                if (id > 399999)
                     return null;
                 if (this.item_source == "tbcdb")
                     return "https://tbcdb.com/?item="+id;
@@ -2774,7 +2774,7 @@
                     return "https://db.endless.gg/?item="+id;
                 if (this.item_source == "twinstar")
                     return "https://tbc-twinhead.twinstar.cz/?item="+id;
-                return "https://tbc.wowhead.com/?item="+id;
+                return "https://www.wowhead.com/tbc/item="+id;
             },
 
             spellUrl(id) {
@@ -2786,7 +2786,7 @@
                     return "https://db.endless.gg/?spell="+id;
                 if (this.item_source == "twinstar")
                     return "https://tbc-twinhead.twinstar.cz/?spell="+id;
-                return "https://tbc.wowhead.com/?spell="+id;
+                return "https://www.wowhead.com/tbc/spell="+id;
             },
 
             equippedUrl(slot) {
@@ -4133,7 +4133,7 @@
             createItemId() {
                 var id;
                 while (true) {
-                    id = 100000 + Math.round(Math.random() * 500000);
+                    id = 1000000 + Math.round(Math.random() * 500000);
                     if (!this.findItem(id))
                         return id;
                 }
@@ -4399,6 +4399,30 @@
                     }
                 }
             },
+
+            copyToClipboard() {
+                var el = document.createElement("textarea");
+                el.value = str;
+                el.style.opacity = 0;
+                el.style.position = "absolute";
+                el.style.top = 0;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy')
+                document.body.removeChild(el);
+            },
+
+            nullRound(value, dec) {
+                if (value === null || isNaN(value))
+                    return "-";
+                return _.round(value, dec);
+            },
+
+            round(value) {
+                return Math.round(value);
+            },
+
+            get: get,
         }
     }
 </script>

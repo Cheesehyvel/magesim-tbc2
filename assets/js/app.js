@@ -1,18 +1,11 @@
-// Lodash
-window._ = require('lodash');
+import lodash from "lodash";
+window._ = lodash;
 
-// Vue
-import Vue from "vue";
-
-require("./helpers.js");
-
-const components = require.context("./components/", true, /\.vue$/i);
-components.keys().map(key => Vue.component(key.split("/").pop().split(".")[0], components(key).default));
-
+import "../css/app.css";
+import { createApp } from "vue";
 import App from './App.vue';
-const AppConstructor = Vue.extend(App);
+import components from "./components";
 
-// Init app
-window.app = new AppConstructor({
-    el: "#app",
-});
+const app = createApp(App)
+    .use(components)
+    .mount("#app");
