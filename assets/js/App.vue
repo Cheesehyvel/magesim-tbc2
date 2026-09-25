@@ -1194,63 +1194,57 @@
                                     </div>
                                 </div>
                             </template>
-                            <template>
-                                <div class="form-item">
-                                    <label>
-                                        <input type="checkbox" v-model="config.bloodlust">
-                                        <span>
-                                            Bloodlust
-                                            <span v-if="config.bloodlust">
-                                                timings
-                                                <timing-helper :nocd="true"></timing-helper>
-                                            </span>
+                            <div class="form-item">
+                                <label>
+                                    <input type="checkbox" v-model="config.bloodlust">
+                                    <span>
+                                        Bloodlust
+                                        <span v-if="config.bloodlust">
+                                            timings
+                                            <timing-helper :nocd="true"></timing-helper>
                                         </span>
-                                    </label>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-row mt-0" v-if="config.bloodlust">
+                                <div class="form-item" v-for="(a, i) in config.bloodlust_t">
+                                    <input type="text" v-model.number="config.bloodlust_t[i]">
                                 </div>
-                                <div class="form-row mt-0" v-if="config.bloodlust">
-                                    <div class="form-item" v-for="(a, i) in config.bloodlust_t">
-                                        <input type="text" v-model.number="config.bloodlust_t[i]">
-                                    </div>
-                                </div>
-                            </template>
-                            <template>
-                                <div class="form-item">
-                                    <label>
-                                        <input type="checkbox" v-model="config.power_infusion">
-                                        <span>
-                                            Power Infusion
-                                            <span v-if="config.power_infusion">
-                                                timings
-                                                <timing-helper :nocd="true">Does not stack with Arcane Power</timing-helper>
-                                            </span>
+                            </div>
+                            <div class="form-item">
+                                <label>
+                                    <input type="checkbox" v-model="config.power_infusion">
+                                    <span>
+                                        Power Infusion
+                                        <span v-if="config.power_infusion">
+                                            timings
+                                            <timing-helper :nocd="true">Does not stack with Arcane Power</timing-helper>
                                         </span>
-                                    </label>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-row mt-0" v-if="config.power_infusion">
+                                <div class="form-item" v-for="(a, i) in config.power_infusion_t">
+                                    <input type="text" v-model.number="config.power_infusion_t[i]">
                                 </div>
-                                <div class="form-row mt-0" v-if="config.power_infusion">
-                                    <div class="form-item" v-for="(a, i) in config.power_infusion_t">
-                                        <input type="text" v-model.number="config.power_infusion_t[i]">
-                                    </div>
+                            </div>
+                            <div class="form-item">
+                                <label>
+                                    <input type="checkbox" v-model="config.mana_tide">
+                                    <span>
+                                        Mana Tide
+                                        <template v-if="config.mana_tide">
+                                            timings
+                                            <timing-helper :nocd="true"></timing-helper>
+                                        </template>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-row mt-0" v-if="config.mana_tide">
+                                <div class="form-item" v-for="(a, i) in config.mana_tide_t">
+                                    <input type="text" v-model.number="config.mana_tide_t[i]">
                                 </div>
-                            </template>
-                            <template>
-                                <div class="form-item">
-                                    <label>
-                                        <input type="checkbox" v-model="config.mana_tide">
-                                        <span>
-                                            Mana Tide
-                                            <template v-if="config.mana_tide">
-                                                timings
-                                                <timing-helper :nocd="true"></timing-helper>
-                                            </template>
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="form-row mt-0" v-if="config.mana_tide">
-                                    <div class="form-item" v-for="(a, i) in config.mana_tide_t">
-                                        <input type="text" v-model.number="config.mana_tide_t[i]">
-                                    </div>
-                                </div>
-                            </template>
+                            </div>
                             <div class="form-item" v-if="faction == 'alliance'">
                                 <label><input type="checkbox" v-model="config.symbol_of_hope">
                                     <span>Symbol of Hope <template v-if="config.symbol_of_hope">at</template></span>
@@ -2107,7 +2101,7 @@
                 this.ep_result = null;
                 this.prepare();
                 this.is_running = true;
-                sim.start(_.cloneDeep(this.config));
+                sim.start(this.config);
             },
 
             runSingle() {
@@ -2125,7 +2119,7 @@
                 this.ep_result = null;
                 this.prepare();
                 this.is_running = true;
-                sim.start(_.cloneDeep(this.config));
+                sim.start(this.config);
             },
 
             async findAvg(avg) {

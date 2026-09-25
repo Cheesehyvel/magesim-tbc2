@@ -20,6 +20,7 @@ class SimulationWorker {
     }
 
     start(config, iterations) {
+        config = _.cloneDeep(config);
         this.worker.postMessage({
             type: "start",
             config: config,
