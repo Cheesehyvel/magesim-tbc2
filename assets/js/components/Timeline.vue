@@ -1,20 +1,29 @@
 <template>
     <div class="graph values">
-        <canvas ref="canvas"></canvas>
+        <Line
+            ref="chart"
+            :data="chartData"
+            :options="chartOptions"
+            :plugins="plugins"
+        />
     </div>
 </template>
 
 <script>
     import { Line } from 'vue-chartjs';
+    import 'chart.js/auto';
 
     export default {
-        mixins: [Line],
+        components: { Line },
+
+        created() {
+            this.plugins = [{
+                id: "timeline-images",
+                afterRender: (chart) => this.drawImages(chart),
+            }];
+        },
 
         mounted() {
-            this.addPlugin({
-                id: "custom-plugin",
-                afterRender: this.afterRender,
-            });
             this.draw();
         },
 
@@ -28,7 +37,9 @@
 
         data() {
             return {
-                has_drawn: false,
+                chartData: { datasets: [] },
+                chartOptions: {},
+                plugins: [],
                 buff_padding: 1.5,
                 buff_start_pos: 2,
                 cds: [
@@ -77,12 +88,7 @@
         },
 
         methods: {
-            afterRender() {
-                this.drawImages();
-            },
-
             draw() {
-                this.has_drawn = false;
                 var self = this;
 
                 var data = {
@@ -90,16 +96,18 @@
                 };
 
                 var options = {
-                    legend: {
-                        display: true,
-                        labels: {
-                            filter: function(item, chart) {
-                                return item.text != "";
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                filter: function(item) {
+                                    return item.text != "";
+                                }
                             }
+                        },
+                        tooltip: {
+                            enabled: false,
                         }
-                    },
-                    tooltips: {
-                        enabled: false,
                     },
                     elements: {
                         line: {
@@ -107,34 +115,33 @@
                         }
                     },
                     scales: {
-                        xAxes: [{
+                        x: {
                             type: "linear",
-                            ticks: {
-                                max: this.result.t,
-                            },
-                            scaleLabel: {
+                            max: this.result.t,
+                            title: {
                                 display: true,
-                                labelString: "Time (s)",
+                                text: "Time (s)",
                             }
-                        }],
-                        yAxes: [{
+                        },
+                        y: {
                             type: "linear",
-                            scaleLabel: {
+                            title: {
                                 display: true,
-                                labelString: "Mana (%)",
+                                text: "Mana (%)",
                             }
-                        }, {
+                        },
+                        dps: {
                             id: "dps",
                             type: "linear",
                             position: "right",
                             ticks: {
                                 beginAtZero: true,
                             },
-                            scaleLabel: {
+                            title: {
                                 display: true,
-                                labelString: "DPS",
+                                text: "DPS",
                             }
-                        }]
+                        }
                     }
                 };
 
@@ -266,10 +273,16 @@
                 }
                 */
 
-                this.renderChart(data, options);
+                this.chartData = data;
+                this.chartOptions = options;
             },
 
-            drawImages() {
+            drawImages(chart) {
+                // vue-chartjs renders once with the initial empty options before
+                // mounted() supplies the timeline configuration.
+                if (!chart.scales.x || !chart.scales.y)
+                    return;
+
                 var self = this;
 
                 var x, y, start;
@@ -281,11 +294,11 @@
                     start = _.filter(this.result.log, {text: "Gained "+buffs[i].title});
                     if (buffs[i].img) {
                         for (var j=0; j<start.length; j++) {
-                            x = this.$data._chart.scales["x-axis-0"].getPixelForValue(start[j].t) - px;
-                            y = this.$data._chart.scales["y-axis-0"].getPixelForValue(delta*this.buff_padding + this.buff_start_pos) - px/2;
+                            x = chart.scales.x.getPixelForValue(start[j].t) - px;
+                            y = chart.scales.y.getPixelForValue(delta*this.buff_padding + this.buff_start_pos) - px/2;
                             var im = new Image;
                             im.onload = (function(xx, yy, img) {
-                                setTimeout(function() { self.$refs.canvas.getContext("2d").drawImage(img, xx, yy, 12, 12) }, 100);
+                                setTimeout(function() { chart.ctx.drawImage(img, xx, yy, 12, 12) }, 100);
                             }(x, y, im));
                             im.src = buffs[i].img;
                         }
@@ -298,11 +311,11 @@
                     start = _.filter(this.result.log, function(a) { return a.text.indexOf(" mana from "+self.mana_gains[i].title) > 0; });
                     if (this.mana_gains[i].img) {
                         for (var j=0; j<start.length; j++) {
-                            x = this.$data._chart.scales["x-axis-0"].getPixelForValue(start[j].t) - px;
-                            y = this.$data._chart.scales["y-axis-0"].getPixelForValue(delta*this.buff_padding + this.buff_start_pos) - px/2;
+                            x = chart.scales.x.getPixelForValue(start[j].t) - px;
+                            y = chart.scales.y.getPixelForValue(delta*this.buff_padding + this.buff_start_pos) - px/2;
                             var im = new Image;
                             im.onload = (function(xx, yy, img) {
-                                setTimeout(function() { self.$refs.canvas.getContext("2d").drawImage(img, xx, yy, 12, 12) }, 100);
+                                setTimeout(function() { chart.ctx.drawImage(img, xx, yy, 12, 12) }, 100);
                             }(x, y, im));
                             im.src = this.mana_gains[i].img;
                         }
