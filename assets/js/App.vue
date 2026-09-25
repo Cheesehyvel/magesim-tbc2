@@ -542,16 +542,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr
-                                    v-for="log in result.log"
-                                    v-if="showLog(log)"
-                                    :class="['type-'+log.type]"
-                                >
-                                    <td>{{ formatTime(log.t) }}</td>
-                                    <td>{{ round(log.mana) }} ({{ round(log.mana_percent) }}%)</td>
-                                    <td>{{ (log.t ? round(log.dmg/log.t) : "0") }}</td>
-                                    <td>{{ log.text }}</td>
-                                </tr>
+                                <template v-for="log in result.log">
+                                    <tr v-if="showLog(log)":class="['type-'+log.type]">
+                                        <td>{{ formatTime(log.t) }}</td>
+                                        <td>{{ round(log.mana) }} ({{ round(log.mana_percent) }}%)</td>
+                                        <td>{{ (log.t ? round(log.dmg/log.t) : "0") }}</td>
+                                        <td>{{ log.text }}</td>
+                                    </tr>
+                                </template>
                             </tbody>
                         </table>
                     </div>
