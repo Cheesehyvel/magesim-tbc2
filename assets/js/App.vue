@@ -1278,8 +1278,10 @@
                                     </label>
                                 </div>
                                 <div class="form-row mt-0">
-                                    <div class="form-item" v-for="(a, i) in config.innervate_t" v-if="i < config.innervate">
-                                        <input type="text" v-model.number="config.innervate_t[i]">
+                                    <div class="form-item" v-for="(a, i) in config.innervate_t">
+                                        <template v-if="config.innervate > i">
+                                            <input type="text" v-model.number="config.innervate_t[i]">
+                                        </template>
                                     </div>
                                 </div>
                             </template>
