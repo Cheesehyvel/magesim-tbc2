@@ -1,6 +1,8 @@
 <template>
     <div class="histogram">
-        <canvas ref="canvas"></canvas>
+        <template v-if="chartData">
+            <Bar :data="chartData" :options="chartOptions" />
+        </template>
     </div>
 </template>
 
@@ -8,7 +10,7 @@
     import { Bar } from 'vue-chartjs';
 
     export default {
-        mixins: [Bar],
+        components: { Bar },
 
         mounted() {
             this.draw();
@@ -21,6 +23,13 @@
         },
 
         props: ['data'],
+
+        data() {
+            return {
+                chartData: null,
+                chartOptions: null,
+            }
+        },
 
         methods: {
             draw() {
@@ -46,53 +55,47 @@
                 }
                 data.labels.push(i);
 
-                var options = {
-                    legend: {
-                        display: false,
-                    },
-                    tooltips: {
-                        enabled: false,
+                this.chartData = data;
+
+                this.chartOptions = {
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            enabled: false,
+                        },
                     },
                     scales: {
-                        xAxes: [
-                            {
-                                display: false,
-                                ticks: {
-                                    max: data.labels[data.labels.length-2],
-                                }
-                            },
-                            {
+                        x: {
+                            display: true,
+                            max: data.labels[data.labels.length-1],
+                            title: {
                                 display: true,
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: "DPS",
-                                },
-                                gridLines: {
-                                    color: "rgba(255,255,255,0.05)",
-                                },
-                                ticks: {
-                                    autoSkip: false,
-                                    max: data.labels[data.labels.length-1],
-                                }
+                                text: "DPS",
+                            },
+                            grid: {
+                                color: "rgba(255,255,255,0.05)",
+                            },
+                            ticks: {
+                                autoSkip: false,
                             }
-                        ],
-                        yAxes: [{
-                            scaleLabel: {
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
                                 display: true,
-                                labelString: "Iterations",
+                                text: "Iterations",
                             },
-                            gridLines: {
+                            grid: {
                                 color: "rgba(255,255,255,0.05)",
                             },
                             ticks: {
                                 maxTicksLimit: 20,
-                                beginAtZero: true,
                             }
-                        }]
+                        }
                     }
                 };
-
-                this.renderChart(data, options);
             }
         }
     }
